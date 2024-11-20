@@ -1,86 +1,107 @@
-import React from "react";
-import user from "../../../Assets/Images/admin.png";
-import user1 from "../../../Assets/Images/user1.png";
-import user2 from "../../../Assets/Images/user2.png";
-import user3 from "../../../Assets/Images/user3.png";
+import React, { useEffect, useState } from "react";
 import { Avatar, DatePicker } from "antd";
 import DashboardMembers from "./DashboardMembers";
 import DashboardUsersplans from "./DashboardUsersplans";
 import dayjs from "dayjs";
-const UserSection = ({ avatar, name, role, status }) => (
+import axiosInstance from "../../../../AxiosConfig";
+
+const UserSection = ({ avatar, name, role, status, roleColor }) => (
   <div className="d-flex gap-3 mb-4 new-user-section align-items-center">
-    <Avatar size="large" src={avatar} />
+    <span><Avatar size="large" src={avatar} /></span>
     <div>
       <h4>{name}</h4>
-      <p>{role}</p>
+      <p style={roleColor}>{role}</p> {/* Apply color to role */}
     </div>
     <span>{status}</span>
   </div>
 );
 
 const DashboardNewuser = () => {
-  const newUsers = [
-    {
-      name: "Marvin McKinney",
-      role: "Hospital Consulting",
-      status: "On going",
-      avatar: user,
-    },
-    {
-      name: "Bessie Cooper",
-      role: "Video Consulting",
-      status: "1.30 PM",
-      avatar: user1,
-    },
-    {
-      name: "Jacob Jones",
-      role: "Emergency",
-      status: "11.00 PM",
-      avatar: user2,
-    },
-    {
-      name: "Robert Fox",
-      role: "Hospital Consulting",
-      status: "1.30 PM",
-      avatar: user3,
-    },
-    {
-      name: "Marvin McKinney",
-      role: "Hospital Consulting",
-      status: "On going",
-      avatar: user,
-    },
-    {
-      name: "Marvin McKinney",
-      role: "Hospital Consulting",
-      status: "On going",
-      avatar: user,
-    },
-    {
-      name: "Robert Fox",
-      role: "Hospital Consulting",
-      status: "1.30 PM",
-      avatar: user3,
-    },
-    {
-      name: "Robert Fox",
-      role: "Hospital Consulting",
-      status: "1.30 PM",
-      avatar: user3,
-    },
-    {
-      name: "Robert Fox",
-      role: "Hospital Consulting",
-      status: "1.30 PM",
-      avatar: user3,
-    },
-    {
-      name: "Robert Fox",
-      role: "Hospital Consulting",
-      status: "1.30 PM",
-      avatar: user3,
-    },
-  ];
+  const [filterDate, setFilterDate] = useState(dayjs());
+  const [newUsers, setNewUsers] = useState([]);
+
+  useEffect(() => {
+    axiosInstance.get(`dashboard/getTodaysActiveUsers/${filterDate.format('YYYY-MM-DD')}`)
+      .then((response)=>{
+        
+        setNewUsers(response.data.activeUsers)
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+    });
+
+    return () => {
+      setNewUsers([])
+    };
+  }, [filterDate]);
+
+  const handleDateChange = (date) => {
+    setFilterDate(dayjs(date)); 
+  };
+  // console.log('Formatted Date:', filterDate.format('DD, MMM YYYY')); // "20, Nov 2024"
+
+  // const newUsers = [
+  //   {
+  //     name: "Marvin McKinney",
+  //     role: "Hospital Consulting",
+  //     status: "On going",
+  //     avatar: user,
+  //   },
+  //   {
+  //     name: "Bessie Cooper",
+  //     role: "Video Consulting",
+  //     status: "1.30 PM",
+  //     avatar: user1,
+  //   },
+  //   {
+  //     name: "Jacob Jones",
+  //     role: "Emergency",
+  //     status: "11.00 PM",
+  //     avatar: user2,
+  //   },
+  //   {
+  //     name: "Robert Fox",
+  //     role: "Hospital Consulting",
+  //     status: "1.30 PM",
+  //     avatar: user3,
+  //   },
+  //   {
+  //     name: "Marvin McKinney",
+  //     role: "Hospital Consulting",
+  //     status: "On going",
+  //     avatar: user,
+  //   },
+  //   {
+  //     name: "Marvin McKinney",
+  //     role: "Hospital Consulting",
+  //     status: "On going",
+  //     avatar: user,
+  //   },
+  //   {
+  //     name: "Robert Fox",
+  //     role: "Hospital Consulting",
+  //     status: "1.30 PM",
+  //     avatar: user3,
+  //   },
+  //   {
+  //     name: "Robert Fox",
+  //     role: "Hospital Consulting",
+  //     status: "1.30 PM",
+  //     avatar: user3,
+  //   },
+  //   {
+  //     name: "Robert Fox",
+  //     role: "Hospital Consulting",
+  //     status: "1.30 PM",
+  //     avatar: user3,
+  //   },
+  //   {
+  //     name: "Robert Fox",
+  //     role: "Hospital Consulting",
+  //     status: "1.30 PM",
+  //     avatar: user3,
+  //   },
+  // ];
 
   return (
     <div className="container">
@@ -88,7 +109,7 @@ const DashboardNewuser = () => {
         <div className=" col-lg-4">
           <div className="dashboard-new-user">
             <div className="mb-3">
-              <h2>Today’s New User</h2>
+              <h2>New User</h2>
             </div>
             <div className="new-user-select d-flex justify-content-end align-items-center mb-3">
               {/* <div>
@@ -99,20 +120,43 @@ const DashboardNewuser = () => {
               style={{ width: "20px", height: "20px", color: "#A3ADBB" }}
             /> */}
               <DatePicker
-                defaultValue={dayjs("2024-12-09")}
-                format="DD, MMM YYYY"
+                onChange={handleDateChange}
+                value={filterDate} 
+                dateFormat="dd, MM yyyy"
               />
             </div>
             <div className="new-users-scroll">
-              {newUsers.map((user, index) => (
-                <UserSection
-                  key={index}
-                  avatar={user.avatar}
-                  name={user.name}
-                  role={user.role}
-                  status={user.status}
-                />
-              ))}
+              {newUsers.length ? (
+                newUsers.map((user, index) => {
+                  let roleColor;
+
+                  // Check if user has userType field and apply color for "Enterprise Employee"
+                  if (user.userType) {
+                    roleColor = { color: 'blue' }; // Set color for Enterprise Employee
+                  } 
+                  // Check if user has empId field and apply color for "Enterprise User"
+                  else if (user.empId) {
+                    roleColor = { color: 'green' }; // Set color for Enterprise User
+                  } 
+                  // For Individual User, set default color
+                  else {
+                    roleColor = { color: 'red' }; // Set color for Individual User
+                  }
+
+                  return (
+                    <UserSection
+                      key={index}
+                      avatar={user.image}
+                      name={user.username ? user.username : user.email}
+                      role={user.userType ? "Enterprise Employee" : user.empId ? "Enterprise User" : "Individual User"}
+                      status={user.isSubscribed ? "Subscribed" : "Unsubscribed"}
+                      roleColor={roleColor} // Pass the role color here
+                    />
+                  );
+                })
+              ) : (
+                <span>No Users Found</span>
+              )}
             </div>
           </div>
         </div>

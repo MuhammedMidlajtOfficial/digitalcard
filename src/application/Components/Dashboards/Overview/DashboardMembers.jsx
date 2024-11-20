@@ -1,10 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import { FiUser } from "react-icons/fi";
 import { DatePicker } from "antd";
 import dayjs from "dayjs";
+import axiosInstance from "../../../../AxiosConfig";
 
 const DashboardMembers = () => {
+  const [filterDate, setFilterDate] = useState(dayjs());
+  const [plans, setPlans] = useState([]);
+  const [subscribedUser, setSubscribedUser] = useState([]);
+
+  useEffect(() => {
+    axiosInstance.get(`dashboard/getPlanMembers/${filterDate.format('YYYY-MM-DD')}`)
+      .then((response)=>{
+        let dataForPlans = []
+        response.data.planPercentage.forEach(value => {
+          dataForPlans.push(value.planName)
+        });
+        console.log('dataForPlans',dataForPlans);
+        setPlans(dataForPlans)
+        setSubscribedUser(response.data.planPercentage)
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+    });
+
+    return () => {
+      setSubscribedUser([])
+    };
+  }, [filterDate]);
+
+  const handleDateChange = (date) => {
+    setFilterDate(dayjs(date)); 
+  };
+
   const data = [
     { name: "Gold Member", value: 45, color: "#eec575" },
     { name: "Silver Member", value: 80, color: "#979797" },
@@ -37,14 +66,15 @@ const DashboardMembers = () => {
             </div>
             <div className="d-flex justify-content-end ">
               <DatePicker
-                defaultValue={dayjs("2024-12-09")}
-                format="DD, MMM YYYY"
+                onChange={handleDateChange}
+                value={filterDate} 
+                dateFormat="dd, MM yyyy"
               />
             </div>
             <div className="">
               <PieChart width={200} height={200} style={{ margin: "auto" }}>
                 <Pie
-                  data={data}
+                  data={subscribedUser}
                   cx="50%"
                   cy="50%"
                   innerRadius={50}
@@ -53,7 +83,7 @@ const DashboardMembers = () => {
                   label={false}
                   dataKey="value"
                 >
-                  {data.map((entry, index) => (
+                  {subscribedUser.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
