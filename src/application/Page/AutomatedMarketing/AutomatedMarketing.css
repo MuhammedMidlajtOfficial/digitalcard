@@ -1,0 +1,200 @@
+.CompaignSetup-card-headline{
+    color: black;
+    font-weight: 600;
+}
+
+.CampaignSetup-card-description{
+    color: gray;
+}
+.ActiveCompaign-icons{
+    /* background: #579bb6; */
+    padding: 3px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+}
+.activeCampaign-4divs{
+    padding: 10px 20px !important;
+}
+.activeCampaign-vertical-divider-destop{
+    height: 40px;
+    margin-bottom: 0px;
+    margin-top: 10px !important;
+}
+.activeCompaign-status-p{
+    color: #2BBA64;
+    background: #F1FAF5;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+.activeCompaign-status-div{
+    margin-top: -50px;
+}
+.createCompaign-click-button{
+    background: none;
+    border: none;
+    text-decoration: underline;
+    color: #2A84FF;
+    font-weight: 400;
+    font-size: 11px;
+}
+.createCompaign-copy-p{
+    color: gray;
+    font-size: 11px;
+}
+.compaignSetup-userinfo-span{
+    color: #2BBA64;
+    background: #F1FAF5;
+    font-size: 13px;
+    padding: 3px;
+    border-radius: 4px;
+    font-weight: 400;
+}
+
+.create-compaign-switch.ant-switch-checked {
+    background-color: #2A84FF !important;
+}
+
+.create-compaign-switch {
+    border-color: #2A84FF !important; /* Applies border color for unchecked state */
+}
+.createCompaign-radio-group{
+    display: flex;
+    gap: 10px;
+}
+.email-sms-templateCard-header{
+    padding: 20px;
+    background: #E6F2ED;
+    border-radius: 10px 10px 0px 0px;
+    cursor: pointer;
+}
+.email-sms-template-header-h4{
+    font-weight: 900;
+    color: #2A84FF;
+}
+.email-sms-template-new{
+    font-size: 13px;
+    color: #2BBA64;
+    background: #fff;
+    border-radius: 4px;
+    padding: 3px;
+}
+.email-sms-template-body-h5{
+    font-size: 16px;
+    font-weight: 800;
+}
+.email-sms-template-body p{
+    font-size: 12px;
+}
+.email-sms-model-templateCard{
+    height: 220px;
+    overflow: hidden;
+}
+.email-sms-model-templateCard {
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+
+.email-sms-model-templateCard:hover {
+    /* opacity: 0.7;  */
+    background-color: #b6b6b6;
+    border-radius: 8px;
+}
+
+.template-hover-eye-icon {
+    background: #fff;
+    color: #2A84FF;
+    padding: 0px 8px 5px 8px;
+    border-radius: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    opacity: 0;
+    pointer-events: none; 
+    transition: opacity 0.3s ease-in-out;
+}
+
+.email-sms-model-templateCard:hover .template-hover-eye-icon {
+    opacity: 1; 
+}
+.email-sms-model-templateCard:hover .email-sms-templateCard-header {
+    opacity: 0.6; 
+}
+.email-sms-model-templateCard:hover .email-sms-template-header-h4 {
+    opacity: 0.6; 
+}
+
+.email-sms-templateBody,
+.email-sms-templateCard-header {
+    transition: opacity 0.3s ease-in-out;
+}
+.EmailSMS-create-template-upload-div{
+    border: 2px dotted gray;
+    color: #727880;
+    background: #F5F5F5;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 35px;
+
+}
+.EmailSMS-create-template-upload-button{
+    border: 1px dotted gray;
+    background: #F5F5F5;
+    border-radius: 6px;
+    color: #727880;
+    padding: 5px;
+}
+.EmailSMS-create-template-upload-div p{
+    color:#9DA2A7;
+}
+.EmailSMS-create-template-logo-div{
+    background: #E6F2ED;
+    border-radius: 5px;
+    padding: 10px 15px;
+
+}
+.EmailSMS-create-template-delete-icon{
+    background: #fff;
+    padding: 3px;
+    border-radius: 8px !important;
+    color: #727880 !important;
+    justify-content: end !important;
+}
+.emailSMS-template-addbutton{
+        color: #2A84FF;
+        background: #fff;
+        border: 1px solid #2A84FF;
+        font-size: 13px;
+        padding: 8px 5px;
+        border-radius: 8px;
+}
+.campaign-analysis-graph-year{
+    padding: 1px 5px;
+    border-radius: 5px;
+    background: #F4F7FE;
+    font-size: 12px;
+}
+.campaign-analysis-graph-heading-p{
+    font-weight: 700;
+    font-size: 14px;
+}
+
+@media (max-width: 768px){
+    .activeCampaign-4divs{
+        display: flex;
+        flex-direction: column;
+    }
+    .activeCampaign-vertical-divider-destop{
+        display: none;
+    }
+}
+@media (min-width: 768px){
+    .activeCampaign-vertical-divider-mobile{
+        display: none;
+    }
+}

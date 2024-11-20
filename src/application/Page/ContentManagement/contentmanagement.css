@@ -1,0 +1,136 @@
+.subscription-price-section {
+  text-align: center;
+}
+
+.subscription-price-section h1 {
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.subscription-price-subtitle {
+  color: var(--text-secondary-color);
+  font-size: 16px;
+}
+
+.subscription-price-button-group {
+  display: flex;
+  justify-content: center;
+}
+
+.subscription-price-explore-button {
+  background-color: var(--gradient-start-color);
+  color: var(--white-color);
+  padding: 10px 50px;
+  margin: 0 10px;
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+.subscription-price-radio-group {
+  margin: 20px 0;
+}
+
+.subscription-price-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.subscription-price-card {
+  background-color: var(--background-explore-card);
+  border-radius: 8px;
+  width: 300px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.subscription-price-card:hover {
+  transform: translateY(-10px);
+}
+
+.subscription-price-popular-tag {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  background-color: var(--gradient-start-color);
+  color: var(--white-color);
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 0.6em;
+}
+
+.subscription-price-section h2 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.subscription-price {
+  font-size: 40px;
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+.subscription-price-per-month {
+  font-size: 0.9em;
+  color: var(--text-secondary-color);
+}
+
+.subscription-price-section h3 {
+  font-size: 1em;
+  color: var(--text-color);
+  margin: 10px 0;
+}
+
+.subscription-price-section ul {
+  list-style: none;
+  padding: 0;
+  font-size: 0.9em;
+  color: var(--text-secondary-color);
+}
+
+.subscription-price-section ul li {
+  margin: 5px 0;
+}
+
+.subscription-price-edit-btn {
+  background-color: var(--white-color);
+  color: var(--text-color) !important;
+  border: none;
+  padding: 10px 120px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.create-subscription-description-input {
+  outline: none;
+  width: 100%;
+  border: none;
+}
+
+.create-subscription-description-input:focus {
+  border: none;
+  outline: none;
+}
+
+.ant-input-prefix {
+  margin-right: 4px;
+}
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+  height: 100px;
+}
+
+.notifications-background-color:hover {
+  background-color: var(--light-bg-color);
+  padding: 15px 10px;
+  border-radius: 10px;
+}
+
+.create-subscription-save-button{
+  background-color: var(--gradient-start-color);
+  color: var(--white-color);
+}

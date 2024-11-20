@@ -1,0 +1,80 @@
+.user-notification-index-main-heading h5 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.user-notification-index-main-heading h6 {
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.create-alerts-save-button {
+  background-color: var(--gradient-end-color);
+  color: var(--white-color);
+}
+
+.alert-item {
+  border: 1px solid var(--border-line-color);
+  border-radius: 8px;
+}
+
+.create-alert-icon-green {
+  font-size: 24px;
+  color: var(--text-color);
+  background-color: var(--green-color);
+  border-radius: 5px;
+  padding: 5px;
+  color: var(--white-color);
+}
+
+.create-alert-icon-blue {
+  font-size: 24px;
+  color: var(--text-color);
+  background-color: var(--gradient-start-color);
+  border-radius: 5px;
+  padding: 5px;
+  color: var(--white-color);
+}
+
+.create-alert-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.create-alert-description {
+  font-size: 14px;
+  color: var(--secondary-gray-color);
+  margin-top: 5px;
+}
+
+.create-btn-individual {
+  background-color: var(--light-green-bg-color);
+  color: var(--green-color);
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+.create-btn-enterprise {
+  background-color: var(--light-blue-bg-color);
+  color: var(--gradient-start-color);
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+.create-alert-options-icon {
+  font-size: 18px;
+  color: var(--secondary-gray-color);
+  cursor: pointer;
+}
+
+.notifications-background-color{
+  border: 1px solid var(--border-line-color);
+  border-radius: 8px;
+  padding: 12px;
+}

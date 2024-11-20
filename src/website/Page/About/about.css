@@ -1,0 +1,412 @@
+.about-banner-section {
+  padding: 200px 0;
+  background-image: url("../../Assets/image/about/aboutBanner.png");
+  height: 500px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.about-banner-section h2 {
+  font-size: 60px;
+  margin-bottom: 15px;
+  font-weight: 900;
+  color: var(--white-color);
+  text-align: center;
+}
+
+.about-banner-section p {
+  font-size: 16px;
+  margin-bottom: 30px;
+  font-weight: 500;
+  color: var(--white-color);
+  text-align: center;
+}
+
+.about-who-we-are-section {
+  padding: 40px 0;
+  background: linear-gradient(to bottom, #fff, #468EF0 50%, #fff);
+  
+
+}
+.content{
+  padding-top: 100px;
+}
+.content h1 {
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  color: var(--text-color);
+  margin-bottom: 20px;
+}
+
+.content p {
+  font-size: 16px;
+  color: var(--text-color);
+  font-weight: 500;
+  letter-spacing: 1%;
+  line-height: 2.0;
+  margin-bottom: 20px;
+}
+
+.image-container {
+  position: relative;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 75%;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.image-wrapper img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .image-container {
+    margin-bottom: 30px;
+  }
+
+  .about-vision-img {
+    text-align: left !important;
+    margin-bottom: 50px !important;
+  }
+
+  .about-vision-img img {
+    width: 100% !important;
+  }
+
+  .about-team-section h2,
+  .about-certification-section h2,
+  .about-awards-section h2,
+  .about-banner-section h2,
+  .content h1,
+  .about-vision-content h3, 
+  .about-mission-content h3 {
+    font-size: 24px !important;
+  }
+
+  .about-team-section h2,
+  .about-team-section p,
+  .about-certification-section h2,
+  .about-certification-section p,
+  .about-awards-section h2,
+  .about-awards-section p {
+    text-align: left !important;
+  }
+
+  .team-card {
+    width: 100% !important;
+    max-width: unset !important;
+    margin-bottom: 12px;
+  }
+
+  .cert-card{
+    margin-bottom: 80px;
+  }
+}
+
+/* about-vision css */
+
+.about-vision-section {
+  background: linear-gradient(to bottom right, #D7E8FF 0%, #9AC5FF 80%, #2A84FF 100%);
+
+  padding: 50px 0;
+}
+.about-features-icons img{
+  width: 80px;
+  height:80px;
+}
+.about-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 0 30px;
+
+}
+.about-vertical-line{
+  position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px;
+    background-color: var(--text-secondary-color);
+}
+.about-features-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+.about-stat-item h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-color);
+  margin-bottom: 12px;
+  letter-spacing: 0.1px;
+}
+
+.about-stat-item p {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-color);
+  letter-spacing: 0.1px;
+  margin-bottom: 0;
+}
+
+
+.about-vision-img {
+  text-align: center;
+}
+
+.about-vision-img img {
+  width: 75%;
+}
+
+.about-mission-content {
+  margin-top: 60px;
+}
+
+.about-vision-content h3,
+.about-mission-content h3 {
+  font-size: 28px;
+  color: var(--text-color);
+  font-weight: 800;
+  letter-spacing: -0.1px;
+  margin-bottom: 20px;
+}
+
+.about-vision-content p,
+.about-mission-content p {
+  font-size: 16px;
+  color: var(--text-color);
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  margin-bottom: 20px;
+}
+
+/* About Team css */
+
+.about-team-section {
+  padding: 40px 0 80px 0;
+  background-color: var(--body-bg-color);
+}
+.about-team-section h4 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.1px;
+  color: var(--white-color);
+  margin-bottom: 20px;
+}
+.about-team-section h2 {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.1px;
+  color: var(--white-color);
+  margin-bottom: 20px;
+}
+
+.about-team-section p {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 40px;
+  color: var(--white-color);
+}
+
+.team-card {
+  background-color: var(--white-color);
+  max-width: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.01);
+}
+
+.team-member-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.team-data {
+  padding: 20px;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--black-text-color);
+  letter-spacing: -0.1px;
+}
+
+.role {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.desc {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.1px;
+  color: var(--text-secondary-color);
+}
+
+.social-links {
+  margin-top: 20px;
+  display: flex;
+}
+
+.social-links a {
+  margin: 0 4px;
+  color: var(--text-color);
+  text-decoration: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+  background: var(--icon-background-color);
+}
+
+.fab {
+  font-size: 18px;
+}
+
+/* About certification css */
+
+.about-certification-section {
+  padding: 40px 0 30px 0;
+  background: linear-gradient(to bottom, #fff, #468EF0 50%, #fff);
+}
+
+.about-certification-section h2 {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.1px;
+  color: var(--white-color);
+  margin-bottom: 20px;
+}
+
+.about-certification-section p {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 40px;
+  color: var(--white-color);
+}
+
+.cert-card {
+  background: var(--secondary-white-color);
+  border-radius: 4px;
+  text-align: center;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.01);
+  position: relative;
+  min-height: 168px;
+  max-height: 200px;
+  height: 100%;
+}
+
+.cert-icon {
+  width: 40px;
+  height: auto;
+}
+
+.cert-card h5 {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.1px;
+  color: var(--black-text-color);
+  margin-top: 40px;
+}
+
+.cert-card a {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  color: var(--white-color);
+  position: absolute;
+  bottom: -32px;
+  left: 0;
+  right: 0;
+}
+
+.view-certification {
+  display: inline-block;
+  color: var(--gradient-end-color);
+  font-weight: 800;
+  font-size: 16px;
+  margin-top: 20px;
+  text-decoration: none;
+}
+
+.view-certification:hover {
+  text-decoration: underline;
+}
+
+/* about award css */
+
+.about-awards-section {
+  padding: 40px 0 80px 0;
+  background: linear-gradient(to bottom right, #D7E8FF 0%, #9AC5FF 80%, #2A84FF 100%);  background: linear-gradient(to bottom, #fff, #468EF0 50%, #fff);
+
+}
+
+.award-card {
+  /* padding: 40px; */
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.01);
+}
+
+.about-awards-section h2 {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.1px;
+  color: var(--white-color);
+  margin-bottom: 20px;
+}
+
+.about-awards-section p {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 40px;
+  letter-spacing: -0.1px;
+  color: var(--white-color);
+}
+
+.awards-container {
+  background-color: var(--black-text-color);
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.award-item {
+  width: 100px;
+}
+
+.award-image {
+  max-width: 100%;
+  height: auto;
+}
+@media (max-width: 768px) {
+  .about-features-section {
+    display: flex;
+    flex-direction: column;
+  }
+  }

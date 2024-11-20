@@ -1,0 +1,18 @@
+.privacy-policy-section h2{
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-color);
+}
+.privacy-policy-section h4{
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+.privacy-policy-section p{
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text-secondary-color);
+}
+.privacy-policy-section{
+    background: linear-gradient(to bottom right, #D7E8FF 0%, #9AC5FF 80%, #2A84FF 100%);
+}

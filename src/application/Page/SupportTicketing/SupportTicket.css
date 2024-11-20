@@ -1,0 +1,143 @@
+.application-AssignTicket-card{
+    border-radius: 12px;
+    padding: 16px 24px;
+    border: 1px solid var(--border-color);
+    box-shadow: rgba(120, 120, 134, 0.2) 0px 7px 29px 0px;
+  }
+  .AssignTicketTable-assign-button{
+    cursor: "pointer";
+    background: none;
+    color: #2A84FF ;
+    border: "none"; 
+    padding: "6px 12px";
+  }
+  .applied-job-view-status-card {
+    position: fixed;
+    top: 73px;
+    right: -34%;
+    width: 450px;
+    max-height: 90vh; 
+    overflow-y: auto;
+    background-color: var(--white-color);
+    box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+    padding: 20px;
+    z-index: 1000;
+  }
+  
+  .applied-job-view-status-card.show {
+    transform: translateX(-100%);
+  }
+.AssignTicketTable-p{
+    color: var(--text-secondary-color);
+}
+@media (max-width: 768px) {
+  .applied-job-view-status-card {
+      width: 100%; 
+      right: -100%; 
+  }
+
+  .applied-job-view-status-card.show {
+      transform: translateX(-100%);
+  }
+
+  .AssignTicketTable-p {
+      font-size: 14px; 
+  }
+  .ticketCategories-table-dropdown-div{
+    display: flex;
+    flex-direction: column;
+  }
+}
+.assignTicket-addImage-icon{
+    width: 85px;
+    height: 65px;
+    cursor: pointer;
+    font-weight: 400;
+}
+.AssignTicket-badge-close{
+    position: absolute;
+    top: -5px;
+    right: -1px;
+    background: #000000;
+    border-radius: 43px;
+    font-size: 10px;
+    color: #FFF;
+    cursor: pointer;
+    padding: 2px;                                                
+}
+.AssignTicket-badge-div{
+    position: relative;
+    display: inline-block;
+}
+.AssignTicket-div-close{
+    background: #000000;
+    border-radius: 43px;
+    font-size: 10px;
+    color: #FFF;
+    cursor: pointer;
+    padding: 5px;  
+}
+.assignTicket-setPriority-dropdown{
+    border: none;
+}
+.assignTicket-flagIcon{
+    margin-right: 8px;
+}
+.assignTicket-cancel-button{
+    color: #2A84FF;;
+    background: #fff;
+    border: 1px solid #2A84FF;
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+.assignTicket-showUserList-plus{
+    background: #CDDEF5;
+    font-size: 15px;
+    border-radius: 5px;
+    color: #2A84FF;
+    padding: 4px;
+}
+.assignTicket-showUserList-avatar{
+    background: #2A84FF;
+    color: #ffff;
+}
+.assignTicket-newPage-div{
+    border: 1px solid #d8d8d8;
+    border-radius: 5px;
+    padding: 10px;
+}
+.custom-form-item .ant-form-item-label {
+    display: block; 
+    margin-bottom: 5px; 
+  }
+  .addTicket-description-input{
+    border: none;
+    text-decoration: none;
+    font-weight: 400;
+  }
+  .addTicket-description-input:focus{
+    border: none;
+    text-decoration: none;
+  }
+  .custom-form-item label {
+    display: block;
+    margin-bottom: 5px; 
+  }
+  .addTicket-form_control{
+    border: none !important;
+    padding: 0px !important;
+  }
+.ticketCategories-details-h5{
+    width: 290px;
+}
+.SLA-Tracking-card{
+    padding: 16px 19px !important;
+}
+.SLArackingGraph-entryName{
+  font-size: 12px;
+}
+.dimmed {
+  /* opacity: 0.8; */
+  background-color: rgba(0, 0, 0, 0.5); 
+}

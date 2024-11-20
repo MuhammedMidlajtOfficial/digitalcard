@@ -1,0 +1,54 @@
+import React from "react";
+import "./Tickets.css";
+import john_img from "../../../Assets/Images/John_img.png";
+import { Divider } from "antd";
+import { useNavigate } from "react-router-dom";
+
+const NewTicket = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/admin/supportticketsystem/viewandrespondticket/open-ticket");
+  };
+  return (
+    <div className="container">
+      <div className="allTicket-details-div mb-4">
+        <div className="d-flex justify-content-between">
+          <div className="d-flex align-items-center gap-2">
+            <div
+              className="view-ticket-circle"
+              style={{ backgroundColor: "#3B8AFF" }}
+            />
+            <div className="allTickets-ticket-title">Ticket# 2023-CS123</div>
+            <div className="allTickets-priority-p">High Priority</div>
+          </div>
+          <div>Posted at 12:15 PM</div>
+        </div>
+        <div className="mt-2">
+          <p className="allTickets-p">How to deposit money to my portal?</p>
+          <p className="allTickets-p">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum
+            dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit
+            amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet,
+            consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit.
+          </p>
+        </div>
+        <Divider style={{ margin: "0px" }} />
+        <div className="d-flex justify-content-between mt-2">
+          <div className="d-flex gap-2 align-items-center">
+            <img src={john_img} alt="" style={{ width: "30px" }} />
+            <p className="allTickets-p mb-0">John Snow</p>
+          </div>
+          <button
+            className="allTickets-openticket-button"
+            onClick={handleClick}
+          >
+            Open Ticket
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default NewTicket;

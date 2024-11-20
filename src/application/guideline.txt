@@ -1,0 +1,24 @@
+### Component Guidelines:
+1. **Component Size**: Each component should be **no more than 100 lines**. If a component exceeds this limit, break it into smaller components and import them as needed.
+
+### Page Guidelines:
+1. **CSS File**: Each page must have its **own respective CSS file** for better organization and styling isolation.
+
+### Routes Guidelines:
+1. **Routes**: I commented both website and application routes in router.js, so import respective route
+
+### CSS Guidelines:
+1. **Classnames and IDs**: Use classnames and IDs that are **specific to the section** you're working on. Example: For a dashboard chart, use a classname like `"dashboard-chart"`.
+2. **CSS Variables**: For colors, borders, and backgrounds, use **CSS variables** defined in `index.css` (e.g., `var(--colors)`).
+3. **CSS Organization**: Keep all CSS styles **separate and organized** by their respective files. Avoid mixing styles in unrelated files.
+
+### Library Guidelines:
+1. **Library Installation**: **Do not install any new libraries** without prior approval from **Abhishek Jangid**.
+2. **Use Existing Libraries**: Always try to use **pre-installed libraries** before considering a new one.
+
+### Branch Guidelines:
+1. **Branch Naming**: Work only on your designated branch, which should be named **`dev-manju`**.
+
+### Bootstrap Guidelines:
+1. **Bootstrap CDN**: Since Bootstrap is integrated via CDN, use Bootstrap classes like `container`, `row`, `col-lg-6` in your layouts.  
+   Example: `<div className="container"></div>` 

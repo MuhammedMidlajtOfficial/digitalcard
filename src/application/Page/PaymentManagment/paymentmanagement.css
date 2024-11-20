@@ -1,0 +1,401 @@
+.view-subscription-heading h1 {
+  font-size: 22px;
+  color: var(--black-text-color);
+  font-weight: 600;
+}
+.view-subscription-edit {
+  font-size: 16px;
+  padding: 8px 20px;
+  color: var(--gradient-start-color);
+  background-color: var(--white-color);
+  border: 1px solid var(--gradient-start-color);
+  border-radius: 5px;
+}
+.view-subscription-create {
+  font-size: 16px;
+  padding: 8px 20px;
+  color: var(--white-color);
+  background-color: var(--gradient-start-color);
+  border-radius: 5px;
+}
+
+.card-subscription-plan {
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 32px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  position: relative;
+  background-image: url("../../Assets/Images/subscriptionplan.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #e0e0e0; 
+  border-radius: 8px; 
+  padding: 20px;
+  background: #ffffff;
+}
+
+.pricing-plan-header h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: var(--black-text-color);
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.vertical-line-plans {
+  border-left: 2px solid var(--gradient-start-color);
+  height: 40px;
+  margin: 0 10px;
+}
+.pricing-plan-header p {
+  font-size: 16px;
+  color: var(--black-text-color);
+  font-weight: 700;
+  text-align: left;
+  margin-bottom: 0;
+}
+.price-plan-title {
+  font-size: 20px;
+  color: var(--black-text-color);
+  font-weight: 600;
+  margin: 10px 10px;
+}
+.horizontal-line-plans {
+  border: 1px solid var(--gradient-start-color);
+  width: 30px;
+  margin: auto;
+}
+.price-plan-content-head {
+  font-size: 16px;
+  color: var(--text-secondary-color);
+  margin-bottom: 16px;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.plans-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.icon-circle {
+  background-color: var(--green-bg-color);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+}
+
+.check-icon {
+  color: var(--green-color);
+  width: 12px;
+  height: 10.5px;
+  font-weight: 600;
+}
+
+.feature-text {
+  font-size: 16px;
+  color: var(--text-secondary-color);
+  text-align: left;
+}
+
+.plans-subscription-btn {
+  background-color: var(--gradient-start-color);
+  color: var(--white-color);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  width: 100%;
+  font-size: 16px;
+  cursor: pointer;
+}
+.plans-subscription-btn:hover,
+.view-subscription-create:hover {
+  background-color: var(--white-color);
+  color: var(--gradient-start-color);
+  border: 1px solid var(--gradient-start-color);
+}
+
+.card-subscription-plan:hover {
+  transform: translateY(-5px); 
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+}
+
+@media (max-width: 768px) {
+  .pricing-plan-header h2 {
+    font-size: 24px;
+  }
+
+  .card-subscription-plan {
+    margin-bottom: 20px;
+  }
+}
+
+.manage-payments-section h2 {
+  font-size: 22px;
+  color: var(--black-text-color);
+  font-weight: 600;
+}
+.payer-information-section {
+  padding: 32px;
+}
+.payer-information-section h4 {
+  color: var(--background-color);
+  font-size: 22px;
+  font-weight: 900;
+}
+.payer-icon-section {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  gap: 30px;
+  border: 1px solid var(--border-color);
+  padding: 32px;
+  border-radius: 8px;
+}
+.payer-icon-section h2 {
+  font-size: 22px;
+  color: var(--black-text-color);
+  font-weight: 900;
+}
+.payer-icon-section h1 {
+  font-size: 18px;
+  color: var(--black-text-color);
+}
+.payer-icon-section p {
+  font-size: 18px;
+  color: var(--black-text-color);
+  font-weight: 600;
+  margin-bottom: 0;
+}
+.payer-icon-section span {
+  font-size: 18px;
+  color: var(--text-secondary-color);
+  font-weight: 600;
+  margin-bottom: 0;
+}
+.view-payer-form.ant-form-item .ant-form-item-label > label {
+  font-size: 14px;
+}
+
+.billing-delete-modal .ant-modal-content {
+  padding: 40px;
+}
+
+.billing-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.billing-header h6 {
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 4px;
+  color: var(--text-secondary-color);
+  margin-bottom: 0;
+}
+
+.billing-contact-info {
+  margin: 0;
+  align-items: end;
+}
+
+.billing-contact-info h1 {
+  font-size: 12px;
+  color: var(--black-text-color);
+}
+.billing-contact-info h3 {
+  font-size: 12px;
+  color: var(--secondary-medium-blue);
+  text-decoration: underline;
+}
+.billing-contact-info h4 {
+  font-size: 12px;
+  color: var(--black-text-color);
+}
+.billing-contact-info h5 {
+  font-size: 12px;
+  color: var(--black-text-color);
+}
+.billing-contact-info span {
+  font-size: 12px;
+  color: var(--text-secondary-color);
+}
+
+.customer-info p {
+  display: flex;
+  justify-content: flex-start;
+  margin: 5px 0;
+  font-size: 12px;
+}
+
+.label {
+  width: 150px;
+  font-weight: 600;
+  color: var(--text-secondary-color);
+}
+
+.separator {
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+.value {
+  font-weight: 600;
+  color: var(--black-text-color);
+}
+
+.billing-table {
+  margin-top: 20px;
+  border-top: 2px solid var(--border-color);
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 20px;
+}
+
+.table-header,
+.table-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.table-header p {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.table-row {
+  border-bottom: 2px dotted var(--border-color);
+}
+.table-row-gst {
+  font-weight: 600;
+  font-size: 16px;
+}
+.table-row.total-row {
+  font-weight: 600;
+  font-size: 16px;
+  border-bottom: none;
+}
+
+.billing-footer {
+  margin-top: 20px;
+  font-size: 12px;
+}
+
+.signature p {
+  margin: 5px 0;
+  font-weight: 600;
+}
+
+.signature p:first-child {
+  font-weight: bold;
+  font-size: 12px;
+}
+.billing-authorization{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid var(--border-color);
+}
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+.search-table-container .create-invoice,
+.create-invoice {
+  color: var(--white-color);
+  border: 1px solid var(--gradient-start-color);
+  background-color: var(--gradient-start-color);
+  font-size: 12px;
+  padding: 8px 16px;
+  letter-spacing: 1px;
+}
+.search-table-container .create-invoice:hover,
+.create-invoice:hover {
+  background-color: var(--white-color);
+  color: var(--gradient-start-color);
+  border: 1px solid var(--gradient-start-color);
+}
+.ivoice-form-heading{
+  font-size: 20px;
+  color: var(--gradient-start-color);
+  font-weight: 600;
+}
+.view-invoice-page{
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 15px;
+}
+.payment-gateway-notification{
+  font-size: 12px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bglight-blue-color);
+  border-radius: 5px;
+  padding: 10px;
+}
+.gateway-notification-button{
+  background-color: none;
+  border: 1px solid var(--border-color);
+}
+.notification-alert{
+  color: var(--gradient-end-color);
+  font-size: 18px;
+  font-weight: 600;
+}
+.request-span span{
+  width: 12px;
+  height: 12px;
+  background-color: var(--green-button-color);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+.request-span{
+  color: var(--black-text-color);
+  font-weight: 600;
+  font-size: 14px;
+}
+.request-time{
+  color: var(--footer-secondary-color);
+  font-weight: 400;
+  font-size: 12px;
+}
+.request-heading{
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--black-text-color);
+}
+.request-paragraph{
+  color: var(--footer-secondary-color);
+  font-weight: 500;
+}
+.button-reject{
+  background: none;
+  color: var(--maroon-color);
+}
+.button-accept{
+  background: none;
+  color: var(--green-button-color);
+}
+@media (max-width:768px){
+  .search-table-container .create-invoice,
+.create-invoice {
+  padding: 8px 8px;
+}
+
+}

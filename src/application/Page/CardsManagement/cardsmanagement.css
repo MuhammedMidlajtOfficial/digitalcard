@@ -1,0 +1,176 @@
+.application-cards-section h2 {
+  font-size: 24px;
+  color: var(--black-text-color);
+  font-weight: bold;
+}
+.gold-card-tag {
+  background-color: var(--gold-tag-color);
+  color: var(--black-text-color);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 5px;
+}
+.silver-card-tag {
+  background-color: var(--silver-tag-color);
+  color: var(--black-text-color);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 5px;
+}
+.platinum-card-tag {
+  background-color: var(--platinum-tag-color);
+  color: var(--black-text-color);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 5px;
+}
+.application-users-cards {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+.application-users-cards img {
+  height: 186px;
+  width: 100%;
+}
+.application-users-cards h2 {
+  font-size: 14px;
+  color: var(--black-text-color);
+  font-weight: bolder;
+}
+.application-users-cards .cards-view-btn {
+  font-size: 14px;
+  color: var(--gradient-start-color);
+  background-color: var(--white-color);
+  border: 1px solid var(--gradient-start-color);
+  font-weight: 900;
+  padding: 8px 16px;
+  width: 100%;
+}
+.delete-card-container {
+  display: flex;
+  justify-content: end;
+}
+.cards-delete-btn {
+  background-color: var(--delete-bg-color);
+  border-radius: 100%;
+  color: var(--card-delete-color);
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-items: center;
+  flex-direction: column-reverse;
+  flex-wrap: nowrap;
+  align-content: flex-start;
+  align-items: center;
+}
+.cards-delete-btn:hover{
+  background-color: var(--card-delete-color);
+  color: var(--white-color);
+}
+.card-template-view-btn {
+  font-size: 10px;
+  color: var(--gradient-start-color);
+  background-color: var(--white-color);
+  border: 1px solid var(--gradient-start-color);
+  font-weight: 600;
+  padding: 6px 16px;
+  margin-bottom: 0;
+}
+.card-template-view-btn:hover, 
+.card-share-btn:hover,
+.application-users-cards .cards-view-btn:hover,
+.view-cancel-btn:hover {
+  background-color: var(--gradient-start-color);
+  color: var(--white-color);
+}
+.view-create-btn:hover{
+  color: var(--gradient-start-color);
+  background-color: var(--white-color);
+  border: 1px solid var(--gradient-start-color);
+}
+.card-share-btn{
+  font-size: 10px;
+  color: var(--gradient-start-color);
+  background-color: var(--white-color);
+  border: 1px solid var(--gradient-start-color);
+  font-weight: 600;
+  padding: 4px 16px;
+  margin-bottom: 0;
+}
+p.silver-card-tag{
+  margin-bottom: 0;
+}
+p.gold-card-tag{
+  margin-bottom: 0;
+}
+p.platinum-card-tag{
+  margin-bottom: 0;
+}
+.form-heading-share.ant-modal .ant-modal-title{
+  font-size: 24px;
+  color: var(--secondary-medium-blue);
+}
+.ant-modal-close-x{
+  color: var(--card-delete-color);
+}
+.share-label-form.ant-form-item .ant-form-item-label > label {
+  font-size: 16px;
+  color: var(--secondary-medium-blue);
+}
+.application-view-users-cards {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+.application-view-users-cards img {
+  height: 273px;
+  width: 100%;
+}
+.card-view-btn{
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+.form-heading{
+  font-size: 16px;
+  color: var(--gradient-start-color);
+  margin-top: 20px;
+  font-weight: 600;
+}
+.view-cancel-btn{
+  color: var(--gradient-start-color);
+  border: 1px solid var(--gradient-start-color);
+  background-color: var(--white-color);
+  font-size: 12px;
+  padding: 10px 14px;
+}
+.view-create-btn{
+  color: var(--white-color);
+  border: 1px solid var(--gradient-start-color);
+  background-color: var(--gradient-start-color);
+  font-size: 12px;
+  padding: 10px 14px;
+}
+.color-picker-wrapper {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 5px 11px;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+}
+.form-placeholder-select .ant-select-selector {
+  border: 1px solid #d9d9d9;
+  background: #ffffff;
+  padding: 19px 24px !important ;
+}

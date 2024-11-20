@@ -1,0 +1,385 @@
+.application-all-users-card {
+  border-radius: 12px;
+  padding: 16px 24px;
+  border: 1px solid var(--border-color);
+  box-shadow: rgba(120, 120, 134, 0.2) 0px 7px 29px 0px;
+}
+.all-users-icon-wrapper {
+  height: 40px;
+  width: 40px;
+}
+.all-users-cards-subtitle {
+  color: var(--text-color);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.all-users-cards-title {
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 24px;
+}
+.application-users-section h2 {
+  font-size: 20px;
+  color: var(--black-text-color);
+  font-weight: 900;
+}
+.application-users-profile-card {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+.application-users-profile-card h2 {
+  font-size: 14px;
+  color: var(--black-text-color);
+  font-weight: 900;
+  text-align: center;
+}
+.application-users-profile-card h4 {
+  font-size: 12px;
+  color: var(--text-secondary-color);
+  font-weight: 600;
+  text-align: center;
+}
+.application-users-profile-card button {
+  font-size: 12px;
+  background-color: var(--white-color);
+  color: var(--gradient-start-color);
+  border: 1px solid var(--gradient-start-color);
+  font-weight: 900;
+  padding: 8px 16px;
+  width: 100%;
+}
+.application-users-profile-card button:hover {
+  color: var(--white-color);
+  background-color: var(--gradient-start-color);
+}
+.gold-member-tag {
+  background-color: var(--gold-tag-color);
+  color: var(--white-color);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 5px;
+}
+.silver-member-tag {
+  background-color: var(--silver-tag-color);
+  color: var(--white-color);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 5px;
+}
+.platinum-member-tag {
+  background-color: var(--platinum-tag-color);
+  color: var(--white-color);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 5px;
+}
+.ant-switch.ant-switch-checked {
+  background: var(--green-color);
+}
+
+.ant-switch.ant-switch-checked:hover:not(.ant-switch-disabled) {
+  background: var(--green-color);
+}
+.profile-icon-section {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  gap: 30px;
+}
+.profile-image {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  background-color: var(--background-color);
+}
+.profile-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  opacity: 1;
+  visibility: visible;
+  z-index: 1;
+}
+.profile-container {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+.upload-icon {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.profile-icon-section h2 {
+  font-size: 32px;
+  color: var(--black-text-color);
+  font-weight: 700;
+}
+.profile-icon-section h1 {
+  font-size: 16px;
+  color: var(--text-secondary-color);
+  margin-bottom: 12px;
+}
+.pencil-edit {
+  font-size: 16px;
+  color: var(--text-secondary-color);
+  margin-left: -26px;
+  z-index: 2;
+}
+.profile-icon-section span {
+  width: 16px;
+  height: 16px;
+  background-color: var(--gold-tag-color);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+.profile-icon-section p {
+  font-size: 20px;
+  color: var(--text-secondary-color);
+  font-weight: 600;
+}
+.profile-icon-section button {
+  font-size: 12px;
+  color: var(--gradient-start-color);
+  border: 1px solid var(--gradient-start-color);
+  background-color: var(--white-color);
+  padding: 8px 16px;
+  font-weight: 600;
+}
+
+.personal-information-section h4 {
+  color: var(--background-color);
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.edit-user-form.ant-form-item .ant-form-item-label > label {
+  font-size: 16px;
+}
+.cancel-btn {
+  color: var(--gradient-start-color);
+  border: 1px solid var(--gradient-start-color);
+  background-color: var(--white-color);
+  font-size: 12px;
+  padding: 8px 40px;
+}
+.create-btn {
+  color: var(--white-color);
+  border: 1px solid var(--gradient-start-color);
+  background-color: var(--gradient-start-color);
+  font-size: 12px;
+  padding: 8px 8px;
+}
+.cancel-btn:hover,
+.profile-icon-section button:hover,
+.application-users-profile-card .edit-button:hover {
+  background-color: var(--gradient-start-color);
+  color: var(--white-color);
+}
+.create-btn:hover,
+.add-all-users:hover {
+  background-color: var(--white-color);
+  color: var(--gradient-start-color);
+  border: 1px solid var(--gradient-start-color);
+}
+.application-users-profile-card .edit-button {
+  font-size: 12px;
+  padding: 5px 16px;
+  color: var(--gradient-start-color);
+  background-color: var(--white-color);
+  border: 1px solid var(--gradient-start-color);
+  width: 100%;
+}
+.application-users-profile-card .delete-button {
+  font-size: 12px;
+  padding: 5px 16px;
+  color: var(--white-color);
+  background-color: var(--delete-button-color);
+  width: 100%;
+}
+.application-users-profile-card .delete-button:hover {
+  color: var(--delete-button-color);
+  background-color: var(--white-color);
+  border: 1px solid var(--delete-button-color);
+}
+.add-profile-container {
+  position: relative;
+  width: 98px;
+  height: 98px;
+}
+.add-profile-image {
+  border-radius: 100%;
+  width: 98px;
+  height: 98px;
+  background-color: var(--background-color);
+}
+
+@media (max-width: 768px) {
+  .profile-icon-section {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .payer-icon-section {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-icon-section h2 {
+    font-size: 20px;
+  }
+
+  .profile-icon-section p {
+    font-size: 16px;
+  }
+
+  .profile-container {
+    width: 100px;
+    height: 100px;
+  }
+  .profile-image {
+    width: 100px;
+    height: 100px;
+  }
+}
+.add-all-users {
+  color: var(--white-color);
+  border: 1px solid var(--gradient-start-color);
+  background-color: var(--gradient-start-color);
+  font-size: 12px;
+  padding: 8px 16px;
+  letter-spacing: 1px;
+}
+.table-search-button {
+  color: var(--white-color);
+  font-size: 14px;
+  background-color: var(--store-background);
+  border-radius: 8px;
+  text-align: center;
+}
+.search-icon-table {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  font-size: 24px;
+  color: var(--danger-color);
+}
+.search-icon-table svg {
+  color: var(--text-color);
+}
+
+.search-input-table {
+  padding: 8px 32px;
+  background: transparent;
+  border-radius: 8px;
+  color: var(--white-color);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+.search-input-table:focus {
+  outline: none;
+}
+.table-card-list {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--black-text-color);
+}
+.table-data-list {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--black-text-color);
+}
+.table-data-list:hover,
+.table-card-list:hover {
+  color: var(--white-color);
+  background-color: var(--black-text-color);
+  cursor: pointer;
+}
+.ant-input-outlined.input-search-table {
+  padding: 0px;
+  padding: 4px 16px;
+}
+.application-table-section h1{
+  font-size: 20px;
+  font-weight: 600;
+}
+.user-copmany-name{
+  font-size: 18px;
+  font-weight: 600;
+}
+.edit-company-span span{
+  width: 12px;
+  height: 12px;
+  background-color: var(--gold-tag-color);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+.edit-company-span h6,
+.premium-span h6,
+.gold-span h6,
+.free-span h6 {
+  font-size: 12px;
+  color: var(--text-secondary-color);
+  font-weight: 600;
+}
+
+.status-categories{
+  font-size: 24px;
+  font-weight: 600;
+}
+.premium-span span{
+  width: 12px;
+  height: 12px;
+  background-color: var(--platinum-tag-color);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+.gold-span span{
+  width: 12px;
+  height: 12px;
+  background-color: var(--gold-tag-color);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+.free-span span{
+  width: 12px;
+  height: 12px;
+  background-color: var(--silver-tag-color);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+@media (max-width: 768px){
+  .create-btn,
+  .cancel-btn{
+    padding: 8px 8px;
+  }
+}

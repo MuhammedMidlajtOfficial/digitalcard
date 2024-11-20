@@ -1,0 +1,91 @@
+.settings-section h2 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.settings-options {
+  border: 1px solid var(--border-color);
+  padding: 32px;
+  border-radius: 12px;
+  position: sticky;
+  top: 100px;
+}
+
+.settings-items {
+  font-size: 16px;
+  color: var(--text-secondary-color);
+  padding: 10px;
+}
+
+.settings-items:hover,
+.settings-items.active {
+  background-color: var(--gradient-start-color);
+  color: var(--white-color);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.settings-profile-icon-section {
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.settings-profile-image {
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  background-color: var(--background-color);
+}
+
+.settings-edit-icon-button {
+  border: none;
+  color: var(--black-text-color);
+  cursor: pointer;
+  background: var(--white-color);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: relative;
+  left: -25px;
+  top: 30px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    padding: 0;
+}
+
+.settings-edit-icon-button:hover {
+  color: var(--white-color);
+  background: var(--gradient-start-color);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+.edit-icon{
+  width: 24px;
+  height: 24px;
+}
+.settings-personal-information h4 {
+  color: var(--gradient-start-color);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.settings-personal-information span {
+  font-size: 12px;
+  color: var(--text-semi-color);
+}
+
+.settings-personal-information h3 {
+  font-size: 16px;
+  font-weight: 700;
+  
+}
+.lock-edit {
+  font-size: 14px;
+  color: var(--text-secondary-color);
+  margin-right: -16px;
+  z-index: 2;
+}

@@ -1,0 +1,55 @@
+:where(.css-dev-only-do-not-override-d2lrxs).ant-input-affix-wrapper .RollCreationTable-search-bar{
+    width: auto !important;
+}
+.roll-creation-radio-button .ant-radio-inner {
+    border-color: #000000;
+    background-color: white;
+}
+
+.roll-creation-radio-button .ant-radio-inner::after {
+    content: '\2713';
+    color: #0CBC53;
+    border-color: #0CBC53 !important; 
+    font-size: 30px;
+    font-weight: 600;
+    position: absolute;
+    top: 15%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    opacity: 0; 
+}
+
+.roll-creation-radio-button .ant-radio-checked .ant-radio-inner {
+    border-color: #0CBC53;
+    background-color: #fff;
+}
+
+.roll-creation-radio-button .ant-radio-checked .ant-radio-inner::after {
+    opacity: 1;
+}
+
+
+.rollcreation-addRoll-radio-span{
+    font-size: 12px;
+    color: gray;
+}
+:where(.css-dev-only-do-not-override-d2lrxs).ant-radio-wrapper span.ant-radio+* {
+    padding-inline-end: 0px !important; 
+}
+.RBACPermission-list-heading{
+    font-weight: 700;
+}
+.admin_role_list{
+    padding: 5px 25px;
+}
+.admin_role_para{
+    color: gray;
+}
+.RBAC-permissionList-p-blue{
+    color: #2A84FF;
+}
+.auditTrails-h2{
+    font-size: 20px;
+    font-weight: 600;
+    color: #414141;
+}

@@ -1,0 +1,58 @@
+:root {
+  --white-color: #ffffff;
+  --semi-white-color: #f5f5f5;
+  --text-color: #333;
+  --text-secondary-color: #777;
+  --footer-background-color: #000;
+  --footer-primary-color: #fff;
+  --footer-secondary-color: #a3adbb;
+  --gradient-start-color: #2a84ff;
+  --gradient-end-color: #2238ff;
+  --secondary-white-color: #f1f1f1;
+  --secondary-gray-color: #616d7e;
+  --background-explore-card: #edeff3;
+  --black-text-color: #000;
+  --store-background: #191919;
+  --template-background-color: #edeff3;
+  --icon-background-color: #f6f7f9;
+  --icon-hover-color: #ffffff1a;
+  --user-icons-1: #7b00ff;
+  --user-icons-2: rgb(0, 255, 247);
+  --user-icons-3: #d6ba00;
+  --arrow-color: #f6f7f9;
+  --danger-color: #ff0000;
+  --green-color: #00cf33;
+  --border-color: #d8d8d8;
+  --danger-bg-color: #feeeef;
+  --gold-tag-color: #ffad00;
+  --silver-tag-color: #2aa3e4;
+  --platinum-tag-color: #bb8ddc;
+  --delete-button-color:#e76671;
+  --delete-bg-color: #fee6e8;
+  --card-delete-color: #f65050;
+  --secondary-medium-blue: #415395;
+  --green-bg-color: #d1fadf;
+  --green-button-color: #12b76a;
+  --maroon-color: #ce1b28;
+  --background-black-color: #272b33;
+  --lightblue-background: #f3f5ff;
+  --body-bg-color: #070c14;
+  --features-black-color: #181819;
+  --blue-bg-color: #b0d1ff80;
+  --light-bg-color: #E5F0FF;
+  --light-green-bg-color:#e0f3e0;
+  --light-blue-bg-color:#e8f0fe;
+  --border-line-color:#e0e0e0;
+  --light-blue-color: #C3DBFC;
+  --bglight-blue-color:#f1f6fd;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: "Montserrat";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--white-color);
+}

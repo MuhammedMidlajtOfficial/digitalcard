@@ -1,0 +1,81 @@
+.card-shares-section {
+  border-radius: 12px;
+  padding: 16px 20px;
+  border: 1px solid var(--border-color);
+  box-shadow: rgba(120, 120, 134, 0.2) 0px 7px 29px 0px;
+}
+.icon-wrapper {
+  height: 40px;
+  width: 40px;
+}
+.card-shares-subtitle {
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.card-shares-title {
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 20px;
+}
+.application-card-share-section h2 {
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--black-text-color);
+}
+.select-table-container button {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--black-text-color);
+  background-color: var(--arrow-color);
+  padding: 6px 8px;
+  border-radius: 5px;
+}
+.custom-table-title.custom-table-title{
+  font-size: 14px;
+}
+.custom-search-button{
+  color: var(--white-color);
+  font-size: 12px;
+  background-color: var(--gradient-start-color);
+  border-radius: 8px;
+}
+.custom-search-button:hover{
+  color: var(--gradient-start-color);
+  background-color: var(--white-color);
+  border: 1px solid var(--gradient-start-color);
+}
+.custom-col{
+  width: 29.16%;
+  flex: 0 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.custom-col-last{
+  width: 12.5%;
+  flex: 0 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (max-width: 768px) {
+  .custom-col,
+  .custom-col-last {
+    width: 50%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.search-table-container .create-btn:hover {
+  background-color: var(--white-color);
+  color: var(--gradient-start-color);
+  border: 1px solid var(--gradient-start-color);
+}
+.search-table-container .create-btn {
+  color: var(--white-color);
+  border: 1px solid var(--gradient-start-color);
+  background-color: var(--gradient-start-color);
+  font-size: 12px;
+  padding: 8px 8px;
+}
