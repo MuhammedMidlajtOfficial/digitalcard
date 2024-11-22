@@ -17,10 +17,12 @@ const UserSection = ({ avatar, name, role, status, roleColor }) => (
 );
 
 const DashboardNewuser = () => {
+  
   const [filterDate, setFilterDate] = useState(dayjs());
   const [newUsers, setNewUsers] = useState([]);
-
+  
   useEffect(() => {
+    // console.log('BASEURL---',process.env.REACT_APP_BASEURL);
     axiosInstance.get(`dashboard/getTodaysActiveUsers/${filterDate.format('YYYY-MM-DD')}`)
       .then((response)=>{
         
@@ -155,7 +157,7 @@ const DashboardNewuser = () => {
                   );
                 })
               ) : (
-                <span>No Users Found</span>
+                <span style={{ color:"red" }}>No Users Found</span>
               )}
             </div>
           </div>

@@ -10,6 +10,7 @@
     "antd": "^5.20.0",
     "axios": "^1.7.7",
     "digitalcard": "file:",
+    "dotenv": "^16.4.5",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.2",
     "npm": "^10.8.3",
@@ -21,7 +22,7 @@
     "react-intersection-observer": "^9.13.0",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.26.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "recharts": "^2.12.7",
     "start": "^5.1.0",
     "sweetalert2": "^11.14.0",
@@ -50,5 +51,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "webpack": "^5.96.1"
   }
 }

@@ -41,6 +41,7 @@ const UserSection = ({ avatar, name, date, status }) => {
 };
 
 const DashboardUsersplans = () => {
+  
   const newUsers = [
     {
       name: "Marvin",
