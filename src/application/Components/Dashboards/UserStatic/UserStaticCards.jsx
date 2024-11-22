@@ -1,54 +1,95 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FiUsers, FiUser, FiUserCheck } from "react-icons/fi";
-import { BsClipboardPlus, BsTicketPerforated } from "react-icons/bs";
-import { LuUsers2 } from "react-icons/lu";
-
-const cardData = [
-  {
-    icon: FiUsers,
-    title: "Total Users",
-    value: "10,654",
-    bgColor: "#afa8ff",
-    textColor: "#ffffff",
-  },
-  {
-    icon: BsClipboardPlus,
-    title: "Total Cards Created",
-    value: "5,559",
-    bgColor: "#ffa0a9",
-    textColor: "#ffffff",
-  },
-  {
-    icon: FiUserCheck,
-    title: "New Users",
-    value: "4,315",
-    bgColor: "#ffcb64",
-    textColor: "#ffffff",
-  },
-  {
-    icon: LuUsers2,
-    title: "Subscribed Users",
-    value: "6,321",
-    bgColor: "#ffa8cd",
-    textColor: "#ffffff",
-  },
-  {
-    icon: FiUser,
-    title: "Active Users",
-    value: "6,287",
-    bgColor: "#33ab65",
-    textColor: "#ffffff",
-  },
-  {
-    icon: BsTicketPerforated,
-    title: "Failed Payments",
-    value: "315",
-    bgColor: "#85bbff",
-    textColor: "#ffffff",
-  },
-];
+import axiosInstance from "../../../../AxiosConfig";
 
 const UserStaticCards = () => {
+  const [individialUserCount, setIndividialUserCount] =  useState('')
+  const [enterpriseUserCount, setEnterpriseUserCount] =  useState('')
+  const [enterpriseEmployeeCount, setEnterpriseEmployeeCount] =  useState('')
+  const [newUsersCount, setNewUsersCount] =  useState('')
+  const [activeUsersCount, setActiveUsersCount] =  useState('')
+
+  useEffect(() => {
+    // getCountIndividualUsers
+    axiosInstance.get('dashboard/getCountIndividualUsers')
+      .then((response)=>{
+        setIndividialUserCount(response.data.user)
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+    });
+    // getCountEnterpriseUsers
+    axiosInstance.get('dashboard/getCountEnterpriseUsers')
+      .then((response)=>{
+        setEnterpriseUserCount(response.data.user)
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+    });
+    // getCountEnterpriseEmployee
+    axiosInstance.get('dashboard/getCountEnterpriseEmployee')
+      .then((response)=>{
+        setEnterpriseEmployeeCount(response.data.user)
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+    });
+    // getNewUsers
+    axiosInstance.get('dashboard/getNewUsers')
+      .then((response)=>{
+        setNewUsersCount(response.data.newUsers)
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+    });
+    // getActiveUsers
+    axiosInstance.get('dashboard/getActiveUsers')
+      .then((response)=>{
+        setActiveUsersCount(response.data.activeUsersCount)
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+    });
+  }, []);
+
+  const cardData = [
+    {
+      icon: FiUsers,
+      title: "Total Individial Users",
+      value: individialUserCount,
+      bgColor: "#8b81f7",
+      textColor: "#ffffff",
+    },
+    {
+      icon: FiUsers,
+      title: "Total Enterprise Users",
+      value: enterpriseUserCount,
+      bgColor: "#ce81f7",
+      textColor: "#ffffff",
+    },
+    {
+      icon: FiUsers,
+      title: "Total Enterprise Employee",
+      value: enterpriseEmployeeCount,
+      bgColor: "#f781d8",
+      textColor: "#ffffff",
+    },
+    {
+      icon: FiUserCheck,
+      title: "New Users",
+      value: newUsersCount,
+      bgColor: "#ffcb64",
+      textColor: "#ffffff",
+    },
+    {
+      icon: FiUser,
+      title: "Active Users",
+      value: activeUsersCount,
+      bgColor: "#33ab65",
+      textColor: "#ffffff",
+    },
+  ];
+
   return (
     <div className="container">
       <div className="row">

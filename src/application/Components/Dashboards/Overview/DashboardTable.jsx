@@ -7,14 +7,16 @@ import { FiFilter } from "react-icons/fi";
 import axiosInstance from "../../../../AxiosConfig";
 
 export const DashboardTable = () => {
-  const [filter, setFilter] = useState('Individual User');
-  const [recentUser, setRecentUser] = useState('Individual User');
+  const [filter, setFilter] = useState('individualUsers');
+  const [recentUser, setRecentUser] = useState([]);
 
   useEffect(() => {
+    console.log('filter',filter);
     axiosInstance.get(`dashboard/getRecentRegister/${filter}`)
     .then((response)=>{
       
       setRecentUser(response.data.recentUsers)
+      // console.log('recentUser--',response);
     })
     .catch((error) => {
       console.error("Error fetching data:", error);
@@ -32,13 +34,13 @@ export const DashboardTable = () => {
       }}
       selectedKeys={[filter]} // Manage the selected key
     >
-      <Menu.Item key="Individual User" className="filter-menu-item">
+      <Menu.Item key="individualUsers" className="filter-menu-item">
         Individual User
       </Menu.Item>
-      <Menu.Item key="Enterprise User" className="filter-menu-item">
+      <Menu.Item key="enterpriseUsers" className="filter-menu-item">
         Enterprise User
       </Menu.Item>
-      <Menu.Item key="Enterprise Emp" className="filter-menu-item">
+      <Menu.Item key="enterpriseEmployees" className="filter-menu-item">
         Enterprise Emp
       </Menu.Item>
     </Menu>
@@ -57,38 +59,45 @@ export const DashboardTable = () => {
   const columns = [
     {
       title: "Name",
-      dataIndex: "userName",
-      render: (userName) => (
+      dataIndex: "companyName",
+      render: (companyName, record) => (
         <div className="d-flex align-items-center">
-          <Avatar src={userName.image} size={40} className="me-2" />
-          {userName.name}
+          <Avatar
+            src={record.image || "/default-avatar.png"} // Fallback if no image
+            size={40}
+            className="me-2"
+          />
+          {companyName}
         </div>
       ),
     },
     {
-      title: "User ID",
-      dataIndex: "userId",
+      title: "User Name",
+      dataIndex: "username",
     },
     {
       title: "Phone No",
-      dataIndex: "phoneNo",
+      dataIndex: "phnNumber",
+      render: (phnNumber) => phnNumber || "N/A", // Handle empty phone numbers
     },
     {
       title: "Date",
-      dataIndex: "date",
+      dataIndex: "createdAt",
+      render: (createdAt) => new Date(createdAt).toLocaleDateString("en-GB"), // Format date
     },
     {
       title: "Status",
-      dataIndex: "status",
-      render: (status) => (
+      dataIndex: "timePassed",
+      render: (timePassed) => (
         <span
           className="table-status-tag"
-          style={{ color: status === "In Process" ? "green" : "red" }}
+          style={{ color: timePassed.includes("days") ? "green" : "red" }}
         >
-          {status}
+          {timePassed}
         </span>
       ),
     },
+  ];
 
     // {
     //   title: "Action",
@@ -99,7 +108,6 @@ export const DashboardTable = () => {
     //     </Dropdown>
     //   ),
     // },
-  ];
 
   const data = [
     {
@@ -135,7 +143,7 @@ export const DashboardTable = () => {
           <div className="application-table-section">
             <div className="d-flex justify-content-between align-items-center align-content-center mb-4 flex-lg-row flex-xl-row flex-column">
               <div className="d-flex gap-4 align-items-center">
-                <h2>Recent Active</h2>
+                <h2>Recent Register</h2>
               </div>
               <div className="search-table-container d-flex gap-2">
                 {/* <Dropdown overlay={sortMenu} trigger={["click"]}>

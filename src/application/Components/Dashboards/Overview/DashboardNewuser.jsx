@@ -22,7 +22,6 @@ const DashboardNewuser = () => {
   const [newUsers, setNewUsers] = useState([]);
   
   useEffect(() => {
-    // console.log('BASEURL---',process.env.REACT_APP_BASEURL);
     axiosInstance.get(`dashboard/getTodaysActiveUsers/${filterDate.format('YYYY-MM-DD')}`)
       .then((response)=>{
         

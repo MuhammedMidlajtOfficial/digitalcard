@@ -1,11 +1,9 @@
-import React from "react";
-import user from "../../../Assets/Images/admin.png";
-import user1 from "../../../Assets/Images/user1.png";
-import user2 from "../../../Assets/Images/user2.png";
-import user3 from "../../../Assets/Images/user3.png";
+import React, { useEffect, useState } from "react";
 import { Avatar } from "antd";
+import { UserOutlined } from '@ant-design/icons'; // Import the UserOutlined icon
+import axiosInstance from "../../../../AxiosConfig";
 
-const UserSection = ({ avatar, name, date, status }) => {
+const UserSection = ({ avatar, name, status, planCount }) => {
   const getStatusStyle = (status) => {
     switch (status) {
       case "Gold Member":
@@ -13,18 +11,23 @@ const UserSection = ({ avatar, name, date, status }) => {
       case "Platinum Member":
         return { backgroundColor: "#ce9191", color: "#000" };
       case "Silver Member":
-        return { backgroundColor: "#979797", color: "#000" };
+        return { backgroundColor: "#d1e3c1", color: "#000" };
       default:
         return { backgroundColor: "#fff", color: "#000" };
     }
   };
 
   return (
-    <div className="d-flex gap-2 mb-4 new-user-section align-items-center">
-      <Avatar size="large" src={avatar} />
+    <div className="d-flex gap-2 mb-4 new-user-section align-items-center" style={{ overflowY: 'auto' }}>
+      {/* If avatar is not available, show the default UserOutlined icon */}
+      <Avatar 
+        size={40}
+        src={avatar || null} 
+        icon={!avatar && <UserOutlined />} 
+      />
       <div>
         <h4>{name}</h4>
-        <p>{date}</p>
+        <span style={{ color:"red" }}>{planCount}<span> Times Used</span></span>
       </div>
       <span
         style={{
@@ -41,63 +44,23 @@ const UserSection = ({ avatar, name, date, status }) => {
 };
 
 const DashboardUsersplans = () => {
-  
-  const newUsers = [
-    {
-      name: "Marvin",
-      date: "09 Dec 3:50 PM",
-      status: "Gold Member",
-      avatar: user,
-    },
-    {
-      name: "Bessie",
-      date: "09 Dec 3:50 PM",
-      status: "Platinum Member",
-      avatar: user1,
-    },
-    {
-      name: "Jacob Jones",
-      date: "09 Dec 3:50 PM",
-      status: "Silver Member",
-      avatar: user2,
-    },
-    {
-      name: "Robert Fox",
-      date: "09 Dec 3:50 PM",
-      status: "Gold Member",
-      avatar: user3,
-    },
-    {
-      name: "Jacob Jones",
-      date: "09 Dec 3:50 PM",
-      status: "Silver Member",
-      avatar: user2,
-    },
-    {
-      name: "Marvin",
-      date: "09 Dec 3:50 PM",
-      status: "Gold Member",
-      avatar: user,
-    },
-    {
-      name: "Bessie",
-      date: "09 Dec 3:50 PM",
-      status: "Platinum Member",
-      avatar: user1,
-    },
-    {
-      name: "Jacob Jones",
-      date: "09 Dec 3:50 PM",
-      status: "Silver Member",
-      avatar: user2,
-    },
-    {
-      name: "Jacob Jones",
-      date: "09 Dec 3:50 PM",
-      status: "Silver Member",
-      avatar: user2,
-    },
-  ];
+  const [topUsers, setTopUsers] = useState([]);
+
+  useEffect(() => {
+    axiosInstance
+      .get(`dashboard/getMostlyUsedPlans`)
+      .then((response) => {
+        setTopUsers(response.data.topUsers);
+        console.log("Fetched topUsers:", response.data.topUsers); // Logs fetched data directly
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+
+    return () => {
+      setTopUsers([]);
+    };
+  }, []);
 
   return (
     <div className="mt-0">
@@ -107,13 +70,13 @@ const DashboardUsersplans = () => {
             <h2>Mostly Used Plans</h2>
           </div>
           <div className="new-user-plans">
-            {newUsers.map((user, index) => (
+            {topUsers?.map((user) => (
               <UserSection
-                key={index}
-                avatar={user.avatar}
-                name={user.name}
-                date={user.date}
-                status={user.status}
+                key={user._id} // Use user._id for unique keys
+                avatar={user.image || null} // Pass null if avatar is missing
+                name={user.username || 'User'} // Display username or email
+                planCount={user.planCount} 
+                status={`${user.plansUsed.name} Member`} // Dynamic status based on plan
               />
             ))}
           </div>
