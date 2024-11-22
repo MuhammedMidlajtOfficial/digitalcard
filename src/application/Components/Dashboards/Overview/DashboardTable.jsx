@@ -1,32 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Dropdown, Menu, Table, Avatar } from "antd";
-import { IoIosArrowForward } from "react-icons/io";
-import { TbArrowsDownUp } from "react-icons/tb";
+// import { IoIosArrowForward } from "react-icons/io";
+// import { TbArrowsDownUp } from "react-icons/tb";
 import image1 from "../../../Assets/Images/admin.png";
 import { FiFilter } from "react-icons/fi";
+import axiosInstance from "../../../../AxiosConfig";
 
 export const DashboardTable = () => {
+  const [filter, setFilter] = useState('Individual User');
+  const [recentUser, setRecentUser] = useState('Individual User');
+
+  useEffect(() => {
+    axiosInstance.get(`dashboard/getRecentRegister/${filter}`)
+    .then((response)=>{
+      
+      setRecentUser(response.data.recentUsers)
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+  });
+
+  return () => {
+    setRecentUser([])
+  };
+  }, [filter]);
+
   const filterMenu = (
-    <Menu>
-      <Menu.Item key="certifications" className="filter-menu-item">
-        ABC <IoIosArrowForward className="right-arrow" />
+    <Menu
+      onClick={({ key }) => {
+        setFilter(key); // Update filter state immediately
+      }}
+      selectedKeys={[filter]} // Manage the selected key
+    >
+      <Menu.Item key="Individual User" className="filter-menu-item">
+        Individual User
       </Menu.Item>
-      <Menu.Item key="employment-type" className="filter-menu-item">
-        EFG <IoIosArrowForward className="right-arrow" />
+      <Menu.Item key="Enterprise User" className="filter-menu-item">
+        Enterprise User
+      </Menu.Item>
+      <Menu.Item key="Enterprise Emp" className="filter-menu-item">
+        Enterprise Emp
       </Menu.Item>
     </Menu>
   );
 
-  const sortMenu = (
-    <Menu>
-      <Menu.Item key="datePosted" className="filter-menu-item">
-        ABC <IoIosArrowForward className="right-arrow" />
-      </Menu.Item>
-      <Menu.Item key="jobType" className="filter-menu-item">
-        EFG <IoIosArrowForward className="right-arrow" />
-      </Menu.Item>
-    </Menu>
-  );
+  // const sortMenu = (
+  //   <Menu>
+  //     <Menu.Item key="datePosted" className="filter-menu-item">
+  //       ASC  <IoIosArrowForward className="right-arrow" />
+  //     </Menu.Item>
+  //     <Menu.Item key="jobType" className="filter-menu-item">
+  //       DSC  <IoIosArrowForward className="right-arrow" />
+  //     </Menu.Item>
+  //   </Menu>
+  // );
   const columns = [
     {
       title: "Name",
@@ -111,7 +138,7 @@ export const DashboardTable = () => {
                 <h2>Recent Active</h2>
               </div>
               <div className="search-table-container d-flex gap-2">
-                <Dropdown overlay={sortMenu} trigger={["click"]}>
+                {/* <Dropdown overlay={sortMenu} trigger={["click"]}>
                   <button className="table-action-btn d-flex gap-2 align-items-center">
                     <span>Sort By</span>
                     <TbArrowsDownUp
@@ -122,9 +149,9 @@ export const DashboardTable = () => {
                       }}
                     />
                   </button>
-                </Dropdown>
+                </Dropdown> */}
                 <Dropdown overlay={filterMenu} trigger={["click"]}>
-                  <button className="table-action-btn d-flex gap-2 align-items-center">
+                  <button className="table-action-btn d-flex gap-3 align-items-center">
                     <span>Filter</span>
                     <FiFilter
                       style={{
@@ -139,7 +166,7 @@ export const DashboardTable = () => {
             </div>
             <Table
               columns={columns}
-              dataSource={data}
+              dataSource={recentUser}
               pagination={{ pageSize: 5 }}
               className="applied-applicants-table overflow-x-auto"
             />
