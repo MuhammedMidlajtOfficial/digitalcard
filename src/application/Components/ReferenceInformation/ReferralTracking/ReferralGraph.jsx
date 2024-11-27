@@ -1,118 +1,163 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  ResponsiveContainer,
-  Area,
-  Tooltip,
+    LineChart,
+    Line,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    ResponsiveContainer,
+    Tooltip,
 } from "recharts";
-
-const data = [
-  { month: "Jan", newUsers: 50, oldUsers: 40 },
-  { month: "Feb", newUsers: 120, oldUsers: 80 },
-  { month: "Mar", newUsers: 90, oldUsers: 70 },
-  { month: "Apr", newUsers: 244, oldUsers: 120 },
-  { month: "May", newUsers: 70, oldUsers: 60 },
-  { month: "Jun", newUsers: 100, oldUsers: 80 },
-  { month: "Jul", newUsers: 344, oldUsers: 200 },
-  { month: "Aug", newUsers: 150, oldUsers: 100 },
-  { month: "Sep", newUsers: 80, oldUsers: 60 },
-  { month: "Oct", newUsers: 110, oldUsers: 90 },
-  { month: "Nov", newUsers: 90, oldUsers: 70 },
-  { month: "Dec", newUsers: 70, oldUsers: 50 },
-];
-
-const CustomTooltip = ({ active, payload }) => {
-  if (active && payload && payload.length) {
-    const value = payload[0].value;
-    return (
-      <div
-        style={{
-          backgroundColor: "#ffffff",
-          padding: "5px",
-          border: "1px solid #d3d3d3",
-          borderRadius: "5px",
-        }}
-      >
-        <p style={{ color: payload[0].color }}>{`${(value / 10).toFixed(
-          1
-        )} K`}</p>
-      </div>
-    );
-  }
-  return null;
-};
+import axiosInstance from "../../../../AxiosConfig";
 
 const ReferralGraph = () => {
-  return (
-    <div className="container mt-5">
-      <div className="referral-graph-main flex-lg-row flex-xl-row flex-column">
-        <div className="graph-labels mb-2 d-flex justify-content-between align-items-center flex-lg-row flex-xl-row flex-column">
-          <div className="d-flex gap-2 ">
-            <h6 className="text-start mb-4 fs-20 fw-bold">Overview</h6>
-            <span>
-              <a style={{ color: "var(--gradient-start-color)" }}>●</a> New
-              Users - 60%
-            </span>
-            <span>● Old Users - 40%</span>
-          </div>
-          <div className="d-flex gap-2">
-            <button className="referral-graph-button-yearly">Year</button>
-            <button className="referral-graph-button-monthly">Monthly</button>
-          </div>
+    const [referralData, setReferralData] = useState([]);
+    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+    const [manualYear, setManualYear] = useState(new Date().getFullYear());
+    const [graphData, setGraphData] = useState([]);
+
+    // Fetch referral data from API
+    const fetchReferralData = async () => {
+        try {
+            const response = await axiosInstance.get("/referal/details");
+            if (response.status === 200) {
+                setReferralData(
+                    response.data.map((item) => ({
+                        createdAt: new Date(item.createdAt),
+                    }))
+                );
+            }
+        } catch (error) {
+            console.error("Error fetching referral data", error);
+        }
+    };
+
+    // Aggregate data by month for the selected year
+    const processGraphData = () => {
+        const monthlyData = Array(12).fill(0); // Initialize array for 12 months
+        referralData.forEach(({ createdAt }) => {
+            if (createdAt.getFullYear() === selectedYear) {
+                const month = createdAt.getMonth(); // Get month index (0-11)
+                monthlyData[month] += 1; // Increment count for the month
+            }
+        });
+
+        const formattedData = monthlyData.map((count, index) => ({
+            month: new Date(2024, index).toLocaleString("default", {
+                month: "short",
+            }),
+            referrals: count,
+        }));
+
+        setGraphData(formattedData);
+    };
+
+    useEffect(() => {
+        fetchReferralData();
+    }, []);
+
+    useEffect(() => {
+        processGraphData();
+    }, [referralData, selectedYear]);
+
+    const handleYearInputChange = (e) => {
+        setManualYear(e.target.value);
+    };
+
+    const handleSearchYear = () => {
+        const parsedYear = parseInt(manualYear, 10);
+        if (!isNaN(parsedYear)) {
+            setSelectedYear(parsedYear);
+        }
+    };
+
+    return (
+        <div className="container mt-5">
+            <div className="referral-graph-main">
+                <div className="graph-header d-flex justify-content-between align-items-center mb-4">
+                    <h6 className="fs-20 fw-bold">Overview</h6>
+                    <div className="year-controls d-flex align-items-center gap-2">
+                        {/* Previous Year Button */}
+                        {/* <button
+                            className="arrow-button"
+                            onClick={() => setSelectedYear(selectedYear - 1)}
+                        >
+                            &lt;
+                        </button> */}
+
+                        {/* Selected Year Button */}
+                        {/* <button
+                            className="referral-graph-button active"
+                            style={{
+                                backgroundColor: "#4285F4",
+                                color: "#ffffff",
+                                border: "none",
+                            }}
+                        >
+                            {selectedYear}
+                        </button> */}
+
+                        {/* Next Year Button */}
+                        {/* <button
+                            className="arrow-button"
+                            onClick={() => setSelectedYear(selectedYear + 1)}
+                        >
+                            &gt;
+                        </button> */}
+
+                        {/* Manual Year Input */}
+                        <div className="manual-year-input d-flex align-items-center gap-2">
+                            <input
+                                type="number"
+                                className="year-input"
+                                value={manualYear}
+                                onChange={handleYearInputChange}
+                                placeholder="Year"
+                                style={{
+                                    width: "80px",
+                                    padding: "5px",
+                                    border: "1px solid #ccc",
+                                    borderRadius: "5px",
+                                    fontSize: "14px",
+                                }}
+                            />
+                            <button
+                                className="search-button"
+                                onClick={handleSearchYear}
+                                style={{
+                                    backgroundColor: "#4285F4",
+                                    color: "#ffffff",
+                                    border: "none",
+                                    padding: "6px 10px",
+                                    borderRadius: "5px",
+                                    fontSize: "14px",
+                                }}
+                            >
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Graph */}
+                <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={graphData}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                        <XAxis dataKey="month" />
+                        <YAxis allowDecimals={false} />
+                        <Tooltip />
+                        <Line
+                            type="monotone"
+                            dataKey="referrals"
+                            stroke="#4285F4"
+                            strokeWidth={3}
+                            dot={false}
+                        />
+                    </LineChart>
+                </ResponsiveContainer>
+            </div>
         </div>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={data}>
-            <defs>
-              <linearGradient id="colorNewUsers" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#4285F4" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#4285F4" stopOpacity={0} />
-              </linearGradient>
-              <linearGradient id="colorOldUsers" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#000000" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#000000" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} />
-            <XAxis dataKey="month" />
-            <YAxis />
-            <Tooltip content={<CustomTooltip />} />
-            <Area
-              type="monotone"
-              dataKey="newUsers"
-              stroke="#4285F4"
-              fill="url(#colorNewUsers)"
-              fillOpacity={0.2}
-            />
-            <Area
-              type="monotone"
-              dataKey="oldUsers"
-              stroke="#000000"
-              fill="url(#colorOldUsers)"
-              fillOpacity={0.1}
-            />
-            <Line
-              type="monotone"
-              dataKey="newUsers"
-              stroke="#4285F4"
-              strokeWidth={3}
-              dot={false}
-            />
-            <Line
-              type="monotone"
-              dataKey="oldUsers"
-              stroke="#000000"
-              strokeWidth={3}
-              dot={false}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default ReferralGraph;

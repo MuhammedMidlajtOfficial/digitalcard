@@ -25,10 +25,12 @@ const ReferralCards = () => {
 
                 const totalReferrals = data.length;
                 const successReferrals = data.filter(
-                    (referral) => referral.status === "Success"
+                    (referral) =>
+                        referral.status === "Card Created" ||
+                        referral.status === "Registered"
                 ).length;
                 const pendingReferrals = data.filter(
-                    (referral) => referral.status === "Pending"
+                    (referral) => referral.status === "Invited"
                 ).length;
 
                 setReferralCounts({
