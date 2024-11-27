@@ -19,6 +19,7 @@ const ReferralTopWinners = () => {
             if (response.status === 200 && response.data.topReferrers) {
                 setTopReferrers(response.data.topReferrers.slice(0, 3)); // Get top 3 referrers
             }
+            console.log('topReferrers--',topReferrers);
         } catch (error) {
             console.error("Error fetching referral data", error);
         }

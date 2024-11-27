@@ -51,7 +51,7 @@ const DashboardUsersplans = () => {
       .get(`dashboard/getMostlyUsedPlans`)
       .then((response) => {
         setTopUsers(response.data.topUsers);
-        console.log("Fetched topUsers:", response.data.topUsers); // Logs fetched data directly
+        // console.log("Fetched topUsers:", response.data.topUsers); // Logs fetched data directly
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
