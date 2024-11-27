@@ -31,6 +31,7 @@ const ReferralCards = () => {
                 ).length;
                 const pendingReferrals = data.filter(
                     (referral) => referral.status === "Invited"
+
                 ).length;
 
                 setReferralCounts({

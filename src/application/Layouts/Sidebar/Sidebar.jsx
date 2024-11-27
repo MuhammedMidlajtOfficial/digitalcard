@@ -369,7 +369,7 @@ function SidebarApplication() {
                       Process Orders
                     </Link>
                   </li>
-                  <li className="sub-nav-list">
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/ordermanagement/paymentverification"
                       className={`sub-nav-link ${
@@ -381,7 +381,7 @@ function SidebarApplication() {
                     >
                       Payment Verification
                     </Link>
-                  </li>
+                  </li> */}
                   <li className="sub-nav-list">
                     <Link
                       to="/admin/ordermanagement/orderanalystics"
@@ -395,7 +395,7 @@ function SidebarApplication() {
                       Order Analytics
                     </Link>
                   </li>
-                  <li className="sub-nav-list">
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/ordermanagement/orderstatus"
                       className={`sub-nav-link ${
@@ -407,7 +407,7 @@ function SidebarApplication() {
                     >
                       Order Status
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
               <li>
@@ -462,7 +462,7 @@ function SidebarApplication() {
                       Card Shares & Interaction
                     </Link>
                   </li>
-                  <li className="sub-nav-list">
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/analyticsdashboad/exportreports"
                       className={`sub-nav-link ${
@@ -474,7 +474,7 @@ function SidebarApplication() {
                     >
                       Export Reports
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
               <li>
@@ -555,7 +555,7 @@ function SidebarApplication() {
                       Renewal and reminders
                     </Link>
                   </li>
-                  <li className="sub-nav-list">
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/paymentmanagement/paymentgateway"
                       className={`sub-nav-link ${
@@ -567,8 +567,8 @@ function SidebarApplication() {
                     >
                       Payment Gateway Integration
                     </Link>
-                  </li>
-                  <li className="sub-nav-list">
+                  </li> */}
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/paymentmanagement/refundprocess"
                       className={`sub-nav-link ${
@@ -580,7 +580,7 @@ function SidebarApplication() {
                     >
                       Refund processing
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
               <li>
@@ -726,7 +726,7 @@ function SidebarApplication() {
                       Permission
                     </Link>
                   </li>
-                  <li className="sub-nav-list">
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/rollbasedaccess/audit-trails"
                       className={`sub-nav-link ${
@@ -738,10 +738,10 @@ function SidebarApplication() {
                     >
                       Audit Trails
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
-              <li>
+              {/* <li>
                 <div
                   className={`nav-link ${
                     expandedMenu === "customerreport" ? "active-nav-links" : ""
@@ -776,7 +776,7 @@ function SidebarApplication() {
                     </Link>
                   </li>
                 </ul>
-              </li>
+              </li> */}
               <li>
                 <div
                   className={`nav-link ${
@@ -803,7 +803,7 @@ function SidebarApplication() {
                     expandedMenu === "automatedmarketing" ? "active" : ""
                   }`}
                 >
-                  <li className="sub-nav-list">
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/automatedmarketing/campaign-setup"
                       className={`sub-nav-link ${
@@ -815,7 +815,7 @@ function SidebarApplication() {
                     >
                       Campaign setup
                     </Link>
-                  </li>
+                  </li> */}
                   <li className="sub-nav-list">
                     <Link
                       to="/admin/automatedmarketing/email-sms-template"
@@ -829,7 +829,7 @@ function SidebarApplication() {
                       Email /SMS Templates
                     </Link>
                   </li>
-                  <li className="sub-nav-list">
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/automatedmarketing/campaignanalytics"
                       className={`sub-nav-link ${
@@ -854,10 +854,10 @@ function SidebarApplication() {
                     >
                       Automated Triggers
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
-              <li>
+              {/* <li>
                 <div
                   className={`nav-link ${
                     expandedMenu === "userfeedback" 
@@ -919,7 +919,7 @@ function SidebarApplication() {
                     </Link>
                   </li>
                 </ul>
-              </li>
+              </li> */}
               <li>
                 <div
                   className={`nav-link ${

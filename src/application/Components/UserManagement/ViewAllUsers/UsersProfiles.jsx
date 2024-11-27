@@ -1,162 +1,108 @@
-import React, { useState } from "react";
-import user from "../../../Assets/Images/profile.png";
-import user1 from "../../../Assets/Images/profile1.png";
-import user2 from "../../../Assets/Images/profile2.png";
-import user3 from "../../../Assets/Images/profile3.png";
-import user4 from "../../../Assets/Images/profile4.png";
-import user5 from "../../../Assets/Images/profile5.png";
-import user6 from "../../../Assets/Images/profile6.png";
-import { FaPlus } from "react-icons/fa6";
+import React, { useEffect, useState } from "react";
+import { Pagination } from "antd";
+import axiosInstance from "../../../../AxiosConfig";
+import { AllUsersTableList } from "./AllUsersTableList";
+import { Avatar, Dropdown, Menu } from "antd";
 import { useNavigate } from "react-router-dom";
 import { FiFilter, FiSearch } from "react-icons/fi";
-import { Dropdown, Menu, Avatar } from "antd";
+import { FaPlus } from "react-icons/fa6";
 import { IoIosArrowForward } from "react-icons/io";
 import { TbArrowsDownUp } from "react-icons/tb";
-import { IoSearch } from "react-icons/io5";
 import { RxGrid } from "react-icons/rx";
 import { LuMenu } from "react-icons/lu";
-import { AllUsersTableList } from "./AllUsersTableList";
-import { Input } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
 const UsersProfiles = () => {
+  const [isTableView, setIsTableView] = useState(false);
+  const [filter, setFilter] = useState('individualUser');
+  const [sortOrder, setSortOrder] = useState('asc');
+  const [allUser, setAllUser] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(12);
+  const [totalUsers, setTotalUsers] = useState(0);
+
   const navigate = useNavigate();
 
-  const [isTableView, setIsTableView] = useState(false);
+  const handleTableViewToggle = () => setIsTableView(true);
+  const handleGridViewToggle = () => setIsTableView(false);
 
-  const handleTableViewToggle = () => {
-    setIsTableView(true);
-  };
-  const handleGridViewToggle = () => {
-    setIsTableView(false);
+  useEffect(() => {
+    fetchUsers();
+    return () => setAllUser([]);
+  }, [filter, currentPage, pageSize, sortOrder]);
+
+  const fetchUsers = () => {
+    console.log('params',pageSize);
+    axiosInstance
+      .get(`user/getAllUser/${filter}`, {
+        params: { 
+          page: currentPage, 
+          pageSize,
+          sortOrder
+        },
+      })
+      .then((response) => {
+        console.log('response---',response);
+        setAllUser(response.data.totalUser);
+        setTotalUsers(response.data.totalCount);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   };
 
   const filterMenu = (
-    <Menu>
-      <Menu.Item key="certifications" className="filter-menu-item">
-        ABC <IoIosArrowForward className="right-arrow" />
-      </Menu.Item>
-      <Menu.Item key="employment-type" className="filter-menu-item">
-        EFG <IoIosArrowForward className="right-arrow" />
-      </Menu.Item>
+    <Menu
+      onClick={({ key }) => setFilter(key)}
+      selectedKeys={[filter]}
+    >
+      <Menu.Item key="individualUser">Individual User</Menu.Item>
+      <Menu.Item key="enterpriseUser">Enterprise User</Menu.Item>
+      <Menu.Item key="enterpriseEmploye">Enterprise Employee</Menu.Item>
     </Menu>
   );
 
   const sortMenu = (
-    <Menu>
-      <Menu.Item key="datePosted" className="filter-menu-item">
-        ABC <IoIosArrowForward className="right-arrow" />
-      </Menu.Item>
-      <Menu.Item key="jobType" className="filter-menu-item">
-        EFG <IoIosArrowForward className="right-arrow" />
-      </Menu.Item>
+    <Menu 
+      onClick={({ key }) => setSortOrder(key)}
+      selectedKeys={[sortOrder]}
+    >
+      <Menu.Item key="asc">ASC<IoIosArrowForward /></Menu.Item>
+      <Menu.Item key="desc">DESC<IoIosArrowForward /></Menu.Item>
     </Menu>
   );
-  const users = [
-    {
-      id: 1,
-      image: user,
-      name: "Cameron Williamson",
-      memberTag: "Gold Member",
-      email: "cameron@gmai.com",
-      phone: "+91 94464 64964",
-    },
-    {
-      id: 2,
-      image: user1,
-      name: "John Doe",
-      memberTag: "Silver Member",
-      email: "john@gmai.com",
-      phone: "+91 94464 64965",
-    },
-    {
-      id: 3,
-      image: user2,
-      name: "Jane Smith",
-      memberTag: "Platinum Member",
-      email: "jane@gmai.com",
-      phone: "+91 94464 64966",
-    },
-    {
-      id: 4,
-      image: user3,
-      name: "Emma Brown",
-      memberTag: "Gold Member",
-      email: "emma@gmai.com",
-      phone: "+91 94464 64967",
-    },
-    {
-      id: 5,
-      image: user4,
-      name: "Chris Johnson",
-      memberTag: "Gold Member",
-      email: "chris@gmai.com",
-      phone: "+91 94464 64968",
-    },
-    {
-      id: 6,
-      image: user5,
-      name: "Alex Lee",
-      memberTag: "Silver Member",
-      email: "alex@gmai.com",
-      phone: "+91 94464 64969",
-    },
-    {
-      id: 7,
-      image: user6,
-      name: "Emily Davis",
-      memberTag: "Platinum Member",
-      email: "emily@gmai.com",
-      phone: "+91 94464 64970",
-    },
-    {
-      id: 8,
-      image: user1,
-      name: "John Doe",
-      memberTag: "Silver Member",
-      email: "john@gmai.com",
-      phone: "+91 94464 64965",
-    },
-  ];
 
-  const renderUserProfileCard = (user) => {
-    const { image, name, memberTag, email, phone } = user;
-    let tagClass = "";
-    switch (memberTag) {
-      case "Gold Member":
-        tagClass = "gold-member-tag";
-        break;
-      case "Silver Member":
-        tagClass = "silver-member-tag";
-        break;
-      case "Platinum Member":
-        tagClass = "platinum-member-tag";
-        break;
-      default:
-        tagClass = "default-member-tag";
-    }
-
-    return (
-      <div className="col-lg-3 mb-4" key={user.id}>
-        <div className="application-users-profile-card">
-          <div className="d-flex justify-content-center">
-            <Avatar src={image} shape="square" size={68} />
-          </div>
-          <h2 className="mt-3">{name}</h2>
-          <div className="d-flex justify-content-center">
-            <p className={tagClass}>{memberTag}</p>
-          </div>
-          <h4>{email}</h4>
-          <h4>{phone}</h4>
-          <button
-            onClick={() => navigate("/admin/usermanagement/editusers")}
-            className="mt-2"
-          >
-            Visit Profile
-          </button>
+  const renderUserProfileCard = (user) => (
+    <div className="col-lg-3 mb-4" key={user._id || user.id}>
+      <div className="application-users-profile-card">
+        <div className="d-flex justify-content-center">
+          <Avatar 
+            src={user.image} // Display the image if available
+            shape="square" 
+            size={68} 
+            icon={!user.image && <UserOutlined />}
+          />
         </div>
+        <h2 className="mt-3">{user.username || user.companyName || "N/A"}</h2>
+        <div className="d-flex justify-content-center">
+          {user.memberTag && (
+            <p className={user.memberTag.toLowerCase().replace(" ", "-") + "-tag"}>
+              {user.memberTag}
+            </p>
+          )}
+        </div>
+        <h4>{user.email}</h4>
+        <h4>{user.phnNumber || "N/A"}</h4>
+        <button
+          onClick={() => navigate("/admin/usermanagement/editusers")}
+          className="mt-2"
+        >
+          Visit Profile
+        </button>
       </div>
-    );
-  };
+    </div>
+  );
+  
 
   return (
     <div className="container">
@@ -183,46 +129,57 @@ const UsersProfiles = () => {
           <Dropdown overlay={filterMenu} trigger={["click"]}>
             <button className="table-action-btn d-flex gap-2 align-items-center">
               <span>Filters</span>
-              <FiFilter
-                style={{
-                  fontWeight: 500,
-                  fontSize: "14px",
-                  color: "GrayText",
-                }}
-              />
+              <FiFilter />
             </button>
           </Dropdown>
           <Dropdown overlay={sortMenu} trigger={["click"]}>
             <button className="table-action-btn d-flex gap-2 align-items-center">
               <span>Sort By</span>
-              <TbArrowsDownUp
-                style={{
-                  fontWeight: 500,
-                  fontSize: "14px",
-                  color: "GrayText",
-                }}
-              />
+              <TbArrowsDownUp />
             </button>
           </Dropdown>
           <div
             className="d-flex align-items-center"
             onClick={handleGridViewToggle}
           >
-            <RxGrid className="table-card-list" />
+            <RxGrid />
           </div>
           <div
             className="d-flex align-items-center"
             onClick={handleTableViewToggle}
           >
-            <LuMenu className="table-data-list" />
+            <LuMenu />
           </div>
         </div>
       </div>
       {isTableView ? (
-        <AllUsersTableList />
+        <AllUsersTableList 
+          allUser={allUser} 
+          filter={filter} 
+          currentPage={currentPage}
+          pageSize={pageSize}
+          totalUsers={totalUsers}
+          onPaginationChange={(page, size) => {
+            setCurrentPage(page);
+            setPageSize(size);
+          }}
+        />
       ) : (
-        <div className="row">{users.map(renderUserProfileCard)}</div>
-      )}{" "}
+        <div className="row">{allUser?.map(renderUserProfileCard)}</div>
+      )}
+      <div className="d-flex justify-content-center mt-4">
+        <Pagination
+          current={currentPage}
+          pageSize={pageSize}
+          total={totalUsers}
+          onChange={(page, size) => {
+            setCurrentPage(page);
+            setPageSize(size);
+          }}
+          showSizeChanger
+          pageSizeOptions={[12, 24, 60, 120]}
+        />
+      </div>
     </div>
   );
 };
