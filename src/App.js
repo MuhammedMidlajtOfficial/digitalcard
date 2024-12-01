@@ -1,10 +1,13 @@
 import './App.css';
 import Router from './Router';
+import { LoadingProvider } from './application/Services/loadingService';
 
 function App() {
   return (
     <div className="App">
-      <Router />
+       <LoadingProvider>
+          <Router />
+       </LoadingProvider>
     </div>
   );
 }

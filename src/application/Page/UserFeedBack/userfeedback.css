@@ -29,7 +29,7 @@
   color: var(--white-color);
   border: 1px solid var(--gradient-start-color);
 }
-.create-survey-search-input {
+/* .create-survey-search-input {
   padding: 8px 32px;
   background: var(--text-color);
   border-radius: 8px;
@@ -44,7 +44,66 @@
   border-radius: 5px;
   color: var(--white-color);
   border: 1px solid var(--white-color);
+} */
+
+.create-survey-search-input {
+  padding: 8px 40px; /* Increased padding for better button visibility */
+  background: #f4f4f4; /* Light background color */
+  border-radius: 25px; /* Rounded corners for a smooth, modern look */
+  color: #333; /* Dark text for better readability */
+  font-size: 16px; /* Larger font size for better readability */
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  border: 1px solid #ddd; /* Light border for a clean appearance */
+  width: 100%;
+  transition: all 0.3s ease-in-out;
 }
+
+.create-survey-search-input:focus {
+  outline: none;
+  border-color: #4a90e2; /* Blue border on focus for better user feedback */
+  background: #fff; /* Slightly brighter background on focus */
+}
+
+.search-container {
+  position: relative;
+  max-width: 400px; /* Set max-width for a balanced design */
+  width: 100%;
+}
+
+.search-container .search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999; /* Subtle gray for the icon */
+  font-size: 18px;
+  pointer-events: none; /* Prevent interaction with the icon */
+}
+
+.search-button {
+  padding: 8px 20px;
+  background-color: #4a90e2; /* Professional blue button */
+  color: white;
+  border: none;
+  border-radius: 25px; /* Rounded corners for the button */
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  margin-left: 10px; /* Space between input and button */
+}
+
+.search-button:hover {
+  background-color: #357ab7; /* Slightly darker blue on hover */
+}
+
+.search-container input::placeholder {
+  color: #999; /* Lighter color for the placeholder */
+  opacity: 0.8; /* Slight opacity for the placeholder text */
+}
+
+
 .survey-action-icons {
   color: var(--gradient-start-color);
   font-size: 18px;

@@ -80,6 +80,22 @@
   padding: 6px 16px;
   border-radius: 5px;
 }
+.default-member-tag{
+  background-color: #570068 ;
+  color: var(--white-color);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 5px;
+}
+.null-member-tag{
+  background-color: #cf0000 ;
+  color: var(--white-color);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 5px;
+}
 .ant-switch.ant-switch-checked {
   background: var(--green-color);
 }
@@ -175,8 +191,8 @@
   font-size: 16px;
 }
 .cancel-btn {
-  color: var(--gradient-start-color);
-  border: 1px solid var(--gradient-start-color);
+  color: var(--danger-color);
+  border: 1px solid var(--danger-color);
   background-color: var(--white-color);
   font-size: 12px;
   padding: 8px 40px;
@@ -186,12 +202,12 @@
   border: 1px solid var(--gradient-start-color);
   background-color: var(--gradient-start-color);
   font-size: 12px;
-  padding: 8px 8px;
+  padding: 8px 40px;
 }
 .cancel-btn:hover,
 .profile-icon-section button:hover,
 .application-users-profile-card .edit-button:hover {
-  background-color: var(--gradient-start-color);
+  background-color: var(--danger-color);
   color: var(--white-color);
 }
 .create-btn:hover,
@@ -211,14 +227,30 @@
 .application-users-profile-card .delete-button {
   font-size: 12px;
   padding: 5px 16px;
-  color: var(--white-color);
-  background-color: var(--delete-button-color);
+  /* color: var(--white-color);
+  background-color: var(--delete-button-color); */
+  background-color: var(--white-color);
+  color: var(--delete-button-color);
   width: 100%;
+  border: 1px solid var(--delete-button-color);
 }
 .application-users-profile-card .delete-button:hover {
-  color: var(--delete-button-color);
-  background-color: var(--white-color);
+  /* color: var(--delete-button-color);
+  background-color: var(--white-color); */
+  color: var(--white-color);
+  background-color: var(--delete-button-color);
   border: 1px solid var(--delete-button-color);
+}
+.membership-btn {
+  color: var(--white-color);
+  border: 1px solid var(--gradient-start-color);
+  background-color: var(--gradient-start-color);
+  font-size: 12px;
+  padding: 8px 40px;
+}
+.membership-btn:hover{
+  background-color: var(--gradient-start-color) !important;
+  color: var(--white-color);
 }
 .add-profile-container {
   position: relative;
