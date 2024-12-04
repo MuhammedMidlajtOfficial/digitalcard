@@ -23,6 +23,7 @@
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.26.0",
     "react-scripts": "^5.0.1",
+    "react-toastify": "^10.0.6",
     "recharts": "^2.12.7",
     "start": "^5.1.0",
     "sweetalert2": "^11.14.0",
