@@ -265,7 +265,7 @@ function SidebarApplication() {
                       View User Profile
                     </Link>
                   </li>
-                  <li className="sub-nav-list">
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/usermanagement/deleteusers"
                       className={`sub-nav-link ${
@@ -277,7 +277,7 @@ function SidebarApplication() {
                     >
                       Delete User Profiles
                     </Link>
-                  </li>
+                  </li> */}
                   <li className="sub-nav-list">
                     <Link
                       to="/admin/usermanagement/entepriseusers"

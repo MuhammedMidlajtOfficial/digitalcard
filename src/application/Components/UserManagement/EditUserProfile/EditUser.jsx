@@ -1,19 +1,40 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Form, Input, DatePicker, Select } from "antd";
 import { TbEdit } from "react-icons/tb";
 import DefaultUser from "../../../Assets/Images/admin.png";
 import { Switch } from "antd";
 import { LuPencil } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
+
 const onChange = (checked) => {
   console.log(`switch to ${checked}`);
 };
-export const EditUser = () => {
+
+export const EditUser = ({ userId }) => { // Assuming `userData` is passed as a prop
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const fileInputRef = useRef(null);
   const [previewImage, setPreviewImage] = useState("");
   const [, setProfileImage] = useState(null);
+  const [userData, setUserData] = useState({
+    username : "",
+    email : "",
+    password:"",
+    image : "",
+    role : "",
+    name : "",
+    website : "",
+    phnNumber : "",
+    address : "",
+    whatsappNo : "",
+    facebookLink : "",
+    instagramLink : "",
+    twitterLink : "",
+  });
+
+  useEffect(() => {
+    
+  }, []);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -51,7 +72,8 @@ export const EditUser = () => {
     fileInputRef.current.click();
   };
 
-  const HandleSubmitForm = () => {
+  const HandleSubmitForm = (values) => {
+    // Handle submit logic, like sending data to backend
     alert("Personal Information Updated Successfully!");
   };
 
@@ -87,7 +109,7 @@ export const EditUser = () => {
               </div>
               <div>
                 <div className="d-flex gap-3 align-items-center">
-                  <h2>Navaneethan M </h2>
+                  <h2>{userData?.username || "Navaneethan M"}</h2>
                   <h1>
                     <LuPencil />
                   </h1>
@@ -95,7 +117,7 @@ export const EditUser = () => {
 
                 <p style={{ display: "flex", alignItems: "center" }}>
                   <span></span>
-                  Gold Member Ship
+                  {userData?.membership || "Gold Member Ship"}
                 </p>
                 <button>Change Member ship</button>
               </div>
@@ -147,7 +169,7 @@ export const EditUser = () => {
               <Form.Item label="Email" name="email" className="edit-user-form">
                 <div className="d-flex align-items-center">
                   <Input
-                    placeholder="Eneter Email Id"
+                    placeholder="Enter Email Id"
                     className="form-placeholder-field"
                   />
                   <LuPencil className="pencil-edit" />
@@ -168,7 +190,7 @@ export const EditUser = () => {
                     className="form-placeholder-field"
                   />
                   <Switch
-                    defaultChecked
+                    defaultChecked={userData?.status || true}
                     onChange={onChange}
                     style={{ marginLeft: "-60px" }}
                   />
@@ -213,7 +235,8 @@ export const EditUser = () => {
           <div className="row">
             <div className="d-flex justify-content-end gap-3">
               <button
-                className="cancel-btn" type="button"
+                className="cancel-btn"
+                type="button"
                 onClick={() => navigate("/admin/usermanagement/viewallusers")}
               >
                 Close

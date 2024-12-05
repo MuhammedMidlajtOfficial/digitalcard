@@ -43,10 +43,10 @@ const HeaderApplication = () => {
   return (
     <div style={{ position: "sticky", top: "0", zIndex: "999" }}>
       <nav className="navbar-header">
-        <div className="search-container-header">
+        {/* <div className="search-container-header">
           <FiSearch className="search-icon" />
           <input type="text" placeholder="Search..." className="search-input" />
-        </div>
+        </div> */}
         <div className="d-flex w-100 justify-content-end">
           <div className="d-flex align-items-center gap-2">
             <button
