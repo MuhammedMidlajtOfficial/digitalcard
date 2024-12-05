@@ -12,6 +12,7 @@ import { RxGrid } from "react-icons/rx";
 import { LuMenu } from "react-icons/lu";
 import { UserOutlined } from "@ant-design/icons";
 import { useLoading } from "../../../Services/loadingService";
+import { showErrorToast, showSuccessToast } from "../../../Services/toastService";
 
 const UsersProfiles = () => {
   const [isTableView, setIsTableView] = useState(false);
@@ -61,6 +62,24 @@ const UsersProfiles = () => {
     setCurrentPage(1); // Reset to the first page when the search term changes
   };
 
+  const handleChangeStatus = (userId) => {
+    startLoading(); // Start loading indicator
+    axiosInstance
+      .get(`user/changeUserStatus/${userId}`)
+      .then((response) => {
+        if(response.status === 200){
+          showSuccessToast(response.data.message)
+          fetchUsers()
+        }
+        stopLoading(); // Stop loading when data is fetched
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        showErrorToast("Something went wrong. Please try again later")
+        stopLoading(); // Stop loading in case of an error
+      });
+  };
+
   const filterMenu = (
     <Menu onClick={({ key }) => setFilter(key)} selectedKeys={[filter]}>
       <Menu.Item key="individualUser">Individual User</Menu.Item>
@@ -80,8 +99,10 @@ const UsersProfiles = () => {
     </Menu>
   );
 
+
   const renderUserProfileCard = (user) => {
-    const { image, username, companyName, subscriptionPlan, email, phnNumber } = user;
+    const { _id, image, username, companyName, subscriptionPlan, email, phnNumber, status } = user;
+    const color = status === 'active' ? 'green' : 'red';
     let tagClass = "";
     switch (subscriptionPlan) {
       case "Gold":
@@ -120,6 +141,13 @@ const UsersProfiles = () => {
           </div>
           <h4>{email}</h4>
           <h4>{phnNumber || "N/A"}</h4>
+          <h4>
+            <span style={{ color: color }}>
+              {status.charAt(0).toUpperCase() + status.slice(1)}
+              {' '}
+              user
+            </span>
+          </h4>
           <div className="d-flex gap-2 mt-2" style={{ width: "100" }}>
             <button
               className="edit-button"
@@ -127,7 +155,12 @@ const UsersProfiles = () => {
             >
               Edit
             </button>
-            <button className="delete-button">Delete</button>
+            <button
+              className={`status-button ${status === "active" ? "inactive" : "active"}`}
+              onClick={() => handleChangeStatus(_id)}
+            >
+              {status === "active" ? "Inactive" : "Active"}
+            </button>
           </div>
         </div>
       </div>
