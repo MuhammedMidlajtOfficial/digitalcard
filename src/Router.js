@@ -95,6 +95,8 @@ import PrivacyPolicy from "./website/Page/PolicyPages/PrivacyPolicy";
 import TermsAndConditions from "./website/Page/PolicyPages/TermsAndConditions";
 import CancellationPolicy from "./website/Page/PolicyPages/CancellationPolicy";
 import ShippingPolicy from "./website/Page/PolicyPages/ShippingPolicy";
+import GetNotifications from "./application/Page/NotificationSystem/GetNotification";
+import SendNotifications from "./application/Page/NotificationSystem/SendNotification";
 
 const Loader = () => {
   return <div className="loader"></div>;
@@ -154,7 +156,7 @@ const MainContent = () => {
     "/admin/rollbasedaccess/audit-trails",
     "/admin/automatedmarketing/campaign-setup",
     "/admin/automatedmarketing/email-sms-template",
-   "/admin/automatedmarketing/campaignanalytics",
+    "/admin/automatedmarketing/campaignanalytics",
     "/admin/automatedmarketing/automated-triggers",
     "/admin/userfeedback/surveylist",
     "/admin/userfeedback/create-survey",
@@ -183,6 +185,7 @@ const MainContent = () => {
     "/admin/paymentmanagement/paymentgateway",
     "/admin/paymentmanagement/refundprocess",
     "/admin/paymentmanagement/customerrefundinfo",
+    "/admin/notificationsystem/sendnotifications",
   ];
 
   const isApplicationRoute = applicationRoutes.includes(location.pathname);
@@ -211,8 +214,14 @@ const MainContent = () => {
             <Route path="resources" element={<Resources />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="terms-and-conditions" element={<TermsAndConditions />} />
-            <Route path="cancellation-policy" element={<CancellationPolicy />} />
+            <Route
+              path="terms-and-conditions"
+              element={<TermsAndConditions />}
+            />
+            <Route
+              path="cancellation-policy"
+              element={<CancellationPolicy />}
+            />
             <Route path="shipping-policy" element={<ShippingPolicy />} />
 
             {/* application routes */}
@@ -430,6 +439,17 @@ const MainContent = () => {
               path="/admin/notificationsystem/customizablealerts"
               element={<CustomizableAlerts />}
             />
+
+            <Route
+              path="/admin/notificationsystem/sendnotifications"
+              element={<SendNotifications />}
+            />
+
+            <Route
+              path="/admin/notificationsystem/getnotifications"
+              element={<GetNotifications />}
+            />
+
             <Route
               path="/admin/userfeedback/surveylist"
               element={<SurveyListPage />}

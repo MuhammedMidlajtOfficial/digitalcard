@@ -1069,6 +1069,16 @@ function SidebarApplication() {
                       Customizable Alerts
                     </Link>
                   </li>
+                  <li className="sub-nav-list">
+                    <Link
+                      to="/admin/notificationsystem/sendnotifications"
+                      className={`sub-nav-link ${
+                        location.pathname === "/admin/notificationsystem/sendnotifications" ? "active-sub-link" : ""
+                      }`}
+                    >
+                      Send Notification
+                    </Link>
+                  </li>
                 </ul>
               </li>
               <div className="line-dashed"></div>
