@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 
 // website routes
 import Home from "./website/Page/Home";
@@ -113,6 +113,7 @@ const MainContent = () => {
     "/forgot-password",
     "/otp-verification",
     "/create-password",
+    "/admin",
     "/admin/dashboard/overview",
     "/admin/dashboard/userstatic",
     "/admin/dashboard/cardshares",
@@ -231,6 +232,10 @@ const MainContent = () => {
             <Route path="/otp-verification" element={<OtpScreen />} />
             <Route path="/create-password" element={<ConfirmPassword />} />
 
+            <Route
+              path="/admin/*"
+              element={<Navigate to="/admin/dashboard/overview" replace />}
+            />
             <Route
               path="/admin/dashboard/overview"
               element={<DashboardPage />}

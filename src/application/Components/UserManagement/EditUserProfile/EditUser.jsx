@@ -5,36 +5,60 @@ import DefaultUser from "../../../Assets/Images/admin.png";
 import { Switch } from "antd";
 import { LuPencil } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../../../AxiosConfig";
 
 const onChange = (checked) => {
   console.log(`switch to ${checked}`);
 };
 
-export const EditUser = ({ userId }) => { // Assuming `userData` is passed as a prop
+export const EditUser = ({ userId }) => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const fileInputRef = useRef(null);
   const [previewImage, setPreviewImage] = useState("");
-  const [, setProfileImage] = useState(null);
+  const [profileImage, setProfileImage] = useState(null);
   const [userData, setUserData] = useState({
-    username : "",
-    email : "",
-    password:"",
-    image : "",
-    role : "",
-    name : "",
-    website : "",
-    phnNumber : "",
-    address : "",
-    whatsappNo : "",
-    facebookLink : "",
-    instagramLink : "",
-    twitterLink : "",
+    username: "",
+    email: "",
+    password: "",
+    image: "",
+    role: "",
+    name: "",
+    website: "",
+    phnNumber: "",
+    address: "",
+    whatsappNo: "",
+    facebookLink: "",
+    instagramLink: "",
+    twitterLink: "",
   });
 
   useEffect(() => {
-    
-  }, []);
+    axiosInstance
+      .get(`user/getUserById/${userId}`)
+      .then((response) => {
+        const data = response.data; 
+        setUserData({
+          username: data.username || "",
+          email: data.email || "",
+          password: data.password || "",
+          image: data.image || "",
+          role: data.role || "",
+          name: data.name || "",
+          website: data.website || "",
+          phnNumber: data.phnNumber || "",
+          address: data.address || "",
+          whatsappNo: data.whatsappNo || "",
+          facebookLink: data.facebookLink || "",
+          instagramLink: data.instagramLink || "",
+          twitterLink: data.twitterLink || "",
+        });
+        console.log('userData--',userData);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+  }, [userId]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];

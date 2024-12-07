@@ -30,6 +30,7 @@
   padding: 24px;
   display: flex;
   flex-direction: column;
+  min-height: 315px;
 }
 .application-users-profile-card h2 {
   font-size: 14px;
