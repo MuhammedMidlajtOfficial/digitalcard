@@ -4,10 +4,13 @@ import { GiCheckMark } from "react-icons/gi";
 import { FaPlus } from "react-icons/fa6";
 import CreateSubscriptionPlan from "./CreateSubscriptionPlan";
 
-const FeatureCard = ({ title, price, features, onDelete, onEdit }) => {
+const FeatureCard = ({ title, price, type, features, onDelete, onEdit }) => {
   return (
     <div className="col-lg-4 col-md-6">
       <div className="card-subscription-plan">
+        <div className="card-type-header">
+        <h1 className="card-type">{type}</h1>
+        </div>
         <div className="pricing-plan-header d-flex align-items-center justify-content-center">
           <h2>₹{price}</h2>
           <div className="vertical-line-plans"></div>
@@ -111,6 +114,7 @@ const ManageSubscriptionIndex = () => {
           {cards.map((card) => (
             <FeatureCard
               key={card.planId}
+              type={card.type}
               title={card.name}
               price={card.price}
               features={card.features}

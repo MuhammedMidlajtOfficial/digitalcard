@@ -33,7 +33,7 @@ const CreateSubscriptionPlan = ({
         price: initialData.price,
         packageType: initialData.duration === 30 ? "monthly" : "yearly",
         plan: initialData.plan,
-        userType: initialData.userType,
+        userType: initialData.type,
         description: featuresAsText,
       });
     } else {
@@ -138,8 +138,8 @@ const CreateSubscriptionPlan = ({
           rules={[{ required: true, message: "Please select a user type" }]}
         >
           <Radio.Group>
-            <Radio value="individual">Individual</Radio>
-            <Radio value="enterprise">Enterprise</Radio>
+            <Radio value="Individual">Individual</Radio>
+            <Radio value="Enterprise">Enterprise</Radio>
           </Radio.Group>
         </Form.Item>
 
