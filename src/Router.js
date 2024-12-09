@@ -119,7 +119,7 @@ const MainContent = () => {
     "/admin/dashboard/cardshares",
     "/admin/dashboard/recentactivities",
     "/admin/usermanagement/viewallusers",
-    "/admin/usermanagement/editusers",
+    "/admin/usermanagement/editusers/:userId",
     "/admin/usermanagement/deleteusers",
     "/admin/usermanagement/addusers",
     "/admin/cardmanagement/deletecards",
@@ -189,7 +189,7 @@ const MainContent = () => {
     "/admin/notificationsystem/sendnotifications",
   ];
 
-  const isApplicationRoute = applicationRoutes.includes(location.pathname);
+  const isApplicationRoute = applicationRoutes.some(route => location.pathname.startsWith(route));
 
   useEffect(() => {
     setLoading(true);
@@ -232,10 +232,10 @@ const MainContent = () => {
             <Route path="/otp-verification" element={<OtpScreen />} />
             <Route path="/create-password" element={<ConfirmPassword />} />
 
-            <Route
+            {/* <Route
               path="/admin/*"
               element={<Navigate to="/admin/dashboard/overview" replace />}
-            />
+            /> */}
             <Route
               path="/admin/dashboard/overview"
               element={<DashboardPage />}
@@ -273,7 +273,7 @@ const MainContent = () => {
               element={<AllUsersPage />}
             />
             <Route
-              path="/admin/usermanagement/editusers"
+              path="/admin/usermanagement/editusers/:userId"
               element={<UserEditPage />}
             />
             <Route

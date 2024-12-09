@@ -13,7 +13,6 @@ import { LuMenu } from "react-icons/lu";
 import { UserOutlined } from "@ant-design/icons";
 import { useLoading } from "../../../Services/loadingService";
 import { showErrorToast, showSuccessToast } from "../../../Services/toastService";
-import { EditUser } from "../EditUserProfile/EditUser";
 
 const UsersProfiles = () => {
   const [isTableView, setIsTableView] = useState(false);
@@ -152,7 +151,7 @@ const UsersProfiles = () => {
           <div className="d-flex gap-2 mt-2" style={{ width: "100" }}>
             <button
               className="edit-button"
-              onClick={() => EditUser({userId:_id})}
+              onClick={() => navigate(`/admin/usermanagement/editusers/${_id}`) }
             >
               Edit
             </button>

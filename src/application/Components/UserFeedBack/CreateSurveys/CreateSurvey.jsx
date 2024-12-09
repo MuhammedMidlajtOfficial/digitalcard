@@ -21,7 +21,7 @@ export const CreateSurvey = () => {
     };
     setQuestions([...questions, newQuestion]);
   };
-
+  
   const handleQuestionChange = (id, value) => {
     const updatedQuestions = questions?.map((q) =>
       q.id === id ? { ...q, label: value } : q

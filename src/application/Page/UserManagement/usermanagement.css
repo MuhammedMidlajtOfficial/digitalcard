@@ -116,6 +116,8 @@
   width: 150px;
   height: 150px;
   background-color: var(--background-color);
+  object-fit: cover; /* Ensures the image fills the circle without distortion */
+  display: block; /* Ensures it behaves like an image block */
 }
 .profile-image-overlay {
   position: absolute;
