@@ -4,10 +4,13 @@ import { GiCheckMark } from "react-icons/gi";
 import { FaPlus } from "react-icons/fa6";
 import CreateSubscriptionPlan from "./CreateSubscriptionPlan";
 
-const FeatureCard = ({ title, price, features, onDelete, onEdit }) => {
+const FeatureCard = ({ title, price, type, features, onDelete, onEdit }) => {
   return (
     <div className="col-lg-4 col-md-6">
       <div className="card-subscription-plan">
+        <div className="card-type-header">
+        <h1 className="card-type">{type}</h1>
+        </div>
         <div className="pricing-plan-header d-flex align-items-center justify-content-center">
           <h2>₹{price}</h2>
           <div className="vertical-line-plans"></div>
@@ -50,7 +53,7 @@ const ManageSubscriptionIndex = () => {
 
   const fetchSubscriptions = async () => {
     try {
-      const response = await axios.get("http://localhost:9000/api/v1/subscription");
+      const response = await axios.get("https://diskuss-admin.onrender.com/api/v1/subscription");
       const formattedPlans = response.data.SubscriptionPlans.map(plan => ({
         ...plan,
         price: plan.price?.$numberDecimal || plan.price, // Ensure price is a string/number
@@ -64,9 +67,9 @@ const ManageSubscriptionIndex = () => {
   const handleCreateOrEdit = async (data) => {
     try {
       if (selectedCard) {
-        await axios.put(`http://localhost:9000/api/v1/subscription/${selectedCard.planId}`, data);
+        await axios.put(`https://diskuss-admin.onrender.com/api/v1/subscription/${selectedCard.planId}`, data);
       } else {
-        await axios.post("http://localhost:9000/api/v1/subscription/", data);
+        await axios.post("https://diskuss-admin.onrender.com/api/v1/subscription/", data);
       }
       fetchSubscriptions();
       setIsModalOpen(false);
@@ -77,13 +80,12 @@ const ManageSubscriptionIndex = () => {
 
   const handleDelete = async (planId) => {
     try {
-      await axios.delete(`http://localhost:9000/api/v1/subscription/${planId}`);
+      await axios.delete(`https://diskuss-admin.onrender.com/api/v1/subscription/${planId}`);
       fetchSubscriptions();
     } catch (error) {
       console.error("Error deleting subscription:", error);
     }
   };
-
   const handleEdit = (card) => {
     setSelectedCard(card);
     setIsModalOpen(true);
@@ -111,6 +113,7 @@ const ManageSubscriptionIndex = () => {
           {cards.map((card) => (
             <FeatureCard
               key={card.planId}
+              type={card.type}
               title={card.name}
               price={card.price}
               features={card.features}
