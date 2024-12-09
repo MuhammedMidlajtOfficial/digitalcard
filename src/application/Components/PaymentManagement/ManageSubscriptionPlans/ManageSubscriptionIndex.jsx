@@ -53,7 +53,7 @@ const ManageSubscriptionIndex = () => {
 
   const fetchSubscriptions = async () => {
     try {
-      const response = await axios.get("http://localhost:9000/api/v1/subscription");
+      const response = await axios.get("https://diskuss-admin.onrender.com/api/v1/subscription");
       const formattedPlans = response.data.SubscriptionPlans.map(plan => ({
         ...plan,
         price: plan.price?.$numberDecimal || plan.price, // Ensure price is a string/number
@@ -67,9 +67,9 @@ const ManageSubscriptionIndex = () => {
   const handleCreateOrEdit = async (data) => {
     try {
       if (selectedCard) {
-        await axios.put(`http://localhost:9000/api/v1/subscription/${selectedCard.planId}`, data);
+        await axios.put(`https://diskuss-admin.onrender.com/api/v1/subscription/${selectedCard.planId}`, data);
       } else {
-        await axios.post("http://localhost:9000/api/v1/subscription/", data);
+        await axios.post("https://diskuss-admin.onrender.com/api/v1/subscription/", data);
       }
       fetchSubscriptions();
       setIsModalOpen(false);
@@ -80,13 +80,12 @@ const ManageSubscriptionIndex = () => {
 
   const handleDelete = async (planId) => {
     try {
-      await axios.delete(`http://localhost:9000/api/v1/subscription/${planId}`);
+      await axios.delete(`https://diskuss-admin.onrender.com/api/v1/subscription/${planId}`);
       fetchSubscriptions();
     } catch (error) {
       console.error("Error deleting subscription:", error);
     }
   };
-
   const handleEdit = (card) => {
     setSelectedCard(card);
     setIsModalOpen(true);
