@@ -62,7 +62,7 @@
   color: var(--white-color);
   font-size: 10px;
   font-weight: 600;
-  padding: 6px 16px;
+  padding: 6px 6px;
   border-radius: 5px;
 }
 .silver-member-tag {
@@ -70,7 +70,7 @@
   color: var(--white-color);
   font-size: 10px;
   font-weight: 600;
-  padding: 6px 16px;
+  padding: 6px 6px;
   border-radius: 5px;
 }
 .platinum-member-tag {
@@ -78,7 +78,7 @@
   color: var(--white-color);
   font-size: 10px;
   font-weight: 600;
-  padding: 6px 16px;
+  padding: 6px 6px;
   border-radius: 5px;
 }
 .default-member-tag{
@@ -86,7 +86,7 @@
   color: var(--white-color);
   font-size: 10px;
   font-weight: 600;
-  padding: 6px 16px;
+  padding: 6px 6px;
   border-radius: 5px;
 }
 .null-member-tag{
@@ -163,9 +163,9 @@
   z-index: 2;
 }
 .profile-icon-section span {
-  width: 16px;
-  height: 16px;
-  background-color: var(--gold-tag-color);
+  width: 20px;
+  height: 20px;
+  /* background-color: var(--gold-tag-color); */
   border-radius: 50%;
   display: inline-block;
   margin-right: 8px;
@@ -200,6 +200,10 @@
   font-size: 12px;
   padding: 8px 40px;
 }
+.cancel-btn:hover{
+  background-color: var(--danger-color);
+  color: var(--white-color);
+}
 .create-btn {
   color: var(--white-color);
   border: 1px solid var(--gradient-start-color);
@@ -207,13 +211,17 @@
   font-size: 12px;
   padding: 8px 40px;
 }
-.cancel-btn:hover,
+.create-btn:hover{
+  background-color: var(--white-color);
+  color: var(--gradient-start-color);
+}
+
+
 .profile-icon-section button:hover,
 .application-users-profile-card .edit-button:hover {
   background-color: var(--gradient-start-color);
   color: var(--white-color);
 }
-.create-btn:hover,
 .add-all-users:hover {
   background-color: var(--white-color);
   color: var(--gradient-start-color);

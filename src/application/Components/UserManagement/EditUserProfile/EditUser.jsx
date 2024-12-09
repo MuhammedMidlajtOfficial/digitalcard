@@ -3,6 +3,8 @@ import { Form, Input, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../../AxiosConfig";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import { showErrorToast, showInfoToast, showSuccessToast, showWarningToast } from "../../../Services/toastService";
+import { useLoading } from "../../../Services/loadingService";
 
 const onChange = (checked) => {
   console.log(`switch to ${checked}`);
@@ -16,8 +18,11 @@ export const EditUser = ({ userId }) => {
   const [profileImage, setProfileImage] = useState(null);
   const [selectedUserType, setSelectedUserType] = useState("individual"); // Default user type
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { loading, startLoading, stopLoading } = useLoading(); // Use the loading state
+  const [isLoading, setIsLoading] = useState(false); // State for blur effect
   const [userData, setUserData] = useState({
-    username: "ExistingUser",
+    username: "",
     email: "",
     password: "",
     image: "",
@@ -30,14 +35,19 @@ export const EditUser = ({ userId }) => {
     facebookLink: "",
     instagramLink: "",
     twitterLink: "",
+    companyName: "",
+    industryType: "",
+    aboutUs: "",
+    membership: null,
   });
 
   useEffect(() => {
     axiosInstance
       .get(`user/getUserById/${userId}`)
       .then((response) => {
-        const data = response.data.userData; 
-        console.log('response--',response.data.userData);
+        const data = response.data.userData;
+        console.log('response--', response.data);
+        setSelectedUserType(response.data.userType)
         setUserData({
           username: data.username || "",
           email: data.email || "",
@@ -52,13 +62,80 @@ export const EditUser = ({ userId }) => {
           facebookLink: data.facebookLink || "",
           instagramLink: data.instagramLink || "",
           twitterLink: data.twitterLink || "",
+          companyName: data.companyName || "",
+          industryType: data.industryType || "",
+          aboutUs: data.aboutUs || "",
+          membership: response.data?.subscription?.planId?.name || null
         });
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
   }, [userId]);
+  
 
+  useEffect(() => {
+    console.log('userData-',userData);
+  }, []);
+
+  useEffect(() => {
+    form.setFieldsValue({
+      email: userData?.email,
+      username: userData?.username,
+      phnNumber: userData?.phnNumber,
+      name: userData?.name,
+      role: userData?.role,
+      address: userData?.address,
+      website: userData?.website,
+      whatsappNo: userData?.whatsappNo,
+      facebookLink: userData?.facebookLink,
+      instagramLink: userData?.instagramLink,
+      twitterLink: userData?.twitterLink,
+      companyName: userData?.companyName,
+      industryType: userData?.industryType,
+      aboutUs: userData?.aboutUs,
+    });
+  }, [form, userData]);
+
+  const handleUpdateUser = () => {
+    if (isSubmitting) return; // Prevent multiple clicks
+  
+    setIsSubmitting(true);
+    setIsLoading(true); // Enable blur effect
+    startLoading(); // Start loading indicator
+  
+    axiosInstance
+      .post(`user/addIndividualUser`, {
+        
+      })
+      .then((response) => {
+        if (response.status === 201) {
+          showSuccessToast('User created successfully!');
+          navigate('/admin/usermanagement/viewallusers');
+        } else {
+          showInfoToast('Unexpected response. Check the console for details.');
+          console.log('Response--', response);
+        }
+        setIsLoading(false); // Disable blur effect
+        setIsSubmitting(false);
+        stopLoading(); // Stop loading when data is fetched
+      })
+      .catch((error) => {
+        if (error.status === 409) {
+          showErrorToast('Email is already in use!');
+          console.log('Email is already in use -', error);
+        } else if (error.status === 400) {
+          showWarningToast('All fields are required.');
+          console.log('All fields are required -', error);
+        } else if (error.status === 500) {
+          showErrorToast('Server error. Please try again later.');
+        } 
+        setIsLoading(false); // Disable blur effect in case of an error
+        setIsSubmitting(false);
+        stopLoading(); // Stop loading in case of an error
+      });
+  };
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUserData((prevData) => ({
@@ -117,6 +194,26 @@ export const EditUser = ({ userId }) => {
     alert("Personal Information Updated Successfully!");
   };
 
+  function getMembershipTag(subscriptionPlan) {
+    let tagClass;
+    switch (subscriptionPlan) {
+      case "Gold":
+        tagClass = "gold-member-tag";
+        break;
+      case "Silver":
+        tagClass = "silver-member-tag";
+        break;
+      case "Platinum":
+        tagClass = "platinum-member-tag";
+        break;
+      default:
+        tagClass = "default-member-tag";
+    }
+    return tagClass;
+  }
+
+  const tagClass = getMembershipTag(userData?.membership);
+
   return (
     <div className="personal-information-section">
       <div className="container">
@@ -153,15 +250,15 @@ export const EditUser = ({ userId }) => {
                 </div>
 
                 <p style={{ display: "flex", alignItems: "center" }}>
-                  <span></span>
+                  <span className={tagClass}></span>
                   {userData?.membership || "Unsubscribed User"}
                 </p>
                 <div>
-                {/* Button also triggers the file input click */}
-                <div className="add-profile-btn" onClick={triggerFileInput}>
-                  Change Profile Image
-                </div>
-              </div>              
+                  {/* Button also triggers the file input click */}
+                  <div className="add-profile-btn" onClick={triggerFileInput}>
+                    Change Profile Image
+                  </div>
+                </div>              
               </div>
             </div>
           </div>
@@ -209,9 +306,9 @@ export const EditUser = ({ userId }) => {
                   </Form.Item>
                 </div>
               </div>
-              {/* Email & Password */}
+              {/* Email */}
               <div className="row">
-                <div className="col-md-6 mb-1">
+                <div className="col-md-12 mb-1">
                   <Form.Item
                     label="Email"
                     name="email"
@@ -225,43 +322,9 @@ export const EditUser = ({ userId }) => {
                       placeholder="Enter Mail Id"
                       className="form-placeholder-field"
                       name="email"
-                      value={userData.email}
+                      value={userData.email || "Email is here "}
                       disabled
                     />
-                  </Form.Item>
-                </div>
-                <div className="col-md-6 mb-1">
-                  <Form.Item
-                    label="Password"
-                    name="password"
-                    className="edit-user-form"
-                    rules={[
-                      { required: true, message: "Please enter a password!" },
-                      { min: 6, message: "Password must be at least 6 characters long." },
-                    ]}
-                  >
-                    <div className="password-container" style={{ position: "relative" }}>
-                      <Input
-                        placeholder="Enter Password"
-                        className="form-placeholder-field"
-                        type={isPasswordVisible ? "text" : "password"}
-                        name="password"
-                        value={userData.password}
-                        onChange={handleInputChange}
-                      />
-                      <span
-                        onClick={togglePasswordVisibility}
-                        style={{
-                          position: "absolute",
-                          right: "10px",
-                          top: "50%",
-                          transform: "translateY(-50%)",
-                          cursor: "pointer",
-                        }}
-                      >
-                        {isPasswordVisible ? <EyeTwoTone /> : <EyeInvisibleOutlined />}
-                      </span>
-                    </div>
                   </Form.Item>
                 </div>
               </div>
@@ -463,9 +526,9 @@ export const EditUser = ({ userId }) => {
                 </div>
               </div>
 
-              {/* Email & Password */}
+              {/* Email */}
               <div className="row">
-                <div className="col-md-6 mb-1">
+                <div className="col-md-12 mb-1">
                   <Form.Item
                     label="Email"
                     name="email"
@@ -476,46 +539,12 @@ export const EditUser = ({ userId }) => {
                     ]}
                   >
                     <Input
-                      placeholder="Enter Email"
+                      placeholder="Enter Mail Id"
                       className="form-placeholder-field"
                       name="email"
-                      value={userData.email}
-                      onChange={handleInputChange}
+                      value={userData.email || "Email is here "}
+                      disabled
                     />
-                  </Form.Item>
-                </div>
-                <div className="col-md-6 mb-1">
-                  <Form.Item
-                    label="Password"
-                    name="password"
-                    className="edit-user-form"
-                    rules={[
-                      { required: true, message: "Please enter a password!" },
-                      { min: 6, message: "Password must be at least 6 characters long." },
-                    ]}
-                  >
-                    <div className="password-container" style={{ position: "relative" }}>
-                      <Input
-                        placeholder="Enter Password"
-                        className="form-placeholder-field"
-                        type={isPasswordVisible ? "text" : "password"}
-                        name="password"
-                        value={userData.password}
-                        onChange={handleInputChange}
-                      />
-                      <span
-                        onClick={togglePasswordVisibility}
-                        style={{
-                          position: "absolute",
-                          right: "10px",
-                          top: "50%",
-                          transform: "translateY(-50%)",
-                          cursor: "pointer",
-                        }}
-                      >
-                        {isPasswordVisible ? <EyeTwoTone /> : <EyeInvisibleOutlined />}
-                      </span>
-                    </div>
                   </Form.Item>
                 </div>
               </div>
