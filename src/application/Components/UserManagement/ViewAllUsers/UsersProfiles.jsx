@@ -123,10 +123,10 @@ const UsersProfiles = () => {
         <div className="application-users-profile-card">
           <div className="d-flex justify-content-center">
             <Avatar
-              src={image}
+              src={image || null}
               shape="square"
               size={68}
-              icon={!image && <UserOutlined />}
+              icon={image ? null : <UserOutlined />}
             />
           </div>
           <h2 className="mt-3">

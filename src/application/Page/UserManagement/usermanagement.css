@@ -211,9 +211,10 @@
   font-size: 12px;
   padding: 8px 40px;
 }
-.create-btn:hover{
-  background-color: var(--white-color);
-  color: var(--gradient-start-color);
+.create-btn
+.create-btn span:hover{
+  background-color: var(--white-color)!important;
+  color: var(--gradient-start-color)!important;
 }
 
 

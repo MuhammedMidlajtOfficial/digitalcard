@@ -2,29 +2,20 @@ import React, { useState, useRef, useEffect } from "react";
 import { Form, Input, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../../AxiosConfig";
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { showErrorToast, showInfoToast, showSuccessToast, showWarningToast } from "../../../Services/toastService";
 import { useLoading } from "../../../Services/loadingService";
-
-const onChange = (checked) => {
-  console.log(`switch to ${checked}`);
-};
 
 export const EditUser = ({ userId }) => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const fileInputRef = useRef(null);
-  const [previewImage, setPreviewImage] = useState("");
-  const [profileImage, setProfileImage] = useState(null);
   const [selectedUserType, setSelectedUserType] = useState("individual"); // Default user type
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { loading, startLoading, stopLoading } = useLoading(); // Use the loading state
   const [isLoading, setIsLoading] = useState(false); // State for blur effect
   const [userData, setUserData] = useState({
     username: "",
     email: "",
-    password: "",
     image: "",
     role: "",
     name: "",
@@ -51,7 +42,6 @@ export const EditUser = ({ userId }) => {
         setUserData({
           username: data.username || "",
           email: data.email || "",
-          password: data.password || "",
           image: data.image || "",
           role: data.role || "",
           name: data.name || "",
@@ -72,8 +62,40 @@ export const EditUser = ({ userId }) => {
         console.error("Error fetching user data:", error);
       });
   }, [userId]);
-  
 
+  const HandleSubmitForm = async (values) => {
+    const allowedFields = {
+      individual: ['username', 'email', 'image', 'role', 'name', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink'],
+      enterprise: ['email', 'image', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink', 'companyName', 'industryType', 'aboutUs'],
+      enterpriseEmp: ['username', 'email', 'image', 'role', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink']
+    }[selectedUserType];
+  
+    // Filter out only allowed fields
+    const filteredData = Object.fromEntries(
+      Object.entries(values).filter(([key]) => allowedFields.includes(key))
+    );
+  
+    // If there's an image in userData, include it in the submission
+    if (userData.image) {
+      filteredData.image = userData.image; // Add the Base64 image from userData
+    }
+  
+    try {
+      setIsLoading(true);
+      // Send the PATCH request to update the user profile
+      const response = await axiosInstance.patch(`/user/updateProfile/${userId}`, { ...filteredData, userType: selectedUserType });
+  
+      // Show success toast on successful update
+      showSuccessToast(response.data.message);
+      navigate('/admin/usermanagement/viewallusers');
+    } catch (error) {
+      // Show error toast on failure
+      showErrorToast(error.response?.data?.message || "Update failed");
+    } finally {
+      setIsLoading(false); // Set loading to false after the request is finished
+    }
+  };
+  
   useEffect(() => {
     console.log('userData-',userData);
   }, []);
@@ -97,55 +119,12 @@ export const EditUser = ({ userId }) => {
     });
   }, [form, userData]);
 
-  const handleUpdateUser = () => {
-    if (isSubmitting) return; // Prevent multiple clicks
-  
-    setIsSubmitting(true);
-    setIsLoading(true); // Enable blur effect
-    startLoading(); // Start loading indicator
-  
-    axiosInstance
-      .post(`user/addIndividualUser`, {
-        
-      })
-      .then((response) => {
-        if (response.status === 201) {
-          showSuccessToast('User created successfully!');
-          navigate('/admin/usermanagement/viewallusers');
-        } else {
-          showInfoToast('Unexpected response. Check the console for details.');
-          console.log('Response--', response);
-        }
-        setIsLoading(false); // Disable blur effect
-        setIsSubmitting(false);
-        stopLoading(); // Stop loading when data is fetched
-      })
-      .catch((error) => {
-        if (error.status === 409) {
-          showErrorToast('Email is already in use!');
-          console.log('Email is already in use -', error);
-        } else if (error.status === 400) {
-          showWarningToast('All fields are required.');
-          console.log('All fields are required -', error);
-        } else if (error.status === 500) {
-          showErrorToast('Server error. Please try again later.');
-        } 
-        setIsLoading(false); // Disable blur effect in case of an error
-        setIsSubmitting(false);
-        stopLoading(); // Stop loading in case of an error
-      });
-  };
-  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUserData((prevData) => ({
       ...prevData,
       [name]: value, // Update the specific field dynamically
     }));
-  };
-
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible(!isPasswordVisible);
   };
 
   const triggerFileInput = () => {
@@ -155,6 +134,10 @@ export const EditUser = ({ userId }) => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+    console.log("Selected file:", file);
+  
+    if (!file) return;
+  
     const allowedTypes = [
       "image/jpeg",
       "image/jpg",
@@ -162,36 +145,35 @@ export const EditUser = ({ userId }) => {
       "image/webp",
       "image/svg+xml",
     ];
-
+  
     if (!allowedTypes.includes(file.type)) {
-      alert("Only JPG, JPEG, PNG, WEBP, and SVG images are allowed.");
+      showWarningToast("Only JPG, JPEG, PNG, WEBP, and SVG images are allowed.");
       return;
     }
-
+  
     const maxSizeInMB = 2;
     const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
     if (file.size > maxSizeInBytes) {
-      alert("File size should be less than 2MB.");
+      showWarningToast("File size should be less than 2MB.");
       return;
     }
-
-    if (file) {
-      setProfileImage(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
+  
+    // Convert the image to base64 and store it in userData
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      console.log("Preview Image:", reader.result);
+  
+      // Set the base64 encoded image in userData
+      setUserData((prevData) => ({
+        ...prevData,
+        image: reader.result, // Store the base64 encoded image
+      }));
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleEditClick = () => {
     fileInputRef.current.click();
-  };
-
-  const HandleSubmitForm = (values) => {
-    // Handle submit logic, like sending data to backend
-    alert("Personal Information Updated Successfully!");
   };
 
   function getMembershipTag(subscriptionPlan) {
@@ -214,10 +196,21 @@ export const EditUser = ({ userId }) => {
 
   const tagClass = getMembershipTag(userData?.membership);
 
+  const handleTitle = () => {
+    if (selectedUserType === "individual") {
+      return "Edit Individual User Profile";
+    } else if (selectedUserType === "enterprise") {
+      return "Edit Enterprise User Profile";
+    } else if (selectedUserType === "enterpriseEmp") {
+      return "Edit Enterprise Employee Profile";
+    }
+    return "Edit User Profile"; // Default case
+  };
+
   return (
     <div className="personal-information-section">
       <div className="container">
-        <h4>Edit User Profile</h4>
+        <h4>{handleTitle()}</h4>
         <Form layout="vertical" form={form} onFinish={HandleSubmitForm}>
           <div className="row mt-4">
             <div className="profile-icon-section">
@@ -231,7 +224,7 @@ export const EditUser = ({ userId }) => {
                     {/* <TbEdit className="upload-icon" /> */}
                     {/* <h6>Upload</h6> */}
                   </div>
-                  <img src={userData?.image ? userData?.image : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQdztTDcpZ2pFqwWDYwSXbvZq5nzJYg5cn8w&s"}
+                  <img style={{ border:"1px solid black" }} src={userData?.image ? userData?.image : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQdztTDcpZ2pFqwWDYwSXbvZq5nzJYg5cn8w&s"}
                     alt="Profile"
                     className="profile-image"
                   />
@@ -245,9 +238,9 @@ export const EditUser = ({ userId }) => {
                 />
               </div>
               <div>
-                <div className="d-flex gap-3 align-items-center">
-                  <h2>{userData?.username || "Username"}</h2>
-                </div>
+              <div className="d-flex gap-3 align-items-center">
+                <h2>{selectedUserType === "enterprise" ? userData?.companyName : userData?.username || "Username"}</h2>
+              </div>
 
                 <p style={{ display: "flex", alignItems: "center" }}>
                   <span className={tagClass}></span>
@@ -313,10 +306,6 @@ export const EditUser = ({ userId }) => {
                     label="Email"
                     name="email"
                     className="edit-user-form"
-                    rules={[
-                      { required: true, message: "Please enter an email!" },
-                      { type: "email", message: "Enter a valid email address!" },
-                    ]}
                   >
                     <Input
                       placeholder="Enter Mail Id"
@@ -481,7 +470,7 @@ export const EditUser = ({ userId }) => {
                     type="primary"
                     htmlType="submit"
                   >
-                    Create
+                    Update
                   </Button>
                 </div>
               </div>
@@ -533,10 +522,6 @@ export const EditUser = ({ userId }) => {
                     label="Email"
                     name="email"
                     className="edit-user-form"
-                    rules={[
-                      { required: true, message: "Please enter an email!" },
-                      { type: "email", message: "Enter a valid email address!" },
-                    ]}
                   >
                     <Input
                       placeholder="Enter Mail Id"
@@ -722,6 +707,227 @@ export const EditUser = ({ userId }) => {
                 </div>
               </div>
             </>
+          )}
+          {/* ENTERPRISE EMPLOYEE */}
+          {selectedUserType === "enterpriseEmp" && (
+          <>
+            {/* Username & Mobile Number */}
+              <div className="row mt-4">
+                <div className="col-md-6 mb-1">
+                  <Form.Item
+                    label="User Name"
+                    name="username"
+                    className="edit-user-form"
+                    rules={[
+                      { required: true, message: "Please enter a username!" },
+                      { min: 3, message: "Username must be at least 3 characters long." },
+                    ]}
+                  >
+                    <Input
+                      placeholder="Enter User Name"
+                      className="form-placeholder-field"
+                      name="username"
+                      value={userData?.username}
+                      onChange={handleInputChange}
+                    />
+                  </Form.Item>
+                </div>
+                <div className="col-md-6 mb-1">
+                  <Form.Item
+                    label="Mobile Number"
+                    name="phnNumber"
+                    className="edit-user-form"
+                    rules={[
+                      { required: true, message: "Please enter a mobile number!" },
+                      { pattern: /^\d{10}$/, message: "Mobile number must be 10 digits." },
+                    ]}
+                  >
+                    <Input
+                      placeholder="Mobile Number"
+                      className="form-placeholder-field"
+                      name="phnNumber"
+                      value={userData.phnNumber}
+                      onChange={handleInputChange}
+                    />
+                  </Form.Item>
+                </div>
+              </div>
+              {/* Email */}
+              {/* <div className="row">
+                <div className="col-md-12 mb-1">
+                  <Form.Item
+                    label="Email"
+                    name="email"
+                    className="edit-user-form"
+                  >
+                    <Input
+                      placeholder="Enter Mail Id"
+                      className="form-placeholder-field"
+                      name="email"
+                      value={userData.email || "Email is here "}
+                      disabled
+                    />
+                  </Form.Item>
+                </div>
+              </div> */}
+              {/* Email & Role */}
+              <div className="row">
+                <div className="col-md-6 mb-1">
+                  <Form.Item
+                    label="Email"
+                    name="email"
+                    className="edit-user-form"
+                  >
+                    <Input
+                      placeholder="Enter Mail Id"
+                      className="form-placeholder-field"
+                      name="email"
+                      value={userData.email || "Email is here "}
+                      disabled
+                    />
+                  </Form.Item>
+                </div>
+                <div className="col-md-6 mb-1">
+                  <Form.Item
+                    label="Role"
+                    name="role"
+                    className="edit-user-form"
+                  >
+                    <Input
+                        placeholder="Enter Role"
+                        className="form-placeholder-field"
+                      name="role"
+                      value={userData.role}
+                      onChange={handleInputChange}
+                    />
+                  </Form.Item>
+                </div>
+              </div>
+              {/* Address & Website */}
+              <div className="row">
+                <div className="col-md-6 mb-1">
+                  <Form.Item
+                    label="Address"
+                    name="address"
+                    className="edit-user-form"
+                  >
+                    <Input
+                      placeholder="Enter Address"
+                      className="form-placeholder-field"
+                      name="address"
+                      value={userData.address}
+                      onChange={handleInputChange}
+                    />
+                  </Form.Item>
+                </div>
+                <div className="col-md-6 mb-1">
+                  <Form.Item
+                    label="Website"
+                    name="website"
+                    className="edit-user-form"
+                    rules={[{ type: "url", message: "Enter a valid website URL!" }]}
+                  >
+                    <Input
+                      placeholder="Enter Website"
+                      className="form-placeholder-field"
+                      name="website"
+                      value={userData.website}
+                      onChange={handleInputChange}
+                    />
+                  </Form.Item>
+                </div>
+              </div>
+              {/* Social Media Links */}
+              {/* whatsappNo & facebookLink */}
+              <div className="row">
+                <div className="col-md-6 mb-1">
+                  <Form.Item
+                    label="Whatsapp Number"
+                    name="whatsappNo"
+                    className="edit-user-form"
+                >
+                    <Input
+                      placeholder="Enter Whatsapp Number"
+                      className="form-placeholder-field"
+                      name="whatsappNo"
+                      value={userData.whatsappNo}
+                      onChange={handleInputChange}
+                    />
+                  </Form.Item>
+                </div>
+                <div className="col-md-6 mb-1">
+                  <Form.Item
+                    label="Facebook Link"
+                    name="facebookLink"
+                    className="edit-user-form"
+                    rules={[{ type: "url", message: "Enter a valid Facebook link!" }]}
+                  >
+                    <Input
+                      placeholder="Enter Facebook Link"
+                      className="form-placeholder-field"
+                      name="facebookLink"
+                      value={userData.facebookLink}
+                      onChange={handleInputChange}
+                    />
+                  </Form.Item>
+                </div>
+              </div>
+              {/* instagramLink & twitterLink */}
+              <div className="row">
+                <div className="col-md-6 mb-1">
+                  <Form.Item
+                    label="Instagram Link"
+                    name="instagramLink"
+                    className="edit-user-form"
+                    rules={[{ type: "url", message: "Enter a valid Instagram link!" }]}
+                  >
+                    <Input
+                      placeholder="Enter Instagram Link"
+                      className="form-placeholder-field"
+                      name="instagramLink"
+                      value={userData.instagramLink}
+                      onChange={handleInputChange}
+                    />
+                  </Form.Item>
+                </div>
+                <div className="col-md-6 mb-1">
+                  <Form.Item
+                    label="Twitter Link"
+                    name="twitterLink"
+                    className="edit-user-form"
+                    rules={[{ type: "url", message: "Enter a valid Twitter link!" }]}
+                  >
+                    <Input
+                      placeholder="Enter Twitter Link"
+                      className="form-placeholder-field"
+                      name="twitterLink"
+                      value={userData.twitterLink}
+                      onChange={handleInputChange}
+                    />
+                  </Form.Item>
+                </div>
+              </div>
+
+              {/* Buttons */}
+              <div className="row">
+                <div className="d-flex justify-content-end gap-3">
+                  <Button
+                    className="cancel-btn"
+                    type="button"
+                    onClick={() => navigate("/admin/usermanagement/viewallusers")}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    className="create-btn"
+                    type="primary"
+                    htmlType="submit"
+                  >
+                    Update
+                  </Button>
+                </div>
+              </div>
+          </>
           )}
         </Form>
       </div>
