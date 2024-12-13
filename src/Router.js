@@ -11,6 +11,7 @@ import Pricing from "./website/Page/Pricing";
 import Resources from "./website/Page/Resources";
 import ScrollToTop from "./ScrollToTop";
 import Contact from "./website/Page/Contact";
+import EmpPage from "./website/Page/employeePage" 
 
 // application routes
 import Login from "./application/Auth/Login";
@@ -224,6 +225,7 @@ const MainContent = () => {
               element={<CancellationPolicy />}
             />
             <Route path="shipping-policy" element={<ShippingPolicy />} />
+            <Route path="/employee" element={<EmpPage />} />
 
             {/* application routes */}
             <Route path="/login" element={<Login />} />
