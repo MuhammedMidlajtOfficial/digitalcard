@@ -1,86 +1,111 @@
-import React, { useState } from "react";
-import { createCategory } from "../../services/CategoryServices";
+import React, { useEffect, useState } from "react";
+import { fetchCategories, deleteCategory, toggleCategoryStatus } from "../../services/CategoryServices";
+import { FaToggleOn, FaToggleOff } from "react-icons/fa";
 
-const AddCategoryModal = ({ isOpen, onClose, roles }) => {
-  const [categoryName, setCategoryName] = useState("");
-  const [selectedRoles, setSelectedRoles] = useState([]);
-  const [isActive, setIsActive] = useState(true);
+const CategoryList = () => {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async () => {
+  useEffect(() => {
+    const loadCategories = async () => {
+      setLoading(true);
+      try {
+        const response = await fetchCategories();
+        setCategories(response.data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+        alert("Failed to fetch categories. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCategories();
+  }, []);
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this category?")) return;
+
     try {
-      await createCategory({
-        categoryName,
-        isActive,
-        roles: selectedRoles,
-      });
-      alert("Category created successfully!");
-      onClose();
+      const response = await deleteCategory(id);
+      if (response.status === 200) {
+        setCategories((prev) => prev.filter((category) => category.id !== id));
+        alert(response.data.message);
+      }
     } catch (error) {
-      alert("Error creating category");
+      console.error("Error deleting category:", error);
+      alert(`Failed to delete category: ${error.response?.data?.message || "Unknown error"}`);
     }
   };
 
-  const handleRoleToggle = (roleId) => {
-    setSelectedRoles((prev) =>
-      prev.includes(roleId)
-        ? prev.filter((id) => id !== roleId)
-        : [...prev, roleId]
-    );
+  const handleToggleStatus = async (id, isActive) => {
+    try {
+      // Optimistically update the UI
+      setCategories((prev) =>
+        prev.map((category) =>
+          category.id === id ? { ...category, isActive: !isActive } : category
+        )
+      );
+
+      // Persist the change to the backend
+      const response = await toggleCategoryStatus(id);
+      if (response.status === 200) {
+        const updatedCategory = response.data.category;
+        setCategories((prev) =>
+          prev.map((category) =>
+            category.id === id ? { ...category, isActive: updatedCategory.isActive } : category
+          )
+        );
+        alert(response.data.message);
+      }
+    } catch (error) {
+      console.error("Error toggling category status:", error);
+      alert(`Failed to update category status: ${error.response?.data?.message || "Unknown error"}`);
+      // Revert the UI state if there was an error
+      setCategories((prev) =>
+        prev.map((category) =>
+          category.id === id ? { ...category, isActive } : category
+        )
+      );
+    }
   };
 
   return (
-    isOpen && (
-      <div className="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50 z-50">
-        <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-          <h2 className="text-xl font-bold mb-4">Add Category</h2>
-          <input
-            type="text"
-            placeholder="Category Name"
-            value={categoryName}
-            onChange={(e) => setCategoryName(e.target.value)}
-            className="w-full px-4 py-2 mb-4 border rounded-lg"
-          />
-          <div className="mb-4">
-            <h3 className="text-lg font-semibold mb-2">Assign Roles</h3>
-            {roles.map((role) => (
-              <label key={role.id} className="block">
-                <input
-                  type="checkbox"
-                  checked={selectedRoles.includes(role.id)}
-                  onChange={() => handleRoleToggle(role.id)}
-                  className="mr-2"
-                />
-                {role.roleName}
-              </label>
-            ))}
+    <div>
+      {loading ? (
+        <p>Loading categories...</p>
+      ) : categories.length > 0 ? (
+        categories.map((category) => (
+          <div key={category.id} className="p-4 border-b flex justify-between items-center">
+            <div>
+              <h3 className="text-lg font-semibold">{category.categoryName}</h3>
+              <p className="text-sm text-gray-600">{category.isActive ? "Active" : "Inactive"}</p>
+            </div>
+            <div className="flex space-x-2">
+              <button
+                onClick={() => handleToggleStatus(category._id, category.isActive)}
+                className="text-2xl"
+              >
+                {category.isActive ? (
+                  <FaToggleOn className="text-green-500" />
+                ) : (
+                  <FaToggleOff className="text-gray-400" />
+                )}
+              </button>
+              <button
+                onClick={() => handleDelete(category._id)}
+                className="px-2 py-1 text-white bg-red-500 rounded"
+              >
+                Delete
+              </button>
+            </div>
           </div>
-          <label>
-            <input
-              type="checkbox"
-              checked={isActive}
-              onChange={(e) => setIsActive(e.target.checked)}
-              className="mr-2"
-            />
-            Active
-          </label>
-          <div className="mt-4 flex justify-end space-x-4">
-            <button
-              onClick={onClose}
-              className="px-4 py-2 bg-gray-300 rounded-lg"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={handleSubmit}
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg"
-            >
-              Add Category
-            </button>
-          </div>
-        </div>
-      </div>
-    )
+        ))
+      ) : (
+        <p>No categories available.</p>
+      )}
+    </div>
   );
 };
 
-export default AddCategoryModal;
+export default CategoryList;

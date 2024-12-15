@@ -225,7 +225,7 @@ const MainContent = () => {
               element={<CancellationPolicy />}
             />
             <Route path="shipping-policy" element={<ShippingPolicy />} />
-            <Route path="/employee" element={<EmpPage />} />
+            <Route path="employee" element={<EmpPage />} />
 
             {/* application routes */}
             <Route path="/login" element={<Login />} />
