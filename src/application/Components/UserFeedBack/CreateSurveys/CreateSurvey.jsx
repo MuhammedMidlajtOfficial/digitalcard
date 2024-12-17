@@ -2,7 +2,7 @@ import { Form, Input, Button,Checkbox } from "antd";
 import React, { useState } from "react";
 import { IoIosStarOutline } from "react-icons/io";
 import { IoChevronDownCircleOutline } from "react-icons/io5";
-import { LuUploadCloud } from "react-icons/lu";
+// import { LuUploadCloud } from "react-icons/lu";
 import { MdShortText } from "react-icons/md";
 import { PiTextAlignLeft } from "react-icons/pi";
 import { RiCheckboxCircleLine } from "react-icons/ri";
@@ -211,9 +211,9 @@ export const CreateSurvey = () => {
                 style={{ background: "#F1616A" }}
                 onClick={() => addQuestion("upload")}
               >
-                <div className="create-survey-icons">
+                {/* <div className="create-survey-icons">
                   <LuUploadCloud size={18} />
-                </div>
+                </div> */}
                 <h4>Upload</h4>
               </div>
             </div>

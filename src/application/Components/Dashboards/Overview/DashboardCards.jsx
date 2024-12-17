@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FiUsers, FiUser, FiUserCheck } from "react-icons/fi";
 import { BsClipboardPlus, BsTicketPerforated } from "react-icons/bs";
-import { LuUsers2 } from "react-icons/lu";
+// import { LuUsers2 } from "react-icons/lu";
 import axiosInstance from "../../../../AxiosConfig";
 
 const DashboardCards = () => {
@@ -119,7 +119,7 @@ const DashboardCards = () => {
       textColor: "#ffffff",
     },
     {
-      icon: LuUsers2,
+      icon: 'LuUsers2',
       title: "Subscribed Users",
       value: subscribedCount,
       bgColor: "#ffa8cd",

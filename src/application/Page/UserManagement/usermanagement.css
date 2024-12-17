@@ -30,7 +30,7 @@
   padding: 24px;
   display: flex;
   flex-direction: column;
-  min-height: 315px;
+  /* min-height: 315px; */
 }
 .application-users-profile-card h2 {
   font-size: 14px;
@@ -43,6 +43,7 @@
   color: var(--text-secondary-color);
   font-weight: 600;
   text-align: center;
+  margin: 3px;
 }
 .application-users-profile-card button {
   font-size: 12px;
