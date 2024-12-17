@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiFilter, FiSearch } from "react-icons/fi";
-import { Dropdown, Menu, Avatar } from "antd";
+import { Dropdown, Menu, Avatar, Pagination } from "antd";
 import { IoIosArrowForward } from "react-icons/io";
 import { TbArrowsDownUp } from "react-icons/tb";
 import { RxGrid } from "react-icons/rx";
@@ -9,6 +9,7 @@ import { LuMenu } from "react-icons/lu";
 import { EnterpriseListUsers } from "./EnterpriseListUsers";
 import { useLoading } from "../../../Services/loadingService";
 import axiosInstance from "../../../../AxiosConfig";
+import { UserOutlined } from "@ant-design/icons";
 
 const EnterpriseUsers = () => {
   const [sortOrder, setSortOrder] = useState("asc");
@@ -56,23 +57,28 @@ const EnterpriseUsers = () => {
   }, [currentPage, pageSize, sortOrder, searchTerm]);
 
   const sortMenu = (
-    <Menu>
+    <Menu onClick={({ key }) => setSortOrder(key)} selectedKeys={[sortOrder]} >
       <Menu.Item
         key="asc"
         onClick={() => setSortOrder("asc")}
         className="filter-menu-item"
       >
-        ASC <IoIosArrowForward className="right-arrow" />
+        <div className="menu-item-content">
+          ASC <IoIosArrowForward className="right-arrow" />
+        </div>
       </Menu.Item>
       <Menu.Item
         key="desc"
         onClick={() => setSortOrder("desc")}
         className="filter-menu-item"
       >
-        DESC <IoIosArrowForward className="right-arrow" />
+        <div className="menu-item-content">
+          DESC <IoIosArrowForward className="right-arrow" />
+        </div>
       </Menu.Item>
     </Menu>
   );
+  
 
   const renderUserProfileCard = (user) => {
     const { image, companyName, email, phnNumber, employeeCount } = user;
@@ -81,7 +87,12 @@ const EnterpriseUsers = () => {
       <div className="col-lg-4 col-xl-3 mb-4" key={user._id}>
         <div className="application-users-profile-card">
           <div className="d-flex justify-content-center">
-            <Avatar src={image} shape="square" size={68} />
+            <Avatar 
+              src={image} 
+              shape="square" 
+              size={68} 
+              icon={!image ? <UserOutlined /> : null}
+            />
           </div>
           <h2 className="mt-3">{companyName || "N/A"}</h2>
           <h4>{email || "N/A"}</h4>
@@ -89,7 +100,7 @@ const EnterpriseUsers = () => {
           <h4>{employeeCount} Employees</h4>
           <button
             onClick={() =>
-              navigate("/admin/usermanagement/entepriseusers/companyusers")
+              navigate(`/admin/usermanagement/entepriseusers/companyusers/${user._id}`)
             }
             className="mt-2"
           >
@@ -98,6 +109,11 @@ const EnterpriseUsers = () => {
         </div>
       </div>
     );
+  };
+
+  // Handle page change for pagination
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -152,6 +168,14 @@ const EnterpriseUsers = () => {
               {users.map((user) => renderUserProfileCard(user))}
             </div>
           )}
+          <div className="d-flex justify-content-center mt-4">
+            <Pagination
+              current={currentPage}
+              pageSize={pageSize}
+              total={totalUsers}
+              onChange={handlePageChange}
+            />
+          </div>
         </div>
       </div>
     </div>

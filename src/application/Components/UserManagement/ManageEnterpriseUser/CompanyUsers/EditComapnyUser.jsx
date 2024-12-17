@@ -8,11 +8,11 @@ import { LuPencil } from "react-icons/lu";
 const onChange = (checked) => {
   console.log(`switch to ${checked}`);
 };
-export const EditComapnyUser = () => {
+export const EditComapnyUser = ({ userId }) => {
   const [form] = Form.useForm();
   const fileInputRef = useRef(null);
   const [previewImage, setPreviewImage] = useState("");
-  const [, setProfileImage] = useState(null);
+  const [profileImage, setProfileImage] = useState(null);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];

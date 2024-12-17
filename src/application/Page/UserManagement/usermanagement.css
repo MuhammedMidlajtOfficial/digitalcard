@@ -471,6 +471,16 @@
   pointer-events: none; /* Prevent interactions while blurred */
 }
 
+.filter-menu-item .menu-item-content {
+  display: flex;
+  align-items: center; /* Vertically align text and icon */
+  justify-content: space-between; /* Ensure space between text and icon */
+  gap: 8px; /* Add some spacing between text and the arrow */
+}
+
+.right-arrow {
+  font-size: 14px; /* Adjust size of the arrow if needed */
+}
 
 @media (max-width: 768px){
   .create-btn,

@@ -144,7 +144,7 @@ const MainContent = () => {
     "/admin/cardmanagement/editcard",
     "/admin/usermanagement/viewallusers/userview",
     "/admin/usermanagement/entepriseusers",
-    "/admin/usermanagement/entepriseusers/companyusers",
+    "/admin/usermanagement/entepriseusers/companyusers/:userId",
     "/admin/usermanagement/companyusers/edit",
     "/admin/usermanagement/statuscategories",
     "/admin/supportticketsystem/viewandrespondticket",
@@ -369,7 +369,7 @@ const MainContent = () => {
               element={<ManageEnterpriseUserPage />}
             />
             <Route
-              path="/admin/usermanagement/entepriseusers/companyusers"
+              path="/admin/usermanagement/entepriseusers/companyusers/:userId"
               element={<CompanyUsersPage />}
             />
             <Route

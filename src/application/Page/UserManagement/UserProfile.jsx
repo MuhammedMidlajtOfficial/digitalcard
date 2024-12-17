@@ -7,7 +7,7 @@ import "./usermanagement.css"
 import { useParams } from 'react-router-dom'
 
 const UserEditPage = () => {
-const { userId } = useParams();  
+    const { userId } = useParams();  
   return (
     <>
         <SidebarApplication />
