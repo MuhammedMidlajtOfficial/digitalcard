@@ -1038,7 +1038,7 @@ function SidebarApplication() {
                     expandedMenu === "notificationsystem" ? "active" : ""
                   }`}
                 >
-                  <li className="sub-nav-list">
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/notificationsystem/usernotificationpage"
                       className={`sub-nav-link ${
@@ -1058,7 +1058,7 @@ function SidebarApplication() {
                     >
                       Admin Notifications
                     </Link>
-                  </li>
+                  </li> */}
                   {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/notificationsystem/customizablealerts"
