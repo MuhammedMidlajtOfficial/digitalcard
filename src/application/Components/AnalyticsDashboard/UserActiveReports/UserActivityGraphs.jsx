@@ -1,28 +1,106 @@
 import { Dropdown, Menu } from "antd";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaRegCalendar } from "react-icons/fa6";
 import { IoIosArrowForward } from "react-icons/io";
 import { XAxis, ResponsiveContainer, Bar, BarChart, Tooltip } from "recharts";
 import UserAnalysis from "./UserAnalysis";
 
-const jobOverviewData = [
-  { month: "Jan", value: 300 },
-  { month: "Feb", value: 180 },
-  { month: "Mar", value: 400 },
-  { month: "Apr", value: 250 },
-  { month: "May", value: 320 },
-  { month: "Jun", value: 450 },
-  { month: "Jul", value: 100 },
-  { month: "Aug", value: 400 },
-  { month: "Sep", value: 250 },
-  { month: "Oct", value: 320 },
-  { month: "Nav", value: 450 },
-  { month: "Dec", value: 100 },
+let jobOverviewData = [
+  { month: "Jan", value: 0 },
+  { month: "Feb", value: 0 },
+  { month: "Mar", value: 0 },
+  { month: "Apr", value: 0 },
+  { month: "May", value: 0 },
+  { month: "Jun", value: 0 },
+  { month: "Jul", value: 0 },
+  { month: "Aug", value: 0 },
+  { month: "Sep", value: 0 },
+  { month: "Oct", value: 0 },
+  { month: "Nav", value: 0 },
+  { month: "Dec", value: 0 },
 ];
 
 const UserActivityGraphs = () => {
+  // this is what we will get from the api
+  /**
+   * {
+  "referrals": [
+    {
+      "year": 2024,
+      "month": 1,
+      "count": 0
+    },
+    {
+      "year": 2024,
+      "month": 2,
+      "count": 0
+    },
+    {
+      "year": 2024,
+      "month": 3,
+      "count": 0
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "count": 0
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "count": 0
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "count": 0
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "count": 0
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "count": 0
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "count": 0
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "count": 0
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "count": 0
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "count": 19
+    }
+  ]
+}
+   */
+  // Array of month abbreviations
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const [referralsData, setReferrasData] = useState([]);
+  const [year, setYear] = useState("2024"); // Default period
+  
+  const handleYearClick = (e) => {
+    setYear(e.key); // Update the period state
+    // fetchReferralsData(e.key); // Fetch new data based on selected period
+  };
+
   const sortMenu = (
-    <Menu>
+    <Menu onClick={handleYearClick}>
       <Menu.Item key="2024" className="filter-menu-item">
         2024 <IoIosArrowForward className="right-arrow" />
       </Menu.Item>
@@ -34,6 +112,28 @@ const UserActivityGraphs = () => {
       </Menu.Item>
     </Menu>
   );
+
+  const fetchReferralsData = async (year) => {
+    try {
+      const response = await fetch(
+        `https://diskuss-1mv4.onrender.com/api/v1/referral/admin/monthly?year=${year}`
+      );
+      const data = await response.json();
+      setReferrasData(data.referrals);
+    } catch (error) {
+      console.error("Error fetching referrals data:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchReferralsData(year); // Fetch data on initial render
+  }, [year]); // Refetch data when period changes
+
+    // Transforming the data
+  jobOverviewData = referralsData.referrals.map(referral => ({
+    month: monthNames[referral.month - 1], // Month is zero-indexed
+    value: referral.count
+  }));
 
   return (
     <div className="container">
