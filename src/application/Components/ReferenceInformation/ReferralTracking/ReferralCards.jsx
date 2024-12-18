@@ -2,72 +2,100 @@ import React, { useEffect, useState } from "react";
 import { FiUsers } from "react-icons/fi";
 import { SiTicktick } from "react-icons/si";
 import { MdOutlinePendingActions } from "react-icons/md";
-import axiosInstance from "../../../../AxiosConfig";
+// import axiosInstance from "../../../../AxiosConfig";
 
 const ReferralCards = () => {
     const [referralCounts, setReferralCounts] = useState({
-        total: 0,
-        success: 0,
-        pending: 0,
+        "totalReferrals": 0,
+        "cardCreated": 0,
+        "registered": 0,
+        "invited": 0,
+        "referralCode": "",
+        "totalCoins": 0,
+        "invitedUsers": [],
     });
 
+    // const fetchReferral2 = async () => {
+    //     try {
+    //         const url = "/referal/details";
+    //         const response = await axiosInstance.get(url, {
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //         });
+
+    //         if (response.status === 200) {
+    //             const data = response.data;
+
+    //             const totalReferrals = data.length;
+    //             const successReferrals = data.filter(
+    //                 (referral) =>
+    //                     referral.status === "Card Created" ||
+    //                     referral.status === "Registered"
+    //             ).length;
+    //             const pendingReferrals = data.filter(
+    //                 (referral) => referral.status === "Invited"
+
+    //             ).length;
+
+    //             setReferralCounts({
+    //                 total: totalReferrals,
+    //                 success: successReferrals,
+    //                 pending: pendingReferrals,
+    //             });
+    //         }
+    //     } catch (error) {
+    //         console.error("Error fetching referral data", error);
+    //     }
+    // };
     const fetchReferral = async () => {
         try {
-            const url = "/referal/details";
-            const response = await axiosInstance.get(url, {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
+            let userId =  "6731e31c1637d690957d8e69";
+            const url = `https://diskuss-1mv4.onrender.com/api/v1/referral/details/${userId}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            // console.log("data ::: ", response);
+            setReferralCounts(data);
 
-            if (response.status === 200) {
-                const data = response.data;
-
-                const totalReferrals = data.length;
-                const successReferrals = data.filter(
-                    (referral) =>
-                        referral.status === "Card Created" ||
-                        referral.status === "Registered"
-                ).length;
-                const pendingReferrals = data.filter(
-                    (referral) => referral.status === "Invited"
-
-                ).length;
-
-                setReferralCounts({
-                    total: totalReferrals,
-                    success: successReferrals,
-                    pending: pendingReferrals,
-                });
-            }
+            // console.log("referralCounts : ", referralCounts);
         } catch (error) {
-            console.error("Error fetching referral data", error);
+            console.error("Error fetching referral data: ", error);
         }
-    };
+    }
 
     useEffect(() => {
+        
         fetchReferral();
+        console.log("referralCounts", referralCounts);
+
     }, []);
 
     const cardData = [
         {
             icon: FiUsers,
             title: "Total Referral",
-            value: referralCounts.total,
+            value: referralCounts.totalReferrals,
             bgColor: "#afa8ff",
             textColor: "#ffffff",
         },
         {
             icon: SiTicktick,
-            title: "Success Referral",
-            value: referralCounts.success,
+            title: "Card Referral",
+            value: referralCounts.cardCreated,
             bgColor: "#ffa0a9",
             textColor: "#ffffff",
         },
         {
             icon: MdOutlinePendingActions,
+            title: "Registered Referral",
+            value: referralCounts.registered,
+            bgColor: "#ffcb64",
+            textColor: "#ffffff",
+        },
+        {
+            icon: MdOutlinePendingActions,
             title: "Pending Referral",
-            value: referralCounts.pending,
+            value: referralCounts.invited,
             bgColor: "#ffcb64",
             textColor: "#ffffff",
         },
@@ -81,7 +109,7 @@ const ReferralCards = () => {
                         { icon: Icon, title, value, bgColor, textColor },
                         index
                     ) => (
-                        <div key={index} className="col-lg-4 mb-4">
+                        <div key={index} className="col-lg-3 mb-4">
                             <div className="application-dashboard-card">
                                 <div className="card-body d-flex align-items-center">
                                     <div
