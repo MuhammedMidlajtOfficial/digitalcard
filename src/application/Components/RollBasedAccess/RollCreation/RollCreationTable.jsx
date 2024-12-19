@@ -1,12 +1,13 @@
-import { Avatar, Button, Dropdown, Menu, Modal, Table } from "antd";
-import React, { useState } from "react";
+import { Button, Dropdown, Menu, Modal, Table } from "antd";
+import React, { useState, useEffect } from "react";
 import { FiFilter, FiPlus, FiSearch } from "react-icons/fi";
 import { TbArrowsDownUp } from "react-icons/tb";
-import John_img from "../../../Assets/Images/John_img.png";
+import axios from "axios";
 import RollCreationAddRole from "./RollCreationAddRole";
 
 const RollCreationTable = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [tableData, setTableData] = useState([]);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -15,49 +16,53 @@ const RollCreationTable = () => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-  const filterMenu = (
-    <Menu>
-      <Menu.Item key="certifications">ABC</Menu.Item>
-      <Menu.Item key="employment-type">EFG</Menu.Item>
-    </Menu>
-  );
 
-  const sortMenu = (
-    <Menu>
-      <Menu.Item key="datePosted">ABC</Menu.Item>
-      <Menu.Item key="jobType">EFG</Menu.Item>
-    </Menu>
-  );
+  const fetchRolesData = async () => {
+    try {
+      const response = await axios.get("http://localhost:9000/api/v1/employee/roles");
+      const formattedData = response.data.map((role) => ({
+        key: role.id,
+        updatedDate: role.updatedDate,
+        role: role.roleName,
+        status: role.isActive ? "Active" : "Inactive",
+      }));
+      setTableData(formattedData);
+    } catch (error) {
+      console.error("Failed to fetch roles data:", error);
+    }
+  };
 
-  const actionMenu = (
-    <Menu>
-      <Menu.Item
-        key="1"
-        // onClick={() => navigate("/admin/incentive/edit")}
-      >
-        Edit
-      </Menu.Item>
-      <Menu.Item key="2">Delete</Menu.Item>
-    </Menu>
-  );
+  const deleteRole = async (roleId) => {
+    try {
+      const response = await axios.delete(`http://localhost:9000/api/v1/employee/roles/${roleId}`);
+
+      
+      if (response.status === 200 || response.status === 204) {
+        // Remove the deleted role from tableData without fetching all roles again
+        setTableData((prevData) => prevData.filter((role) => role._key !== roleId));
+      } else {
+        console.error(`Failed to delete role: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error("Failed to delete role:", error.response || error);
+      alert("Error deleting role. Please try again.");
+    }
+  };
+  
+
+  const editRole = (roleId) => {
+    console.log(`Edit role with ID: ${roleId}`);
+    // Logic for editing role
+  };
+
+  useEffect(() => {
+    fetchRolesData();
+  }, []);
+
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      render: (text, record) => (
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <Avatar size={44} src={John_img} />
-          <span>{text}</span>
-        </div>
-      ),
-    },
-    {
-      title: "Joined Date",
-      dataIndex: "joineddate",
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
+      title: "Updated Date",
+      dataIndex: "updatedDate",
     },
     {
       title: "Role",
@@ -86,56 +91,25 @@ const RollCreationTable = () => {
     {
       title: "Action",
       dataIndex: "action",
-      render: () => (
-        <Dropdown overlay={actionMenu} trigger={["click"]}>
+      render: (_, record) => (
+        <Dropdown overlay={<ActionMenu record={record} />} trigger={["click"]}>
           <span style={{ cursor: "pointer" }}>...</span>
         </Dropdown>
       ),
     },
   ];
 
-  const data = [
-    {
-      key: "1",
-      name: "Annette Black",
-      joineddate: "09/12/2024",
-      email: "black@company.com",
-      role: "Admin",
-      status: "Active",
-    },
-    {
-      key: "2",
-      name: "Guy Hawkins",
-      joineddate: "09/12/2024",
-      email: "hawkins@gmail.com",
-      role: "Team Lead",
-      status: "Active",
-    },
-    {
-      key: "3",
-      name: "Kristin Watson",
-      joineddate: "09/12/2024",
-      email: "kristin@gmail.com",
-      role: "Team Member",
-      status: "Active",
-    },
-    {
-      key: "4",
-      name: "Cameron",
-      joineddate: "09/12/2024",
-      email: "cameron@gmail.com",
-      role: "Team Member",
-      status: "Inactive",
-    },
-    {
-      key: "5",
-      name: "Devone Lane",
-      joineddate: "09/12/2024",
-      email: "devonlane@gmail.com",
-      role: "Team Member",
-      status: "Inactive",
-    },
-  ];
+  const ActionMenu = ({ record }) => (
+    <Menu>
+      <Menu.Item key="edit" onClick={() => editRole(record.key)}>
+        Edit
+      </Menu.Item>
+      <Menu.Item key="delete" onClick={() => deleteRole(record._key)}>
+        Delete
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <div className="container">
       <div className="d-flex gap-3 align-items-center justify-content-end">
@@ -151,7 +125,6 @@ const RollCreationTable = () => {
           onClick={showModal}
           className="create-btn d-flex gap-2 align-items-center"
         >
-          {" "}
           <FiPlus /> Add Role
         </button>
       </div>
@@ -159,7 +132,7 @@ const RollCreationTable = () => {
         <div className="d-flex justify-content-between gap-2 mb-3">
           <h2>RBAC </h2>
           <div className="search-table-container d-flex gap-2">
-            <Dropdown overlay={sortMenu} trigger={["click"]}>
+            <Dropdown overlay={<SortMenu />} trigger={["click"]}>
               <button className="table-action-btn d-flex gap-2 align-items-center">
                 <span>Sort By</span>
                 <TbArrowsDownUp
@@ -171,7 +144,7 @@ const RollCreationTable = () => {
                 />
               </button>
             </Dropdown>
-            <Dropdown overlay={filterMenu} trigger={["click"]}>
+            <Dropdown overlay={<FilterMenu />} trigger={["click"]}>
               <button className="table-action-btn d-flex gap-2 align-items-center">
                 <span>Filter</span>
                 <FiFilter
@@ -186,14 +159,12 @@ const RollCreationTable = () => {
           </div>
         </div>
         <div className="col-lg-12">
-          <div className="">
-            <Table
-              columns={columns}
-              dataSource={data}
-              pagination={false}
-              className="applied-applicants-table overflow-y-auto"
-            />
-          </div>
+          <Table
+            columns={columns}
+            dataSource={tableData}
+            pagination={false}
+            className="applied-applicants-table overflow-y-auto"
+          />
         </div>
       </div>
       <Modal
@@ -222,5 +193,18 @@ const RollCreationTable = () => {
     </div>
   );
 };
+
+const SortMenu = () => (
+  <Menu>
+    <Menu.Item key="datePosted">Sort by UpdatedDate</Menu.Item>
+  </Menu>
+);
+
+const FilterMenu = () => (
+  <Menu>
+    <Menu.Item key="active">Active</Menu.Item>
+    <Menu.Item key="inactive">Inactive</Menu.Item>
+  </Menu>
+);
 
 export default RollCreationTable;

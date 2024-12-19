@@ -1,66 +1,72 @@
-import { Form, Input, Radio, Space } from "antd";
-import React, { useState } from "react";
-import { CgDanger } from "react-icons/cg";
+import React, { useState, useEffect } from "react";
+import { Form, Input, Checkbox, Button, message } from "antd";
+import axios from "axios";
 
 const RollCreationAddRole = () => {
-  const [value, setValue] = useState(1);
-  const onChange = (e) => {
-    console.log("radio checked", e.target.value);
-    setValue(e.target.value);
+  const [roles, setRoles] = useState([]);
+  const [form] = Form.useForm();
+  const [isActive, setIsActive] = useState(false);
+
+  // Fetch roles on component mount
+  useEffect(() => {
+    const getRoles = async () => {
+      try {
+        const response = await axios.get("http://localhost:9000/api/v1/employee/roles");
+        setRoles(response.data);
+      } catch (error) {
+        message.error("Failed to fetch roles.");
+      }
+    };
+    getRoles();
+  }, []);
+
+  // Handle form submission
+  const handleFormSubmit = async (values) => {
+    try {
+      const roleData = {
+        ...values,
+        isActive,
+      };
+      await axios.post("http://localhost:9000/api/v1/employee/roles", roleData);
+      message.success("Role created successfully.");
+      form.resetFields();
+      setIsActive(false);
+    } catch (error) {
+      message.error("Failed to create role.");
+    }
   };
+
   return (
     <div>
-      <Form layout="vertical">
+      <Form layout="vertical" form={form} onFinish={handleFormSubmit}>
         <div className="row">
-          <div className="col-lg-6">
-            <Form.Item label="Name">
-              <Input placeholder="" />
-            </Form.Item>
-          </div>
-          <div className="col-lg-6">
-            <Form.Item label="Email">
-              <Input placeholder="" />
+          <div className="col-lg-12">
+            <Form.Item
+              label="Role Name"
+              name="roleName"
+              rules={[{ required: true, message: "Please enter the role name." }]}
+            >
+              <Input placeholder="Enter role name" />
             </Form.Item>
           </div>
         </div>
         <div className="row">
           <div className="col-lg-12">
-            <Form.Item label="Select Role">
-              <Radio.Group onChange={onChange} value={value}>
-                <Space direction="vertical">
-                  <Radio value={1} className="roll-creation-radio-button">
-                    <div className="d-flex gap-2 align-items-center">
-                      <span className="radio-label">Admin</span>
-                      <span className="extra-info rollcreation-addRoll-radio-span">
-                        <CgDanger /> Full access: Can create, read, update,
-                        delete all resources
-                      </span>
-                    </div>
-                  </Radio>
-                  <Radio value={2} className="roll-creation-radio-button">
-                    <div className="d-flex gap-2 align-items-center">
-                      <span className="radio-label">Team Lead</span>
-                      <span className="extra-info rollcreation-addRoll-radio-span">
-                        <CgDanger /> Can read, update resources, but cannot
-                        delete or manage roles
-                      </span>
-                    </div>
-                  </Radio>
-
-                  <Radio value={3} className="roll-creation-radio-button">
-                    <div className="d-flex gap-2 align-items-center">
-                      <span className="radio-label">Team Member</span>
-                      <span className="extra-info rollcreation-addRoll-radio-span">
-                        <CgDanger /> Read only access to view resources without
-                        edit rights
-                      </span>
-                    </div>
-                  </Radio>
-                </Space>
-              </Radio.Group>
+            <Form.Item>
+              <Checkbox
+                checked={isActive}
+                onChange={(e) => setIsActive(e.target.checked)}
+              >
+                Is Active
+              </Checkbox>
             </Form.Item>
           </div>
         </div>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
       </Form>
     </div>
   );
