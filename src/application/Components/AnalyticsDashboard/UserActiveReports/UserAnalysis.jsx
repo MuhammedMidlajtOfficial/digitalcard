@@ -1,29 +1,60 @@
 import { Dropdown, Menu } from "antd";
-import React from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { FaRegCalendar } from "react-icons/fa6";
 import { IoIosArrowForward } from "react-icons/io";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
-const data = [
-  { name: "Click through rate", value: 80, color: "#64abff" },
-  { name: "Link Clicks", value: 20, color: "#d9c1ff" },
-];
-
-const sortMenu = (
-  <Menu>
-    <Menu.Item key="jan" className="filter-menu-item">
-      Jan <IoIosArrowForward className="right-arrow" />
-    </Menu.Item>
-    <Menu.Item key="feb" className="filter-menu-item">
-      Feb <IoIosArrowForward className="right-arrow" />
-    </Menu.Item>
-    <Menu.Item key="mar" className="filter-menu-item">
-      Mar <IoIosArrowForward className="right-arrow" />
-    </Menu.Item>
-  </Menu>
-);
-
 const UserAnalysis = () => {
+  const [analyticsData, setAnalyticsData] = useState({
+    clicks: 80,
+    clickThroughRate: 20,
+  });
+  const [period, setPeriod] = useState("month"); // Default period
+
+  const fetchAnalyticsData = useCallback(async (selectedPeriod) => {
+    try {
+      const response = await fetch(
+        `https://diskuss-1mv4.onrender.com/api/v1/analytic/all?userId=6731d544ae68862f6cd0e6ad&period=${selectedPeriod}`
+      );
+      const data = await response.json();
+      console.log("data : "+   data);
+      setAnalyticsData({
+        clicks: data.clicks,
+        clickThroughRate: parseFloat(data.clickThroughRate),
+      });
+    } catch (error) {
+      console.error("Error fetching analytics data:", error);
+    }
+  });
+
+  useEffect(() => {
+    fetchAnalyticsData(period); // Fetch data on initial render
+  }, [period, fetchAnalyticsData]); // Refetch data when period changes
+
+  const handleMenuClick = (e) => {
+    setPeriod(e.key); // Update the period state
+    fetchAnalyticsData(e.key); // Fetch new data based on selected period
+  };
+
+  const sortMenu = (
+    <Menu onClick={handleMenuClick}>
+      <Menu.Item key="year" className="filter-menu-item">
+        Year <IoIosArrowForward className="right-arrow" />
+      </Menu.Item>
+      <Menu.Item key="month" className="filter-menu-item">
+        Month <IoIosArrowForward className="right-arrow" />
+      </Menu.Item>
+      <Menu.Item key="week" className="filter-menu-item">
+        Week <IoIosArrowForward className="right-arrow" />
+      </Menu.Item>
+    </Menu>
+  );
+
+  const data = [
+    { name: "Click Through Rate", value: analyticsData.clickThroughRate.toLocaleString(undefined, { minimumFractionDigits: 2 }), color: "#64abff" },
+    { name: "Link Clicks", value: analyticsData.clicks.toLocaleString(), color: "#d9c1ff" },
+  ];
+
   return (
     <div className="row mb-4">
       <div className="col-lg-12">
@@ -36,7 +67,7 @@ const UserAnalysis = () => {
               <div className="select-table-container">
                 <Dropdown overlay={sortMenu} trigger={["click"]}>
                   <button className="table-action-btn d-flex gap-2 align-items-center">
-                    <span>This month</span>
+                    <span>{period.charAt(0).toUpperCase() + period.slice(1)}</span>
                     <FaRegCalendar
                       style={{
                         fontWeight: 500,
@@ -87,7 +118,7 @@ const UserAnalysis = () => {
               >
                 Last Update
                 <div style={{ fontSize: "12px", fontWeight: "normal" }}>
-                  Oct 29, 2024
+                  {"Oct 29, 2024"}
                 </div>
               </div>
 
@@ -113,7 +144,7 @@ const UserAnalysis = () => {
                           marginRight: 10,
                         }}
                       />
-                      <span>{entry.name}</span>
+                      <span>{entry.name}</span>: {entry.value}
                     </li>
                   ))}
                 </ul>
