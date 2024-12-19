@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { UserOutlined } from "@ant-design/icons";
 import axiosInstance from "../../../../AxiosConfig";
 
+
 export const ManagePaymentsTable = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -19,6 +20,7 @@ export const ManagePaymentsTable = () => {
     setLoading(true);
     try {
       const response = await axiosInstance.get("/payment");
+
   
       // Map the response data to the table format
       setData(
