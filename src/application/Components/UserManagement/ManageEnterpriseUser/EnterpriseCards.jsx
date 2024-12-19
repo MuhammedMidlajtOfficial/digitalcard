@@ -1,33 +1,58 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FiUser } from "react-icons/fi";
 import { LuCalendar, LuVideo } from "react-icons/lu";
-
-const cardData = [
-  {
-    icon: LuCalendar,
-    title: "Total Enterprise Users",
-    value:"5,000",
-    bgColor: "#afa8ff",
-    textColor: "#ffffff",
-  },
-  {
-    icon: FiUser,
-    title: "Active Users",
-    value: "6,123",
-    bgColor: "#ffa0a9",
-    textColor: "#ffffff",
-  },
-  {
-    icon: LuVideo,
-    title: "New Users",
-    value: "2,315",
-    bgColor: "#ffcb64",
-    textColor: "#ffffff",
-  },
-];
+import axiosInstance from "../../../../AxiosConfig";
 
 const EnterpriseCards = () => {
+  const [enterpriseUserCount, setEnterpriseUserCount] =  useState(0)
+  const [activeEnterpriseUsersCount, setActiveEnterpriseUsersCount] =  useState(0)
+  const [thisMonthEnterpriseUsersCount, setThisMonthEnterpriseUsersCount] =  useState(0)
+
+  useEffect(() => {
+    // getCountIndividualUsers
+    axiosInstance.get('user/getEnterpriseUserCount')
+      .then((response)=>{
+        setEnterpriseUserCount(response.data.EnterpriseUserCount)
+        setActiveEnterpriseUsersCount(response.data.activeEnterpriseUsersCount)
+        setThisMonthEnterpriseUsersCount(response.data.thisMonthEnterpriseUsersCount)
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+    });
+  }, []);
+
+  const formatNumber = (num) => {
+    if (num >= 10000000) return (num / 10000000).toFixed(1) + "Cr";
+    if (num >= 100000) return (num / 100000).toFixed(1) + "L";
+    if (num >= 1000) return (num / 1000).toFixed(1) + "K";
+    return num.toString();
+  };
+
+  const cardData = [
+    {
+      icon: LuCalendar,
+      title: "Total Enterprise Users",
+      value: formatNumber(enterpriseUserCount),
+      bgColor: "#afa8ff",
+      textColor: "#ffffff",
+    },
+    {
+      icon: FiUser,
+      title: "Active Users",
+      value: formatNumber(activeEnterpriseUsersCount),
+      bgColor: "#ffa0a9",
+      textColor: "#ffffff",
+    },
+    {
+      icon: LuVideo,
+      title: "New Users",
+      value: formatNumber(thisMonthEnterpriseUsersCount),
+      bgColor: "#ffcb64",
+      textColor: "#ffffff",
+    },
+  ];
+
   return (
     <div className="container">
       <div className="row">

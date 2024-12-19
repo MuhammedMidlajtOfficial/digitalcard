@@ -11,6 +11,7 @@ import Pricing from "./website/Page/Pricing";
 import Resources from "./website/Page/Resources";
 import ScrollToTop from "./ScrollToTop";
 import Contact from "./website/Page/Contact";
+import EmpPage from "./website/Page/employeePage" 
 
 // application routes
 import Login from "./application/Auth/Login";
@@ -97,6 +98,8 @@ import CancellationPolicy from "./website/Page/PolicyPages/CancellationPolicy";
 import ShippingPolicy from "./website/Page/PolicyPages/ShippingPolicy";
 import GetNotifications from "./application/Page/NotificationSystem/GetNotification";
 import SendNotifications from "./application/Page/NotificationSystem/SendNotification";
+import AuthProvider from "./application/Context/AuthContext";
+import PrivateRoute from "./application/PrivateRoute";
 
 const Loader = () => {
   return <div className="loader"></div>;
@@ -106,7 +109,7 @@ const MainContent = () => {
   const [loading, setLoading] = useState(false);
   const location = useLocation();
 
-  <Route path="/admin/dashboard/overview" element={<DashboardPage />} />;
+  // <Route path="/admin/dashboard/overview" element={<DashboardPage />} />;
   const applicationRoutes = [
     "/login",
     "/signup",
@@ -119,7 +122,7 @@ const MainContent = () => {
     "/admin/dashboard/cardshares",
     "/admin/dashboard/recentactivities",
     "/admin/usermanagement/viewallusers",
-    "/admin/usermanagement/editusers",
+    "/admin/usermanagement/editusers/:userId",
     "/admin/usermanagement/deleteusers",
     "/admin/usermanagement/addusers",
     "/admin/cardmanagement/deletecards",
@@ -143,7 +146,7 @@ const MainContent = () => {
     "/admin/cardmanagement/editcard",
     "/admin/usermanagement/viewallusers/userview",
     "/admin/usermanagement/entepriseusers",
-    "/admin/usermanagement/entepriseusers/companyusers",
+    "/admin/usermanagement/entepriseusers/companyusers/:userId",
     "/admin/usermanagement/companyusers/edit",
     "/admin/usermanagement/statuscategories",
     "/admin/supportticketsystem/viewandrespondticket",
@@ -189,7 +192,7 @@ const MainContent = () => {
     "/admin/notificationsystem/sendnotifications",
   ];
 
-  const isApplicationRoute = applicationRoutes.includes(location.pathname);
+  const isApplicationRoute = applicationRoutes.some(route => location.pathname.startsWith(route));
 
   useEffect(() => {
     setLoading(true);
@@ -224,6 +227,7 @@ const MainContent = () => {
               element={<CancellationPolicy />}
             />
             <Route path="shipping-policy" element={<ShippingPolicy />} />
+            <Route path="employee" element={<EmpPage />} />
 
             {/* application routes */}
             <Route path="/login" element={<Login />} />
@@ -232,320 +236,282 @@ const MainContent = () => {
             <Route path="/otp-verification" element={<OtpScreen />} />
             <Route path="/create-password" element={<ConfirmPassword />} />
 
-            <Route
-              path="/admin/*"
-              element={<Navigate to="/admin/dashboard/overview" replace />}
-            />
+            
             <Route
               path="/admin/dashboard/overview"
-              element={<DashboardPage />}
+              element={<PrivateRoute element={DashboardPage} />}
             />
             <Route
               path="/admin/supportticketsystem/viewandrespondticket"
-              element={<TicketPage />}
+              element={<PrivateRoute element={TicketPage} />}
             />
             <Route
               path="/admin/supportticketsystem/viewandrespondticket/open-ticket"
-              element={<OpenTickets />}
+              element={<PrivateRoute element={OpenTickets} />}
             />
             <Route
               path="/admin/supportticketsystem/assign-ticket"
-              element={<AssignTickets />}
+              element={<PrivateRoute element={AssignTickets} />}
             />
             <Route
               path="/admin/supportticketsystem/ticket-categories"
-              element={<TicketCategory />}
+              element={<PrivateRoute element={TicketCategory} />}
             />
             <Route
               path="/admin/dashboard/userstatic"
-              element={<UserStaticPage />}
+              element={<PrivateRoute element={UserStaticPage} />}
             />
             <Route
               path="/admin/dashboard/cardshares"
-              element={<CardSharesPage />}
+              element={<PrivateRoute element={CardSharesPage} />}
             />
             <Route
               path="/admin/dashboard/recentactivities"
-              element={<RecentActivitiesPage />}
+              element={<PrivateRoute element={RecentActivitiesPage} />}
             />
             <Route
               path="/admin/usermanagement/viewallusers"
-              element={<AllUsersPage />}
+              element={<PrivateRoute element={AllUsersPage} />}
             />
             <Route
-              path="/admin/usermanagement/editusers"
-              element={<UserEditPage />}
+              path="/admin/usermanagement/editusers/:userId"
+              element={<PrivateRoute element={UserEditPage} />}
             />
             <Route
               path="/admin/usermanagement/deleteusers"
-              element={<DeleteUsersPage />}
+              element={<PrivateRoute element={DeleteUsersPage} />}
             />
             <Route
               path="/admin/usermanagement/addusers"
-              element={<AddUsersPage />}
+              element={<PrivateRoute element={AddUsersPage} />}
             />
             <Route
               path="/admin/cardmanagement/createcard"
-              element={<CreateNewCardPage />}
+              element={<PrivateRoute element={CreateNewCardPage} />}
             />
             <Route
               path="/admin/cardmanagement/editcard"
-              element={<EditExistingCardsPage />}
+              element={<PrivateRoute element={EditExistingCardsPage} />}
             />
             <Route
               path="/admin/cardmanagement/deletecards"
-              element={<DeleteCardsPage />}
+              element={<PrivateRoute element={DeleteCardsPage} />}
             />
             <Route
               path="/admin/cardmanagement/cardtemplates"
-              element={<CardTemplatePage />}
+              element={<PrivateRoute element={CardTemplatePage} />}
             />
             <Route
               path="/admin/cardmanagement/sharecards"
-              element={<ShareCardsPage />}
+              element={<PrivateRoute element={ShareCardsPage} />}
             />
             <Route
               path="/admin/cardmanagement/viewcardsdata"
-              element={<ViewCardDataPage />}
+              element={<PrivateRoute element={ViewCardDataPage} />}
             />
             <Route
               path="/admin/ordermanagement/vieworders"
-              element={<ViewOrdersPage />}
+              element={<PrivateRoute element={ViewOrdersPage} />}
             />
             <Route
               path="/admin/ordermanagement/processorders"
-              element={<ProcessOrdersPage />}
+              element={<PrivateRoute element={ProcessOrdersPage} />}
             />
             <Route
               path="/admin/ordermanagement/orderstatus"
-              element={<OrderStatusPage />}
+              element={<PrivateRoute element={OrderStatusPage} />}
             />
             <Route
               path="/admin/ordermanagement/paymentverification"
-              element={<PaymentVerificationPage />}
+              element={<PrivateRoute element={PaymentVerificationPage} />}
             />
             <Route
               path="/admin/analyticsdashboad/useractivityreport"
-              element={<UserActivityReportsPage />}
+              element={<PrivateRoute element={UserActivityReportsPage} />}
             />
             <Route
               path="/admin/analyticsdashboad/cardsharereport"
-              element={<CardShareReportPage />}
+              element={<PrivateRoute element={CardShareReportPage} />}
             />
             <Route
               path="/admin/analyticsdashboad/exportreports"
-              element={<ExportReportsPage />}
+              element={<PrivateRoute element={ExportReportsPage} />}
             />
             <Route
               path="/admin/analyticsdashboad/customreports"
-              element={<CustomReportsPage />}
+              element={<PrivateRoute element={CustomReportsPage} />}
             />
             <Route
               path="/admin/paymentmanagement/managesubscriptionplan"
-              element={<ManageSubscriptionPage />}
+              element={<PrivateRoute element={ManageSubscriptionPage} />}
             />
             <Route
               path="/admin/paymentmanagement/viewpayments"
-              element={<ManagePaymentsPage />}
+              element={<PrivateRoute element={ManagePaymentsPage} />}
             />
             <Route
               path="/admin/paymentmanagement/viewpayments/viewpayerinfo"
-              element={<ViewPayersInfoPage />}
+              element={<PrivateRoute element={ViewPayersInfoPage} />}
             />
             <Route
               path="/admin/paymentmanagement/invoicelist"
-              element={<BillingHistoryPage />}
+              element={<PrivateRoute element={BillingHistoryPage} />}
             />
-
-            <Route path="/admin/settings" element={<SettingsPage />} />
+            <Route
+              path="/admin/settings"
+              element={<PrivateRoute element={SettingsPage} />}
+            />
             <Route
               path="/admin/usermanagement/viewallusers/userview"
-              element={<UserViewPage />}
+              element={<PrivateRoute element={UserViewPage} />}
             />
             <Route
               path="/admin/usermanagement/entepriseusers"
-              element={<ManageEnterpriseUserPage />}
+              element={<PrivateRoute element={ManageEnterpriseUserPage} />}
             />
             <Route
-              path="/admin/usermanagement/entepriseusers/companyusers"
-              element={<CompanyUsersPage />}
+              path="/admin/usermanagement/entepriseusers/companyusers/:userId"
+              element={<PrivateRoute element={CompanyUsersPage} />}
             />
             <Route
               path="/admin/usermanagement/companyusers/edit"
-              element={<EditCompanyUsersPage />}
+              element={<PrivateRoute element={EditCompanyUsersPage} />}
             />
             <Route
               path="/admin/usermanagement/statuscategories"
-              element={<StatusCategoriesPage />}
+              element={<PrivateRoute element={StatusCategoriesPage} />}
             />
             <Route
               path="/admin/referenceinformation/referraltracking"
-              element={<ReferralTrackingPage />}
+              element={<PrivateRoute element={ReferralTrackingPage} />}
             />
             <Route
               path="/admin/referenceinformation/viewreferraluser"
-              element={<ViewReferralUserPage />}
+              element={<PrivateRoute element={ViewReferralUserPage} />}
             />
             <Route
               path="/admin/referenceinformation/incentivemanagement"
-              element={<IncentiveManagementPage />}
+              element={<PrivateRoute element={IncentiveManagementPage} />}
             />
             <Route
               path="/admin/incentivemanagement/incentivereferralview"
-              element={<IncentiveReferralViewPage />}
+              element={<PrivateRoute element={IncentiveReferralViewPage} />}
             />
             <Route
               path="/admin/contentmanagemnt/subscriptionplanpage"
-              element={<SubscriptionPlanPage />}
+              element={<PrivateRoute element={SubscriptionPlanPage} />}
             />
             <Route
               path="/admin/usermanagement/usercategorization"
-              element={<UserCategorizationPage />}
-            />
-            <Route
-              path="/admin/referenceinformation/referraltracking"
-              element={<ReferralTrackingPage />}
-            />
-            <Route
-              path="/admin/referenceinformation/viewreferraluser"
-              element={<ViewReferralUserPage />}
-            />
-            <Route
-              path="/admin/referenceinformation/incentivemanagement"
-              element={<IncentiveManagementPage />}
+              element={<PrivateRoute element={UserCategorizationPage} />}
             />
             <Route
               path="/admin/ordermanagement/orderanalystics"
-              element={<OrderAnalysticsPage />}
+              element={<PrivateRoute element={OrderAnalysticsPage} />}
             />
             <Route
               path="/admin/analyticsdashboad/allusersview"
-              element={<AllUsersViewPage />}
+              element={<PrivateRoute element={AllUsersViewPage} />}
             />
             <Route
               path="/admin/analyticsdashboad/uniquevisitors"
-              element={<UniqueVisitorsPage />}
+              element={<PrivateRoute element={UniqueVisitorsPage} />}
             />
             <Route
               path="/admin/analyticsdashboad/numberofshares"
-              element={<NumberOfSharesPage />}
+              element={<PrivateRoute element={NumberOfSharesPage} />}
             />
             <Route
               path="/admin/notificationsystem/usernotificationpage"
-              element={<UserNotificationsPage />}
+              element={<PrivateRoute element={UserNotificationsPage} />}
             />
-
             <Route
               path="/admin/notificationsystem/adminnotifications"
-              element={<AdminNotifications />}
+              element={<PrivateRoute element={AdminNotifications} />}
             />
-
             <Route
               path="/admin/notificationsystem/customizablealerts"
-              element={<CustomizableAlerts />}
+              element={<PrivateRoute element={CustomizableAlerts} />}
             />
-
             <Route
               path="/admin/notificationsystem/sendnotifications"
-              element={<SendNotifications />}
+              element={<PrivateRoute element={SendNotifications} />}
             />
-
             <Route
               path="/admin/notificationsystem/getnotifications"
-              element={<GetNotifications />}
+              element={<PrivateRoute element={GetNotifications} />}
             />
-
             <Route
               path="/admin/userfeedback/surveylist"
-              element={<SurveyListPage />}
+              element={<PrivateRoute element={SurveyListPage} />}
             />
             <Route
               path="/admin/userfeedback/create-survey"
-              element={<CreateSurveyPage />}
+              element={<PrivateRoute element={CreateSurveyPage} />}
             />
             <Route
               path="/admin/userfeedback/view-response"
-              element={<FeedBackListPage />}
+              element={<PrivateRoute element={FeedBackListPage} />}
             />
             <Route
               path="/admin/userfeedback/received-surveys"
-              element={<ReceivedSurveyListPage />}
+              element={<PrivateRoute element={ReceivedSurveyListPage} />}
             />
             <Route
               path="/admin/userfeedback/view-received-surveys"
-              element={<ViewReceivedSurveyPage />}
+              element={<PrivateRoute element={ViewReceivedSurveyPage} />}
             />
             <Route
               path="/admin/userfeedback/view-feedback"
-              element={<ViewFeedbackPage />}
+              element={<PrivateRoute element={ViewFeedbackPage} />}
             />
             <Route
               path="/admin/userfeedback/negative-feedbacks"
-              element={<UserNegativeFeedbackPage />}
+              element={<PrivateRoute element={UserNegativeFeedbackPage} />}
             />
             <Route
               path="/admin/supportticketsystem/sla-tracking"
-              element={<SlaTracking />}
+              element={<PrivateRoute element={SlaTracking} />}
             />
             <Route
               path="/admin/supportticketsystem/ticket-prioritisation"
-              element={<TicketPrioritisation />}
+              element={<PrivateRoute element={TicketPrioritisation} />}
             />
             <Route
               path="/admin/rollbasedaccess/rollcreation"
-              element={<RollCreation />}
+              element={<PrivateRoute element={RollCreation} />}
             />
             <Route
               path="/admin/rollbasedaccess/rbac-permission"
-              element={<RBACPermissions />}
+              element={<PrivateRoute element={RBACPermissions} />}
             />
             <Route
               path="/admin/rollbasedaccess/audit-trails"
-              element={<AuditTrails />}
+              element={<PrivateRoute element={AuditTrails} />}
             />
             <Route
               path="/admin/automatedmarketing/campaign-setup"
-              element={<CampaignSetup />}
+              element={<PrivateRoute element={CampaignSetup} />}
             />
             <Route
               path="/admin/paymentmanagement/invoicelist/addinvoice"
-              element={<AddInvoicePage />}
+              element={<PrivateRoute element={AddInvoicePage} />}
             />
             <Route
               path="/admin/userfeedback/responseanalytics"
-              element={<ResponseAnalyticsPage />}
+              element={<PrivateRoute element={ResponseAnalyticsPage} />}
             />
             <Route
               path="/admin/automatedmarketing/email-sms-template"
-              element={<EmailSMSTemplate />}
+              element={<PrivateRoute element={EmailSMSTemplate} />}
             />
             <Route
               path="/admin/paymentmanagement/invoicelist/viewinvoice"
-              element={<ViewInvoicePage />}
+              element={<PrivateRoute element={ViewInvoicePage} />}
             />
             <Route
               path="/admin/paymentmanagement/renewal-reminders"
-              element={<RenewalAndRemindersPage />}
-            />
-            <Route
-              path="/admin/paymentmanagement/paymentgateway"
-              element={<PaymentGatewayPage />}
-            />
-            <Route
-              path="/admin/automatedmarketing/campaignanalytics"
-              element={<CampaignAnalytics />}
-            />
-            <Route
-              path="/admin/automatedmarketing/automated-triggers"
-              element={<AutomatedTriggers />}
-            />
-            <Route
-              path="/admin/paymentmanagement/refundprocess"
-              element={<RefundProcessingPage />}
-            />
-            <Route
-              path="/admin/paymentmanagement/customerrefundinfo"
-              element={<CustomerRefundInfoPage />}
+              element={<PrivateRoute element={RenewalAndRemindersPage} />}
             />
           </Routes>
 
@@ -559,10 +525,12 @@ const MainContent = () => {
 
 const Router = () => {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <MainContent />
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <MainContent />
+      </BrowserRouter>
+    </AuthProvider>
   );
 };
 
