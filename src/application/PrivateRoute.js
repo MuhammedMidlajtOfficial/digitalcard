@@ -3,7 +3,8 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from './Context/AuthContext';
 
 const PrivateRoute = ({ element: Element }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth(); 
+  // const { isAuthenticated } = true;
   console.log('isAuthenticated-',isAuthenticated);
   // Render the component if authenticated; otherwise, navigate to login
   return isAuthenticated ? <Element /> : <Navigate to="/login" replace />;
