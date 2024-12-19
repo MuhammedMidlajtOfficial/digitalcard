@@ -45,11 +45,13 @@ function SidebarApplication() {
       confirmButtonText: "Yes, logout me!",
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.removeItem("loggedInUserInfo");
+        localStorage.removeItem("token");
+        localStorage.removeItem("refreshToken");
         navigate("/login");
       }
     });
   };
+
   useEffect(() => {
     const pathToMenuMap = {
       "/admin/dashboard/overview": "dashboard",
@@ -189,7 +191,7 @@ function SidebarApplication() {
                       Overview
                     </Link>
                   </li>
-                  <li className="sub-nav-list">
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/dashboard/userstatic"
                       className={`sub-nav-link ${
@@ -200,7 +202,7 @@ function SidebarApplication() {
                     >
                       User Statistics
                     </Link>
-                  </li>
+                  </li> */}
                   {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/dashboard/cardshares"
