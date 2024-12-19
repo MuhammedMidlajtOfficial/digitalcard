@@ -3,7 +3,7 @@ import { Modal, Button } from "antd";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
-export const BillingDownloadForm = ({ isModalVisible, setIsModalVisible }) => {
+export const BillingDownloadForm = ({ isModalVisible, setIsModalVisible,invoice={} }) => {
   const billingCardRef = useRef(null);
 
   const handleClose = () => {
@@ -25,22 +25,33 @@ export const BillingDownloadForm = ({ isModalVisible, setIsModalVisible }) => {
 	  const imgWidth = 210 - 2 * margin;
 	  const pageHeight = 295 - 2 * margin;
 	  const imgHeight = (canvas.height * imgWidth) / canvas.width;
-	  let heightLeft = imgHeight;
+	  let heightLeft = imgHeight-pageHeight;
 	  let position = margin;
 	  pdf.addImage(imgData, "PNG", margin, position, imgWidth, imgHeight);
-	  heightLeft -= pageHeight;
+	  // heightLeft -= pageHeight;
 	  while (heightLeft >= 0) {
-		position = heightLeft - imgHeight + margin;
-		pdf.addPage();
-		pdf.addImage(imgData, "PNG", margin, position, imgWidth, imgHeight);
-		heightLeft -= pageHeight;
+      position = heightLeft - imgHeight + margin;
+      pdf.addPage();
+      pdf.addImage(imgData, "PNG", margin, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
 	  }
-	  pdf.save("billing_form.pdf");
+	  pdf.save(invoice.invoiceNumber);
 	} catch (error) {
 	  console.error("Error generating PDF: ", error);
 	}
   };
-  
+
+  //Calculating CGST, SGST and totalAmount
+  // const calculateTaxAmounts = (amount) => {
+  //   const CGST = amount * 0.09;
+  //   const SGST = amount * 0.09;
+  //   const totalAmount = amount + CGST + SGST;
+  //   return { CGSTAmount: CGST.toFixed(2), SGSTAmount: SGST.toFixed(2), totalAmount: totalAmount.toFixed(2) };
+  // };
+
+  // const { CGSTAmount, SGSTAmount, totalAmount } = invoice?.amount ? 
+  //   calculateTaxAmounts(Number(invoice?.amount?.$numberDecimal || 0)) : { CGSTAmount: "N/A", SGSTAmount: "N/A", totalAmount: "N/A" };
+
 
   return (
     <Modal
@@ -73,27 +84,27 @@ export const BillingDownloadForm = ({ isModalVisible, setIsModalVisible }) => {
             <p>
               <span className="label">Customer Name</span>{" "}
               <span className="separator">:</span>
-              <span className="value">Annette Black</span>
+              <span className="value">{invoice?.userName || "N/A"}</span>
             </p>
             <p>
               <span className="label">Invoice</span>{" "}
               <span className="separator">:</span>
-              <span className="value">INV-2024-0021</span>
+              <span className="value">{invoice?.invoiceNumber || "N/A"}</span>
             </p>
             <p>
               <span className="label">Plan Type</span>{" "}
               <span className="separator">:</span>
-              <span className="value">Gold Member</span>
+              <span className="value">{invoice?.planName ? `${invoice.planName} Member` : "N/A"}</span>
             </p>
             <p>
               <span className="label">Currency</span>{" "}
               <span className="separator">:</span>
-              <span className="value">USD</span>
+              <span className="value">INR</span>
             </p>
             <p>
               <span className="label">Issue Date</span>{" "}
               <span className="separator">:</span>
-              <span className="value">09/12/2024</span>
+              <span className="value">{invoice?.paymentDate ? invoice.paymentDate.split('T')[0] : "N/A"}</span>
             </p>
           </div>
           <div className="billing-table">
@@ -103,19 +114,19 @@ export const BillingDownloadForm = ({ isModalVisible, setIsModalVisible }) => {
             </div>
             <div className="table-row">
               <p style={{fontSize:"12px", color:"var(--text-secondary-color)"}}>Digital business card Gold member</p>
-              <p style={{fontSize:"12px"}}>₹1999</p>
+              <p style={{fontSize:"12px"}}>{invoice?.amount?.$numberDecimal ? invoice?.amount?.$numberDecimal : "N/A"}</p>
             </div>
             <div className="table-row" style={{border:"none"}}>
-              <p className="table-row-gst">CGST @ 9%</p>
-              <p className="table-row-gst">₹180</p>
+              <p className="table-row-gst">CGST</p>
+              <p className="table-row-gst">N/A</p>
             </div>
             <div className="table-row">
-              <p className="table-row-gst">SGST @ 9%</p>
-              <p className="table-row-gst">₹180</p>
+              <p className="table-row-gst">SGST</p>
+              <p className="table-row-gst">N/A</p>
             </div>
             <div className="table-row total-row">
               <p>Total</p>
-              <p>₹2,719</p>
+              <p>{invoice?.amount?.$numberDecimal ? `₹${invoice?.amount?.$numberDecimal}` : "N/A"}</p>
             </div>
           </div>
         </div>
@@ -128,7 +139,8 @@ export const BillingDownloadForm = ({ isModalVisible, setIsModalVisible }) => {
             </p>
           </div>
         </div>
-		<p className="billing-authorization mt-4">Lorem ipsum dolor sit amet, consectetur.</p>
+		    <p className="billing-authorization mt-4">Diskuss ®</p>
+        <br />
       </div>
       <div className="modal-actions">
         <Button onClick={handleClose} style={{ marginRight: "10px" }}>
