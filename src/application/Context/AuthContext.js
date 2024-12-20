@@ -6,49 +6,45 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
-  // State to hold authentication status
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
-  // State to track loading state of the token validation
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [permissions, setPermissions] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log('token-', token);
 
     if (token) {
       const isValidToken = verifyToken(token);
       setIsAuthenticated(isValidToken);
-      console.log('isValidToken-', isValidToken);
+
+      if (isValidToken) {
+        const decoded = JSON.parse(atob(token.split('.')[1]));
+        setPermissions(decoded.category || []); // Extract permissions
+      }
     } else {
       setIsAuthenticated(false);
+      setPermissions([]);
     }
 
-    // After the token validation is complete, set loading to false
     setLoading(false);
   }, []);
 
-  // Function to verify token if needed
   const verifyToken = (token) => {
     try {
-      const decoded = JSON.parse(atob(token.split('.')[1])); // Decode JWT payload
-      const isExpired = decoded.exp * 1000 < Date.now(); // Check if token is expired
-      return !isExpired;
+      const decoded = JSON.parse(atob(token.split('.')[1]));
+      return decoded.exp * 1000 > Date.now();
     } catch (error) {
-      return false; // Invalid token
+      return false;
     }
   };
 
-  // Log isAuthenticated whenever it changes
-  useEffect(() => {
-    console.log('isAuthenticated-', isAuthenticated);
-  }, [isAuthenticated]);
-
   if (loading) {
-    return <div>Loading...</div>; // You can return a loading spinner or any other loading indicator
+    return <div>Loading...</div>;
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated }}>
+    <AuthContext.Provider value={{ isAuthenticated, permissions }}>
+
       {children}
     </AuthContext.Provider>
   );
