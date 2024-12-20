@@ -44,6 +44,7 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, permissions }}>
+
       {children}
     </AuthContext.Provider>
   );

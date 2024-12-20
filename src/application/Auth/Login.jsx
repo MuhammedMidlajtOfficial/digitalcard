@@ -32,7 +32,7 @@ const Login = () => {
         dispatch(setToken(accessToken));
         dispatch(setUser({ userType, userName, category }));
         localStorage.setItem("refreshToken", refreshToken);
-      
+
         showSuccessToast("Login successful");
         navigate("/admin/dashboard/overview");
       }

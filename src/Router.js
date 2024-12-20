@@ -103,6 +103,7 @@ import PrivateRoute from "./application/PrivateRoute";
 import CreateEmployeeForm from "./application/Page/CreateEmployee";
 import UnAuthorized from "./application/Page/Unauthorized";
 
+
 const Loader = () => {
   return <div className="loader"></div>;
 };
@@ -523,6 +524,7 @@ const MainContent = () => {
             <Route
               path="/admin/Unauthorized"
               element={<PrivateRoute element={UnAuthorized} />}
+
             />
           </Routes>
 

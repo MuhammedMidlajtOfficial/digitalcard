@@ -21,6 +21,7 @@ const PrivateRoute = ({ element: Element, requiredPermission }) => {
 
   // Render the component if authenticated and has permission
   return <Element />;
+
 };
 
 export default PrivateRoute;
