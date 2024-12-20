@@ -1,0 +1,68 @@
+/* .forbidden-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .content {
+    text-align: center;
+  }
+  
+  .error-code {
+    font-size: 100px;
+    color: #dcdcdc;
+    position: relative;
+    margin: 0;
+  }
+  
+  .door-section {
+    position: relative;
+    width: 80px;
+    height: 120px;
+    margin: 0 auto;
+  }
+  
+  .door {
+    background-color: #fff;
+    border: 3px solid #dcdcdc;
+    border-radius: 10px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .message {
+    font-size: 50px;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #333;
+  }
+  
+  .description {
+    font-size: 16px;
+    color: #666;
+    margin-top: 10px;
+  }
+  
+  .go-back-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #00bcd4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .go-back-button:hover {
+    background-color: #0097a7;
+  }
+   */
