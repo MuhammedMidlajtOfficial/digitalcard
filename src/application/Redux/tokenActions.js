@@ -13,3 +13,9 @@ export const removeToken = () => {
     type: 'REMOVE_TOKEN',
   };
 };
+
+
+export const setUser = (user) => ({
+  type: "SET_USER",
+  payload: user,
+});

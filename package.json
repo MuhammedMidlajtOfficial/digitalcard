@@ -31,7 +31,7 @@
     "recharts": "^2.12.7",
     "redux": "^5.0.1",
     "start": "^5.1.0",
-    "sweetalert2": "^11.14.0",
+    "sweetalert2": "^11.15.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
