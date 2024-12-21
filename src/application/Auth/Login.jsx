@@ -3,9 +3,8 @@ import "./auth.css";
 import login from "../Assets/Images/loginbackground.png";
 import { Checkbox, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setToken } from "../Redux/tokenActions";
+import { setToken, setUser } from "../Redux/tokenActions";
 import { showErrorToast, showSuccessToast } from "../Services/toastService";
 import axiosInstance from "../../AxiosConfig";
 
@@ -28,10 +27,11 @@ const Login = () => {
       const response = await axiosInstance.post("/adminAuth/superAdminLogin", { email, password });
 
       if (response.status === 200) {
-        const { accessToken, refreshToken } = response.data;
-
-        // Dispatch action to store token in Redux
-        dispatch(setToken(accessToken));
+        const { accessToken, refreshToken, userType, user, userName, category } = response.data;
+      
+        dispatch(setUser({ userType, userName, category }));
+        dispatch(setToken(accessToken,user._id));
+        localStorage.setItem("userId", user._id);
         localStorage.setItem("refreshToken", refreshToken);
 
         showSuccessToast("Login successful");

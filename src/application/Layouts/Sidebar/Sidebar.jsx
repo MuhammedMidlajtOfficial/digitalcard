@@ -8,6 +8,7 @@ import {
   FiChevronDown,
   FiChevronRight,
   FiEdit,
+  FiUserPlus,
 } from "react-icons/fi";
 import Swal from "sweetalert2";
 import { RiFolderChartFill } from "react-icons/ri";
@@ -46,6 +47,7 @@ function SidebarApplication() {
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.removeItem("token");
+        localStorage.removeItem("userId");
         localStorage.removeItem("refreshToken");
         navigate("/login");
       }
@@ -678,7 +680,7 @@ function SidebarApplication() {
                   </li> */}
                 </ul>
               </li>
-              <li>
+              {/* <li>
                 <div
                   className={`nav-link ${
                     expandedMenu === "rollbasedaccess" ? "active-nav-links" : ""
@@ -727,7 +729,7 @@ function SidebarApplication() {
                     >
                       Permission
                     </Link>
-                  </li>
+                  </li> */}
                   {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/rollbasedaccess/audit-trails"
@@ -741,8 +743,8 @@ function SidebarApplication() {
                       Audit Trails
                     </Link>
                   </li> */}
-                </ul>
-              </li>
+                {/* </ul>
+              </li> */}
               {/* <li>
                 <div
                   className={`nav-link ${
@@ -1082,6 +1084,18 @@ function SidebarApplication() {
                     </Link>
                   </li>
                 </ul>
+              </li>
+              <li>
+                <Link
+                  to="/admin/createEmployee"
+                  className={`nav-link ${
+                    location.pathname === "/admin/createEmployee"
+                      ? "active-nav-links"
+                      : ""
+                  }`}
+                >
+                  <FiUserPlus className="sidebar-icon" /> Create Employee
+                </Link>
               </li>
               <div className="line-dashed"></div>
               <li>

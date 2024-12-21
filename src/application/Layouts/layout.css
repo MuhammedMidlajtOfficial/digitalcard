@@ -305,6 +305,8 @@
 
 .sidebar-nav .nav-link {
   -webkit-text-fill-color: var(--footer-secondary-color);
+  display: flex;
+  align-items: center;
 }
 
 .sidebar-nav .nav-link:active {

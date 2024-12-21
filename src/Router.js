@@ -100,6 +100,9 @@ import GetNotifications from "./application/Page/NotificationSystem/GetNotificat
 import SendNotifications from "./application/Page/NotificationSystem/SendNotification";
 import AuthProvider from "./application/Context/AuthContext";
 import PrivateRoute from "./application/PrivateRoute";
+import CreateEmployeeForm from "./application/Page/CreateEmployee";
+import UnAuthorized from "./application/Page/Unauthorized";
+
 
 const Loader = () => {
   return <div className="loader"></div>;
@@ -190,6 +193,7 @@ const MainContent = () => {
     "/admin/paymentmanagement/refundprocess",
     "/admin/paymentmanagement/customerrefundinfo",
     "/admin/notificationsystem/sendnotifications",
+    "/admin/createEmployee",
   ];
 
   const isApplicationRoute = applicationRoutes.some(route => location.pathname.startsWith(route));
@@ -239,11 +243,11 @@ const MainContent = () => {
             
             <Route
               path="/admin/dashboard/overview"
-              element={<PrivateRoute element={DashboardPage} />}
+              element={<PrivateRoute element={DashboardPage} requiredPermission="view-user-profile"/>}
             />
             <Route
               path="/admin/supportticketsystem/viewandrespondticket"
-              element={<PrivateRoute element={TicketPage} />}
+              element={<PrivateRoute element={TicketPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/supportticketsystem/viewandrespondticket/open-ticket/:ticketId"
@@ -251,267 +255,276 @@ const MainContent = () => {
             />
             <Route
               path="/admin/supportticketsystem/assign-ticket"
-              element={<PrivateRoute element={AssignTickets} />}
+              element={<PrivateRoute element={AssignTickets} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/supportticketsystem/ticket-categories"
-              element={<PrivateRoute element={TicketCategory} />}
+              element={<PrivateRoute element={TicketCategory} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/dashboard/userstatic"
-              element={<PrivateRoute element={UserStaticPage} />}
+              element={<PrivateRoute element={UserStaticPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/dashboard/cardshares"
-              element={<PrivateRoute element={CardSharesPage} />}
+              element={<PrivateRoute element={CardSharesPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/dashboard/recentactivities"
-              element={<PrivateRoute element={RecentActivitiesPage} />}
+              element={<PrivateRoute element={RecentActivitiesPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/usermanagement/viewallusers"
-              element={<PrivateRoute element={AllUsersPage} />}
+              element={<PrivateRoute element={AllUsersPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/usermanagement/editusers/:userId"
-              element={<PrivateRoute element={UserEditPage} />}
+              element={<PrivateRoute element={UserEditPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/usermanagement/deleteusers"
-              element={<PrivateRoute element={DeleteUsersPage} />}
+              element={<PrivateRoute element={DeleteUsersPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/usermanagement/addusers"
-              element={<PrivateRoute element={AddUsersPage} />}
+              element={<PrivateRoute element={AddUsersPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/cardmanagement/createcard"
-              element={<PrivateRoute element={CreateNewCardPage} />}
+              element={<PrivateRoute element={CreateNewCardPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/cardmanagement/editcard"
-              element={<PrivateRoute element={EditExistingCardsPage} />}
+              element={<PrivateRoute element={EditExistingCardsPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/cardmanagement/deletecards"
-              element={<PrivateRoute element={DeleteCardsPage} />}
+              element={<PrivateRoute element={DeleteCardsPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/cardmanagement/cardtemplates"
-              element={<PrivateRoute element={CardTemplatePage} />}
+              element={<PrivateRoute element={CardTemplatePage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/cardmanagement/sharecards"
-              element={<PrivateRoute element={ShareCardsPage} />}
+              element={<PrivateRoute element={ShareCardsPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/cardmanagement/viewcardsdata"
-              element={<PrivateRoute element={ViewCardDataPage} />}
+              element={<PrivateRoute element={ViewCardDataPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/ordermanagement/vieworders"
-              element={<PrivateRoute element={ViewOrdersPage} />}
+              element={<PrivateRoute element={ViewOrdersPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/ordermanagement/processorders"
-              element={<PrivateRoute element={ProcessOrdersPage} />}
+              element={<PrivateRoute element={ProcessOrdersPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/ordermanagement/orderstatus"
-              element={<PrivateRoute element={OrderStatusPage} />}
+              element={<PrivateRoute element={OrderStatusPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/ordermanagement/paymentverification"
-              element={<PrivateRoute element={PaymentVerificationPage} />}
+              element={<PrivateRoute element={PaymentVerificationPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/analyticsdashboad/useractivityreport"
-              element={<PrivateRoute element={UserActivityReportsPage} />}
+              element={<PrivateRoute element={UserActivityReportsPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/analyticsdashboad/cardsharereport"
-              element={<PrivateRoute element={CardShareReportPage} />}
+              element={<PrivateRoute element={CardShareReportPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/analyticsdashboad/exportreports"
-              element={<PrivateRoute element={ExportReportsPage} />}
+              element={<PrivateRoute element={ExportReportsPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/analyticsdashboad/customreports"
-              element={<PrivateRoute element={CustomReportsPage} />}
+              element={<PrivateRoute element={CustomReportsPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/paymentmanagement/managesubscriptionplan"
-              element={<PrivateRoute element={ManageSubscriptionPage} />}
+              element={<PrivateRoute element={ManageSubscriptionPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/paymentmanagement/viewpayments"
-              element={<PrivateRoute element={ManagePaymentsPage} />}
+              element={<PrivateRoute element={ManagePaymentsPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/paymentmanagement/viewpayments/viewpayerinfo"
-              element={<PrivateRoute element={ViewPayersInfoPage} />}
+              element={<PrivateRoute element={ViewPayersInfoPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/paymentmanagement/invoicelist"
-              element={<PrivateRoute element={BillingHistoryPage} />}
+              element={<PrivateRoute element={BillingHistoryPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/settings"
-              element={<PrivateRoute element={SettingsPage} />}
+              element={<PrivateRoute element={SettingsPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/usermanagement/viewallusers/userview"
-              element={<PrivateRoute element={UserViewPage} />}
+              element={<PrivateRoute element={UserViewPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/usermanagement/entepriseusers"
-              element={<PrivateRoute element={ManageEnterpriseUserPage} />}
+              element={<PrivateRoute element={ManageEnterpriseUserPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/usermanagement/entepriseusers/companyusers/:userId"
-              element={<PrivateRoute element={CompanyUsersPage} />}
+              element={<PrivateRoute element={CompanyUsersPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/usermanagement/companyusers/edit"
-              element={<PrivateRoute element={EditCompanyUsersPage} />}
+              element={<PrivateRoute element={EditCompanyUsersPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/usermanagement/statuscategories"
-              element={<PrivateRoute element={StatusCategoriesPage} />}
+              element={<PrivateRoute element={StatusCategoriesPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/referenceinformation/referraltracking"
-              element={<PrivateRoute element={ReferralTrackingPage} />}
+              element={<PrivateRoute element={ReferralTrackingPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/referenceinformation/viewreferraluser"
-              element={<PrivateRoute element={ViewReferralUserPage} />}
+              element={<PrivateRoute element={ViewReferralUserPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/referenceinformation/incentivemanagement"
-              element={<PrivateRoute element={IncentiveManagementPage} />}
+              element={<PrivateRoute element={IncentiveManagementPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/incentivemanagement/incentivereferralview"
-              element={<PrivateRoute element={IncentiveReferralViewPage} />}
+              element={<PrivateRoute element={IncentiveReferralViewPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/contentmanagemnt/subscriptionplanpage"
-              element={<PrivateRoute element={SubscriptionPlanPage} />}
+              element={<PrivateRoute element={SubscriptionPlanPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/usermanagement/usercategorization"
-              element={<PrivateRoute element={UserCategorizationPage} />}
+              element={<PrivateRoute element={UserCategorizationPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/ordermanagement/orderanalystics"
-              element={<PrivateRoute element={OrderAnalysticsPage} />}
+              element={<PrivateRoute element={OrderAnalysticsPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/analyticsdashboad/allusersview"
-              element={<PrivateRoute element={AllUsersViewPage} />}
+              element={<PrivateRoute element={AllUsersViewPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/analyticsdashboad/uniquevisitors"
-              element={<PrivateRoute element={UniqueVisitorsPage} />}
+              element={<PrivateRoute element={UniqueVisitorsPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/analyticsdashboad/numberofshares"
-              element={<PrivateRoute element={NumberOfSharesPage} />}
+              element={<PrivateRoute element={NumberOfSharesPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/notificationsystem/usernotificationpage"
-              element={<PrivateRoute element={UserNotificationsPage} />}
+              element={<PrivateRoute element={UserNotificationsPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/notificationsystem/adminnotifications"
-              element={<PrivateRoute element={AdminNotifications} />}
+              element={<PrivateRoute element={AdminNotifications} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/notificationsystem/customizablealerts"
-              element={<PrivateRoute element={CustomizableAlerts} />}
+              element={<PrivateRoute element={CustomizableAlerts} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/notificationsystem/sendnotifications"
-              element={<PrivateRoute element={SendNotifications} />}
+              element={<PrivateRoute element={SendNotifications} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/notificationsystem/getnotifications"
-              element={<PrivateRoute element={GetNotifications} />}
+              element={<PrivateRoute element={GetNotifications} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/userfeedback/surveylist"
-              element={<PrivateRoute element={SurveyListPage} />}
+              element={<PrivateRoute element={SurveyListPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/userfeedback/create-survey"
-              element={<PrivateRoute element={CreateSurveyPage} />}
+              element={<PrivateRoute element={CreateSurveyPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/userfeedback/view-response"
-              element={<PrivateRoute element={FeedBackListPage} />}
+              element={<PrivateRoute element={FeedBackListPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/userfeedback/received-surveys"
-              element={<PrivateRoute element={ReceivedSurveyListPage} />}
+              element={<PrivateRoute element={ReceivedSurveyListPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/userfeedback/view-received-surveys"
-              element={<PrivateRoute element={ViewReceivedSurveyPage} />}
+              element={<PrivateRoute element={ViewReceivedSurveyPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/userfeedback/view-feedback"
-              element={<PrivateRoute element={ViewFeedbackPage} />}
+              element={<PrivateRoute element={ViewFeedbackPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/userfeedback/negative-feedbacks"
-              element={<PrivateRoute element={UserNegativeFeedbackPage} />}
+              element={<PrivateRoute element={UserNegativeFeedbackPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/supportticketsystem/sla-tracking"
-              element={<PrivateRoute element={SlaTracking} />}
+              element={<PrivateRoute element={SlaTracking} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/supportticketsystem/ticket-prioritisation"
-              element={<PrivateRoute element={TicketPrioritisation} />}
+              element={<PrivateRoute element={TicketPrioritisation} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/rollbasedaccess/rollcreation"
-              element={<PrivateRoute element={RollCreation} />}
+              element={<PrivateRoute element={RollCreation} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/rollbasedaccess/rbac-permission"
-              element={<PrivateRoute element={RBACPermissions} />}
+              element={<PrivateRoute element={RBACPermissions} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/rollbasedaccess/audit-trails"
-              element={<PrivateRoute element={AuditTrails} />}
+              element={<PrivateRoute element={AuditTrails} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/automatedmarketing/campaign-setup"
-              element={<PrivateRoute element={CampaignSetup} />}
+              element={<PrivateRoute element={CampaignSetup} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/paymentmanagement/invoicelist/addinvoice"
-              element={<PrivateRoute element={AddInvoicePage} />}
+              element={<PrivateRoute element={AddInvoicePage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/userfeedback/responseanalytics"
-              element={<PrivateRoute element={ResponseAnalyticsPage} />}
+              element={<PrivateRoute element={ResponseAnalyticsPage} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/automatedmarketing/email-sms-template"
-              element={<PrivateRoute element={EmailSMSTemplate} />}
+              element={<PrivateRoute element={EmailSMSTemplate} requiredPermission="view-dashboard"/>}
             />
             <Route
               path="/admin/paymentmanagement/invoicelist/viewinvoice"
-              element={<PrivateRoute element={ViewInvoicePage} />}
+              element={<PrivateRoute element={ViewInvoicePage}requiredPermission="view-dashboard" />}
             />
             <Route
               path="/admin/paymentmanagement/renewal-reminders"
-              element={<PrivateRoute element={RenewalAndRemindersPage} />}
+              element={<PrivateRoute element={RenewalAndRemindersPage} requiredPermission="view-dashboard"/>}
+            />
+            <Route
+              path="/admin/createEmployee"
+              element={<PrivateRoute element={CreateEmployeeForm} requiredPermission="view-dashboard"/>}
+            />
+            <Route
+              path="/admin/Unauthorized"
+              element={<PrivateRoute element={UnAuthorized} />}
+
             />
           </Routes>
 
