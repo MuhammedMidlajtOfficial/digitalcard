@@ -1092,8 +1092,10 @@ function SidebarApplication() {
                       ? "active-nav-links"
                       : ""
                   }`}
+                  style={{display:"flex",justifyContent:"start",alignItems:"center"}}
                 >
-                  <FiUserPlus className="sidebar-icon" /> Create Employee
+                  <FiUserPlus className="sidebar-icon" />
+                  <span>Create Employee</span>
                 </Link>
               </li>
               <div className="line-dashed"></div>
@@ -1105,13 +1107,18 @@ function SidebarApplication() {
                       ? "active-nav-links"
                       : ""
                   }`}
+                  style={{display:"flex",justifyContent:"start",alignItems:"center"}}
                 >
-                  <FiSettings className="sidebar-icon" /> Settings
+                  <FiSettings className="sidebar-icon" />
+                  <span>Settings</span>
                 </Link>
               </li>
               <li>
-                <Link to="#" className="nav-link" onClick={handlelogout}>
-                  <FiLogOut className="sidebar-icon" /> Logout
+                <Link to="#" className="nav-link" onClick={handlelogout} 
+                  style={{display:"flex",justifyContent:"start",alignItems:"center"}}
+                >
+                  <FiLogOut className="sidebar-icon" /> 
+                  <span>Logout</span>
                 </Link>
               </li>
             </ul>
