@@ -63,3 +63,47 @@
 .ant-checkbox-wrapper {
   font-family: "Montserrat" !important;
 }
+
+
+.category-checkboxes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
+.category-checkboxes .ant-checkbox-wrapper {
+  background-color: #f4f6fa;
+  border-radius: 10px;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.category-checkboxes .ant-checkbox-wrapper:hover {
+  background-color: #e0f7fa;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.category-checkboxes .ant-checkbox {
+  margin-right: 12px;
+}
+
+.category-checkboxes .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #007bff !important;
+  border-color: #007bff !important;
+}
+
+.category-checkboxes .ant-checkbox-inner {
+  border-radius: 4px;
+}
+
+.category-checkboxes .ant-checkbox:hover .ant-checkbox-inner {
+  border-color: #007bff !important;
+}
