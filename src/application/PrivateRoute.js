@@ -2,6 +2,7 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from './Context/AuthContext';
 
+
 const PrivateRoute = ({ element: Element, requiredPermission }) => {
   const { isAuthenticated, permissions } = useAuth();
 
@@ -21,7 +22,6 @@ const PrivateRoute = ({ element: Element, requiredPermission }) => {
 
   // Render the component if authenticated and has permission
   return <Element />;
-
 };
 
 export default PrivateRoute;

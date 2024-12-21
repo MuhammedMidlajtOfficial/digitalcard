@@ -250,8 +250,8 @@ const MainContent = () => {
               element={<PrivateRoute element={TicketPage} requiredPermission="view-dashboard"/>}
             />
             <Route
-              path="/admin/supportticketsystem/viewandrespondticket/open-ticket"
-              element={<PrivateRoute element={OpenTickets} requiredPermission="view-dashboard"/>}
+              path="/admin/supportticketsystem/viewandrespondticket/open-ticket/:ticketId"
+              element={<PrivateRoute element={OpenTickets} />}
             />
             <Route
               path="/admin/supportticketsystem/assign-ticket"

@@ -14,6 +14,7 @@ const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("token");
 
     if (token) {
+
       const isValidToken = verifyToken(token);
       setIsAuthenticated(isValidToken);
 
