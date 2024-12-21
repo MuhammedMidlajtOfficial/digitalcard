@@ -1,225 +1,227 @@
-// import React, { useEffect, useState } from "react";
-// import { Pagination, Spin } from "antd"; // Ant Design's Spin for loading indicator
-// import axiosInstance from "../../../../AxiosConfig";
-// import { AllUsersTableList } from "./AllUsersTableList";
-// import { Avatar, Dropdown, Menu } from "antd";
-// import { useNavigate } from "react-router-dom";
-// import { FiFilter, FiSearch } from "react-icons/fi";
-// import { FaPlus } from "react-icons/fa6";
-// import { IoIosArrowForward } from "react-icons/io";
-// import { TbArrowsDownUp } from "react-icons/tb";
-// import { RxGrid } from "react-icons/rx";
-// import { LuMenu } from "react-icons/lu";
-// import { UserOutlined } from "@ant-design/icons";
-// import { useLoading } from "../../../Services/loadingService";
-// import { showErrorToast, showSuccessToast } from "../../../Services/toastService";
+import React, { useEffect, useState } from "react";
+import { Table, Pagination, Avatar, Spin, Dropdown, Button, Menu } from "antd";
+import { FiSearch } from "react-icons/fi";
+import { FaPlus } from "react-icons/fa6";
+import { RxGrid } from "react-icons/rx";
+import { LuMenu } from "react-icons/lu";
+import { IoEllipsisHorizontalSharp } from "react-icons/io5";
+import { UserOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../../AxiosConfig";
+import { useLoading } from "../../Services/loadingService";
+import { showDeleteMessage } from "../../../globalConstant";
 
-// const EmployeeLIst = () => {
-//   const [isTableView, setIsTableView] = useState(false);
-//   const [filter, setFilter] = useState("individualUser");
-//   const [sortOrder, setSortOrder] = useState("asc");
-//   const [allUser, setAllUser] = useState([]);
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const [pageSize, setPageSize] = useState(12);
-//   const [totalUsers, setTotalUsers] = useState(0);
-//   const [searchTerm, setSearchTerm] = useState(""); // State for search term
+const EmployeeList = () => {
+  const [isTableView, setIsTableView] = useState(false);
+  const [allUsers, setAllUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(12);
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
 
-//   const { loading, startLoading, stopLoading } = useLoading(); // Use the loading state
-//   const navigate = useNavigate();
+  const { loading, startLoading, stopLoading } = useLoading();
+  const navigate = useNavigate();
 
-//   const handleTableViewToggle = () => setIsTableView(true);
-//   const handleGridViewToggle = () => setIsTableView(false);
+  // Fetch Employees
+  const fetchUsers = () => {
+    startLoading();
+    axiosInstance
+      .get(`/employee`, {
+        params: { page: currentPage, pageSize, search: searchTerm },
+      })
+      .then((response) => {
+        setAllUsers(response.data.employees || []);
+        setTotalUsers(response.data.totalCount || 0);
+      })
+      .catch((error) => {
+        console.error("Error fetching users:", error);
+      })
+      .finally(() => stopLoading());
+  };
 
-//   useEffect(() => {
-//     fetchUsers();
-//     return () => setAllUser([]); // Clean up on unmount
-//   }, [filter, currentPage, pageSize, sortOrder, searchTerm]); // Include searchTerm in dependencies
+  // Delete Employee
+  const handleDelete = (userId) => {
+    startLoading();
+    axiosInstance
+      .delete(`/employee/${userId}`)
+      .then(() => fetchUsers())
+      .catch((error) => {
+        console.error("Error deleting employee:", error);
+      })
+      .finally(() => stopLoading());
+  };
 
-//   const fetchUsers = () => {
-//     startLoading(); // Start loading indicator
-//     axiosInstance
-//       .get(`/employee/${filter}`, {
-//         params: {
-//           page: currentPage,
-//           pageSize,
-//           sortOrder,
-//           search: searchTerm, // Pass the search term in the API request
-//         },
-//       })
-//       .then((response) => {
-//         setAllUser(response.data.totalUser);
-//         setTotalUsers(response.data.totalCount);
-//         stopLoading(); // Stop loading when data is fetched
-//       })
-//       .catch((error) => {
-//         console.error("Error fetching data:", error);
-//         stopLoading(); // Stop loading in case of an error
-//       });
-//   };
+  const openDeleteModal = (userId) => {
+    showDeleteMessage({
+      title: "Are you sure you want to delete this Employee?",
+      content: "This action cannot be undone.",
+      onDelete: () => handleDelete(userId),
+    });
+  };
 
-//   const handleSearch = (e) => {
-//     setSearchTerm(e.target.value); // Update the search term
-//     setCurrentPage(1); // Reset to the first page when the search term changes
-//   };
+  const navigateToForm = (employeeId = null) => {
+    if (employeeId) {
+      navigate(`/admin/createEmployee?id=${employeeId}`);
+    } else {
+      navigate(`/admin/createEmployee`);
+    }
+  };
 
-//   const handleChangeStatus = (userId) => {
-//     startLoading(); // Start loading indicator
-//     axiosInstance
-//       .get(`/employee/${userId}`)
-//       .then((response) => {
-//         if(response.status === 200){
-//           showSuccessToast(response.data.message);
-//           fetchUsers();
-//         }
-//         stopLoading(); // Stop loading when data is fetched
-//       })
-//       .catch((error) => {
-//         console.error("Error fetching data:", error);
-//         showErrorToast("Something went wrong. Please try again later");
-//         stopLoading(); // Stop loading in case of an error
-//       });
-//   };
+  // Search Handler
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1);
+  };
 
-//   const filterMenu = (
-//     <Menu onClick={({ key }) => setFilter(key)} selectedKeys={[filter]}>
-//       <Menu.Item key="individualUser">Individual User</Menu.Item>
-//       <Menu.Item key="enterpriseUser">Enterprise User</Menu.Item>
-//       <Menu.Item key="enterpriseEmploye">Enterprise Employee</Menu.Item>
-//     </Menu>
-//   );
+  // View Toggle Handlers
+  const toggleView = (view) => setIsTableView(view === "table");
 
-//   const sortMenu = (
-//     <Menu onClick={({ key }) => setSortOrder(key)} selectedKeys={[sortOrder]}>
-//       <Menu.Item key="asc">
-//         ASC <IoIosArrowForward />
-//       </Menu.Item>
-//       <Menu.Item key="desc">
-//         DESC <IoIosArrowForward />
-//       </Menu.Item>
-//     </Menu>
-//   );
+  // Table Columns
+  const columns = [
+    {
+      title: "Image",
+      dataIndex: "image",
+      render: (image) => (
+        <Avatar
+          src={image}
+          size={40}
+          className="me-2"
+          icon={!image && <UserOutlined />}
+        />
+      ),
+    },
+    { title: "Name", dataIndex: "userName", render: (name) => name || "N/A" },
+    { title: "Email", dataIndex: "email" },
+    {
+      title: "Mobile No",
+      dataIndex: "phoneNumber",
+      render: (phone) => phone || "N/A",
+    },
+    {
+      title: "Action",
+      render: (_, record) => (
+        <Dropdown
+          overlay={
+            <Menu>
+              <Menu.Item
+                key="edit"
+                onClick={() =>
+                   navigateToForm(record._id)
+                }
+              >
+                Edit
+              </Menu.Item>
+              <Menu.Item
+                key="delete"
+                type="danger"
+                onClick={() => openDeleteModal(record._id)}
+              >
+                Delete
+              </Menu.Item>
+            </Menu>
+          }
+          trigger={["click"]}
+        >
+          <Button type="text" icon={<IoEllipsisHorizontalSharp />} />
+        </Dropdown>
+      ),
+    },
+  ];
 
-//   const renderUserProfileCard = (user) => {
-//     const { _id, image, userName, email, phoneNumber, category } = user;
-//     return (
-//       <div className="col-lg-3 mb-4" key={user._id || user.id}>
-//         <div className="application-users-profile-card">
-//           <div className="d-flex justify-content-center">
-//             <Avatar
-//               src={image || null}
-//               shape="square"
-//               size={68}
-//               icon={image ? null : <UserOutlined />}
-//             />
-//           </div>
-//           <h2 className="mt-3">{userName || "N/A"}</h2>
-//           <h4>{email}</h4>
-//           <h4>{phoneNumber || "N/A"}</h4>
-//           <h5>
-//             Categories:{" "}
-//             {category && category.length ? category.join(", ") : "N/A"}
-//           </h5>
-//           <div className="d-flex gap-2 mt-2" style={{ width: "100%" }}>
-//             <button
-//               className="edit-button"
-//               onClick={() => navigate(`/admin/usermanagement/editusers/${_id}`)}
-//             >
-//               Edit
-//             </button>
-//             <button
-//               className="status-button"
-//               onClick={() => handleChangeStatus(_id)}
-//             >
-//               Change Status
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   };
+  // User Card
+  const renderUserProfileCard = (user) => (
+    <div className="col-lg-3 mb-4" key={user._id}>
+      <div className="application-users-profile-card">
+        <div className="d-flex justify-content-center">
+          <Avatar
+            src={user.image}
+            shape="square"
+            size={68}
+            icon={!user.image && <UserOutlined />}
+          />
+        </div>
+        <h2 className="mt-3">{user.userName || "N/A"}</h2>
+        <h4>{user.email}</h4>
+        <h4>{user.phoneNumber || "N/A"}</h4>
+        <h5>
+          Categories: {user.category?.length ? user.category.join(", ") : "N/A"}
+        </h5>
+        <div className="d-flex gap-2 mt-2">
+          <button
+            className="edit-button"
+            onClick={() =>
+              navigateToForm(user._id)
+            }
+          >
+            Edit
+          </button>
+          <button
+            className="delete-button"
+            onClick={() => openDeleteModal(user._id)}
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 
-//   return (
-//     <div className="container">
-//       <div className="application-users-section mb-4 d-flex justify-content-between">
-//         <h2>View All Users</h2>
-//         <button
-//           className="add-all-users"
-//           onClick={() => navigate("/admin/createEmployee")}
-//         >
-//           <FaPlus />
-//           Add User
-//         </button>
-//       </div>
-//       <div className="d-flex mb-4 flex-lg-row flex-xl-row flex-column justify-content-between gap-4">
-//         <div className="search-container">
-//           <FiSearch className="search-icon" />
-//           <input
-//             type="text"
-//             placeholder="Search..."
-//             className="create-survey-search-input"
-//             value={searchTerm} // Bind the input field to the search term
-//             onChange={handleSearch} // Trigger search on input change
-//           />
-//         </div>
-//         <div className="search-table-container d-flex gap-4">
-//           <Dropdown overlay={filterMenu} trigger={["click"]}>
-//             <button className="table-action-btn d-flex gap-2 align-items-center">
-//               <span>Filters</span>
-//               <FiFilter />
-//             </button>
-//           </Dropdown>
-//           <Dropdown overlay={sortMenu} trigger={["click"]}>
-//             <button className="table-action-btn d-flex gap-2 align-items-center">
-//               <span>Sort By</span>
-//               <TbArrowsDownUp />
-//             </button>
-//           </Dropdown>
-//           <div
-//             className="d-flex align-items-center"
-//             onClick={handleGridViewToggle}
-//           >
-//             <RxGrid />
-//           </div>
-//           <div
-//             className="d-flex align-items-center"
-//             onClick={handleTableViewToggle}
-//           >
-//             <LuMenu />
-//           </div>
-//         </div>
-//       </div>
-//       {loading ? (
-//         <Spin size="large" className="d-flex justify-content-center mt-5" />
-//       ) : isTableView ? (
-//         <AllUsersTableList
-//           allUser={allUser}
-//           filter={filter}
-//           currentPage={currentPage}
-//           pageSize={pageSize}
-//           totalUsers={totalUsers}
-//           onPaginationChange={(page, size) => {
-//             setCurrentPage(page);
-//             setPageSize(size);
-//           }}
-//         />
-//       ) : (
-//         <div className="row">{allUser?.map(renderUserProfileCard)}</div>
-//       )}
-//       <div className="d-flex justify-content-center mt-4">
-//         <Pagination
-//           current={currentPage}
-//           pageSize={pageSize}
-//           total={totalUsers}
-//           onChange={(page, size) => {
-//             setCurrentPage(page);
-//             setPageSize(size);
-//           }}
-//           showSizeChanger
-//           pageSizeOptions={[12, 24, 60, 120]}
-//         />
-//       </div>
-//     </div>
-//   );
-// };
+  useEffect(() => {
+    fetchUsers();
+  }, [currentPage, pageSize, searchTerm]);
 
-// export default EmployeeLIst;
+  return (
+    <div className="container">
+      <div className="application-users-section mb-4 d-flex justify-content-between">
+        <h2>View All Users</h2>
+        <button
+          className="add-all-users"
+          onClick={() => navigateToForm()}
+        >
+          <FaPlus />
+          Add Employee
+        </button>
+      </div>
+      <div className="d-flex mb-4 justify-content-between">
+        <div className="search-container">
+          <FiSearch className="search-icon" />
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+        </div>
+        <div className="d-flex gap-4">
+          <RxGrid onClick={() => toggleView("grid")} />
+          <LuMenu onClick={() => toggleView("table")} />
+        </div>
+      </div>
+      {loading ? (
+        <Spin size="large" className="d-flex justify-content-center mt-5" />
+      ) : isTableView ? (
+        <Table
+          columns={columns}
+          dataSource={allUsers.map((user, idx) => ({ ...user, key: idx }))}
+          pagination={false}
+        />
+      ) : (
+        <div className="row">{allUsers.map(renderUserProfileCard)}</div>
+      )}
+      <Pagination
+        current={currentPage}
+        pageSize={pageSize}
+        total={totalUsers}
+        onChange={(page, size) => {
+          setCurrentPage(page);
+          setPageSize(size);
+        }}
+        showSizeChanger
+        pageSizeOptions={[12, 24, 60, 120]}
+        className="d-flex justify-content-center mt-4"
+      />
+    </div>
+  );
+};
+
+export default EmployeeList;
