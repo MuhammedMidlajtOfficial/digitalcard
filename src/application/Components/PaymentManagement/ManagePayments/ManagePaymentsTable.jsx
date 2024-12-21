@@ -1,16 +1,53 @@
-import React from "react";
-import { Dropdown, Menu, Table, Avatar, Button } from "antd";
+import React, { useEffect, useState } from "react";
+import { Dropdown, Menu, Table, Avatar, Button, Spin, message } from "antd";
 import { IoIosArrowForward } from "react-icons/io";
 import { TbArrowsDownUp } from "react-icons/tb";
 import { FiFilter } from "react-icons/fi";
-import image1 from "../../../Assets/Images/admin.png";
 import { IoEllipsisHorizontalSharp } from "react-icons/io5";
 import { LuEye } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { UserOutlined } from "@ant-design/icons";
+import axiosInstance from "../../../../AxiosConfig";
+
 
 export const ManagePaymentsTable = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const fetchPayments = async () => {
+    setLoading(true);
+    try {
+      const response = await axiosInstance.get("/payment");
+
+  
+      // Map the response data to the table format
+      setData(
+        response.data.map((item, index) => ({
+          key: index,
+          userName: {
+            name: item.user?.name || "Unknown", // Fetch the user name
+            image: item.user?.image || null,   // Fetch the user image
+          },
+          paymentid: item.subscription?.razorpayOrderId || "N/A", // Fetch Razorpay Order ID
+          date: new Date(item.subscription?.startDate).toLocaleDateString(), // Format start date
+          paymethod: "Razorpay", // Hardcoded payment method
+          status: item.subscription?.status || "Pending", // Subscription status
+          transactionid: (item.subscription?.payment && item.subscription.payment[0]) || "N/A", // First payment ID
+        }))
+      );
+    } catch (error) {
+      message.error("Failed to fetch payment data");
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+
+  useEffect(() => {
+    fetchPayments();
+  }, []);
 
   const filterMenu = (
     <Menu>
@@ -33,30 +70,49 @@ export const ManagePaymentsTable = () => {
       </Menu.Item>
     </Menu>
   );
-  const actionMenu = (
+
+  const actionMenu = (record) => (
     <Menu>
       <Menu.Item
         key="view"
         onClick={() =>
-          navigate("/admin/paymentmanagement/viewpayments/viewpayerinfo")
+          navigate("/admin/paymentmanagement/viewpayments/viewpayerinfo", {
+            state: { record },
+          })
         }
       >
         <LuEye style={{ color: "var(--gradient-end-color)" }} />
         View
       </Menu.Item>
-      <Menu.Item key="reject">
+      <Menu.Item
+        key="reject"
+        onClick={() => handleDelete(record.paymentid)}
+      >
         <RiDeleteBinLine style={{ color: "var(--danger-color)" }} />
         Delete
       </Menu.Item>
     </Menu>
   );
+
+  const handleDelete = async (paymentId) => {
+    try {
+      await axiosInstance.delete(`/payment/${paymentId}`);
+      message.success("Payment deleted successfully");
+      fetchPayments();
+    } catch (error) {
+      message.error("Failed to delete payment");
+    }
+  };
+
   const columns = [
     {
       title: "Payer Name",
       dataIndex: "userName",
       render: (userName) => (
         <div className="d-flex align-items-center">
-          <Avatar src={userName.image} size={40} className="me-2" />
+          <Avatar src={userName.image || null}
+          icon={!userName.image ? <UserOutlined /> : null}
+          size={40} className="me-2" />
           {userName.name}
         </div>
       ),
@@ -85,11 +141,13 @@ export const ManagePaymentsTable = () => {
           className="table-status-tag"
           style={{
             color:
-              status === "Completed"
+              status === "active"
                 ? "green"
-                : status === "Pending"
+                : status === "pending"
                 ? "orange"
-                : "red",
+                : status === "inactive"
+                ? "red"
+                : "gray",
           }}
         >
           {status}
@@ -99,50 +157,11 @@ export const ManagePaymentsTable = () => {
     {
       title: "Action",
       dataIndex: "action",
-      render: () => (
-        <Dropdown overlay={actionMenu} trigger={["click"]}>
+      render: (_, record) => (
+        <Dropdown overlay={actionMenu(record)} trigger={["click"]}>
           <Button type="text" icon={<IoEllipsisHorizontalSharp />} />
         </Dropdown>
       ),
-    },
-  ];
-
-  const data = [
-    {
-      key: "1",
-      userName: { name: "Annette Black", image: image1 },
-      paymentid: "123456",
-      date: "09/12/24",
-      paymethod: "Credit Card",
-      status: "Completed",
-      transactionid: "TXN7891011",
-    },
-    {
-      key: "2",
-      userName: { name: "Guy Hawkins", image: image1 },
-      paymentid: "123456",
-      date: "09/12/24",
-      paymethod: "Paypal",
-      status: "Completed",
-      transactionid: "TXN7891011",
-    },
-    {
-      key: "3",
-      userName: { name: "Cameron", image: image1 },
-      paymentid: "432342",
-      date: "09/12/24",
-      paymethod: "Debit card",
-      status: "Pending",
-      transactionid: "TXN7891012",
-    },
-    {
-      key: "4",
-      userName: { name: "Kristin Watson", image: image1 },
-      paymentid: "456343",
-      date: "09/12/24",
-      paymethod: "Paypal",
-      status: "Failed",
-      transactionid: "TXN7891013",
     },
   ];
 
@@ -153,7 +172,7 @@ export const ManagePaymentsTable = () => {
           <div className="application-table-section">
             <div className="d-flex mb-4 flex-lg-row flex-xl-row flex-column justify-content-between gap-4">
               <div className="d-flex gap-4 align-items-center">
-                <h2>View payment History</h2>
+                <h2>View Payment History</h2>
               </div>
               <div className="search-table-container d-flex gap-2">
                 <Dropdown overlay={sortMenu} trigger={["click"]}>
@@ -182,12 +201,16 @@ export const ManagePaymentsTable = () => {
                 </Dropdown>
               </div>
             </div>
-            <Table
-              columns={columns}
-              dataSource={data}
-              pagination={{ pageSize: 5 }}
-              className="applied-applicants-table overflow-y-auto"
-            />
+            {loading ? (
+              <Spin size="large" className="d-flex justify-content-center" />
+            ) : (
+              <Table
+                columns={columns}
+                dataSource={data}
+                pagination={{ pageSize: 5 }}
+                className="applied-applicants-table overflow-y-auto"
+              />
+            )}
           </div>
         </div>
       </div>

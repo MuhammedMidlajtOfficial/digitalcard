@@ -496,9 +496,6 @@
 //   );
 // };
 
-
-
-
 import React, { useEffect, useState } from "react";
 import { Dropdown, Menu, Table, Button, DatePicker, Space } from "antd";
 //import { IoIosArrowForward } from "react-icons/io";
@@ -556,12 +553,11 @@ export const BillingHistoryTable = ({invoiceData,setQuery}) => {
     const sortedData = [...data].sort((a, b) => {
       if (order === "asc") return a.userName.localeCompare(b.userName);
       if (order === "desc") return b.userName.localeCompare(a.userName);
+
       return 0;
     });
     setData(sortedData);
   };
-
-  
   const handleQueryFilter = (filterType) => {
     
     if (filterType === "lastDay") {
@@ -589,6 +585,7 @@ export const BillingHistoryTable = ({invoiceData,setQuery}) => {
       <Button type="link" onClick={() => handleQueryFilter("lastMonth")}>Last Month</Button>
     </Space>
   </Space>
+
   );
 
   const sortMenu = (
@@ -611,9 +608,6 @@ export const BillingHistoryTable = ({invoiceData,setQuery}) => {
   const handleInvoiceAction = (invoice) => {
     setSelectedInvoice(invoice); // Set the selected invoice data
   };
-
-  
-
   const actionMenu = (
     <Menu>
       <Menu.Item
@@ -758,6 +752,7 @@ export const BillingHistoryTable = ({invoiceData,setQuery}) => {
                   />
                 </button>
               </Dropdown>
+
             </div>
           </div>
           <div className="application-table-section">

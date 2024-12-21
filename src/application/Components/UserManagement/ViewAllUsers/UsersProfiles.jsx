@@ -1,134 +1,117 @@
-import React, { useState } from "react";
-import user from "../../../Assets/Images/profile.png";
-import user1 from "../../../Assets/Images/profile1.png";
-import user2 from "../../../Assets/Images/profile2.png";
-import user3 from "../../../Assets/Images/profile3.png";
-import user4 from "../../../Assets/Images/profile4.png";
-import user5 from "../../../Assets/Images/profile5.png";
-import user6 from "../../../Assets/Images/profile6.png";
-import { FaPlus } from "react-icons/fa6";
+import React, { useEffect, useState } from "react";
+import { Pagination, Spin } from "antd"; // Ant Design's Spin for loading indicator
+import axiosInstance from "../../../../AxiosConfig";
+import { AllUsersTableList } from "./AllUsersTableList";
+import { Avatar, Dropdown, Menu } from "antd";
 import { useNavigate } from "react-router-dom";
 import { FiFilter, FiSearch } from "react-icons/fi";
-import { Dropdown, Menu, Avatar } from "antd";
+import { FaPlus } from "react-icons/fa6";
 import { IoIosArrowForward } from "react-icons/io";
 import { TbArrowsDownUp } from "react-icons/tb";
-import { IoSearch } from "react-icons/io5";
 import { RxGrid } from "react-icons/rx";
 import { LuMenu } from "react-icons/lu";
-import { AllUsersTableList } from "./AllUsersTableList";
-import { Input } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import { useLoading } from "../../../Services/loadingService";
+import { showErrorToast, showSuccessToast } from "../../../Services/toastService";
 
 const UsersProfiles = () => {
+  const [isTableView, setIsTableView] = useState(false);
+  const [filter, setFilter] = useState("individualUser");
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [allUser, setAllUser] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(12);
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [searchTerm, setSearchTerm] = useState(""); // State for search term
+
+  const { loading, startLoading, stopLoading } = useLoading(); // Use the loading state
   const navigate = useNavigate();
 
-  const [isTableView, setIsTableView] = useState(false);
+  const handleTableViewToggle = () => setIsTableView(true);
+  const handleGridViewToggle = () => setIsTableView(false);
 
-  const handleTableViewToggle = () => {
-    setIsTableView(true);
+  useEffect(() => {
+    fetchUsers();
+    return () => setAllUser([]);
+  }, [filter, currentPage, pageSize, sortOrder, searchTerm]); // Include searchTerm in dependencies
+
+  const fetchUsers = () => {
+    startLoading(); // Start loading indicator
+    axiosInstance
+      .get(`user/getAllUser/${filter}`, {
+        params: {
+          page: currentPage,
+          pageSize,
+          sortOrder,
+          search: searchTerm, // Pass the search term in the API request
+        },
+      })
+      .then((response) => {
+        setAllUser(response.data.totalUser);
+        setTotalUsers(response.data.totalCount);
+        stopLoading(); // Stop loading when data is fetched
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        stopLoading(); // Stop loading in case of an error
+      });
   };
-  const handleGridViewToggle = () => {
-    setIsTableView(false);
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value); // Update the search term
+    setCurrentPage(1); // Reset to the first page when the search term changes
+  };
+
+  const handleChangeStatus = (userId) => {
+    startLoading(); // Start loading indicator
+    axiosInstance
+      .get(`user/changeUserStatus/${userId}`)
+      .then((response) => {
+        if(response.status === 200){
+          showSuccessToast(response.data.message)
+          fetchUsers()
+        }
+        stopLoading(); // Stop loading when data is fetched
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        showErrorToast("Something went wrong. Please try again later")
+        stopLoading(); // Stop loading in case of an error
+      });
   };
 
   const filterMenu = (
-    <Menu>
-      <Menu.Item key="certifications" className="filter-menu-item">
-        ABC <IoIosArrowForward className="right-arrow" />
-      </Menu.Item>
-      <Menu.Item key="employment-type" className="filter-menu-item">
-        EFG <IoIosArrowForward className="right-arrow" />
-      </Menu.Item>
+    <Menu onClick={({ key }) => setFilter(key)} selectedKeys={[filter]}>
+      <Menu.Item key="individualUser">Individual User</Menu.Item>
+      <Menu.Item key="enterpriseUser">Enterprise User</Menu.Item>
+      <Menu.Item key="enterpriseEmploye">Enterprise Employee</Menu.Item>
     </Menu>
   );
 
   const sortMenu = (
-    <Menu>
-      <Menu.Item key="datePosted" className="filter-menu-item">
-        ABC <IoIosArrowForward className="right-arrow" />
+    <Menu onClick={({ key }) => setSortOrder(key)} selectedKeys={[sortOrder]}>
+      <Menu.Item key="asc">
+        ASC <IoIosArrowForward />
       </Menu.Item>
-      <Menu.Item key="jobType" className="filter-menu-item">
-        EFG <IoIosArrowForward className="right-arrow" />
+      <Menu.Item key="desc">
+        DESC <IoIosArrowForward />
       </Menu.Item>
     </Menu>
   );
-  const users = [
-    {
-      id: 1,
-      image: user,
-      name: "Cameron Williamson",
-      memberTag: "Gold Member",
-      email: "cameron@gmai.com",
-      phone: "+91 94464 64964",
-    },
-    {
-      id: 2,
-      image: user1,
-      name: "John Doe",
-      memberTag: "Silver Member",
-      email: "john@gmai.com",
-      phone: "+91 94464 64965",
-    },
-    {
-      id: 3,
-      image: user2,
-      name: "Jane Smith",
-      memberTag: "Platinum Member",
-      email: "jane@gmai.com",
-      phone: "+91 94464 64966",
-    },
-    {
-      id: 4,
-      image: user3,
-      name: "Emma Brown",
-      memberTag: "Gold Member",
-      email: "emma@gmai.com",
-      phone: "+91 94464 64967",
-    },
-    {
-      id: 5,
-      image: user4,
-      name: "Chris Johnson",
-      memberTag: "Gold Member",
-      email: "chris@gmai.com",
-      phone: "+91 94464 64968",
-    },
-    {
-      id: 6,
-      image: user5,
-      name: "Alex Lee",
-      memberTag: "Silver Member",
-      email: "alex@gmai.com",
-      phone: "+91 94464 64969",
-    },
-    {
-      id: 7,
-      image: user6,
-      name: "Emily Davis",
-      memberTag: "Platinum Member",
-      email: "emily@gmai.com",
-      phone: "+91 94464 64970",
-    },
-    {
-      id: 8,
-      image: user1,
-      name: "John Doe",
-      memberTag: "Silver Member",
-      email: "john@gmai.com",
-      phone: "+91 94464 64965",
-    },
-  ];
+
 
   const renderUserProfileCard = (user) => {
-    const { image, name, memberTag, email, phone } = user;
+    const { _id, image, username, companyName, subscriptionPlan, email, phnNumber, status } = user;
+    const color = status === 'active' ? 'green' : 'red';
     let tagClass = "";
-    switch (memberTag) {
-      case "Gold Member":
+    switch (subscriptionPlan) {
+      case "Gold":
         tagClass = "gold-member-tag";
         break;
-      case "Silver Member":
+      case "Silver":
         tagClass = "silver-member-tag";
         break;
-      case "Platinum Member":
+      case "Platinum":
         tagClass = "platinum-member-tag";
         break;
       default:
@@ -136,23 +119,49 @@ const UsersProfiles = () => {
     }
 
     return (
-      <div className="col-lg-3 mb-4" key={user.id}>
+      <div className="col-lg-3 mb-4" key={user._id || user.id}>
         <div className="application-users-profile-card">
           <div className="d-flex justify-content-center">
-            <Avatar src={image} shape="square" size={68} />
+            <Avatar
+              src={image || null}
+              shape="square"
+              size={68}
+              icon={image ? null : <UserOutlined />}
+            />
           </div>
-          <h2 className="mt-3">{name}</h2>
+          <h2 className="mt-3">
+            {filter === "enterpriseUser" ? companyName || "N/A" : username || "N/A"}
+          </h2>
           <div className="d-flex justify-content-center">
-            <p className={tagClass}>{memberTag}</p>
+            {subscriptionPlan ? (
+              <p className={tagClass}>{subscriptionPlan}</p>
+            ) : (
+              <p className="null-member-tag">No Plan</p>
+            )}
           </div>
           <h4>{email}</h4>
-          <h4>{phone}</h4>
-          <button
-            onClick={() => navigate("/admin/usermanagement/editusers")}
-            className="mt-2"
-          >
-            Visit Profile
-          </button>
+          <h4>{phnNumber || "N/A"}</h4>
+          <h4>
+            <span style={{ color: color }}>
+              {status.charAt(0).toUpperCase() + status.slice(1)}
+              {' '}
+              user
+            </span>
+          </h4>
+          <div className="d-flex gap-2 mt-2" style={{ width: "100" }}>
+            <button
+              className="edit-button"
+              onClick={() => navigate(`/admin/usermanagement/editusers/${_id}`) }
+            >
+              Edit
+            </button>
+            <button
+              className={`status-button ${status === "active" ? "inactive" : "active"}`}
+              onClick={() => handleChangeStatus(_id)}
+            >
+              {status === "active" ? "Inactive" : "Active"}
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -177,52 +186,67 @@ const UsersProfiles = () => {
             type="text"
             placeholder="Search..."
             className="create-survey-search-input"
+            value={searchTerm} // Bind the input field to the search term
+            onChange={handleSearch} // Trigger search on input change
           />
         </div>
         <div className="search-table-container d-flex gap-4">
           <Dropdown overlay={filterMenu} trigger={["click"]}>
             <button className="table-action-btn d-flex gap-2 align-items-center">
               <span>Filters</span>
-              <FiFilter
-                style={{
-                  fontWeight: 500,
-                  fontSize: "14px",
-                  color: "GrayText",
-                }}
-              />
+              <FiFilter />
             </button>
           </Dropdown>
           <Dropdown overlay={sortMenu} trigger={["click"]}>
             <button className="table-action-btn d-flex gap-2 align-items-center">
               <span>Sort By</span>
-              <TbArrowsDownUp
-                style={{
-                  fontWeight: 500,
-                  fontSize: "14px",
-                  color: "GrayText",
-                }}
-              />
+              <TbArrowsDownUp />
             </button>
           </Dropdown>
           <div
             className="d-flex align-items-center"
             onClick={handleGridViewToggle}
           >
-            <RxGrid className="table-card-list" />
+            <RxGrid />
           </div>
           <div
             className="d-flex align-items-center"
             onClick={handleTableViewToggle}
           >
-            <LuMenu className="table-data-list" />
+            <LuMenu />
           </div>
         </div>
       </div>
-      {isTableView ? (
-        <AllUsersTableList />
+      {loading ? (
+        <Spin size="large" className="d-flex justify-content-center mt-5" />
+      ) : isTableView ? (
+        <AllUsersTableList
+          allUser={allUser}
+          filter={filter}
+          currentPage={currentPage}
+          pageSize={pageSize}
+          totalUsers={totalUsers}
+          onPaginationChange={(page, size) => {
+            setCurrentPage(page);
+            setPageSize(size);
+          }}
+        />
       ) : (
-        <div className="row">{users.map(renderUserProfileCard)}</div>
-      )}{" "}
+        <div className="row">{allUser?.map(renderUserProfileCard)}</div>
+      )}
+      <div className="d-flex justify-content-center mt-4">
+        <Pagination
+          current={currentPage}
+          pageSize={pageSize}
+          total={totalUsers}
+          onChange={(page, size) => {
+            setCurrentPage(page);
+            setPageSize(size);
+          }}
+          showSizeChanger
+          pageSizeOptions={[12, 24, 60, 120]}
+        />
+      </div>
     </div>
   );
 };

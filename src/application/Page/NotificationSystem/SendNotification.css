@@ -1,0 +1,81 @@
+.notification-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f7fb;
+  }
+  
+  .notification-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .notification-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .notification-form .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .notification-form .form-group label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  .notification-form input,
+  .notification-form select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .notification-form select {
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  .notification-form input:focus,
+  .notification-form select:focus {
+    border-color: #4a90e2;
+    outline: none;
+  }
+  
+  .submit-btn {
+    background-color: #4a90e2;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .submit-btn:disabled {
+    background-color: #bbb;
+    cursor: not-allowed;
+  }
+  
+  .success-message {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+    text-align: center;
+  }
+  

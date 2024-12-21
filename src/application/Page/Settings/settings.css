@@ -15,6 +15,8 @@
   font-size: 16px;
   color: var(--text-secondary-color);
   padding: 10px;
+  display: flex;
+  align-items: center;
 }
 
 .settings-items:hover,

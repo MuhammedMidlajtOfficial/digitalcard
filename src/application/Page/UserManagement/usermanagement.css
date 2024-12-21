@@ -30,6 +30,7 @@
   padding: 24px;
   display: flex;
   flex-direction: column;
+  /* min-height: 315px; */
 }
 .application-users-profile-card h2 {
   font-size: 14px;
@@ -42,6 +43,7 @@
   color: var(--text-secondary-color);
   font-weight: 600;
   text-align: center;
+  margin: 3px;
 }
 .application-users-profile-card button {
   font-size: 12px;
@@ -61,7 +63,7 @@
   color: var(--white-color);
   font-size: 10px;
   font-weight: 600;
-  padding: 6px 16px;
+  padding: 6px 6px;
   border-radius: 5px;
 }
 .silver-member-tag {
@@ -69,11 +71,27 @@
   color: var(--white-color);
   font-size: 10px;
   font-weight: 600;
-  padding: 6px 16px;
+  padding: 6px 6px;
   border-radius: 5px;
 }
 .platinum-member-tag {
   background-color: var(--platinum-tag-color);
+  color: var(--white-color);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 6px 6px;
+  border-radius: 5px;
+}
+.default-member-tag{
+  background-color: #570068 ;
+  color: var(--white-color);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 6px 6px;
+  border-radius: 5px;
+}
+.null-member-tag{
+  background-color: #cf0000 ;
   color: var(--white-color);
   font-size: 10px;
   font-weight: 600;
@@ -99,6 +117,8 @@
   width: 150px;
   height: 150px;
   background-color: var(--background-color);
+  object-fit: cover; /* Ensures the image fills the circle without distortion */
+  display: block; /* Ensures it behaves like an image block */
 }
 .profile-image-overlay {
   position: absolute;
@@ -144,9 +164,9 @@
   z-index: 2;
 }
 .profile-icon-section span {
-  width: 16px;
-  height: 16px;
-  background-color: var(--gold-tag-color);
+  width: 20px;
+  height: 20px;
+  /* background-color: var(--gold-tag-color); */
   border-radius: 50%;
   display: inline-block;
   margin-right: 8px;
@@ -175,26 +195,35 @@
   font-size: 16px;
 }
 .cancel-btn {
-  color: var(--gradient-start-color);
-  border: 1px solid var(--gradient-start-color);
+  color: var(--danger-color);
+  border: 1px solid var(--danger-color);
   background-color: var(--white-color);
   font-size: 12px;
   padding: 8px 40px;
+}
+.cancel-btn:hover{
+  background-color: var(--danger-color);
+  color: var(--white-color);
 }
 .create-btn {
   color: var(--white-color);
   border: 1px solid var(--gradient-start-color);
   background-color: var(--gradient-start-color);
   font-size: 12px;
-  padding: 8px 8px;
+  padding: 8px 40px;
 }
-.cancel-btn:hover,
+.create-btn
+.create-btn span:hover{
+  background-color: var(--white-color)!important;
+  color: var(--gradient-start-color)!important;
+}
+
+
 .profile-icon-section button:hover,
 .application-users-profile-card .edit-button:hover {
   background-color: var(--gradient-start-color);
   color: var(--white-color);
 }
-.create-btn:hover,
 .add-all-users:hover {
   background-color: var(--white-color);
   color: var(--gradient-start-color);
@@ -211,14 +240,30 @@
 .application-users-profile-card .delete-button {
   font-size: 12px;
   padding: 5px 16px;
-  color: var(--white-color);
-  background-color: var(--delete-button-color);
+  /* color: var(--white-color);
+  background-color: var(--delete-button-color); */
+  background-color: var(--white-color);
+  color: var(--delete-button-color);
   width: 100%;
+  border: 1px solid var(--delete-button-color);
 }
 .application-users-profile-card .delete-button:hover {
-  color: var(--delete-button-color);
-  background-color: var(--white-color);
+  /* color: var(--delete-button-color);
+  background-color: var(--white-color); */
+  color: var(--white-color);
+  background-color: var(--delete-button-color);
   border: 1px solid var(--delete-button-color);
+}
+.membership-btn {
+  color: var(--white-color);
+  border: 1px solid var(--gradient-start-color);
+  background-color: var(--gradient-start-color);
+  font-size: 12px;
+  padding: 8px 40px;
+}
+.membership-btn:hover{
+  background-color: var(--gradient-start-color) !important;
+  color: var(--white-color);
 }
 .add-profile-container {
   position: relative;
@@ -231,6 +276,31 @@
   height: 98px;
   background-color: var(--background-color);
 }
+.status-button {
+  font-size: 12px;
+  padding: 5px 16px;
+  width: 100%;
+  color: var(--white-color);
+  border: 1px solid;
+}
+
+.status-button.active {
+  border-color: var(--green-color);
+  color: var(--green-color);
+}
+.status-button.active:hover {
+  background-color: var(--green-color);
+  color: var(--white-color);
+}
+.status-button.inactive {
+  border-color: var(--danger-color);
+  color: var(--danger-color);
+}
+.status-button.inactive:hover{
+  background-color: var(--danger-color);
+  color: var(--white-color);
+}
+
 
 @media (max-width: 768px) {
   .profile-icon-section {
@@ -260,6 +330,20 @@
     width: 100px;
     height: 100px;
   }
+}
+.add-profile-btn{
+  color: var(--white-color);
+  border: 1px solid var(--gradient-start-color);
+  border-radius: 5px;
+  background-color: var(--gradient-start-color);
+  font-size: 12px;
+  padding: 8px 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.add-profile-btn:hover{
+  background-color: var(--gradient-start-color) !important;
+  color: var(--white-color);
 }
 .add-all-users {
   color: var(--white-color);
@@ -377,9 +461,31 @@
   display: inline-block;
   margin-right: 8px;
 }
+
+.content {
+  transition: filter 0.3s ease-in-out; /* Smooth transition for blur */
+}
+
+.content.blur {
+  filter: blur(5px); /* Adjust blur intensity */
+  pointer-events: none; /* Prevent interactions while blurred */
+}
+
+.filter-menu-item .menu-item-content {
+  display: flex;
+  align-items: center; /* Vertically align text and icon */
+  justify-content: space-between; /* Ensure space between text and icon */
+  gap: 8px; /* Add some spacing between text and the arrow */
+}
+
+.right-arrow {
+  font-size: 14px; /* Adjust size of the arrow if needed */
+}
+
 @media (max-width: 768px){
   .create-btn,
   .cancel-btn{
     padding: 8px 8px;
   }
 }
+
