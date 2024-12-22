@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../layout.css";
 import { MdOutlineNotificationsActive } from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -7,20 +7,45 @@ import Swal from "sweetalert2";
 import logoutimg from "../../Assets/Images/admin.png";
 import { useNavigate } from "react-router-dom";
 import { Avatar } from "antd";
+import axiosInstance from "../../../AxiosConfig";
+
+
 const HeaderApplication = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const username = JSON.parse(localStorage.getItem("loggedInUserInfo"));
+  const [user, setUser] = useState({});
 
   const infoUsers = {
-    userName: username?.user?.username, 
-    role: "Admin",
+    userName: user?.username, 
+    role: user?.userType,
+    image: user?.image
   };
 
+  useEffect(() => {
+    const userId = localStorage.getItem('userId'); // Retrieve userId from localStorage
+    
+    if (!userId) {
+      console.error("User ID not found in localStorage");
+      navigate("/login"); // Redirect to login if userId is missing
+      return;
+    }
+  
+    axiosInstance
+      .get(`adminAuth/getSuperAdmin/${userId}`)
+      .then((response) => {
+        if (response.data.user) {
+          setUser(response.data.user);
+        } else {
+          console.error("User not found");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [navigate]);
+  
   const handlelogout = () => {
     Swal.fire({
-      imageUrl: logoutimg,
-      imageWidth: "160px",
       title: "Are you sure",
       text: "You want to Logout?",
       showCancelButton: true,
@@ -29,7 +54,9 @@ const HeaderApplication = () => {
       confirmButtonText: "Yes, logout me!",
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.removeItem("loggedInUserInfo");
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("refreshToken");
         navigate("/login");
       }
     });
@@ -49,7 +76,7 @@ const HeaderApplication = () => {
         </div> */}
         <div className="d-flex w-100 justify-content-end">
           <div className="d-flex align-items-center gap-2">
-            <button
+            {/* <button
               type="button"
               aria-controls="navbar-notification"
               aria-expanded="false"
@@ -57,7 +84,7 @@ const HeaderApplication = () => {
             >
               <MdOutlineNotificationsActive className="notification-icon" />
               <span className="notification-badge">3</span>
-            </button>
+            </button> */}
             <div className="d-flex align-items-center gap-2">
               <button
                 className="user-image"
@@ -66,7 +93,7 @@ const HeaderApplication = () => {
                 onClick={toggleDropdown}
                 aria-expanded={isDropdownOpen}
               >
-                <Avatar size="large" src={logoutimg} />
+                <Avatar size="large" src={infoUsers.image? infoUsers.image : logoutimg} />
               </button>
               <div className="user-info">
                 <span
@@ -91,7 +118,7 @@ const HeaderApplication = () => {
                 >
                   <div className="dropdown-menu-items">
                     <Link
-                      to="/edit-profile"
+                      to="/admin/settings"
                       className="dropdown-item"
                       role="menuitem"
                       tabIndex="0"

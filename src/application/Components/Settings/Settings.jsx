@@ -41,12 +41,12 @@ export const Settings = () => {
               >
                 <RiLockPasswordLine /> &nbsp; Password
               </div>
-              <div
+              {/* <div
                 className={`settings-items mt-3 ${selectedOption === "company" ? "active" : ""}`}
                 onClick={() => setSelectedOption("company")}
               >
                 <MdStorefront /> &nbsp; Information
-              </div>
+              </div> */}
             </div>
           </div>
 

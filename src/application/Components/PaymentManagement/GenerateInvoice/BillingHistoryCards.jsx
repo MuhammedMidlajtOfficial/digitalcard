@@ -34,7 +34,11 @@ const cardData = [
   },
 ];
 
-const BillingHistoryCards = () => {
+const BillingHistoryCards = ({total,active,inactive,deleted}) => {
+  cardData[0].value = total;
+  cardData[1].value = active;
+  cardData[2].value = inactive;
+  cardData[3].value = deleted;
   return (
     <div className="container">
       <div className="row">

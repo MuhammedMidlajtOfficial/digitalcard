@@ -48,6 +48,7 @@ function SidebarApplication() {
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.removeItem("token");
+        localStorage.removeItem("userId");
         localStorage.removeItem("refreshToken");
         navigate("/login");
       }

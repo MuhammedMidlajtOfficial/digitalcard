@@ -496,81 +496,96 @@
 //   );
 // };
 
-
-
-
-import React, { useState } from "react";
-import { Dropdown, Menu, Table, Button, DatePicker } from "antd";
-import { IoIosArrowForward } from "react-icons/io";
+import React, { useEffect, useState } from "react";
+import { Dropdown, Menu, Table, Button, DatePicker, Space } from "antd";
+//import { IoIosArrowForward } from "react-icons/io";
 import { TbArrowsDownUp } from "react-icons/tb";
-import { FiFilter, FiSearch, FiDownload } from "react-icons/fi";
-import { RiDeleteBinLine } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
-import { LuPlus, LuView } from "react-icons/lu";
+import { FiFilter, FiSearch} from "react-icons/fi";
+//import { FiDownload } from "react-icons/fi";
+//import { RiDeleteBinLine } from "react-icons/ri";
+//import { useNavigate } from "react-router-dom";
+import { LuView } from "react-icons/lu";
+//import { LuPlus} from "react-icons/lu";
 import { IoEllipsisHorizontalSharp } from "react-icons/io5";
 import { BillingDownloadForm } from "./BillingDownloadForm";
 
-export const BillingHistoryTable = () => {
-  const navigate = useNavigate();
+
+export const BillingHistoryTable = ({invoiceData,setQuery}) => {
+  
+  //const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [filteredData, setFilteredData] = useState([
-    {
-      key: "1",
-      invoice: "#0010",
-      date: "09/12/2024",
-      username: "Siddu M",
-      email: "black@company.com",
-      contact: "1234567890",
-      status: "Active",
-    },
-    {
-      key: "2",
-      invoice: "#0010",
-      date: "09/12/2024",
-      username: "Siddu M",
-      email: "black@company.com",
-      contact: "1234567890",
-      status: "InActive",
-    },
-    {
-      key: "3",
-      invoice: "#0010",
-      date: "09/12/2024",
-      username: "Siddu M",
-      email: "black@company.com",
-      contact: "1234567890",
-      status: "Active",
-    },
-  ]);
+  const [data, setData] = useState(invoiceData);
+  const [filteredData, setFilteredData] = useState(invoiceData);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [rangePickerValue, setRangePickerValue] = useState(null);
+  const [selectedInvoice, setSelectedInvoice] = useState(null);
+  const { RangePicker } = DatePicker;
 
-  const [data, setData] = useState(filteredData);
+  useEffect(() => {
+    if (invoiceData) {
+      setData(invoiceData);
+      setFilteredData(invoiceData);
+    }
+  }, [invoiceData]);
 
-  const handleFilter = (dates, dateStrings) => {
+  useEffect(() => {
+    // Filter logic for search
+    const filtered = data.filter((item) => {
+      const lowerCaseTerm = searchTerm.toLowerCase();
+      return (
+        item.userName.toLowerCase().includes(lowerCaseTerm) ||
+        item.userEmail.toLowerCase().includes(lowerCaseTerm) ||
+        item.invoiceNumber.toLowerCase().includes(lowerCaseTerm)
+      );
+    });
+    setFilteredData(filtered);
+  }, [searchTerm, data]);
+
+  const handleDateRange = (dates, dateStrings) => {
     if (dates) {
       const [start, end] = dateStrings;
-      const filtered = filteredData.filter(
-        (row) => row.date >= start && row.date <= end
-      );
-      setData(filtered);
-    } else {
-      setData(filteredData); // Reset to original data if no dates are selected
-    }
-  };
+      setRangePickerValue(dates);
+      setQuery(`limit=0&startDate=${start}&endDate=${end}`);
+    } 
+  }; 
 
   const handleSort = (order) => {
     const sortedData = [...data].sort((a, b) => {
-      if (order === "asc") return a.username.localeCompare(b.username);
-      if (order === "desc") return b.username.localeCompare(a.username);
+      if (order === "asc") return a.userName.localeCompare(b.userName);
+      if (order === "desc") return b.userName.localeCompare(a.userName);
+
       return 0;
     });
     setData(sortedData);
   };
+  const handleQueryFilter = (filterType) => {
+    
+    if (filterType === "lastDay") {
+      setQuery("limit=0&filter=lastDay")
+    } 
+    else if (filterType === "lastWeek") {
+      setQuery("limit=0&filter=lastWeek")
+    } 
+    else if (filterType === "lastMonth") {
+      setQuery("limit=0&filter=lastMonth")
+    }
+    setRangePickerValue(null); // Reset the date picker value
+  }
 
   const filterMenu = (
-    <DatePicker.RangePicker
-      onChange={handleFilter}
-      style={{ width: "100%" }}
+    <Space direction="vertical" style={{ width: '100%' }}>
+    <RangePicker 
+      onChange={handleDateRange} 
+      style={{ width: '100%' }}
+      value={rangePickerValue}
     />
+    <Space style={{ width: '100%', justifyContent: 'space-between' }}>
+      <Button type="link" onClick={() => handleQueryFilter("lastDay")}>Last Day</Button>
+      <Button type="link" onClick={() => handleQueryFilter("lastWeek")}>Last Week</Button>
+      <Button type="link" onClick={() => handleQueryFilter("lastMonth")}>Last Month</Button>
+    </Space>
+  </Space>
+
   );
 
   const sortMenu = (
@@ -590,6 +605,9 @@ export const BillingHistoryTable = () => {
     </Menu>
   );
 
+  const handleInvoiceAction = (invoice) => {
+    setSelectedInvoice(invoice); // Set the selected invoice data
+  };
   const actionMenu = (
     <Menu>
       <Menu.Item
@@ -604,46 +622,56 @@ export const BillingHistoryTable = () => {
             title="View"
           />
         }
-        onClick={() =>
-          navigate("/admin/paymentmanagement/invoicelist/viewinvoice")
-        }
+        onClick={() => setIsModalVisible(true)} 
       >
         View
       </Menu.Item>
-      <Menu.Item
+      {/* <Menu.Item
         key="delete"
         icon={
-          <RiDeleteBinLine
+          //Delete Icon
+          // <RiDeleteBinLine
+          //   style={{
+          //     color: "var(--card-delete-color)",
+          //     cursor: "pointer",
+          //     fontSize: "18px",
+          //   }}
+          //   title="Delete"
+          // />
+          <FiDownload
             style={{
-              color: "var(--card-delete-color)",
+              fontSize: "20px",
+              color: "var(--green-button-color)",
               cursor: "pointer",
-              fontSize: "18px",
             }}
-            title="Delete"
           />
+          
         }
+        onClick={() => setIsModalVisible(true)}
       >
-        Delete
-      </Menu.Item>
+        Download
+      </Menu.Item> */}
     </Menu>
   );
 
   const columns = [
     {
       title: "Invoice No",
-      dataIndex: "invoice",
+      dataIndex: "invoiceNumber",
+      render: (invoiceNumber) => `****${invoiceNumber.slice(-5)}`,
     },
     {
       title: "Date",
-      dataIndex: "date",
+      dataIndex: "paymentDate",
+      render: (paymentDate) => paymentDate.split('T')[0],
     },
     {
       title: "Username",
-      dataIndex: "username",
+      dataIndex: "userName",
     },
     {
       title: "Email ID",
-      dataIndex: "email",
+      dataIndex: "userEmail",
     },
     {
       title: "Contact No",
@@ -657,9 +685,9 @@ export const BillingHistoryTable = () => {
           className="table-status-tag"
           style={{
             color:
-              status === "Active"
+              status === "active"
                 ? "green"
-                : status === "InActive"
+                : status === "inactive"
                 ? "red"
                 : "black",
           }}
@@ -671,9 +699,14 @@ export const BillingHistoryTable = () => {
     {
       title: "Action",
       dataIndex: "action",
-      render: () => (
+      render: (_, invoice) => (
         <Dropdown overlay={actionMenu} trigger={["click"]}>
-          <Button type="text" icon={<IoEllipsisHorizontalSharp />} />
+          <Button 
+            type="text" 
+            icon={<IoEllipsisHorizontalSharp />} 
+            onClick={() => handleInvoiceAction(invoice)}
+
+          />
         </Dropdown>
       ),
     },
@@ -690,6 +723,8 @@ export const BillingHistoryTable = () => {
                 type="text"
                 placeholder="Search..."
                 className="create-survey-search-input"
+                value={searchTerm} // Bind search term
+                onChange={(e) => setSearchTerm(e.target.value)} // Update state on input
               />
             </div>
             <div className="search-table-container d-flex gap-2">
@@ -717,25 +752,7 @@ export const BillingHistoryTable = () => {
                   />
                 </button>
               </Dropdown>
-              <div className="d-flex align-items-center gap-2">
-                <button
-                  className="create-invoice"
-                  onClick={() =>
-                    navigate("/admin/paymentmanagement/invoicelist/addinvoice")
-                  }
-                >
-                  <LuPlus />
-                  {""} Create Invoice
-                </button>
-                <FiDownload
-                  style={{
-                    fontSize: "20px",
-                    color: "var(--green-button-color)",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => setIsModalVisible(true)}
-                />
-              </div>
+
             </div>
           </div>
           <div className="application-table-section">
@@ -744,8 +761,9 @@ export const BillingHistoryTable = () => {
             </div>
             <Table
               columns={columns}
-              dataSource={data}
-              pagination={{ pageSize: 5 }}
+              dataSource={filteredData}
+              rowKey="invoiceNumber"
+              pagination={{ pageSize: 10 }}
               className="applied-applicants-table overflow-y-auto"
             />
           </div>
@@ -753,6 +771,7 @@ export const BillingHistoryTable = () => {
         <BillingDownloadForm
           isModalVisible={isModalVisible}
           setIsModalVisible={setIsModalVisible}
+          invoice={selectedInvoice}          
         />
       </div>
     </div>
