@@ -10,26 +10,6 @@ const AuthProvider = ({ children }) => {
   const [permissions, setPermissions] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-
-      const isValidToken = verifyToken(token);
-      setIsAuthenticated(isValidToken);
-
-      if (isValidToken) {
-        const decoded = JSON.parse(atob(token.split('.')[1]));
-        setPermissions(decoded.category || []); // Extract permissions
-      }
-    } else {
-      setIsAuthenticated(false);
-      setPermissions([]);
-    }
-
-    setLoading(false);
-  }, []);
-
   const verifyToken = (token) => {
     try {
       const decoded = JSON.parse(atob(token.split('.')[1]));
@@ -39,13 +19,36 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const syncAuthState = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+
+      const isValidToken = verifyToken(token);
+      setIsAuthenticated(isValidToken);
+
+      if (isValidToken) {
+        const decoded = JSON.parse(atob(token.split('.')[1]));
+        setPermissions(decoded.category || []);
+      } else {
+        setPermissions([]);
+      }
+    } else {
+      setIsAuthenticated(false);
+      setPermissions([]);
+    }
+  };
+
+  useEffect(() => {
+    syncAuthState();
+    setLoading(false);
+  }, []);
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, permissions }}>
-
+    <AuthContext.Provider value={{ isAuthenticated, permissions, syncAuthState }}>
       {children}
     </AuthContext.Provider>
   );

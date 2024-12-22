@@ -7,12 +7,15 @@ import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../Redux/tokenActions";
 import { showErrorToast, showSuccessToast } from "../Services/toastService";
 import axiosInstance from "../../AxiosConfig";
+import { useAuth } from '../Context/AuthContext';
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
+
+  const { syncAuthState } = useAuth();
 
   const handleSubmitForm = async () => {
     const { email, password } = formData;
@@ -33,6 +36,8 @@ const Login = () => {
         dispatch(setToken(accessToken,user._id));
         localStorage.setItem("userId", user._id);
         localStorage.setItem("refreshToken", refreshToken);
+
+        syncAuthState();
 
         showSuccessToast("Login successful");
         navigate("/admin/dashboard/overview");

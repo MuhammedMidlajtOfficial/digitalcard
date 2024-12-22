@@ -9,6 +9,7 @@ import {
   FiChevronRight,
   FiEdit,
   FiUserPlus,
+  FiUsers,
 } from "react-icons/fi";
 import Swal from "sweetalert2";
 import { RiFolderChartFill } from "react-icons/ri";
@@ -1087,14 +1088,14 @@ function SidebarApplication() {
               </li>
               <li>
                 <Link
-                  to="/admin/createEmployee"
+                  to="/admin/employeeList"
                   className={`nav-link ${
-                    location.pathname === "/admin/createEmployee"
+                    location.pathname === "/admin/employeeList"
                       ? "active-nav-links"
                       : ""
                   }`}
                 >
-                  <FiUserPlus className="sidebar-icon" /> Create Employee
+                  <FiUsers className="sidebar-icon" /> Employee List
                 </Link>
               </li>
               <div className="line-dashed"></div>
