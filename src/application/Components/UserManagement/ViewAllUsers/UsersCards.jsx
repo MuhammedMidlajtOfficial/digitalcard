@@ -54,39 +54,46 @@ const UsersCards = () => {
     });
   }, []);
 
+  const formatNumber = (num) => {
+    if (num >= 10000000) return (num / 10000000).toFixed(1) + "Cr";
+    if (num >= 100000) return (num / 100000).toFixed(1) + "L";
+    if (num >= 1000) return (num / 1000).toFixed(1) + "K";
+    return num.toString();
+  };
+
   const cardData = [
     {
       icon: FiUsers,
       title: "Total Individial Users",
-      value: individialUserCount,
+      value: formatNumber(individialUserCount),
       bgColor: "#8b81f7",
       textColor: "#ffffff",
     },
     {
       icon: FiUsers,
       title: "Total Enterprise Users",
-      value: enterpriseUserCount,
+      value: formatNumber(enterpriseUserCount),
       bgColor: "#ce81f7",
       textColor: "#ffffff",
     },
     {
       icon: FiUsers,
       title: "Total Enterprise Employee",
-      value: enterpriseEmployeeCount,
+      value: formatNumber(enterpriseEmployeeCount),
       bgColor: "#f781d8",
       textColor: "#ffffff",
     },
     {
       icon: FiUserCheck,
       title: "New Users",
-      value: newUsersCount,
+      value: formatNumber(newUsersCount),
       bgColor: "#ffcb64",
       textColor: "#ffffff",
     },
     {
       icon: FiUser,
       title: "Active Users",
-      value: activeUsersCount,
+      value: formatNumber(activeUsersCount),
       bgColor: "#33ab65",
       textColor: "#ffffff",
     },

@@ -1,7 +1,7 @@
 import React from "react";
 import { FiUsers, FiUser, FiUserCheck } from "react-icons/fi";
 import { BsClipboardPlus, BsTicketPerforated } from "react-icons/bs";
-import { LuUsers2 } from "react-icons/lu";
+// import { LuUsers2 } from "react-icons/lu";
 
 const cardData = [
   {
@@ -26,7 +26,7 @@ const cardData = [
     textColor: "#ffffff",
   },
   {
-    icon: LuUsers2,
+    icon: 'LuUsers2',
     title: "Subscribed Users",
     value: "6,321",
     bgColor: "#ffa8cd",

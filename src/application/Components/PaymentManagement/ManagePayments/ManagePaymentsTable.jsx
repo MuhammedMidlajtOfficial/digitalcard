@@ -8,7 +8,8 @@ import { LuEye } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { UserOutlined } from "@ant-design/icons";
-import axios from "axios";
+import axiosInstance from "../../../../AxiosConfig";
+
 
 export const ManagePaymentsTable = () => {
   const [data, setData] = useState([]);
@@ -18,7 +19,8 @@ export const ManagePaymentsTable = () => {
   const fetchPayments = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:9000/api/v1/payment");
+      const response = await axiosInstance.get("/payment");
+
   
       // Map the response data to the table format
       setData(
@@ -94,7 +96,7 @@ export const ManagePaymentsTable = () => {
 
   const handleDelete = async (paymentId) => {
     try {
-      await axios.delete(`http://localhost:9000/api/v1/payment/${paymentId}`);
+      await axiosInstance.delete(`/payment/${paymentId}`);
       message.success("Payment deleted successfully");
       fetchPayments();
     } catch (error) {

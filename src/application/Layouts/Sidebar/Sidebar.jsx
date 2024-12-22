@@ -8,6 +8,8 @@ import {
   FiChevronDown,
   FiChevronRight,
   FiEdit,
+  FiUserPlus,
+  FiUsers,
 } from "react-icons/fi";
 import Swal from "sweetalert2";
 import { RiFolderChartFill } from "react-icons/ri";
@@ -45,11 +47,14 @@ function SidebarApplication() {
       confirmButtonText: "Yes, logout me!",
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.removeItem("loggedInUserInfo");
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("refreshToken");
         navigate("/login");
       }
     });
   };
+
   useEffect(() => {
     const pathToMenuMap = {
       "/admin/dashboard/overview": "dashboard",
@@ -189,7 +194,7 @@ function SidebarApplication() {
                       Overview
                     </Link>
                   </li>
-                  <li className="sub-nav-list">
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/dashboard/userstatic"
                       className={`sub-nav-link ${
@@ -200,8 +205,8 @@ function SidebarApplication() {
                     >
                       User Statistics
                     </Link>
-                  </li>
-                  <li className="sub-nav-list">
+                  </li> */}
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/dashboard/cardshares"
                       className={`sub-nav-link ${
@@ -225,7 +230,7 @@ function SidebarApplication() {
                     >
                       Recent Activities
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
               <li>
@@ -291,7 +296,7 @@ function SidebarApplication() {
                       Manage Enterprise User
                     </Link>
                   </li>
-                  <li className="sub-nav-list">
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/usermanagement/statuscategories"
                       className={`sub-nav-link ${
@@ -303,8 +308,8 @@ function SidebarApplication() {
                     >
                       Status Categories
                     </Link>
-                  </li>
-                  <li className="sub-nav-list">
+                  </li> */}
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/usermanagement/usercategorization"
                       className={`sub-nav-link ${
@@ -316,10 +321,10 @@ function SidebarApplication() {
                     >
                       User Categorization
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
-              <li>
+              {/* <li>
                 <div
                   className={`nav-link ${
                     expandedMenu === "ordermanagement" ? "active-nav-links" : ""
@@ -368,7 +373,7 @@ function SidebarApplication() {
                     >
                       Process Orders
                     </Link>
-                  </li>
+                  </li> */}
                   {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/ordermanagement/paymentverification"
@@ -382,7 +387,7 @@ function SidebarApplication() {
                       Payment Verification
                     </Link>
                   </li> */}
-                  <li className="sub-nav-list">
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/ordermanagement/orderanalystics"
                       className={`sub-nav-link ${
@@ -394,7 +399,7 @@ function SidebarApplication() {
                     >
                       Order Analytics
                     </Link>
-                  </li>
+                  </li> */}
                   {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/ordermanagement/orderstatus"
@@ -408,8 +413,8 @@ function SidebarApplication() {
                       Order Status
                     </Link>
                   </li> */}
-                </ul>
-              </li>
+                {/* </ul>
+              </li> */}
               <li>
                 <div
                   className={`nav-link ${
@@ -542,7 +547,7 @@ function SidebarApplication() {
                       Generate Invoice
                     </Link>
                   </li>
-                  <li className="sub-nav-list">
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/paymentmanagement/renewal-reminders"
                       className={`sub-nav-link ${
@@ -554,7 +559,7 @@ function SidebarApplication() {
                     >
                       Renewal and reminders
                     </Link>
-                  </li>
+                  </li> */}
                   {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/paymentmanagement/paymentgateway"
@@ -648,7 +653,7 @@ function SidebarApplication() {
                       Ticket Categories
                     </Link>
                   </li>
-                  <li className="sub-nav-list">
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/supportticketsystem/sla-tracking"
                       className={`sub-nav-link ${
@@ -673,10 +678,10 @@ function SidebarApplication() {
                     >
                       Ticket Prioritization
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
-              <li>
+              {/* <li>
                 <div
                   className={`nav-link ${
                     expandedMenu === "rollbasedaccess" ? "active-nav-links" : ""
@@ -725,7 +730,7 @@ function SidebarApplication() {
                     >
                       Permission
                     </Link>
-                  </li>
+                  </li> */}
                   {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/rollbasedaccess/audit-trails"
@@ -739,8 +744,8 @@ function SidebarApplication() {
                       Audit Trails
                     </Link>
                   </li> */}
-                </ul>
-              </li>
+                {/* </ul>
+              </li> */}
               {/* <li>
                 <div
                   className={`nav-link ${
@@ -777,7 +782,7 @@ function SidebarApplication() {
                   </li>
                 </ul>
               </li> */}
-              <li>
+              {/* <li>
                 <div
                   className={`nav-link ${
                     expandedMenu === "automatedmarketing"
@@ -802,7 +807,7 @@ function SidebarApplication() {
                   className={`sub-menu ${
                     expandedMenu === "automatedmarketing" ? "active" : ""
                   }`}
-                >
+                > */}
                   {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/automatedmarketing/campaign-setup"
@@ -816,7 +821,7 @@ function SidebarApplication() {
                       Campaign setup
                     </Link>
                   </li> */}
-                  <li className="sub-nav-list">
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/automatedmarketing/email-sms-template"
                       className={`sub-nav-link ${
@@ -828,7 +833,7 @@ function SidebarApplication() {
                     >
                       Email /SMS Templates
                     </Link>
-                  </li>
+                  </li> */}
                   {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/automatedmarketing/campaignanalytics"
@@ -855,8 +860,8 @@ function SidebarApplication() {
                       Automated Triggers
                     </Link>
                   </li> */}
-                </ul>
-              </li>
+                {/* </ul>
+              </li> */}
               {/* <li>
                 <div
                   className={`nav-link ${
@@ -920,7 +925,7 @@ function SidebarApplication() {
                   </li>
                 </ul>
               </li> */}
-              <li>
+              {/* <li>
                 <div
                   className={`nav-link ${
                     expandedMenu === "referenceinformation"
@@ -973,8 +978,8 @@ function SidebarApplication() {
                     </Link>
                   </li>
                 </ul>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <div
                   className={`nav-link ${
                     expandedMenu === "contentmanagement"
@@ -1011,7 +1016,7 @@ function SidebarApplication() {
                     </Link>
                   </li>
                 </ul>
-              </li>
+              </li> */}
               <li>
                 <div
                   className={`nav-link ${
@@ -1038,7 +1043,7 @@ function SidebarApplication() {
                     expandedMenu === "notificationsystem" ? "active" : ""
                   }`}
                 >
-                  <li className="sub-nav-list">
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/notificationsystem/usernotificationpage"
                       className={`sub-nav-link ${
@@ -1058,8 +1063,8 @@ function SidebarApplication() {
                     >
                       Admin Notifications
                     </Link>
-                  </li>
-                  <li className="sub-nav-list">
+                  </li> */}
+                  {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/notificationsystem/customizablealerts"
                       className={`sub-nav-link ${
@@ -1068,7 +1073,7 @@ function SidebarApplication() {
                     >
                       Customizable Alerts
                     </Link>
-                  </li>
+                  </li> */}
                   <li className="sub-nav-list">
                     <Link
                       to="/admin/notificationsystem/sendnotifications"
@@ -1080,6 +1085,18 @@ function SidebarApplication() {
                     </Link>
                   </li>
                 </ul>
+              </li>
+              <li>
+                <Link
+                  to="/admin/employeeList"
+                  className={`nav-link ${
+                    location.pathname === "/admin/employeeList"
+                      ? "active-nav-links"
+                      : ""
+                  }`}
+                >
+                  <FiUsers className="sidebar-icon" /> Employee List
+                </Link>
               </li>
               <div className="line-dashed"></div>
               <li>
