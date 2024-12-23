@@ -1,39 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BsTicket } from "react-icons/bs";
 import { MdOutlineCancel } from "react-icons/md";
 import { TbClockBolt, TbClock } from "react-icons/tb";
+import axios from "axios";
 
-const cardData = [
-  {
-    icon: BsTicket,
-    title: "Total Tickets",
-    value: "75",
-    bgColor: "#afa8ff",
-    textColor: "#ffffff",
-  },
-  {
-    icon: TbClockBolt,
-    title: "Progress Ticket",
-    value: "15",
-    bgColor: "#ffa0a9",
-    textColor: "#ffffff",
-  },
-  {
-    icon: TbClock,
-    title: "Awaiting Assignment",
-    value: "30",
-    bgColor: "#ffcb64",
-    textColor: "#ffffff",
-  },
-  {
-    icon: MdOutlineCancel,
-    title: "Ticket Closed",
-    value: "30",
-    bgColor: "#85bbff",
-    textColor: "#ffffff",
-  },
-];
 const AssignTicketCards = () => {
+  const [ticketStats, setTicketStats] = useState({
+    totalTickets: 0,
+    progressTickets: 0,
+    awaitingAssignment: 0,
+    closedTickets: 0,
+  });
+
+  useEffect(() => {
+    const fetchTicketStats = async () => {
+      try {
+        const response = await axios.get("https://diskuss-1mv4.onrender.com/api/v1/ticket/stats");
+        setTicketStats({
+          totalTickets: response.data.totalTickets,
+          progressTickets: response.data.openTickets, // Assuming progress tickets are open tickets
+          awaitingAssignment: response.data.awaitingAssignment || 0, // Placeholder if this data is not available
+          closedTickets: response.data.closedTickets,
+        });
+      } catch (error) {
+        console.error("Error fetching ticket stats:", error);
+      }
+    };
+
+    fetchTicketStats();
+  }, []);
+
+  const cardData = [
+    {
+      icon: BsTicket,
+      title: "Total Tickets",
+      value: ticketStats.totalTickets,
+      bgColor: "#afa8ff",
+      textColor: "#ffffff",
+    },
+    {
+      icon: TbClockBolt,
+      title: "Progress Ticket",
+      value: ticketStats.progressTickets,
+      bgColor: "#ffa0a9",
+      textColor: "#ffffff",
+    },
+    {
+      icon: TbClock,
+      title: "Awaiting Assignment",
+      value: ticketStats.awaitingAssignment,
+      bgColor: "#ffcb64",
+      textColor: "#ffffff",
+    },
+    {
+      icon: MdOutlineCancel,
+      title: "Ticket Closed",
+      value: ticketStats.closedTickets,
+      bgColor: "#85bbff",
+      textColor: "#ffffff",
+    },
+  ];
+
   return (
     <div className="row">
       {cardData.map(
@@ -45,7 +72,7 @@ const AssignTicketCards = () => {
                   className="icon-wrapper p-2 rounded-circle me-3"
                   style={{ backgroundColor: bgColor, color: textColor }}
                 >
-                  <Icon className="" size={22} />
+                  <Icon size={22} />
                 </div>
                 <div>
                   <h6 className="cards-subtitle mb-2">{title}</h6>

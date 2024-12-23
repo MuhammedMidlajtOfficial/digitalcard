@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { BsTicket, BsTicketDetailed } from "react-icons/bs";
 import { MdOutlineCancel } from "react-icons/md";
 import { TbClockBolt, TbClock } from "react-icons/tb";
@@ -6,18 +6,27 @@ import { IoWarningOutline } from "react-icons/io5";
 import { AiOutlinePieChart } from "react-icons/ai";
 
 const SLATrackingCards = () => {
+  const [ticketData, setTicketData] = useState({
+    totalTickets: 0,
+    openTickets: 0,
+    closedTickets: 0,
+    highPriorityTickets: 0,
+    mediumPriorityTickets: 0,
+    lowPriorityTickets: 0,
+  });
+
   const cardData = [
     {
       icon: BsTicketDetailed,
       title: "Total Active Tickets",
-      value: "400",
+      value: ticketData.totalTickets,
       bgColor: "#afa8ff",
       textColor: "#ffffff",
     },
     {
       icon: BsTicket,
       title: "Closed Ticket",
-      value: "120",
+      value: ticketData.closedTickets,
       bgColor: "#ffa0a9",
       textColor: "#ffffff",
     },
@@ -36,6 +45,25 @@ const SLATrackingCards = () => {
       textColor: "#ffffff",
     },
   ];
+
+  
+  useEffect(() => {
+    const fetchTicketStats = async () => {
+      try {
+        const response = await fetch("https://diskuss-1mv4.onrender.com/api/v1/ticket/stats");
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setTicketData(data); // Set fetched categories
+      } catch (error) {
+        console.error("Error fetching ticket stats:", error);
+      }
+    };
+
+    fetchTicketStats();
+  }, []);
+
   return (
     <div className="container">
       <div className="row">
