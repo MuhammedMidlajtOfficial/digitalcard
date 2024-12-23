@@ -13,9 +13,9 @@ export const ViewTableReferral = () => {
     },
     {
       title: "Name",
-      dataIndex: "userName",
-      render: (userName) => {
-        const initials = userName.name
+      dataIndex: "username",
+      render: (username) => {
+        const initials = username.name
           .split(" ")
           .map((n) => n[0])
           .join("")
@@ -25,7 +25,7 @@ export const ViewTableReferral = () => {
             <div className="view-table-referral-initials-square">
               {initials}{" "}
             </div>
-            <span className="user-name">{userName.name}</span>
+            <span className="user-name">{username.name}</span>
           </div>
         );
       },
@@ -64,7 +64,7 @@ export const ViewTableReferral = () => {
     {
       key: "1",
       date: "09/12/2024",
-      userName: { name: "Kiran Bk" },
+      username: { name: "Kiran Bk" },
       email: "kiranb@gmail.com",
       referredUsers: "Mahesh G",
       status: "Completed",
@@ -73,7 +73,7 @@ export const ViewTableReferral = () => {
     {
       key: "2",
       date: "09/12/2024",
-      userName: { name: "Arvind G" },
+      username: { name: "Arvind G" },
       email: "arvindg@gmail.com",
       referredUsers: "Sankaran G",
       status: "Completed",
@@ -82,7 +82,7 @@ export const ViewTableReferral = () => {
     {
       key: "3",
       date: "09/12/2024",
-      userName: { name: "Sai T" },
+      username: { name: "Sai T" },
       email: "sai@gmail.com",
       referredUsers: "Manjunath K",
       status: "Completed",
@@ -91,7 +91,7 @@ export const ViewTableReferral = () => {
     {
       key: "4",
       date: "09/12/2024",
-      userName: { name: "Prathap R" },
+      username: { name: "Prathap R" },
       email: "prathap@gmail.com",
       referredUsers: "Saikumar M",
       status: "Pending",
@@ -100,7 +100,7 @@ export const ViewTableReferral = () => {
     {
       key: "5",
       date: "09/12/2024",
-      userName: { name: "Manju K" },
+      username: { name: "Manju K" },
       email: "manju@gmail.com",
       referredUsers: "Manish B",
       status: "Pending",

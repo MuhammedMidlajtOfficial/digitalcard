@@ -533,7 +533,7 @@ export const BillingHistoryTable = ({invoiceData,setQuery}) => {
     const filtered = data.filter((item) => {
       const lowerCaseTerm = searchTerm.toLowerCase();
       return (
-        item.userName.toLowerCase().includes(lowerCaseTerm) ||
+        item.username.toLowerCase().includes(lowerCaseTerm) ||
         item.userEmail.toLowerCase().includes(lowerCaseTerm) ||
         item.invoiceNumber.toLowerCase().includes(lowerCaseTerm)
       );
@@ -551,8 +551,8 @@ export const BillingHistoryTable = ({invoiceData,setQuery}) => {
 
   const handleSort = (order) => {
     const sortedData = [...data].sort((a, b) => {
-      if (order === "asc") return a.userName.localeCompare(b.userName);
-      if (order === "desc") return b.userName.localeCompare(a.userName);
+      if (order === "asc") return a.username.localeCompare(b.username);
+      if (order === "desc") return b.username.localeCompare(a.username);
 
       return 0;
     });
@@ -667,7 +667,7 @@ export const BillingHistoryTable = ({invoiceData,setQuery}) => {
     },
     {
       title: "Username",
-      dataIndex: "userName",
+      dataIndex: "username",
     },
     {
       title: "Email ID",

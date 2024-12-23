@@ -7,7 +7,7 @@ const Unauthorized = () => {
   return (
     <div className="flex items-center justify-center h-screen bg-white">
       <div className="text-center">
-        <img src='https://diskuss-bucket.s3.us-east-1.amazonaws.com/profile-images/403(org).png' alt='403' />
+        <img src='https://diskuss-bucket.s3.us-east-1.amazonaws.com/Static-files/403(org).png' alt='403' />
         <p className="text-2xl font-semibold text-gray-700 mt-6">
           We are Sorry...
         </p>

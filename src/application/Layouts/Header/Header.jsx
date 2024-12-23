@@ -16,7 +16,7 @@ const HeaderApplication = () => {
   const [user, setUser] = useState({});
 
   const infoUsers = {
-    userName: user?.username, 
+    username: user?.username, 
     role: user?.userType,
     image: user?.image
   };
@@ -33,7 +33,8 @@ const HeaderApplication = () => {
     axiosInstance
       .get(`adminAuth/getSuperAdmin/${userId}`)
       .then((response) => {
-        if (response.data.user) {
+        if (response) {
+          console.log('response.data.user-',response.data);
           setUser(response.data.user);
         } else {
           console.error("User not found");
@@ -43,6 +44,13 @@ const HeaderApplication = () => {
         console.error("Error fetching data:", error);
       });
   }, [navigate]);
+
+  useEffect(() => {
+    console.log('user-',user);
+    return () => {
+      
+    };
+  }, []);
   
   const handlelogout = () => {
     Swal.fire({
@@ -104,7 +112,7 @@ const HeaderApplication = () => {
                     letterSpacing: "0.5px",
                   }}
                 >
-                  {`${infoUsers.userName}`}
+                  {`${infoUsers.username}`}
                 </span>
                 <br />
                 <span className="xl-2">{infoUsers.role}</span>

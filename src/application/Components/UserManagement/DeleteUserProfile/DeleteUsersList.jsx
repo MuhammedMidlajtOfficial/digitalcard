@@ -7,11 +7,11 @@ export const DeleteUsersList = () => {
   const columns = [
     {
       title: "Name",
-      dataIndex: "userName",
-      render: (userName) => (
+      dataIndex: "username",
+      render: (username) => (
         <div className="d-flex align-items-center">
-          <Avatar src={userName.image} size={40} className="me-2" />
-          {userName.name}
+          <Avatar src={username.image} size={40} className="me-2" />
+          {username.name}
         </div>
       ),
     },
@@ -63,7 +63,7 @@ export const DeleteUsersList = () => {
   const data = [
     {
       key: "1",
-      userName: { name: "Annette Black", image: image1 },
+      username: { name: "Annette Black", image: image1 },
       email: "abc@gmail.com",
       phoneNo: "989898989",
       membership: "Gold Member",
@@ -71,7 +71,7 @@ export const DeleteUsersList = () => {
     },
     {
       key: "2",
-      userName: { name: "Annette Black", image: image1 },
+      username: { name: "Annette Black", image: image1 },
       email: "abc@gmail.com",
       phoneNo: "989898989",
       membership: "Free Member",
@@ -79,7 +79,7 @@ export const DeleteUsersList = () => {
     },
     {
       key: "3",
-      userName: { name: "Annette Black", image: image1 },
+      username: { name: "Annette Black", image: image1 },
       email: "abc@gmail.com",
       phoneNo: "989898989",
       membership: "Platinum Member",

@@ -26,11 +26,11 @@ export const IncentiveViewWithdrawHistory = () => {
     },
     {
       title: "Name",
-      dataIndex: "userName",
-      render: (userName) => (
+      dataIndex: "username",
+      render: (username) => (
         <div className="d-flex align-items-center">
-          <Avatar src={userName.image} size={40} className="me-2" />
-          {userName.name}
+          <Avatar src={username.image} size={40} className="me-2" />
+          {username.name}
         </div>
       ),
     },
@@ -68,7 +68,7 @@ export const IncentiveViewWithdrawHistory = () => {
     {
       key: "1",
       date: "09/12/2024",
-      userName: { name: "Siddhu M", image: image1 },
+      username: { name: "Siddhu M", image: image1 },
       upiId: "siddhu12@paytm",
       completedReferrer: "05 referral",
       transaction: "Completed",
@@ -77,7 +77,7 @@ export const IncentiveViewWithdrawHistory = () => {
     {
       key: "2",
       date: "09/12/2024",
-      userName: { name: "Kiran BK", image: image1 },
+      username: { name: "Kiran BK", image: image1 },
       upiId: "kiranbk@ybl",
       completedReferrer: "05 referral",
       transaction: "Failed",
@@ -86,7 +86,7 @@ export const IncentiveViewWithdrawHistory = () => {
     {
       key: "3",
       date: "09/12/2024",
-      userName: { name: "Rajesh P", image: image1 },
+      username: { name: "Rajesh P", image: image1 },
       upiId: "rajesh12@upi",
       completedReferrer: "03 referral",
       transaction: "Completed",

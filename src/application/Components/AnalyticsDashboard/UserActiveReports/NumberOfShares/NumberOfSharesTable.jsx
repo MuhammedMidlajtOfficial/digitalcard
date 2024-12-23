@@ -49,11 +49,11 @@ const NumberOfSharesTable = () => {
   const columns = [
     {
       title: "Name",
-      dataIndex: "userName",
-      render: (userName) => (
+      dataIndex: "username",
+      render: (username) => (
         <div className="d-flex align-items-center">
-          <Avatar src={userName.image} size={40} className="me-2" />
-          {userName.name}
+          <Avatar src={username.image} size={40} className="me-2" />
+          {username.name}
         </div>
       ),
     },
@@ -104,7 +104,7 @@ const NumberOfSharesTable = () => {
   const data = [
     {
       key: "1",
-      userName: { name: "Annette Black", image: image1 },
+      username: { name: "Annette Black", image: image1 },
       date: "09/12/24",
       email: "black@company.com",
       role: "Admin",
@@ -112,7 +112,7 @@ const NumberOfSharesTable = () => {
     },
     {
       key: "2",
-      userName: { name: "Guy Hawkins", image: image1 },
+      username: { name: "Guy Hawkins", image: image1 },
       date: "09/12/24",
       email: "black@company.com",
       role: "Admin",
@@ -120,7 +120,7 @@ const NumberOfSharesTable = () => {
     },
     {
       key: "3",
-      userName: { name: "Kristin Watson", image: image1 },
+      username: { name: "Kristin Watson", image: image1 },
       date: "09/12/24",
       email: "black@company.com",
       role: "Admin",

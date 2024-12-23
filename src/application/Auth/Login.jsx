@@ -30,9 +30,9 @@ const Login = () => {
       const response = await axiosInstance.post("/adminAuth/superAdminLogin", { email, password });
 
       if (response.status === 200) {
-        const { accessToken, refreshToken, userType, user, userName, category } = response.data;
+        const { accessToken, refreshToken, userType, user, username, category } = response.data;
       
-        dispatch(setUser({ userType, userName, category }));
+        dispatch(setUser({ userType, username, category }));
         dispatch(setToken(accessToken,user._id));
         localStorage.setItem("userId", user._id);
         localStorage.setItem("refreshToken", refreshToken);

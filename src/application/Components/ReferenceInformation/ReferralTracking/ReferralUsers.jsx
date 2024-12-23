@@ -18,7 +18,7 @@ export const ReferralUsers = () => {
                 const data = response.data.map((item) => ({
                     key: item.referralId,
                     date: new Date(item.createdAt).toLocaleDateString(),
-                    userName: item.referrer?.username || "N/A",
+                    username: item.referrer?.username || "N/A",
                     email: item.referrer?.email || "N/A",
                     status: item.status,
                     reward: item.referrer?.coins || 0,
@@ -66,13 +66,13 @@ export const ReferralUsers = () => {
         },
         {
             title: "Name",
-            dataIndex: "userName",
-            render: (userName) => (
+            dataIndex: "username",
+            render: (username) => (
                 <div className="d-flex align-items-center">
                     <Avatar size={40} className="me-2">
-                        {userName[0]?.toUpperCase()}
+                        {username[0]?.toUpperCase()}
                     </Avatar>
-                    {userName}
+                    {username}
                 </div>
             ),
         },

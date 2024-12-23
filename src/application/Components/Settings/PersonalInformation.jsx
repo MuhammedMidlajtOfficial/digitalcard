@@ -17,8 +17,10 @@ export const PersonalInformation = () => {
     image: "",
     address: "",
     phnNumber: "",
-    email: ""
+    email: "",
+    userType: ""
   });
+  const [previewImage, setPreviewImage] = useState('')
 
   useEffect(() => {
     const userId = localStorage.getItem("userId"); // Retrieve userId from localStorage
@@ -33,8 +35,9 @@ export const PersonalInformation = () => {
       .get(`adminAuth/getSuperAdmin/${userId}`)
       .then((response) => {
         if (response.data && response.data.user) {
-          const { username, image, address, phnNumber, email } = response.data.user;
-          setUserData({ username, image, address, phnNumber, email }); // Update state with the user data
+          const { username, image, address, phnNumber, email, userType } = response.data.user;
+          setUserData({ username, address, phnNumber, email, userType }); // Update state with the user data
+          setPreviewImage(image)
           console.log(userData);
         } else {
           console.error("User not found in response");
@@ -71,6 +74,7 @@ export const PersonalInformation = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setUserData((prevData) => ({ ...prevData, image: reader.result }));
+        setPreviewImage(reader.result)
       };
 
       reader.onerror = (error) => {
@@ -98,11 +102,12 @@ export const PersonalInformation = () => {
 
     const updatedData = {
       ...values,
+      userType: userData.userType,
       image: userData.image,
     };
 
     axiosInstance
-      .patch(`adminAuth/updateSuperAdmin/${userId}`, updatedData)
+      .patch(`adminAuth/updateUser/${userId}`, updatedData)
       .then((response) => {
         showSuccessToast("Profile updated successfully!");
         setUserData(response.data.updatedUser);
@@ -132,7 +137,7 @@ export const PersonalInformation = () => {
           <div className="row mt-4">
             <div className="settings-profile-icon-section">
               <img
-                src={userData.image ? userData.image : DefaultUser}
+                src={previewImage ? previewImage : userData.image ? userData.image :DefaultUser}
                 alt="Profile"
                 className="settings-profile-image"
               />

@@ -54,11 +54,11 @@ const PaymentGatewayTable = () => {
     },
     {
       title: "Name",
-      dataIndex: "userName",
-      render: (userName) => (
+      dataIndex: "username",
+      render: (username) => (
         <div className="d-flex align-items-center">
-          <Avatar src={userName.image} size={40} className="me-2" />
-          {userName.name}
+          <Avatar src={username.image} size={40} className="me-2" />
+          {username.name}
         </div>
       ),
     },
@@ -104,7 +104,7 @@ const PaymentGatewayTable = () => {
     {
       key: "1",
       transactionid: "#R001",
-      userName: { name: "Annette Black", image: image1 },
+      username: { name: "Annette Black", image: image1 },
       upiid: "annette@ybl",
       amount: "₹ 1200",
       date: "09/12/2024",
@@ -113,7 +113,7 @@ const PaymentGatewayTable = () => {
     {
       key: "2",
       transactionid: "#R001",
-      userName: { name: "Annette Black", image: image1 },
+      username: { name: "Annette Black", image: image1 },
       upiid: "annette@ybl",
       amount: "₹ 650",
       date: "09/12/2024",
@@ -122,7 +122,7 @@ const PaymentGatewayTable = () => {
     {
       key: "3",
       transactionid: "#R001",
-      userName: { name: "Annette Black", image: image1 },
+      username: { name: "Annette Black", image: image1 },
       upiid: "annette@ybl",
       amount: "₹ 400",
       date: "09/12/2024",

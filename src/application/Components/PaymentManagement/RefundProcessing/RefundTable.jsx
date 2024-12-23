@@ -58,11 +58,11 @@ export const RefundTable = () => {
     },
     {
       title: "Payer Name",
-      dataIndex: "userName",
-      render: (userName) => (
+      dataIndex: "username",
+      render: (username) => (
         <div className="d-flex align-items-center">
-          <Avatar src={userName.image} size={40} className="me-2" />
-          {userName.name}
+          <Avatar src={username.image} size={40} className="me-2" />
+          {username.name}
         </div>
       ),
     },
@@ -118,7 +118,7 @@ export const RefundTable = () => {
     {
       key: "1",
       requestid: "#R001",
-      userName: { name: "Annette Black", image: image1 },
+      username: { name: "Annette Black", image: image1 },
       emailid: "abc@gmail.com",
       amount: "₹ 1200",
       date: "09/12/24",
@@ -127,7 +127,7 @@ export const RefundTable = () => {
     {
       key: "2",
       requestid: "#R002",
-      userName: { name: "Annette Black", image: image1 },
+      username: { name: "Annette Black", image: image1 },
       emailid: "abc@gmail.com",
       amount: "₹ 1200",
       date: "09/12/24",
@@ -136,7 +136,7 @@ export const RefundTable = () => {
     {
       key: "3",
       requestid: "#R003",
-      userName: { name: "Annette Black", image: image1 },
+      username: { name: "Annette Black", image: image1 },
       emailid: "abc@gmail.com",
       amount: "₹ 1200",
       date: "09/12/24",
