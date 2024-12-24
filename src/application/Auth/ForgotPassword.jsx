@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./auth.css";
 import login from "../Assets/Images/loginbackground.png";
 import { Form, Input } from "antd";
@@ -11,7 +11,8 @@ import {
 const ForgotPassword = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const loggedInUserInfo = JSON.parse(localStorage.getItem("loggedInUserInfo"));
+  const [loading, setLoading] = useState(false);
+  //const loggedInUserInfo = JSON.parse(localStorage.getItem("loggedInUserInfo"));
 
   const sendOtp = async () => {
     try {
@@ -20,24 +21,28 @@ const ForgotPassword = () => {
         showErrorMessage("Please enter an email.");
         return;
       }
+      setLoading(true)
       const response = await Instance.post(
-        "/individual/sendotp",
-        { email },
-        {
-          headers: {
-            Authorization: `Bearer ${loggedInUserInfo?.accessToken}`,
-          },
-        }
+        "adminAuth/forgotPassword/request-otp",
+        { email }
       );
 
       if (response.status === 200) {
         showSuccessMessage("OTP sent to your email.");
-        navigate('/otp-verification', { state: { email } });
+        sessionStorage.setItem("otpEmail",email)
+        navigate("/otp-verification",{ replace: true });
       } else {
         showErrorMessage(response.data.message || "Failed to send OTP.");
       }
     } catch (error) {
-      showErrorMessage("An error occurred while sending OTP.");
+      if (error.response?.status === 404) {
+        showErrorMessage(error.response.data.message || "An error occurred while sending OTP.");
+      } else {
+        showErrorMessage("An error occurred while sending OTP.");
+      }
+
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -81,12 +86,13 @@ const ForgotPassword = () => {
                 <div className="mt-4">
                   <button
                     className="sign-button"
+                    disabled={loading}
                     onClick={(e) => {
                       e.preventDefault();
                       sendOtp();
                     }}
                   >
-                    Continue
+                  {loading ? "Continue..." : "Continue"}
                   </button>
                 </div>
               </Form>
