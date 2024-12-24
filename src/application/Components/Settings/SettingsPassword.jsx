@@ -1,16 +1,44 @@
 import React from "react";
 import { Form, Input } from "antd";
 import { MdOutlineLock } from "react-icons/md";
+import axiosInstance from "../../../AxiosConfig";
+import { showErrorToast, showSuccessToast } from "../../Services/toastService";
 
 export const SettingsPassword = () => {
   const [form] = Form.useForm();
+
+  const handleUpdatePassword = (values)=>{
+    const { oldPassword, newPassword, confirmPassword } = values;
+    if (newPassword !== confirmPassword) {
+      showErrorToast("New password and confirm password do not match");
+      return; 
+    }
+
+    if (newPassword === oldPassword) {
+      showErrorToast("New Password can not be same as old password");
+      return; 
+    }
+    const userId = localStorage.getItem("userId");
+
+    axiosInstance.patch(`adminAuth/updateUserPassword/${userId}`, {
+      oldPassword,
+      newPassword,
+    })
+    .then((response)=>{
+      showSuccessToast(response.data.message)
+    })
+    .catch((error) => {
+      showErrorToast(error.response?.data?.message || "An error occurred")
+    });
+    
+  }
 
   return (
     <>
       <div className="settings-personal-information">
         <div className="container">
           <h4 className="mt-4 mt-lg-0">Password</h4>
-          <Form layout="vertical" form={form}>
+          <Form layout="vertical" form={form} onFinish={handleUpdatePassword}>
             <div className="row mt-4">
               <div className="col-md-12 mb-1">
                 <Form.Item label="Current Password" name="oldPassword">
