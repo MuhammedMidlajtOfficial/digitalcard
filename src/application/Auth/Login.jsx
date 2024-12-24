@@ -14,6 +14,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
   const { syncAuthState } = useAuth();
 
@@ -27,7 +28,7 @@ const Login = () => {
 
     try {
       setLoading(true);
-      const response = await axiosInstance.post("/adminAuth/superAdminLogin", { email, password });
+      const response = await axiosInstance.post("/adminAuth/superAdminLogin", { email, password,rememberMe });
 
       if (response.status === 200) {
         const { accessToken, refreshToken, userType, user, username, category } = response.data;
@@ -51,6 +52,10 @@ const Login = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleRememberMeChange = (e) => {
+    setRememberMe(e.target.checked); 
   };
 
   return (
@@ -92,7 +97,7 @@ const Login = () => {
                 <div className="col-lg-12">
                   <div className="d-flex align-items-center justify-content-between">
                     <Form.Item name="remember" valuePropName="checked" className="mb-0">
-                      <Checkbox>Remember</Checkbox>
+                      <Checkbox onChange={handleRememberMeChange}>Remember</Checkbox>
                     </Form.Item>
                     <button
                       className="forgot-password-button"
@@ -111,7 +116,7 @@ const Login = () => {
                     {loading ? "Signing in..." : "Sign in"}
                   </button>
                 </div>
-                <div className="mt-2">
+                {/* <div className="mt-2">
                   <p>
                     Are you super admin?
                     <span
@@ -121,7 +126,7 @@ const Login = () => {
                       Super Admin Login
                     </span>
                   </p>
-                </div>
+                </div> */}
               </Form>
             </div>
           </div>
