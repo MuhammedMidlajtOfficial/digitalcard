@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
   const verifyToken = (token) => {
     try {
       const decoded = JSON.parse(atob(token.split('.')[1]));
-      return decoded.exp * 1000 > Date.now();
+      return (decoded.exp * 1000 > Date.now() || !decoded.exp);
     } catch (error) {
       return false;
     }
