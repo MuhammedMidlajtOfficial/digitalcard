@@ -3,6 +3,7 @@ import axios from "axios";
 import { GiCheckMark } from "react-icons/gi";
 import { FaPlus } from "react-icons/fa6";
 import CreateSubscriptionPlan from "./CreateSubscriptionPlan";
+import { useLoading } from "../../../Services/loadingService";
 
 const FeatureCard = ({ title, price, type, features, onDelete, onEdit }) => {
   return (
@@ -48,17 +49,20 @@ const FeatureCard = ({ title, price, type, features, onDelete, onEdit }) => {
 
 const ManageSubscriptionIndex = () => {
   const [cards, setCards] = useState([]);
+  const { loading, startLoading, stopLoading } = useLoading();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
 
   const fetchSubscriptions = async () => {
     try {
-      const response = await axios.get("https://diskuss-admin.onrender.com/api/v1/subscription");
+      startLoading()
+      const response = await axios.get("http://13.203.24.247:9000/api/v1/subscription");
       const formattedPlans = response.data.SubscriptionPlans.map(plan => ({
         ...plan,
         price: plan.price?.$numberDecimal || plan.price, // Ensure price is a string/number
       }));
       setCards(formattedPlans);
+      stopLoading()
     } catch (error) {
       console.error("Error fetching subscriptions:", error);
     }
@@ -67,9 +71,9 @@ const ManageSubscriptionIndex = () => {
   const handleCreateOrEdit = async (data) => {
     try {
       if (selectedCard) {
-        await axios.put(`https://diskuss-admin.onrender.com/api/v1/subscription/${selectedCard.planId}`, data);
+        await axios.put(`http://13.203.24.247:9000/api/v1/subscription/${selectedCard.planId}`, data);
       } else {
-        await axios.post("https://diskuss-admin.onrender.com/api/v1/subscription/", data);
+        await axios.post("http://13.203.24.247:9000/api/v1/subscription/", data);
       }
       fetchSubscriptions();
       setIsModalOpen(false);
@@ -80,7 +84,7 @@ const ManageSubscriptionIndex = () => {
 
   const handleDelete = async (planId) => {
     try {
-      await axios.delete(`https://diskuss-admin.onrender.com/api/v1/subscription/${planId}`);
+      await axios.delete(`http://13.203.24.247:9000/api/v1/subscription/${planId}`);
       fetchSubscriptions();
     } catch (error) {
       console.error("Error deleting subscription:", error);
