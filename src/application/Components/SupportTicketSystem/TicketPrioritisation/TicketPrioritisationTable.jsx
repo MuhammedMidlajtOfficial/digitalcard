@@ -1,9 +1,33 @@
+import React, { useEffect, useState } from "react";
 import { Dropdown, Menu, Table } from "antd";
-import React from "react";
+import axios from "axios";
 import { FiFilter } from "react-icons/fi";
 import { TbArrowsDownUp } from "react-icons/tb";
 
+// const ticketData = [
+//   {
+//     "_id": "675ad112ba2c73aa87823ca0",
+//     "ticketNumber": "TCK00001",
+//     "title": "Issue with login",
+//     "description": "User unable to log in to the application.",
+//     "priority": "High",
+//     "createdBy": {
+//       "_id": "6731e31c1637d690957d8e69",
+//       "username": "alif",
+//       "email": "alif.levontechno@gmail.com"
+//     },
+//     "status": "Open",
+//     "createdAt": "2024-12-12T12:03:30.685Z",
+//     "updatedAt": "2024-12-12T12:03:30.686Z",
+//     "__v": 0
+//   }
+// ]
+
 const TicketPrioritisationTable = () => {
+  const [highPriorityData, setHighPriorityData] = useState([]);
+  const [mediumPriorityData, setMediumPriorityData] = useState([]);
+  const [lowPriorityData, setLowPriorityData] = useState([]);
+
   const filterMenu = (
     <Menu>
       <Menu.Item key="certifications">ABC</Menu.Item>
@@ -17,18 +41,19 @@ const TicketPrioritisationTable = () => {
       <Menu.Item key="jobType">EFG</Menu.Item>
     </Menu>
   );
+
   const columns = [
     {
       title: "Ticket Id",
-      dataIndex: "ticketId",
+      dataIndex: "ticketNumber",
     },
     {
       title: "Summary",
-      dataIndex: "summary",
+      dataIndex: "description",
     },
     {
       title: "Due Time",
-      dataIndex: "duetime",
+      dataIndex: "",
     },
     {
       title: "Status",
@@ -36,99 +61,30 @@ const TicketPrioritisationTable = () => {
     },
   ];
 
-  const data = [
-    {
-      key: "1",
-      ticketId: "# 1002",
-      summary: "Payment Failure",
-      duetime: "1 hr",
-      status: "Open",
-    },
-    {
-      key: "2",
-      ticketId: "# 1004",
-      summary: "App Down",
-      duetime: "1 hr",
-      status: "Open",
-    },
-    {
-      key: "3",
-      ticketId: "# 1006",
-      summary: "Security Breach",
-      duetime: "2 hr",
-      status: "Open",
-    },
-  ];
-  const columns1 = [
-    {
-      title: "Ticket Id",
-      dataIndex: "ticketId",
-    },
-    {
-      title: "Summary",
-      dataIndex: "summary",
-    },
-    {
-      title: "Due Time",
-      dataIndex: "duetime",
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-    },
-  ];
+  useEffect(() => {
+    const fetchTickets = async () => {
+      try {
+        const highPriorityResponse = await axios.get("https://diskuss-1mv4.onrender.com/api/v1/ticket?status!=Resolved&priority=High&page=1&limit=10");
+        setHighPriorityData(highPriorityResponse.data);
 
-  const data1 = [
-    {
-      key: "1",
-      ticketId: "# 1041",
-      summary: "App Creash",
-      duetime: "6 hr",
-      status: "Open",
-    },
-    {
-      key: "2",
-      ticketId: "# 0098",
-      summary: "Minor  UI bug",
-      duetime: "6 hr",
-      status: "Open",
-    },
-  ];
-  const columns2 = [
-    {
-      title: "Ticket Id",
-      dataIndex: "ticketId",
-    },
-    {
-      title: "Summary",
-      dataIndex: "summary",
-    },
-    {
-      title: "Due Time",
-      dataIndex: "duetime",
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-    },
-  ];
+        const mediumPriorityResponse = await axios.get("https://diskuss-1mv4.onrender.com/api/v1/ticket?status!=Resolved&priority=Medium&page=1&limit=10");
+        setMediumPriorityData(mediumPriorityResponse.data);
 
-  const data2 = [
-    {
-      key: "1",
-      ticketId: "# 1061",
-      summary: "General Enquiry",
-      duetime: "24 hr",
-      status: "Open",
-    },
-    {
-      key: "2",
-      ticketId: "# 1053",
-      summary: "Feedback Submission",
-      duetime: "24 hr",
-      status: "Open",
-    },
-  ];
+        const lowPriorityResponse = await axios.get("https://diskuss-1mv4.onrender.com/api/v1/ticket?priority=Low&status=Open&status=In%20Progress&page=1&limit=10");
+        setLowPriorityData(lowPriorityResponse.data);
+        
+
+      } catch (error) {
+        console.error("Error fetching ticket data:", error);
+      }
+    };
+
+    fetchTickets();
+    console.log("highPriorityData : ", highPriorityData);
+    console.log("mediumPriorityData : ", mediumPriorityData);
+    console.log("lowPriorityData : ", lowPriorityData);
+  }, []);
+
   return (
     <div className="container">
       <div className="application-table-section mb-3">
@@ -162,16 +118,16 @@ const TicketPrioritisationTable = () => {
           </div>
         </div>
         <div className="col-lg-12">
-          <div className="">
-            <Table
-              columns={columns}
-              dataSource={data}
-              pagination={false}
-              className="applied-applicants-table overflow-y-auto"
-            />
-          </div>
+          <Table
+            columns={columns}
+            dataSource={highPriorityData}
+            pagination={false}
+            className="applied-applicants-table overflow-y-auto"
+          />
         </div>
       </div>
+
+      {/* Medium Priority Section */}
       <div className="application-table-section mb-3">
         <div className="d-flex mb-4 flex-lg-row flex-xl-row flex-column justify-content-between gap-4">
           <h2 className="ticketCategories-details-h5">Medium Priority</h2>
@@ -203,16 +159,16 @@ const TicketPrioritisationTable = () => {
           </div>
         </div>
         <div className="col-lg-12">
-          <div className="">
-            <Table
-              columns={columns1}
-              dataSource={data1}
-              pagination={false}
-              className="applied-applicants-table overflow-y-auto"
-            />
-          </div>
+          <Table
+            columns={columns}
+            dataSource={mediumPriorityData}
+            pagination={false}
+            className="applied-applicants-table overflow-y-auto"
+          />
         </div>
       </div>
+
+      {/* Low Priority Section */}
       <div className="application-table-section mb-3">
         <div className="d-flex mb-4 flex-lg-row flex-xl-row flex-column justify-content-between gap-4">
           <h2 className="ticketCategories-details-h5">Low Priority</h2>
@@ -244,16 +200,15 @@ const TicketPrioritisationTable = () => {
           </div>
         </div>
         <div className="col-lg-12">
-          <div className="">
-            <Table
-              columns={columns2}
-              dataSource={data2}
-              pagination={false}
-              className="applied-applicants-table overflow-y-auto"
-            />
-          </div>
+          <Table
+            columns={columns}
+            dataSource={lowPriorityData}
+            pagination={false}
+            className="applied-applicants-table overflow-y-auto"
+          />
         </div>
       </div>
+
     </div>
   );
 };

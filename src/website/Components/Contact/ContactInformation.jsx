@@ -93,7 +93,7 @@ const ContactInformation = () => {
                 <Input placeholder="Enter your Email address" />
               </Form.Item>
 
-              <Form.Item name="phoneNumber" label="Phone Number">
+              <Form.Item name="phnNumber" label="Phone Number">
                 <Input placeholder="Enter your Phone No" />
               </Form.Item>
 

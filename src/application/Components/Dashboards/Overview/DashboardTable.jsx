@@ -112,7 +112,7 @@ export const DashboardTable = () => {
   const data = [
     {
       key: "1",
-      userName: { name: "Annette Black", image: image1 },
+      username: { name: "Annette Black", image: image1 },
       userId: "1450",
       phoneNo: "989898989",
       date: "09/12/24",
@@ -120,7 +120,7 @@ export const DashboardTable = () => {
     },
     {
       key: "2",
-      userName: { name: "Annette Black", image: image1 },
+      username: { name: "Annette Black", image: image1 },
       userId: "1250",
       phoneNo: "989898989",
       date: "09/12/24",
@@ -128,7 +128,7 @@ export const DashboardTable = () => {
     },
     {
       key: "3",
-      userName: { name: "Annette Black", image: image1 },
+      username: { name: "Annette Black", image: image1 },
       userId: "1150",
       phoneNo: "989898989",
       date: "09/12/24",

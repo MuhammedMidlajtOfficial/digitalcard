@@ -48,8 +48,8 @@ const handleDelete = () => {
     {
       title: "Survey Name",
       dataIndex: "surveyName",
-      render: (userName) => (
-        <div className="d-flex align-items-center">{userName?.name}</div>
+      render: (username) => (
+        <div className="d-flex align-items-center">{username?.name}</div>
       ),
     },
     {

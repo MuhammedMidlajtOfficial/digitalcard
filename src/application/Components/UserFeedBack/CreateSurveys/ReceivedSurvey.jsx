@@ -43,11 +43,11 @@ export const ReceivedSurveyList = () => {
     },
     {
       title: "UserName",
-      dataIndex: "userName",
-      render: (userName) => (
+      dataIndex: "username",
+      render: (username) => (
         <div className="d-flex align-items-center">
-          <Avatar src={userName.image} size={40} className="me-2" />
-          {userName.name}
+          <Avatar src={username.image} size={40} className="me-2" />
+          {username.name}
         </div>
       ),
     },
@@ -72,28 +72,28 @@ export const ReceivedSurveyList = () => {
       surveyName: { name: "Welcome user" },
       date: "09/12/24",
       email: "abc@gmail.com",
-      userName: { name: "Annette Black", image: image1 },
+      username: { name: "Annette Black", image: image1 },
     },
     {
       key: "2",
       surveyName: { name: "Welcome user" },
       date: "09/12/24",
       email: "abc@gmail.com",
-      userName: { name: "Annette Gold", image: image1 },
+      username: { name: "Annette Gold", image: image1 },
     },
     {
       key: "3",
       surveyName: { name: "Welcome user" },
       date: "09/12/24",
       email: "abc@gmail.com",
-      userName: { name: "Praveen", image: image1 },
+      username: { name: "Praveen", image: image1 },
     },
     {
       key: "4",
       surveyName: { name: "Welcome user" },
       date: "09/12/24",
       email: "abc@gmail.com",
-      userName: { name: "Shiva", image: image1 },
+      username: { name: "Shiva", image: image1 },
     },
   ];
 

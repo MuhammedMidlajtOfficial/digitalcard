@@ -90,11 +90,11 @@ const EmployeeList = () => {
         />
       ),
     },
-    { title: "Name", dataIndex: "userName", render: (name) => name || "N/A" },
+    { title: "Name", dataIndex: "username", render: (name) => name || "N/A" },
     { title: "Email", dataIndex: "email" },
     {
       title: "Mobile No",
-      dataIndex: "phoneNumber",
+      dataIndex: "phnNumber",
       render: (phone) => phone || "N/A",
     },
     {
@@ -140,9 +140,9 @@ const EmployeeList = () => {
             icon={!user.image && <UserOutlined />}
           />
         </div>
-        <h2 className="mt-3">{user.userName || "N/A"}</h2>
+        <h2 className="mt-3">{user.username || "N/A"}</h2>
         <h4>{user.email}</h4>
-        <h4>{user.phoneNumber || "N/A"}</h4>
+        <h4>{user.phnNumber || "N/A"}</h4>
         <h5>
           Categories: {user.category?.length ? user.category.join(", ") : "N/A"}
         </h5>

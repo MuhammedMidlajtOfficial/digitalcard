@@ -84,7 +84,7 @@ export const BillingDownloadForm = ({ isModalVisible, setIsModalVisible,invoice=
             <p>
               <span className="label">Customer Name</span>{" "}
               <span className="separator">:</span>
-              <span className="value">{invoice?.userName || "N/A"}</span>
+              <span className="value">{invoice?.username || "N/A"}</span>
             </p>
             <p>
               <span className="label">Invoice</span>{" "}

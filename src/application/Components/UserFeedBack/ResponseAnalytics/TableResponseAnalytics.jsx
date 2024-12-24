@@ -48,11 +48,11 @@ const TableResponseAnalytics = () => {
   const columns = [
     {
       title: "Name",
-      dataIndex: "userName",
-      render: (userName) => (
+      dataIndex: "username",
+      render: (username) => (
         <div className="d-flex align-items-center">
-          <Avatar src={userName.image} size={40} className="me-2" />
-          {userName.name}
+          <Avatar src={username.image} size={40} className="me-2" />
+          {username.name}
         </div>
       ),
     },
@@ -86,7 +86,7 @@ const TableResponseAnalytics = () => {
   const data = [
     {
       key: "1",
-      userName: { name: "Annette Black", image: profile3 },
+      username: { name: "Annette Black", image: profile3 },
       surveyTitle: "Anniversary",
       email: "black@company.com",
       responseDate: "09/12/2024",
@@ -94,7 +94,7 @@ const TableResponseAnalytics = () => {
     },
     {
       key: "2",
-      userName: { name: "Guy Hawkins", image: profile3 },
+      username: { name: "Guy Hawkins", image: profile3 },
       surveyTitle: "Anniversary",
       email: "hawkins@gmail.com",
       responseDate: "09/12/2024",
@@ -102,7 +102,7 @@ const TableResponseAnalytics = () => {
     },
     {
       key: "3",
-      userName: { name: "Kristin Watson", image: profile3 },
+      username: { name: "Kristin Watson", image: profile3 },
       surveyTitle: "Anniversary",
       email: "jane@business.com",
       responseDate: "09/12/2024",
@@ -110,7 +110,7 @@ const TableResponseAnalytics = () => {
     },
     {
       key: "4",
-      userName: { name: "Cameron", image: profile3 },
+      username: { name: "Cameron", image: profile3 },
       surveyTitle: "Anniversary",
       email: "jane.doe@example.com",
       responseDate: "09/12/2024",
@@ -118,7 +118,7 @@ const TableResponseAnalytics = () => {
     },
     {
       key: "5",
-      userName: { name: "Devon Lane", image: profile3 },
+      username: { name: "Devon Lane", image: profile3 },
       surveyTitle: "Anniversary",
       email: "contact@company.com",
       responseDate: "09/12/2024",

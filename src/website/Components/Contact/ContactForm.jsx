@@ -5,7 +5,7 @@ const ContactForm = () => {
     name: "",
     email: "",
     subject: "",
-    phoneNumber: "",
+    phnNumber: "",
     message: "",
   });
 
@@ -77,12 +77,12 @@ const ContactForm = () => {
           </div>
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="phoneNumber">Phone Number (optional)</label>
+              <label htmlFor="phnNumber">Phone Number (optional)</label>
               <input
                 type="tel"
-                id="phoneNumber"
-                name="phoneNumber"
-                value={formData.phoneNumber}
+                id="phnNumber"
+                name="phnNumber"
+                value={formData.phnNumber}
                 onChange={handleChange}
               />
             </div>

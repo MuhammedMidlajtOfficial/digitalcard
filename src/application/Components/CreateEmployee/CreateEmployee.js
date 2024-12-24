@@ -30,9 +30,9 @@ const CreateEmployee = () => {
 
       // Populate form with employee data
       form.setFieldsValue({
-        userName: employeeData.userName,
+        username: employeeData.username,
         email: employeeData.email,
-        phoneNumber: employeeData.phoneNumber,
+        phnNumber: employeeData.phnNumber,
         category: employeeData.category,
       });
       setPreviewImage(employeeData.image);
@@ -69,11 +69,11 @@ const CreateEmployee = () => {
 
     try {
       const payload = {
-        userName: values.userName,
+        username: values.username,
         image: previewImage,
         email: values.email,
         password: values.password,
-        phoneNumber: values.phoneNumber,
+        phnNumber: values.phnNumber,
         category: values.category,
       };
 
@@ -171,7 +171,7 @@ const CreateEmployee = () => {
             <div className="col-md-6 mb-1">
               <Form.Item
                 label="User Name"
-                name="userName"
+                name="username"
                 rules={[
                   { required: true, message: "Please enter a username!" },
                 ]}
@@ -218,7 +218,7 @@ const CreateEmployee = () => {
             <div className="col-md-6 mb-1">
               <Form.Item
                 label="Phone Number"
-                name="phoneNumber"
+                name="phnNumber"
                 rules={[
                   { required: true, message: "Please enter a phone number!" },
                   {
