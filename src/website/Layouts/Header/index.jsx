@@ -168,7 +168,7 @@ const Header = () => {
                 <div className="header-btn-links">
                   <Link to="/contact"><FaPhone style={{fontSize:"16px"}}/> Book Demo</Link>
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <Link to="/"><FaRegUserCircle style={{fontSize:"30px", color:"var(--black-text-color"}}/></Link>
+                  {/* <Link to="/"><FaRegUserCircle style={{fontSize:"30px", color:"var(--black-text-color"}}/></Link> */}
                 </div>
               </div>
             </div>
