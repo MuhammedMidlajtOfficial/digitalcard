@@ -10,7 +10,7 @@ import { IoEllipsisHorizontalSharp } from "react-icons/io5";
 import { UserOutlined } from "@ant-design/icons";
 import axiosInstance from "../../../../AxiosConfig";
 
-
+//Check for unnecessary code at production
 export const ManagePaymentsTable = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
