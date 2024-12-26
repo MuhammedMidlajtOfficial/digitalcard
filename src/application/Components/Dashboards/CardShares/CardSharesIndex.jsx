@@ -7,7 +7,7 @@ const CardSharesIndex = () => {
     <div className="card-shares-static">
       <div className="row">
         <CardSharesCards />
-        <CardSharesGraph />
+        {/* <CardSharesGraph /> */}
         <CardSharesTable />
       </div>
     </div>
