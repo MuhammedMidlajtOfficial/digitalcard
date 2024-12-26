@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Dropdown, Menu, Table, Avatar, Button, Spin, message } from "antd";
 import { IoIosArrowForward } from "react-icons/io";
 import { TbArrowsDownUp } from "react-icons/tb";
-import { FiFilter } from "react-icons/fi";
+import { FiFilter, FiSearch} from "react-icons/fi";
 import { IoEllipsisHorizontalSharp } from "react-icons/io5";
 import { LuEye } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
@@ -14,6 +14,8 @@ import axiosInstance from "../../../../AxiosConfig";
 export const ManagePaymentsTable = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [filteredData, setFilteredData] = useState(data);
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
   const fetchPayments = async () => {
@@ -23,6 +25,20 @@ export const ManagePaymentsTable = () => {
 
   
       // Map the response data to the table format
+      setFilteredData(
+        response.data.map((item, index) => ({
+          key: index,
+          username: {
+            name: item.user?.name || "Unknown", // Fetch the user name
+            image: item.user?.image || null,   // Fetch the user image
+          },
+          paymentid: item.subscription?.razorpayOrderId || "N/A", // Fetch Razorpay Order ID
+          date: new Date(item.subscription?.startDate), // Format start date
+          paymethod: "Razorpay", // Hardcoded payment method
+          status: item.subscription?.status || "pending", // Subscription status
+          transactionid: (item.subscription?.payment && item.subscription.payment[0]) || "N/A", // First payment ID
+        }))
+      );
       setData(
         response.data.map((item, index) => ({
           key: index,
@@ -31,7 +47,7 @@ export const ManagePaymentsTable = () => {
             image: item.user?.image || null,   // Fetch the user image
           },
           paymentid: item.subscription?.razorpayOrderId || "N/A", // Fetch Razorpay Order ID
-          date: new Date(item.subscription?.startDate).toLocaleDateString(), // Format start date
+          date: new Date(item.subscription?.startDate), // Format start date
           paymethod: "Razorpay", // Hardcoded payment method
           status: item.subscription?.status || "Pending", // Subscription status
           transactionid: (item.subscription?.payment && item.subscription.payment[0]) || "N/A", // First payment ID
@@ -49,31 +65,109 @@ export const ManagePaymentsTable = () => {
     fetchPayments();
   }, []);
 
+  useEffect(() => {
+    // Filter logic for search
+    const filtered = data.filter((item) => {
+      const lowerCaseTerm = searchTerm.toLowerCase();
+      return (
+        item.username.name.toLowerCase().includes(lowerCaseTerm) ||
+        item.transactionid.toLowerCase().includes(lowerCaseTerm)
+      );
+    });
+    setFilteredData(filtered);
+  }, [searchTerm, data]);
+
+  const handleFilter=(status)=>{
+    const filter  = data.filter((payment)=>payment.status===status);
+    setFilteredData(filter);
+  }
+
   const filterMenu = (
     <Menu>
-      <Menu.Item key="certifications" className="filter-menu-item">
-        ABC <IoIosArrowForward className="right-arrow" />
+      <Menu.Item 
+        key="active" 
+        className="filter-menu-item" 
+        style={{ color:"green",fontWeight:"600"}}
+        onClick={()=>{handleFilter("active")}}
+      >
+        Active
       </Menu.Item>
-      <Menu.Item key="employment-type" className="filter-menu-item">
-        EFG <IoIosArrowForward className="right-arrow" />
+      <Menu.Item 
+        key="inactive" 
+        className="filter-menu-item" 
+        style={{ color:"red",fontWeight:"600"}}
+        onClick={()=>{handleFilter("inactive")}}
+      >
+        Inactive
+      </Menu.Item>
+      <Menu.Item 
+        key="pending" 
+        className="filter-menu-item" 
+        style={{ color:"orange",fontWeight:"600"}}
+        onClick={()=>{handleFilter("pending")}}
+      >
+        Pending
+      </Menu.Item>
+      <Menu.Item
+        key="reset"
+        className="filter-menu-item"
+        style={{
+          color: "white",
+          backgroundColor: "blue",
+          fontWeight: "600",
+          textAlign: "center",
+          borderRadius: "5px",
+          marginTop: "10px",
+          marginBottom: "2px",
+          padding: "3px 6px",
+        }}
+        onClick={() => {setFilteredData(data)}}
+      >
+        Reset
       </Menu.Item>
     </Menu>
   );
 
+  const handleSort=(sortBy)=>{
+    const sortedData  = [...filteredData].sort((a, b) => {
+      const dateA = a.date;
+      const dateB = b.date;
+
+      if (sortBy === "newest") {
+        return dateB - dateA;
+      } else if (sortBy === "oldest") {
+        return dateA - dateB;
+      }
+      return 0;
+    });
+
+    setFilteredData(sortedData)
+  }
+
   const sortMenu = (
     <Menu>
-      <Menu.Item key="datePosted" className="filter-menu-item">
-        ABC <IoIosArrowForward className="right-arrow" />
+      <Menu.Item 
+        key="newest" 
+        className="filter-menu-item"
+        style={{color: "blue",fontWeight:"600"}}
+        onClick={()=>{handleSort("newest")}}
+      >
+        Newest First <IoIosArrowForward className="right-arrow" />
       </Menu.Item>
-      <Menu.Item key="jobType" className="filter-menu-item">
-        EFG <IoIosArrowForward className="right-arrow" />
+      <Menu.Item 
+        key="oldest" 
+        className="filter-menu-item"
+        style={{ color: "gray",fontWeight:"600"}}
+        onClick={()=>{handleSort("oldest")}}
+      >
+        Oldest First <IoIosArrowForward className="right-arrow" />
       </Menu.Item>
     </Menu>
   );
 
   const actionMenu = (record) => (
     <Menu>
-      <Menu.Item
+      {/* <Menu.Item
         key="view"
         onClick={() =>
           navigate("/admin/paymentmanagement/viewpayments/viewpayerinfo", {
@@ -90,7 +184,7 @@ export const ManagePaymentsTable = () => {
       >
         <RiDeleteBinLine style={{ color: "var(--danger-color)" }} />
         Delete
-      </Menu.Item>
+      </Menu.Item> */}
     </Menu>
   );
 
@@ -124,6 +218,7 @@ export const ManagePaymentsTable = () => {
     {
       title: "Date",
       dataIndex: "date",
+      render: (date)=> date.toLocaleDateString()
     },
     {
       title: "Pay Method",
@@ -169,6 +264,16 @@ export const ManagePaymentsTable = () => {
     <div className="container">
       <div className="row">
         <div className="col-lg-12">
+          <div className="search-container" style={{marginBottom:"15px"}}>
+              <FiSearch className="search-icon" />
+              <input
+                type="text"
+                placeholder="Search..."
+                className="create-survey-search-input"
+                value={searchTerm} // Bind search term
+                onChange={(e) => setSearchTerm(e.target.value)} // Update state on input
+              />
+          </div>
           <div className="application-table-section">
             <div className="d-flex mb-4 flex-lg-row flex-xl-row flex-column justify-content-between gap-4">
               <div className="d-flex gap-4 align-items-center">
@@ -206,7 +311,7 @@ export const ManagePaymentsTable = () => {
             ) : (
               <Table
                 columns={columns}
-                dataSource={data}
+                dataSource={filteredData}
                 pagination={{ pageSize: 5 }}
                 className="applied-applicants-table overflow-y-auto"
               />
