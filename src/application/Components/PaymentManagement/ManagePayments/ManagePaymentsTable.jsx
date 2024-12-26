@@ -42,7 +42,7 @@ export const ManagePaymentsTable = () => {
       setData(
         response.data.map((item, index) => ({
           key: index,
-          userName: {
+          username: {
             name: item.user?.name || "Unknown", // Fetch the user name
             image: item.user?.image || null,   // Fetch the user image
           },
@@ -201,13 +201,13 @@ export const ManagePaymentsTable = () => {
   const columns = [
     {
       title: "Payer Name",
-      dataIndex: "userName",
-      render: (userName) => (
+      dataIndex: "username",
+      render: (username) => (
         <div className="d-flex align-items-center">
-          <Avatar src={userName.image || null}
-          icon={!userName.image ? <UserOutlined /> : null}
+          <Avatar src={username.image || null}
+          icon={!username.image ? <UserOutlined /> : null}
           size={40} className="me-2" />
-          {userName.name}
+          {username.name}
         </div>
       ),
     },
