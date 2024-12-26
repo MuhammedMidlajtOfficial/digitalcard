@@ -4,9 +4,9 @@ import { IoIosArrowForward } from "react-icons/io";
 import { TbArrowsDownUp } from "react-icons/tb";
 import { FiFilter, FiSearch} from "react-icons/fi";
 import { IoEllipsisHorizontalSharp } from "react-icons/io5";
-import { LuEye } from "react-icons/lu";
-import { RiDeleteBinLine } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
+//import { LuEye } from "react-icons/lu";
+//import { RiDeleteBinLine } from "react-icons/ri";
+//import { useNavigate } from "react-router-dom";
 import { UserOutlined } from "@ant-design/icons";
 import axiosInstance from "../../../../AxiosConfig";
 
@@ -16,7 +16,7 @@ export const ManagePaymentsTable = () => {
   const [loading, setLoading] = useState(false);
   const [filteredData, setFilteredData] = useState(data);
   const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const fetchPayments = async () => {
     setLoading(true);
