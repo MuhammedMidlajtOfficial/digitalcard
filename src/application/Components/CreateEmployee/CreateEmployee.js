@@ -96,7 +96,7 @@ const CreateEmployee = () => {
       } else {
         // Create new employee
         const response = await axiosInstance.post("/employee", payload);
-        console.log("Response:",response);        
+        console.log("Response:",response);   
         Swal.fire({
           icon: "success",
           title: "Employee Created!",
@@ -109,11 +109,43 @@ const CreateEmployee = () => {
       setPreviewImage(null);
     } catch (error) {
       console.error("Error submitting form:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error!",
-        text: `Failed to ${employeeId ? "update" : "create"} employee profile. Please try again.`,
-      });
+      if (error.response) {
+        const { status, data } = error.response;
+  
+        if (status === 400) {
+          Swal.fire({
+            icon: "error",
+            title: "Missing Fields",
+            text: data.message || "Please fill in all required fields.",
+          });
+        } else if (status === 409) {
+          Swal.fire({
+            icon: "error",
+            title: "Conflict",
+            text: data.message || "An employee with this email already exists.",
+          });
+        } else if (status === 500) {
+          Swal.fire({
+            icon: "error",
+            title: "Server Error",
+            text: data.message || "An unexpected error occurred on the server.",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: `Failed to ${
+              employeeId ? "update" : "create"
+            } employee profile. Please try again.`,
+          });
+        }
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Unable to connect to the server. Please try again later.",
+        });
+      }
     }
   };
 

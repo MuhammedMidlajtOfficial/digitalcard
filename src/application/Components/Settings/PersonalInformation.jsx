@@ -3,17 +3,16 @@ import { Form, Input } from "antd";
 import { TbEdit } from "react-icons/tb";
 import DefaultUser from "../../Assets/Images/admin.png";
 import "react-international-phone/style.css";
-import { PhoneInput } from "react-international-phone";
 import axiosInstance from "../../../AxiosConfig";
 import { useNavigate } from "react-router-dom";
 import { showErrorToast, showSuccessToast } from "../../Services/toastService";
-import { useLoading } from "../../Services/loadingService";
 
 export const PersonalInformation = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const fileInputRef = useRef(null);
-  const { loading, startLoading, stopLoading } = useLoading();
+  const [loading, setLoading] = useState(false);
+
   const [userData, setUserData] = useState({
     username: "",
     image: "",
@@ -33,7 +32,6 @@ export const PersonalInformation = () => {
       return;
     }
   
-    startLoading(); // Start loading spinner
     axiosInstance
       .get(`adminAuth/getSuperAdmin/${userId}`)
       .then((response) => {
@@ -48,9 +46,6 @@ export const PersonalInformation = () => {
       .catch((error) => {
         console.error("Error fetching data:", error.message || error);
       })
-      .finally(() => {
-        stopLoading(); // Stop loading spinner
-      });
   }, [navigate]);
   
 
@@ -100,19 +95,19 @@ export const PersonalInformation = () => {
 
   const handleSubmit = (values) => {
     const userId = localStorage.getItem("userId");
-  
+
     if (!userId) {
       console.error("User ID not found in localStorage");
       return;
     }
-  
+
     const updatedData = {
       ...values,
       userType: userData.userType,
       image: userData.image,
     };
-  
-    startLoading(); // Start loading spinner
+
+    setLoading(true); // Start loading spinner
     axiosInstance
       .patch(`adminAuth/updateUser/${userId}`, updatedData)
       .then((response) => {
@@ -124,7 +119,7 @@ export const PersonalInformation = () => {
         showErrorToast("Failed to update profile. Please try again.");
       })
       .finally(() => {
-        stopLoading(); // Stop loading spinner
+        setLoading(false); // Stop loading spinner
       });
   };
 
@@ -236,8 +231,23 @@ export const PersonalInformation = () => {
               <button className="cancel-btn" type="button">
                 Discard
               </button>
-              <button className="create-btn" type="submit">
-                Save Changes
+              <button
+                className="create-btn"
+                type="submit"
+                disabled={loading}
+                style={{ width: "166.2px", height: "36.85px", display: "flex", justifyContent: "center", alignItems: "center" }}
+              >
+                {loading ? (
+                  <div 
+                    className="spinner-border text-light" 
+                    role="status"
+                    style={{ width: "1rem", height: "1rem", borderWidth: "2px" }}
+                  >
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                ) : (
+                  "Save Changes"
+                )}
               </button>
             </div>
           </div>

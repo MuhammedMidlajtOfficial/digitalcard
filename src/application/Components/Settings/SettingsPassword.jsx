@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input } from "antd";
 import { MdOutlineLock } from "react-icons/md";
 import axiosInstance from "../../../AxiosConfig";
@@ -6,6 +6,7 @@ import { showErrorToast, showSuccessToast } from "../../Services/toastService";
 
 export const SettingsPassword = () => {
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
 
   const handleUpdatePassword = (values)=>{
     const { oldPassword, newPassword, confirmPassword } = values;
@@ -19,7 +20,7 @@ export const SettingsPassword = () => {
       return; 
     }
     const userId = localStorage.getItem("userId");
-
+    setLoading(true); // Start loading spinner
     axiosInstance.patch(`adminAuth/updateUserPassword/${userId}`, {
       oldPassword,
       newPassword,
@@ -29,8 +30,10 @@ export const SettingsPassword = () => {
     })
     .catch((error) => {
       showErrorToast(error.response?.data?.message || "An error occurred")
+    })
+    .finally(() => {
+      setLoading(false); // Stop loading spinner
     });
-    
   }
 
   return (
@@ -72,8 +75,23 @@ export const SettingsPassword = () => {
                 <button className="cancel-btn" type="button">
                   Discard
                 </button>
-                <button className="create-btn" type="submit">
-                  Save Changes
+                <button
+                  className="create-btn"
+                  type="submit"
+                  disabled={loading}
+                  style={{ width: "166.2px", height: "36.85px", display: "flex", justifyContent: "center", alignItems: "center" }}
+                >
+                  {loading ? (
+                    <div 
+                      className="spinner-border text-light" 
+                      role="status"
+                      style={{ width: "1rem", height: "1rem", borderWidth: "2px" }}
+                    >
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                  ) : (
+                    "Save Changes"
+                  )}
                 </button>
               </div>
             </div>
