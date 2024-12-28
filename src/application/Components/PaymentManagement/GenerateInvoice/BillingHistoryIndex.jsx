@@ -38,7 +38,7 @@ const BillingHistoryIndex = () => {
   
 
   useEffect(() => {
-    axiosInstance.get(`http://localhost:9000/api/v1/invoice/getInvoices?${query}`)
+    axiosInstance.get(`invoice/getInvoices?${query}`)
     .then((response)=>{
       setInvoiceData(response.data.invoices)
     })

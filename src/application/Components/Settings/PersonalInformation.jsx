@@ -3,7 +3,6 @@ import { Form, Input } from "antd";
 import { TbEdit } from "react-icons/tb";
 import DefaultUser from "../../Assets/Images/admin.png";
 import "react-international-phone/style.css";
-import { PhoneInput } from "react-international-phone";
 import axiosInstance from "../../../AxiosConfig";
 import { useNavigate } from "react-router-dom";
 import { showErrorToast, showSuccessToast } from "../../Services/toastService";
@@ -12,6 +11,8 @@ export const PersonalInformation = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const fileInputRef = useRef(null);
+  const [loading, setLoading] = useState(false);
+
   const [userData, setUserData] = useState({
     username: "",
     image: "",
@@ -24,29 +25,29 @@ export const PersonalInformation = () => {
 
   useEffect(() => {
     const userId = localStorage.getItem("userId"); // Retrieve userId from localStorage
-
+  
     if (!userId) {
       console.error("User ID not found in localStorage");
       navigate("/login"); // Redirect to login if userId is missing
       return;
     }
-
+  
     axiosInstance
       .get(`adminAuth/getSuperAdmin/${userId}`)
       .then((response) => {
         if (response.data && response.data.user) {
           const { username, image, address, phnNumber, email, userType } = response.data.user;
           setUserData({ username, address, phnNumber, email, userType }); // Update state with the user data
-          setPreviewImage(image)
-          console.log(userData);
+          setPreviewImage(image);
         } else {
           console.error("User not found in response");
         }
       })
       .catch((error) => {
         console.error("Error fetching data:", error.message || error);
-      });
+      })
   }, [navigate]);
+  
 
   useEffect(() => {
     form.setFieldsValue(userData);
@@ -106,6 +107,7 @@ export const PersonalInformation = () => {
       image: userData.image,
     };
 
+    setLoading(true); // Start loading spinner
     axiosInstance
       .patch(`adminAuth/updateUser/${userId}`, updatedData)
       .then((response) => {
@@ -115,6 +117,9 @@ export const PersonalInformation = () => {
       .catch((error) => {
         console.error("Error updating data:", error.message || error);
         showErrorToast("Failed to update profile. Please try again.");
+      })
+      .finally(() => {
+        setLoading(false); // Stop loading spinner
       });
   };
 
@@ -226,8 +231,23 @@ export const PersonalInformation = () => {
               <button className="cancel-btn" type="button">
                 Discard
               </button>
-              <button className="create-btn" type="submit">
-                Save Changes
+              <button
+                className="create-btn"
+                type="submit"
+                disabled={loading}
+                style={{ width: "166.2px", height: "36.85px", display: "flex", justifyContent: "center", alignItems: "center" }}
+              >
+                {loading ? (
+                  <div 
+                    className="spinner-border text-light" 
+                    role="status"
+                    style={{ width: "1rem", height: "1rem", borderWidth: "2px" }}
+                  >
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                ) : (
+                  "Save Changes"
+                )}
               </button>
             </div>
           </div>

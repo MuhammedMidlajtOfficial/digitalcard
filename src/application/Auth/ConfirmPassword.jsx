@@ -1,28 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import "./auth.css";
 import login from "../Assets/Images/loginbackground.png";
 import { Form, Input } from "antd";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import Instance from "../../../src/AxiosConfig";
+import { showErrorToast } from "../Services/toastService";
 
 const ConfirmPassword = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const loggedInUserInfo = JSON.parse(localStorage.getItem("loggedInUserInfo"));
+  const [loading, setLoading] = useState(false);
+
+  //const loggedInUserInfo = JSON.parse(localStorage.getItem("loggedInUserInfo"));
 
   const createPassword = async (values) => {
-    const { email, password } = values;
+    const { newPassword, confirmPassword } = values;
+
+    if(newPassword!==confirmPassword){
+      showErrorToast("New password and confirm password do not match");
+      return ;
+    }
+    const token = sessionStorage.getItem("resetPasswordToken")
 
     try {
+      setLoading(true)
+
       const response = await Instance.post(
-        "/individual/forgotpassword",
-        { email, password },
-        {
-          headers: {
-            Authorization: `Bearer ${loggedInUserInfo?.accessToken}`,
-          },
-        }
+        "adminAuth/forgotPassword/reset-password",
+        { token, newPassword },
       );
 
       if (response.status === 200) {
@@ -34,7 +40,8 @@ const ConfirmPassword = () => {
           iconColor: "var(--green-color)",
           confirmButtonColor: "var(--gradient-start-color)",
         }).then(() => {
-          navigate("/login");
+          sessionStorage.removeItem("resetPasswordToken")
+          navigate("/login",{ replace: true });
         });
       } else {
         Swal.fire({
@@ -53,6 +60,8 @@ const ConfirmPassword = () => {
         confirmButtonText: "Try Again",
         confirmButtonColor: "var(--danger-color)",
       });
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -74,27 +83,9 @@ const ConfirmPassword = () => {
                 onFinish={createPassword} // Pass createPassword directly to onFinish
               >
                 <div className="col-lg-12">
-                  <Form.Item
-                    label="Email"
-                    name="email"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please enter your email!",
-                      },
-                      {
-                        type: "email",
-                        message: "Please enter a valid email!",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="Enter your email" autoComplete="off" />
-                  </Form.Item>
-                </div>
-                <div className="col-lg-12">
-                  <Form.Item
+                <Form.Item
                     label="Create New Password"
-                    name="password"
+                    name="newPassword"
                     rules={[
                       {
                         required: true,
@@ -108,9 +99,26 @@ const ConfirmPassword = () => {
                     />
                   </Form.Item>
                 </div>
+                <div className="col-lg-12">
+                  <Form.Item
+                    label="Confirm Your Password"
+                    name="confirmPassword"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please confirm your password!",
+                      },
+                    ]}
+                  >
+                    <Input.Password
+                      placeholder="Confirm your new Password"
+                      type="password"
+                    />
+                  </Form.Item>
+                </div>
                 <div className="mt-4">
-                  <button type="submit" className="sign-button">
-                    Create New Password
+                  <button type="submit" className="sign-button" disabled={loading}>
+                    {loading ? "Create New Password..." : "Create New Password"}
                   </button>
                 </div>
               </Form>

@@ -2,16 +2,15 @@ import React, { useState } from "react";
 import "./auth.css";
 import login from "../Assets/Images/loginbackground.png";
 import Swal from "sweetalert2";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Form } from "antd";
 import Instance from "../../../src/AxiosConfig";
 
 const OtpScreen = () => {
   const navigate = useNavigate();
   const [otpCode, setOtpCode] = useState(new Array(6).fill(""));
-  const loggedInUserInfo = JSON.parse(localStorage.getItem("loggedInUserInfo"));
-  const location = useLocation();
-  const email = location.state?.email;
+  const [loading, setLoading] = useState(false);
+  //const loggedInUserInfo = JSON.parse(localStorage.getItem("loggedInUserInfo"));
 
   const handleChange = (e, index) => {
     const value = e.target.value;
@@ -45,15 +44,12 @@ const OtpScreen = () => {
   };
   const onFinish = async () => {
     const otp = otpCode.join("");
+    const email = sessionStorage.getItem("otpEmail");
     try {
+      setLoading(true)
       const response = await Instance.post(
-        "/individual/validateotp",
+        "adminAuth/forgotPassword/validate-otp",
         { email, otp },
-        {
-          headers: {
-            Authorization: `Bearer ${loggedInUserInfo?.accessToken}`,
-          },
-        }
       );
   
       if (response.status === 200 || response.status === 201) {
@@ -65,7 +61,9 @@ const OtpScreen = () => {
           iconColor: "var(--green-color)",
           confirmButtonColor: "var(--gradient-start-color)",
         }).then(() => {
-          navigate("/create-password"); 
+          sessionStorage.removeItem("otpEmail");
+          sessionStorage.setItem("resetPasswordToken",response.data.token)
+          navigate("/create-password",{ replace: true });
         });
       } else {
         Swal.fire({
@@ -104,6 +102,8 @@ const OtpScreen = () => {
           confirmButtonColor: "var(--danger-color)",
         });
       }
+    }finally {
+      setLoading(false);
     }
   };
   
@@ -140,8 +140,8 @@ const OtpScreen = () => {
                   </p>
                   <p className="resend-link">Resend Code</p>
                 </div>
-                <button type="submit" className="sign-button">
-                  Verify & Proceed
+                <button type="submit" className="sign-button" disabled={loading}>
+                  {loading ? "Verify & Proceed..." : "Verify & Proceed"}
                 </button>
               </Form>
             </div>
