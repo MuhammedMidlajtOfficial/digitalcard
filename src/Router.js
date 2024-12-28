@@ -103,6 +103,8 @@ import PrivateRoute from "./application/PrivateRoute";
 import CreateEmployeeForm from "./application/Page/CreateEmployee";
 import UnAuthorized from "./application/Page/Unauthorized";
 import EmployeeLIsts from "./application/Page/CreateEmployee/EmployeeLists";
+import WatiLists from "./application/Page/Wati";
+import CreateWatis from "./application/Page/Wati/CreateWati";
 
 
 const Loader = () => {
@@ -529,6 +531,18 @@ const MainContent = () => {
             <Route
               path="/admin/employeeList"
               element={<PrivateRoute element={EmployeeLIsts} requiredPermission="create-employee"/>}
+            />
+            <Route
+              path="/admin/watiList"
+              element={<PrivateRoute element={WatiLists} requiredPermission="wati"/>}
+            />
+            <Route
+              path="/admin/createWati"
+              element={<PrivateRoute element={CreateWatis} requiredPermission="wati"/>}
+            />
+            <Route
+              path="/admin/createWati/:id"
+              element={<PrivateRoute element={CreateWatis} requiredPermission="wati"/>}
             />
             <Route
               path="/admin/Unauthorized"

@@ -87,7 +87,7 @@ const CreateEmployee = () => {
           `/employee/${employeeId}`,
           payload
         );
-        console.log("Response:",response);
+        console.log("Response:", response);
         Swal.fire({
           icon: "success",
           title: "Employee Updated!",
@@ -96,7 +96,7 @@ const CreateEmployee = () => {
       } else {
         // Create new employee
         const response = await axiosInstance.post("/employee", payload);
-        console.log("Response:",response);   
+        console.log("Response:", response);
         Swal.fire({
           icon: "success",
           title: "Employee Created!",
@@ -328,6 +328,7 @@ const CreateEmployee = () => {
                     <Checkbox value="send-notification">
                       Send Notification
                     </Checkbox>
+                    <Checkbox value="wati">Wati Lists</Checkbox>
                   </div>
                 </Checkbox.Group>
               </Form.Item>
