@@ -329,7 +329,7 @@ const TicketCategories = () => {
         </div>
       </div>
 
-      <div className="application-table-section mb-3">
+      {/* <div className="application-table-section mb-3">
         <div className="d-flex justify-content-between ticketCategories-table-dropdown-div gap-2 mb-3">
           <div className="d-flex gap-3 align-items-center">
             <h2 className="ticketCategories-details-h5">Category Details </h2>
@@ -379,7 +379,7 @@ const TicketCategories = () => {
             />
           </div>
         </div>
-      </div>
+      </div> */}
       <AddTicket open={isModalVisible} onClose={handleCancel} />
     </div>
   );
