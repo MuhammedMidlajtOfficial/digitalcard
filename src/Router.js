@@ -156,7 +156,7 @@ const MainContent = () => {
     "/admin/usermanagement/companyusers/edit",
     "/admin/usermanagement/statuscategories",
     "/admin/supportticketsystem/viewandrespondticket",
-    "/admin/supportticketsystem/viewandrespondticket/open-ticket",
+    "/admin/supportticketsystem/viewandrespondticket/open-ticket/:id",
     "/admin/supportticketsystem/assign-ticket",
     "/admin/supportticketsystem/ticket-categories",
     "/admin/supportticketsystem/sla-tracking",
@@ -253,7 +253,7 @@ const MainContent = () => {
               element={<PrivateRoute element={TicketPage} requiredPermission="view-respond-tickets"/>}
             />
             <Route
-              path="/admin/supportticketsystem/viewandrespondticket/open-ticket"
+              path="/admin/supportticketsystem/viewandrespondticket/open-ticket/:id"
               element={<PrivateRoute element={OpenTickets} requiredPermission="view-respond-tickets"/>}
             />
             <Route

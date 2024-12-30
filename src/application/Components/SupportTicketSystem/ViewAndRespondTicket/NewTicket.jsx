@@ -16,7 +16,7 @@ const NewTicket = () => {
         startLoading(); // Start loading indicator
         const fetchTickets = async () => {
             try {
-                const response = await fetch("https://diskuss-1mv4.onrender.com/api/v1/ticket?status=Open");
+                const response = await fetch("http://13.203.24.247:2000/api/v1/ticket?status=Open");
                 const data = await response.json();
                 setTickets(data);
             } catch (error) {
@@ -40,7 +40,7 @@ const NewTicket = () => {
                 <Spin size="large" tip="Loading tickets..." /> 
               </Flex>
             ) : (
-                (tickets.length === 0) ?
+                (tickets?.length === 0) ?
                 <p> No New Tickets Found </p> :
                 tickets.map((ticket) => (
                     <div className="allTicket-details-div mb-4" key={ticket._id}>

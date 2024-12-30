@@ -10,10 +10,24 @@
     border-radius: 6px;
     padding: 10px;
 }
-.allTickets-priority-p{
-    color: red;
+.allTickets-low-priority-p{
+    color: yellow;
     font-size: 11px;
-    background-color: #fdeeee;
+    background-color: rgb(138, 188, 0);
+    border-radius: 5px;
+    padding: 3px 6px;
+}
+.allTickets-medium-priority-p{
+    color: white;
+    font-size: 11px;
+    background-color: orange;
+    border-radius: 5px;
+    padding: 3px 6px;
+}
+.allTickets-high-priority-p{
+    color: white;
+    font-size: 11px;
+    background-color: red;
     border-radius: 5px;
     padding: 3px 6px;
 }

@@ -7,10 +7,10 @@ import { Spin, Divider, Flex } from "antd"; // Import Spin for loading indicator
 
 import { useLoading } from "../../../Services/loadingService";
 
-const OpenTicket = () => {
-  const params = useParams();
-  console.log("Params : " , params)
-    const [ticket, setTicket] = useState(null);
+const OpenTicket = ({ ticketId }) => {
+  // const params = useParams();
+  // console.log("Params : " , params)
+  const [ticket, setTicket] = useState(null);
   const { loading, startLoading, stopLoading } = useLoading();
 
   const HandleClick = () => {
@@ -22,8 +22,8 @@ const OpenTicket = () => {
     startLoading(); // Start loading indicator
     const fetchTicket = async () => {
         try {
-            // const response = await fetch(`https://diskuss-1mv4.onrender.com/api/v1/ticket/${ticketId}`);
-            const response = await fetch(`https://diskuss-1mv4.onrender.com/api/v1/ticket/6763df00cdeaa5ae569c2f70`);
+            const response = await fetch(`http://13.203.24.247:2000/api/v1/ticket/${ticketId}`);
+            // const response = await fetch(`https://diskuss-1mv4.onrender.com/api/v1/ticket/6763df00cdeaa5ae569c2f70`);
             const data = await response.json();
             console.log("data : ", data)
             setTicket(data);
