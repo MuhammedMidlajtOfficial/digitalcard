@@ -37,6 +37,12 @@
     border: none;
     color: rgb(104, 156, 235);
 }
+.allTickets-closedticket-button{
+    background:none;
+    text-decoration: none;
+    border: none;
+    color: rgb(21, 171, 13);
+}
 .openTicket-reply-to{
     padding: 15px;
     background-color: #f8f8f8 !important;
