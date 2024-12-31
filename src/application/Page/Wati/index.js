@@ -1,24 +1,20 @@
-
-
 import React from 'react'
 import HeaderApplication from '../../Layouts/Header/Header'
 import SidebarApplication from '../../Layouts/Sidebar/Sidebar'
-// import "./dashboard.css"
-import OpenTicket from '../../Components/SupportTicketSystem/ViewAndRespondTicket/OpenTicket'
-import { useParams } from 'react-router-dom'
+import "./wati.css"
+import WatiList from '../../Components/Wati/watiList'
 
-const Opentickets = () => {
-  const { id } = useParams();
+const WatiLists = () => {
   return (
     <>
         <SidebarApplication />
         <HeaderApplication />
 
         <div className="application-wrapper">
-            <OpenTicket ticketId={id}/>
+            <WatiList />
         </div>
     </>
 )
 }
 
-export default Opentickets
+export default WatiLists

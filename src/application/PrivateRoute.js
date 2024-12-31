@@ -16,8 +16,8 @@ const PrivateRoute = ({ element: Element, requiredPermission }) => {
   }
 
   if (!hasPermission) {
-    // Navigate to Unauthorized page if permission is not sufficient
-    return <Navigate to="/admin/Unauthorized" replace />;
+  //   // Navigate to Unauthorized page if permission is not sufficient
+     return <Navigate to="/admin/Unauthorized" replace />;
   }
 
   // Render the component if authenticated and has permission
