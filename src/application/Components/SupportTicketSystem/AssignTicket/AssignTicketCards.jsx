@@ -3,6 +3,7 @@ import { BsTicket } from "react-icons/bs";
 import { MdOutlineCancel } from "react-icons/md";
 import { TbClockBolt, TbClock } from "react-icons/tb";
 import axios from "axios";
+import axiosInstanceForTicket from "../../../../AxiosContigForTicket";
 
 const AssignTicketCards = () => {
   const [ticketStats, setTicketStats] = useState({
@@ -15,11 +16,11 @@ const AssignTicketCards = () => {
   useEffect(() => {
     const fetchTicketStats = async () => {
       try {
-        const response = await axios.get("https://diskuss-1mv4.onrender.com/api/v1/ticket/stats");
+        const response = await axiosInstanceForTicket.get("/ticket/stats");
         setTicketStats({
           totalTickets: response.data.totalTickets,
-          progressTickets: response.data.openTickets, // Assuming progress tickets are open tickets
-          awaitingAssignment: response.data.awaitingAssignment || 0, // Placeholder if this data is not available
+          progressTickets: response.data.onGoingTickets, // Assuming progress tickets are open tickets
+          awaitingAssignment: response.data.openTickets || 0, // Placeholder if this data is not available
           closedTickets: response.data.closedTickets,
         });
       } catch (error) {

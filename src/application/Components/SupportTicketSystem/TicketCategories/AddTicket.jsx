@@ -1,11 +1,13 @@
 import { Button, Form, Modal, Select } from "antd";
 import { Option } from "antd/es/mentions";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import axiosInstanceForTicket from "../../../../AxiosContigForTicket";
+import { showErrorToast, showSuccessToast } from "../../../Services/toastService";
 
-const AddTicket = ({ open, onClose }) => {
-  console.log("open", open);
+const AddTicket = ({ open, onClose, edit }) => {
+  console.log('edit,',edit);
   const modules = {
     toolbar: [
       [{ header: [1, 2, false] }],
@@ -19,33 +21,68 @@ const AddTicket = ({ open, onClose }) => {
   const [categoryDescription, setCategoryDescription] = useState("");
   const [categoryPriority, setCategoryPriority] = useState("");
 
+  const fetchCategories = async () => {
+    if (edit?.status) { // Check if edit exists and status is true
+      try {
+        const response = await axiosInstanceForTicket.get(`ticket-category/${edit.id}`);
+        // console.log('fetchCategories:', response);
+        setCategoryName(response.data.categoryName)
+        setCategoryDescription(response.data.categoryDescription)
+        setCategoryPriority(response.data.categoryPriority)
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    }
+  };
+  
+  useEffect(() => {
+    fetchCategories();
+  }, [edit?.status, edit?.id]); 
+  
+
   const handleSubmit = async () => {
-    const body = {
+    let body = {
       categoryName,
       categoryDescription,
       categoryPriority,
     };
+    
+    if (edit.status === true) {
+      body = {
+        id: edit.id
+      };
 
-    console.log("body", body);
-    try {
-      const response = await fetch("https://diskuss-1mv4.onrender.com/api/v1/ticket-category", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+      try {
+        await axiosInstanceForTicket.patch("ticket-category", body)
+          .then(response =>{
+            if(response.status === 200){
+              showSuccessToast('Ticket category Updated successfully')
+            }
+            onClose();
+          })
+          .catch(error =>{
+            showErrorToast(error.message)
+            console.log(error);
+          })
+      } catch (error) {
+        console.error("Error:", error);
       }
-
-      const data = await response.json();
-      console.log("Success:", data);
-      // Optionally close the modal or reset the form here
-      onClose();
-    } catch (error) {
-      console.error("Error:", error);
+    }else{
+      try {
+        await axiosInstanceForTicket.post("ticket-category", body)
+          .then(response =>{
+            if(response.status === 200){
+              showSuccessToast('Ticket category added successfully')
+            }
+            onClose();
+          })
+          .catch(error =>{
+            showErrorToast(error.message)
+            console.log(error);
+          })
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
   };
 
@@ -84,22 +121,26 @@ const AddTicket = ({ open, onClose }) => {
 
         <div className="row">
           <div className="col-12">
-            <Form.Item label="Client Description">
-              <ReactQuill 
-              theme="snow"
-              value={categoryDescription} 
-              onChange={setCategoryDescription} 
-              modules={modules} />
+            <Form.Item label="Client Description (Rich Text)">
+              <ReactQuill
+                theme="snow"
+                value={categoryDescription}
+                onChange={(content) => setCategoryDescription(content)}
+                modules={modules}
+              />
             </Form.Item>
           </div>
-          <div>
-            <input
-              type="text"
-              value={categoryDescription} 
+          <div className="col-12 mt-3">
+          <Form.Item label="Client Description (Plain Text)">
+            <label>Client Description (Plain Text)</label>
+            <textarea
+              value={categoryDescription}
               placeholder="Add a description"
               className="addTicket-description-input"
-              onChange={(e) => setCategoryDescription(e.target.value)} 
+              onChange={(e) => {}}
+              style={{ width: '100%', resize: 'vertical' }}
             />
+          </Form.Item>
           </div>
         </div>
         <div className="col-lg-6">

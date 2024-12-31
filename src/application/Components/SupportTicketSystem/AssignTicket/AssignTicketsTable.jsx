@@ -4,12 +4,13 @@ import axios from "axios";
 import { showErrorToast, showSuccessToast } from "../../../Services/toastService";
 import axiosInstanceForTicket from "../../../../AxiosContigForTicket";
 import axiosInstance from "../../../../AxiosConfig";
-import { response } from "express";
+import { useLoading } from "../../../Services/loadingService";
 
 const AssignTicketsTable = () => {
+  const { loading, startLoading, stopLoading } = useLoading();
   const [showStatusCard, setShowStatusCard] = useState(false);
   const [assignTicketData, setAssignTicketData] = useState();
-  const [assignedUser, setAssignedUser] = useState();
+  const [assignedUser, setAssignedUser] = useState(null);
   const [employeeData, setEmployeeData] = useState([]);
   const [showUserList, setShowUserList] = useState(false);
   const [ticketId, setTicketId] = useState();
@@ -19,6 +20,7 @@ const AssignTicketsTable = () => {
     description: "",
     priority: "",
     createdBy: "",
+    status:"Open"
   });
 
   useEffect(() => {
@@ -32,11 +34,14 @@ const AssignTicketsTable = () => {
 
   const fetchTickets = async () => {
     try {
-      const response = await axios.get("http://localhost:2000/api/v1/ticket?status=Open&priority=High&page=1&limit=10");
+      startLoading()
+      const response = await axiosInstanceForTicket.get("ticket/getOpenTicket?page=1&limit=10");
       setTickets(response.data);
       console.log('fetchTickets',response.data);
     } catch (error) {
       console.error("Error fetching tickets:", error);
+    } finally {
+      stopLoading()
     }
   };
 
@@ -120,11 +125,6 @@ const AssignTicketsTable = () => {
     setShowStatusCard(true)
   };
 
-  useEffect(() => {
-    
-    console.log('employeeData-',employeeData);
-  }, [employeeData]);
-
   const priorities = ["High", "Medium", "Low"];
 
   const FloatingLabelInput = ({ label, value, name, placeholder, disabled, onChange }) => {
@@ -172,7 +172,7 @@ const AssignTicketsTable = () => {
   };
 
   // Modal component for displaying ticket assignment
-  const Modal = ({ onClose }) => (
+  const Modal = () => (
     <div
       style={{
         position: "fixed",
@@ -284,33 +284,45 @@ const AssignTicketsTable = () => {
           >
             Assign Ticket
           </Button>
-          <Button onClick={onClose}>Close</Button>
+          <Button onClick={handleCloseClick}>Close</Button>
         </div>
       </div>
     </div>
   );
 
-  const handleAssignClick = async() => {
-    await axiosInstanceForTicket.patch('/ticket/assignUser',{
-      ticketId,
-      employeeId:assignedUser,
+  const handleCloseClick = ()=>{
+    setShowStatusCard(false)
+    setAssignedUser(null)
+  }
+
+  const handleAssignClick = async () => {
+    await axiosInstanceForTicket.patch('ticket/assignUser', {
+      ticketId: ticketId, 
+      employeeId: assignedUser
     })
-    .then( response => {
+    .then(response => {
       if (response.status === 200) {
-        showSuccessToast(response.data.message)
+        showSuccessToast(response.data.message);
+        setShowStatusCard(false)
+        
       }
     })
     .catch(error => {
+      showErrorToast(error.message)
       console.log(error);
     })
-  }
+    .finally(()=>{
+      setAssignedUser(null)
+      fetchTickets()
+    })
+}
 
   return (
     <div>
       <div className="application-table-section mb-3">
         <div className="d-flex justify-content-between gap-2 mb-3">
           <h2>Ticket Queue</h2>
-          <Button onClick={() => setShowUserList(true)}>Create Ticket</Button>
+          {/* <Button onClick={() => setShowUserList(true)}>Create Ticket</Button> */}
         </div>
 
         {/* Create Ticket Form */}
@@ -354,7 +366,7 @@ const AssignTicketsTable = () => {
       </div>
 
       {/* Render the modal if showStatusCard is true */}
-      {showStatusCard && <Modal onClose={() => setShowStatusCard(false)} />}
+      {showStatusCard && <Modal/>}
     </div>
   );
 };
