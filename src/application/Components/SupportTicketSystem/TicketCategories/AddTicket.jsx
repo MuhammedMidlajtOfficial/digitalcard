@@ -25,7 +25,6 @@ const AddTicket = ({ open, onClose, edit }) => {
     if (edit?.status) { // Check if edit exists and status is true
       try {
         const response = await axiosInstanceForTicket.get(`ticket-category/${edit.id}`);
-        // console.log('fetchCategories:', response);
         setCategoryName(response.data.categoryName)
         setCategoryDescription(response.data.categoryDescription)
         setCategoryPriority(response.data.categoryPriority)
@@ -40,52 +39,48 @@ const AddTicket = ({ open, onClose, edit }) => {
   }, [edit?.status, edit?.id]); 
   
 
+  useEffect(() => {
+  console.log('categoryName-',categoryName);    
+  console.log('categoryDescription-',categoryDescription);    
+  console.log('categoryPriority-',categoryPriority);    
+  }, []);
+
   const handleSubmit = async () => {
     let body = {
-      categoryName,
-      categoryDescription,
-      categoryPriority,
+        categoryName: categoryName,
+        categoryDescription: categoryDescription,
+        categoryPriority: categoryPriority,
     };
-    
+
+    // If editing, only send the id
     if (edit.status === true) {
-      body = {
-        id: edit.id
-      };
-
-      try {
-        await axiosInstanceForTicket.patch("ticket-category", body)
-          .then(response =>{
-            if(response.status === 200){
-              showSuccessToast('Ticket category Updated successfully')
-            }
-            onClose();
-          })
-          .catch(error =>{
-            showErrorToast(error.message)
-            console.log(error);
-          })
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }else{
-      try {
-        await axiosInstanceForTicket.post("ticket-category", body)
-          .then(response =>{
-            if(response.status === 200){
-              showSuccessToast('Ticket category added successfully')
-            }
-            onClose();
-          })
-          .catch(error =>{
-            showErrorToast(error.message)
-            console.log(error);
-          })
-      } catch (error) {
-        console.error("Error:", error);
-      }
+      body = { id: edit.id, ...body }; // Include the id along with the other fields
     }
-  };
 
+    try {
+        let response;
+
+        // Choose whether to use PATCH or POST based on the edit status
+        if (edit.status === true) {
+            response = await axiosInstanceForTicket.patch("ticket-category", body);
+            if (response.status === 200) {
+                showSuccessToast('Ticket category updated successfully');
+            }
+        } else {
+            response = await axiosInstanceForTicket.post("ticket-category", body);
+            if (response.status === 200) {
+                showSuccessToast('Ticket category added successfully');
+            }
+        }
+
+        // Close modal after successful submission
+        onClose();
+    } catch (error) {
+        showErrorToast(error.message);
+        console.error("Error:", error);
+    }
+};
+  
 
   return (
     <Modal
@@ -131,7 +126,7 @@ const AddTicket = ({ open, onClose, edit }) => {
             </Form.Item>
           </div>
           <div className="col-12 mt-3">
-          <Form.Item label="Client Description (Plain Text)">
+          <Form.Item>
             <label>Client Description (Plain Text)</label>
             <textarea
               value={categoryDescription}
