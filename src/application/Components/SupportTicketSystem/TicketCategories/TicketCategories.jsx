@@ -6,6 +6,8 @@ import AddTicket from "./AddTicket";
 import { Option } from "antd/es/mentions";
 import axios from "axios";
 import axiosInstanceForTicket from "../../../../AxiosContigForTicket";
+import { showErrorToast, showSuccessToast } from "../../../Services/toastService";
+import { showDeleteMessage } from "../../../../globalConstant";
 
 const sortCategories = (categories, sortBy) => {
   switch (sortBy) {
@@ -99,6 +101,28 @@ const TicketCategories = () => {
     setIsModalVisible(false);
   };
 
+  const handleDelete = async (id) => {
+    try {
+      showDeleteMessage({
+        title: "Are you sure you want to delete this item?",
+        onDelete: async () => {
+          try {
+            const response = await axiosInstanceForTicket.delete(`ticket-category/${id}`);
+            showSuccessToast(response.data.message);
+            fetchCategories()
+          } catch (error) {
+            showErrorToast(error.message);
+            console.log(error);
+          }
+        }
+      });
+    } catch (error) {
+      setError(error.message); // Handle error
+    } finally {
+      setLoading(false); // Set loading to false after the fetch
+    }
+  }
+
   const filterMenu = (
     <Menu>
       <Menu.Item key="high-categoryPriority">High Priority</Menu.Item>
@@ -127,7 +151,7 @@ const TicketCategories = () => {
       </Menu.Item>
       <Menu.Item
         key="2"
-        // onClick={() => handleDelete(categoryId)}
+        onClick={() => handleDelete(categoryId)}
       >
         Delete
       </Menu.Item>
@@ -165,58 +189,6 @@ const TicketCategories = () => {
         </Dropdown>
       ),
     }
-  ];
-
-  const columns2 = [
-    {
-      title: "Ticket Id",
-      dataIndex: "ticketId",
-    },
-    {
-      title: "Issue Summary",
-      dataIndex: "issueSummary",
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-    },
-    {
-      title: "Priority",
-      dataIndex: "categoryPriority",
-    },
-    {
-      title: "Action",
-      dataIndex: "action",
-      render: () => (
-        <Dropdown overlay={actionMenu} trigger={["click"]}>
-          <span style={{ cursor: "pointer" }}>...</span>
-        </Dropdown>
-      ),
-    },
-  ];
-
-  const data2 = [
-    {
-      key: "1",
-      ticketId: "# 1002",
-      issueSummary: "App Creashes on Launch",
-      status: "Open",
-      categoryPriority: "High",
-    },
-    {
-      key: "2",
-      ticketId: "# 1004",
-      issueSummary: "Payment Error",
-      status: "In Progress",
-      categoryPriority: "Medium",
-    },
-    {
-      key: "3",
-      ticketId: "# 1006",
-      issueSummary: "Request for Refund",
-      status: "Open",
-      categoryPriority: "Low",
-    },
   ];
 
   const fetchCategories = async () => {
