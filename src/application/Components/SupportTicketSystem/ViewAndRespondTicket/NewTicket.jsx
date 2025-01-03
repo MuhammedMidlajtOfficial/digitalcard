@@ -11,6 +11,7 @@ const NewTicket = () => {
     const { loading, startLoading, stopLoading } = useLoading();
     const navigate = useNavigate();
 
+    
     // Fetch tickets from the API
     useEffect(() => {
         startLoading(); // Start loading indicator

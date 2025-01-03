@@ -17,15 +17,15 @@ const Tickets = () => {
       ),
       key: "allTickets",
     },
-    {
-      label: (
-        <span className="d-flex align-items-center">
-          <CiSquareChevDown style={{ marginRight: "8px" }} />
-          New
-        </span>
-      ),
-      key: "new",
-    },
+    // {
+    //   label: (
+    //     <span className="d-flex align-items-center">
+    //       <CiSquareChevDown style={{ marginRight: "8px" }} />
+    //       New
+    //     </span>
+    //   ),
+    //   key: "new",
+    // },
     {
       label: (
         <span className="d-flex align-items-center">

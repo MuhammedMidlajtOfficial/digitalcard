@@ -1,40 +1,72 @@
 import { Input, Select } from "antd";
 import { Option } from "antd/es/mentions";
 import React, { useEffect, useState } from  "react";
-import { showSuccessMessage } from "../../../../globalConstant";
-import { useParams } from "react-router-dom";
+import { showErrorMessage, showSuccessMessage } from "../../../../globalConstant";
+import { useNavigate, useParams } from "react-router-dom";
 import { Spin, Divider, Flex } from "antd"; // Import Spin for loading indicator
 
 import { useLoading } from "../../../Services/loadingService";
+import axiosInstanceForTicket from "../../../../AxiosContigForTicket";
+import { showErrorToast } from "../../../Services/toastService";
 
 const OpenTicket = ({ ticketId }) => {
-  // const params = useParams();
-  // console.log("Params : " , params)
+  const navigate = useNavigate()
   const [ticket, setTicket] = useState(null);
+  const [submitTicket, setSubmitTicket] = useState({
+    status:"",
+    replayDescription:""
+  });
   const { loading, startLoading, stopLoading } = useLoading();
 
-  const HandleClick = () => {
-    showSuccessMessage("Successfully Replay");
-  };
+  const HandleSubmitClick = async () => {
+    if (submitTicket.status !== "Resolved") {
+      return showErrorToast("Status must be Resolved");
+    } 
+    if (!submitTicket.replayDescription.trim()) {
+      return showErrorToast("Please add Description");
+    } 
 
+    const userId = localStorage.getItem('userId');
 
-  useEffect(() => {
-    startLoading(); // Start loading indicator
-    const fetchTicket = async () => {
-        try {
-            const response = await fetch(`http://13.203.24.247:2000/api/v1/ticket/${ticketId}`);
-            // const response = await fetch(`https://diskuss-1mv4.onrender.com/api/v1/ticket/6763df00cdeaa5ae569c2f70`);
-            const data = await response.json();
-            console.log("data : ", data)
-            setTicket(data);
-        } catch (error) {
-            console.error("Error fetching ticket:", error);
-        } finally {
-          stopLoading(); // Stop loading regardless of success or error
-
-        }
+    // Update the replayBy field with the current user ID
+    const submitBody = {
+      ...submitTicket,
+      replayBy: userId,
+      ticketId
     };
 
+    await axiosInstanceForTicket.patch('ticket/replay', submitBody)
+    .then(response => {
+      if (response.status === 200) {
+        showSuccessMessage("Reply successfully Sent");
+        fetchTicket()
+      }
+    })
+    .catch(error => {
+      if (error.response && error.response.data) {
+        showErrorMessage(error.response.data.message || "An error occurred while replying.");
+      } else {
+        showErrorMessage("Server error. Please try again later.");
+      }
+      console.log(error);
+    });
+  };
+
+  const fetchTicket = async () => {
+    try {
+      startLoading(); 
+      const response = await axiosInstanceForTicket.get(`ticket/${ticketId}`);
+      const data = await response.data;
+      console.log("data : ", data)
+      setTicket(data);
+    } catch (error) {
+      console.error("Error fetching ticket:", error);
+    } finally {
+      stopLoading(); // Stop loading regardless of success or error
+    }
+  };
+
+  useEffect(() => {
     fetchTicket();
 }, []);
 
@@ -47,108 +79,7 @@ const OpenTicket = ({ ticketId }) => {
                 <Spin size="large" tip="Loading tickets..." /> 
               </Flex>
             ) : (
-            //   <div className="mt-4">
-            //   <div className="d-flex justify-content-between">
-            //     <div className="d-flex align-items-center gap-2">
-            //       <div
-            //         style={{
-            //           width: "15px",
-            //           height: "15px",
-            //           backgroundColor: "#F8A534",
-            //           borderRadius: "50%",
-            //           marginRight: "8px",
-            //         }}
-            //       />
-            //       <div className="allTickets-ticket-title">Ticket# 2023-CS123</div>
-            //     </div>
-            //     <div>Posted at 12:15 PM</div>
-            //   </div>
-            //   <div className="mt-4">
-            //     <p className="allTickets-ticket-title">
-            //       How to deposit money to my portal?
-            //     </p>
-            //     <p className="allTickets-p">
-            //       Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum
-            //       dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit
-            //       amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet,
-            //       consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur
-            //       adipiscing elit.
-            //     </p>
-            //     <p className="allTickets-p">
-            //       Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum
-            //       dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit
-            //       amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet,
-            //       consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur
-            //       adipiscing elit.
-            //     </p>
-            //     <p className="allTickets-p">
-            //       Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum
-            //       dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit
-            //       amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet,
-            //       consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur
-            //       adipiscing elit.
-            //     </p>
-            //   </div>
-            //   <div className="openTicket-reply-to">
-            //     <p className="allTickets-ticket-title">Reply to Ticket</p>
-            //     <div className="row">
-            //       <div className="col-lg-4">
-            //         <label for="inputEmail" className="form-label">
-            //           Customer Email
-            //         </label>
-            //         <input
-            //           type="text"
-            //           className="form-control form_control"
-            //           placeholder="Enter Email Id"
-            //           id="inputEmail"
-            //         />
-            //       </div>
-            //       <div className="col-lg-4">
-            //         <label>Request Ticket Type</label>
-            //         <Select
-            //           className="mt-2"
-            //           placeholder="Deposite issue "
-            //           style={{ width: "100%" }}
-            //         >
-            //           <Option value="electronics">aaa</Option>
-            //           <Option value="fashion">bbb</Option>
-            //           <Option value="home_appliances">ccc </Option>
-            //           <Option value="books">ddd</Option>
-            //         </Select>
-            //       </div>
-            //       <div className="col-lg-4">
-            //         <label>Status</label>
-            //         <Select
-            //           className="mt-2"
-            //           placeholder="Ongoing"
-            //           style={{ width: "100%" }}
-            //         >
-            //           <Option value="electronics">Ongoing</Option>
-            //           <Option value="fashion">Pending</Option>
-            //           <Option value="home_appliances">Completed </Option>
-            //         </Select>
-            //       </div>
-            //     </div>
-            //     <div className="row">
-            //       <div className="col-lg-12">
-            //         <p
-            //           style={{ textAlign: "left", color: "000000" }}
-            //           className="mb-1 mt-3"
-            //         >
-            //           Short description
-            //         </p>
-            //         <Input.TextArea rows={6} placeholder="Short Description" />
-            //       </div>
-            //     </div>
-            //     <div className="mt-3 d-flex justify-content-end">
-            //       <button className="create-btn" onClick={HandleClick}>
-            //         Submit Reply
-            //       </button>
-            //     </div>
-            //   </div>
-            // </div>
             <></>
-            
             )}
       {ticket ? 
       <div className="mt-4" key={ticket?._id}>
@@ -166,6 +97,10 @@ const OpenTicket = ({ ticketId }) => {
           <div className="allTickets-ticket-title">Ticket# {ticket?._id}</div>
         </div>
         <div>Posted at {new Date(ticket?.createdAt).toLocaleDateString()} {new Date(ticket?.createdAt).toLocaleTimeString()}</div>
+        { ticket.status === "Resolved" ?
+          <div>Replayed at {new Date(ticket?.replayedTime).toLocaleDateString()} {new Date(ticket?.replayedTime).toLocaleTimeString()}</div>
+          : ""
+        }
       </div>
       <div className="mt-4">
         <p className="allTickets-ticket-title">
@@ -174,22 +109,8 @@ const OpenTicket = ({ ticketId }) => {
         <p className="allTickets-p">
           {ticket?.description}
         </p>
-        {/* <p className="allTickets-p">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum
-          dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit
-          amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur
-          adipiscing elit.
-        </p>
-        <p className="allTickets-p">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum
-          dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit
-          amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur
-          adipiscing elit.
-        </p> */}
       </div>
-      <div className="openTicket-reply-to">
+      <div className="openTicket-reply-to mt-2">
         <p className="allTickets-ticket-title">Reply to Ticket</p>
         <div className="row">
           <div className="col-lg-4">
@@ -201,33 +122,53 @@ const OpenTicket = ({ ticketId }) => {
               className="form-control form_control"
               placeholder="Enter Email Id"
               id="inputEmail"
+              value={ticket?.createdBy?.email}
             />
           </div>
           <div className="col-lg-4">
-            <label>Request Ticket Type</label>
-            <Select
-              className="mt-2"
-              placeholder="Deposite issue "
-              style={{ width: "100%" }}
-            >
-              <Option value="electronics">aaa</Option>
-              <Option value="fashion">bbb</Option>
-              <Option value="home_appliances">ccc </Option>
-              <Option value="books">ddd</Option>
-            </Select>
+            <label for="inputCategory" className="form-label">
+              Request Ticket Category
+            </label>
+            <input
+              type="text"
+              className="form-control form_control"
+              placeholder="Enter Ticket Category"
+              id="inputCategory"
+              value={ticket?.category?.categoryName ? ticket?.category?.categoryName : "General" }
+            />
           </div>
+          { ticket.status === "Resolved" ?
+            <div className="col-lg-4">
+              <label for="inputStatus" className="form-label">
+              Status
+              </label>
+              <input
+                type="text"
+                className="form-control form_control"
+                placeholder="Enter status"
+                id="inputStatus"
+                value={ticket.status}
+              />
+            </div>
+          :
           <div className="col-lg-4">
-            <label>Status</label>
+            <label className="form-label">Status</label>
             <Select
-              className="mt-2"
               placeholder="Ongoing"
-              style={{ width: "100%" }}
+              style={{ width: '100%', height: '38px' }}
+              value={submitTicket.status ? submitTicket.status : ticket.status}
+              onChange={(value) => {
+                setSubmitTicket((prevState) => ({
+                  ...prevState,
+                  status: value, 
+                }));
+              }}
             >
-              <Option value="ongoing">Ongoing</Option>
-              <Option value="pending">Pending</Option>
-              <Option value="completed">Completed </Option>
+              <Option value="In Progress">In Progress</Option>
+              <Option value="Resolved">Resolved</Option>
             </Select>
           </div>
+          }
         </div>
         <div className="row">
           <div className="col-lg-12">
@@ -237,13 +178,41 @@ const OpenTicket = ({ ticketId }) => {
             >
               Short description
             </p>
-            <Input.TextArea rows={6} placeholder="Short Description" />
+            { ticket.status === "Resolved" ?
+              <Input.TextArea 
+                rows={6} 
+                value={ ticket?.replayDescription ? ticket?.replayDescription : "No Description" }/>
+              :
+              <Input.TextArea
+                rows={6}
+                placeholder="Type here..."
+                name="replayDescription"
+                value={submitTicket.replayDescription}
+                onChange={(e) => 
+                  setSubmitTicket(prevState => ({
+                    ...prevState,
+                    replayDescription: e.target.value
+                  }))
+                }
+              />
+            }
           </div>
         </div>
         <div className="mt-3 d-flex justify-content-end">
-          <button className="create-btn" onClick={HandleClick}>
-            Submit Reply
-          </button>
+          { ticket.status === "Resolved" ?
+            <button className="create-btn mr-4" onClick={() => navigate('/admin/supportticketsystem/viewandrespondticket')} >
+              Back
+            </button>
+          :
+            <>
+              <button className="cancel-btn mr-4" onClick={() => navigate('/admin/supportticketsystem/viewandrespondticket')}>
+                Cancel
+              </button>
+              <button className="create-btn" onClick={HandleSubmitClick}>
+                Submit Reply
+              </button>
+            </>
+          }
         </div>
       </div>
     </div>
@@ -255,105 +224,3 @@ const OpenTicket = ({ ticketId }) => {
 };
 
 export default OpenTicket;
-
-
- //   <div className="mt-4">
-            //   <div className="d-flex justify-content-between">
-            //     <div className="d-flex align-items-center gap-2">
-            //       <div
-            //         style={{
-            //           width: "15px",
-            //           height: "15px",
-            //           backgroundColor: "#F8A534",
-            //           borderRadius: "50%",
-            //           marginRight: "8px",
-            //         }}
-            //       />
-            //       <div className="allTickets-ticket-title">Ticket# 2023-CS123</div>
-            //     </div>
-            //     <div>Posted at 12:15 PM</div>
-            //   </div>
-            //   <div className="mt-4">
-            //     <p className="allTickets-ticket-title">
-            //       How to deposit money to my portal?
-            //     </p>
-            //     <p className="allTickets-p">
-            //       Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum
-            //       dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit
-            //       amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet,
-            //       consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur
-            //       adipiscing elit.
-            //     </p>
-            //     <p className="allTickets-p">
-            //       Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum
-            //       dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit
-            //       amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet,
-            //       consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur
-            //       adipiscing elit.
-            //     </p>
-            //     <p className="allTickets-p">
-            //       Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum
-            //       dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit
-            //       amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet,
-            //       consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur
-            //       adipiscing elit.
-            //     </p>
-            //   </div>
-            //   <div className="openTicket-reply-to">
-            //     <p className="allTickets-ticket-title">Reply to Ticket</p>
-            //     <div className="row">
-            //       <div className="col-lg-4">
-            //         <label for="inputEmail" className="form-label">
-            //           Customer Email
-            //         </label>
-            //         <input
-            //           type="text"
-            //           className="form-control form_control"
-            //           placeholder="Enter Email Id"
-            //           id="inputEmail"
-            //         />
-            //       </div>
-            //       <div className="col-lg-4">
-            //         <label>Request Ticket Type</label>
-            //         <Select
-            //           className="mt-2"
-            //           placeholder="Deposite issue "
-            //           style={{ width: "100%" }}
-            //         >
-            //           <Option value="electronics">aaa</Option>
-            //           <Option value="fashion">bbb</Option>
-            //           <Option value="home_appliances">ccc </Option>
-            //           <Option value="books">ddd</Option>
-            //         </Select>
-            //       </div>
-            //       <div className="col-lg-4">
-            //         <label>Status</label>
-            //         <Select
-            //           className="mt-2"
-            //           placeholder="Ongoing"
-            //           style={{ width: "100%" }}
-            //         >
-            //           <Option value="electronics">Ongoing</Option>
-            //           <Option value="fashion">Pending</Option>
-            //           <Option value="home_appliances">Completed </Option>
-            //         </Select>
-            //       </div>
-            //     </div>
-            //     <div className="row">
-            //       <div className="col-lg-12">
-            //         <p
-            //           style={{ textAlign: "left", color: "000000" }}
-            //           className="mb-1 mt-3"
-            //         >
-            //           Short description
-            //         </p>
-            //         <Input.TextArea rows={6} placeholder="Short Description" />
-            //       </div>
-            //     </div>
-            //     <div className="mt-3 d-flex justify-content-end">
-            //       <button className="create-btn" onClick={HandleClick}>
-            //         Submit Reply
-            //       </button>
-            //     </div>
-            //   </div>
-            // </div>
