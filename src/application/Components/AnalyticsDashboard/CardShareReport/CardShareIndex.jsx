@@ -9,7 +9,7 @@ const CardShareIndex = () => {
       <div className="row">
         <CardShareCards />
         <CardShareGraphs />
-        <CardShareTable />
+        {/* <CardShareTable /> */}
       </div>
     </div>
   );

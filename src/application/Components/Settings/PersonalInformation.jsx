@@ -21,6 +21,7 @@ export const PersonalInformation = () => {
     email: "",
     userType: ""
   });
+  
   const [previewImage, setPreviewImage] = useState('')
 
   useEffect(() => {
@@ -228,7 +229,11 @@ export const PersonalInformation = () => {
 
           <div className="row mt-4">
             <div className="d-flex justify-content-end gap-3">
-              <button className="cancel-btn" type="button">
+              <button 
+                className="cancel-btn" 
+                type="button"
+                onClick={()=>{navigate('/admin/dashboard/overview')}}
+              >
                 Discard
               </button>
               <button

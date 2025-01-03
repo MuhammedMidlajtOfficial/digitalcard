@@ -415,7 +415,7 @@ function SidebarApplication() {
                   </li> */}
                 {/* </ul>
               </li> */}
-              <li>
+              {/* <li>
                 <div
                   className={`nav-link ${
                     expandedMenu === "analyticsdashboard"
@@ -466,7 +466,7 @@ function SidebarApplication() {
                     >
                       Card Shares & Interaction
                     </Link>
-                  </li>
+                  </li> */}
                   {/* <li className="sub-nav-list">
                     <Link
                       to="/admin/analyticsdashboad/exportreports"
@@ -480,8 +480,8 @@ function SidebarApplication() {
                       Export Reports
                     </Link>
                   </li> */}
-                </ul>
-              </li>
+                {/* </ul>
+              </li> */}
               <li>
                 <div
                   className={`nav-link ${

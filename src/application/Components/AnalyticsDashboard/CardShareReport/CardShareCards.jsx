@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FiUser } from "react-icons/fi";
 import { LuCalendar, LuVideo } from "react-icons/lu";
 import axios from "axios";
+import axiosInstanceForTicket from "../../../../AxiosContigForTicket";
 
 // const analyticsData = {
 //   "views": 0,
@@ -43,7 +44,7 @@ const CardShareCards = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://diskuss-1mv4.onrender.com/api/v1/analytic"); // Example API endpoint
+        const response = await axiosInstanceForTicket.get("analytic"); // Example API endpoint
         const { shares } = response.data;
         console.log("shares : ", shares);
 
