@@ -125,7 +125,7 @@ const DashboardMembers = () => {
                 <Cell key={`cell-${index}`} fill={entry.color} />
               ))}
             </Pie>
-            <Tooltip />
+            <Tooltip formatter={(value) => `${value}%`}/>
           </PieChart>
         ) : (
           <span style={{ margin: "5px",color:"red" }}>No Members Found for the selected date</span>
@@ -136,7 +136,7 @@ const DashboardMembers = () => {
             {subscribedUser.map((entry) => (
               <div
                 key={entry.name}
-                className="d-flex align-items-center"
+                className="d-flex align-items-center mb-3"
               >
                 <div
                   style={{

@@ -8,6 +8,7 @@ import {
   PieChart,
   Pie,
   Cell,
+  Tooltip,
 } from "recharts";
 import axiosInstance from "../../../../AxiosConfig";
 
@@ -171,6 +172,7 @@ const DashboardGraphs = () => {
                       },
                     }}
                   />
+                  <Tooltip formatter={(value) => `${value} users`}/>
                   <Bar
                     dataKey="2024"
                     stackId="a"
