@@ -130,7 +130,7 @@ const UserActivityGraphs = () => {
   }, [year]); // Refetch data when period changes
 
     // Transforming the data
-  jobOverviewData = referralsData.referrals.map(referral => ({
+  jobOverviewData = referralsData?.referrals?.map(referral => ({
     month: monthNames[referral.month - 1], // Month is zero-indexed
     value: referral.count
   }));
