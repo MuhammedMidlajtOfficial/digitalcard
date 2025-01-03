@@ -4,7 +4,7 @@ import axiosInstance from "../../../../AxiosConfig";
 
 
 
-const UsersCards = () => {
+const UsersCards = ({change}) => {
   const [individialUserCount, setIndividialUserCount] =  useState('')
   const [enterpriseUserCount, setEnterpriseUserCount] =  useState('')
   const [enterpriseEmployeeCount, setEnterpriseEmployeeCount] =  useState('')
@@ -52,7 +52,7 @@ const UsersCards = () => {
       .catch((error) => {
         console.error("Error fetching data:", error);
     });
-  }, []);
+  }, [change]);
 
   const formatNumber = (num) => {
     if (num >= 10000000) return (num / 10000000).toFixed(1) + "Cr";
