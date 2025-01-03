@@ -83,7 +83,10 @@ const HeaderApplication = () => {
           <input type="text" placeholder="Search..." className="search-input" />
         </div> */}
         <div className="d-flex w-100 justify-content-end">
-          <div className="d-flex align-items-center gap-2">
+          <div 
+            className="d-flex align-items-center gap-2"
+            onClick={toggleDropdown}
+          >
             {/* <button
               type="button"
               aria-controls="navbar-notification"
@@ -98,7 +101,7 @@ const HeaderApplication = () => {
                 className="user-image"
                 type="button"
                 aria-controls="user-menu"
-                onClick={toggleDropdown}
+                
                 aria-expanded={isDropdownOpen}
               >
                 <Avatar size="large" src={infoUsers.image? infoUsers.image : logoutimg} />

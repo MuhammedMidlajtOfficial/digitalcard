@@ -14,7 +14,7 @@ import { UserOutlined } from "@ant-design/icons";
 import { useLoading } from "../../../Services/loadingService";
 import { showErrorToast, showSuccessToast } from "../../../Services/toastService";
 
-const UsersProfiles = () => {
+const UsersProfiles = ({setChange}) => {
   const [isTableView, setIsTableView] = useState(false);
   const [filter, setFilter] = useState("individualUser");
   const [sortOrder, setSortOrder] = useState("asc");
@@ -70,6 +70,7 @@ const UsersProfiles = () => {
         if(response.status === 200){
           showSuccessToast(response.data.message)
           fetchUsers()
+          setChange((prev)=>!prev)
         }
         stopLoading(); // Stop loading when data is fetched
       })

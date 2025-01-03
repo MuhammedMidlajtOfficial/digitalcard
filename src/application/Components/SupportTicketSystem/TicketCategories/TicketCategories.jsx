@@ -4,29 +4,10 @@ import { FiFilter, FiPlus } from "react-icons/fi";
 import { TbArrowsDownUp } from "react-icons/tb";
 import AddTicket from "./AddTicket";
 import { Option } from "antd/es/mentions";
-
-// const ticketCategories = [
-//   {
-//     "_id": "67665980bdcda444b83b0b14",
-//     "categoryName": "Technical Support",
-//     "categoryDescription": "Issues related to technical support and troubleshooting.",
-//     "categoryPriority": "High",
-//     "activeTickets": 0,
-//     "resolveTickets": 0,
-//     "sla": "90% on-time",
-//     "__v": 0
-//   },
-// {
-//   "_id": "6766598cbdcda444b83b0b16",
-//   "categoryName": "Billing",
-//   "categoryDescription": "Questions and issues related to billing and payments.",
-//   "categoryPriority": "Medium",
-//   "activeTickets": 0,
-//   "resolveTickets": 0,
-//   "sla": "90% on-time",
-//   "__v": 0
-// },
-// ]
+import axios from "axios";
+import axiosInstanceForTicket from "../../../../AxiosContigForTicket";
+import { showErrorToast, showSuccessToast } from "../../../Services/toastService";
+import { showDeleteMessage } from "../../../../globalConstant";
 
 const sortCategories = (categories, sortBy) => {
   switch (sortBy) {
@@ -91,21 +72,56 @@ const filterTickets = (tickets, filterBy) => {
   }
 };
 
-
-
 const TicketCategories = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [categories, setCategories] = useState([]); // State for categories
   const [loading, setLoading] = useState(true); // State for loading
+  const [edit, setEdit] = useState({
+    id: null,
+    status: false
+  }); 
   const [error, setError] = useState(null); // State for error handling
 
   const showModal = () => { 
     setIsModalVisible(true);
   };
+  const showEditModal = (id) => { 
+    setEdit(() => ({
+      id,
+      status: true,
+    }));    
+    setIsModalVisible(true);
+  };
 
   const handleCancel = () => {
+    setEdit(() => ({
+      id: null,
+      status: true,
+    }));   
     setIsModalVisible(false);
   };
+
+  const handleDelete = async (id) => {
+    try {
+      showDeleteMessage({
+        title: "Are you sure you want to delete this item?",
+        onDelete: async () => {
+          try {
+            const response = await axiosInstanceForTicket.delete(`ticket-category/${id}`);
+            showSuccessToast(response.data.message);
+            fetchCategories()
+          } catch (error) {
+            showErrorToast(error.message);
+            console.log(error);
+          }
+        }
+      });
+    } catch (error) {
+      setError(error.message); // Handle error
+    } finally {
+      setLoading(false); // Set loading to false after the fetch
+    }
+  }
 
   const filterMenu = (
     <Menu>
@@ -125,17 +141,24 @@ const TicketCategories = () => {
       <Menu.Item key="category-name">Category Name</Menu.Item>
     </Menu>
   ;
-  const actionMenu = (
+  const actionMenu = (categoryId) => (
     <Menu>
       <Menu.Item
         key="1"
-        // onClick={() => navigate("/admin/incentive/edit")}
+        onClick={() => showEditModal(categoryId)}
       >
         Edit
       </Menu.Item>
-      <Menu.Item key="2">Delete</Menu.Item>
+      <Menu.Item
+        key="2"
+        onClick={() => handleDelete(categoryId)}
+      >
+        Delete
+      </Menu.Item>
     </Menu>
   );
+  
+
   const columns = [
     {
       title: "Category Name",
@@ -160,120 +183,38 @@ const TicketCategories = () => {
     {
       title: "Action",
       dataIndex: "action",
-      render: () => (
-        <Dropdown overlay={actionMenu} trigger={["click"]}>
+      render: (_, record) => (
+        <Dropdown overlay={actionMenu(record._id)} trigger={["click"]}>
           <span style={{ cursor: "pointer" }}>...</span>
         </Dropdown>
       ),
-    },
+    }
   ];
 
-  // const data = [
-  //   {
-  //     key: "1",
-  //     categoryName: "Technical Issue",
-  //     activeTickets: "20 tickets",
-  //     solvedTickets: "10 tickets",
-  //     sla: "90% on-time",
-  //     categoryPriority: "High",
-  //   },
-  //   {
-  //     key: "2",
-  //     categoryName: "Billing Payment",
-  //     activeTickets: "10 tickets",
-  //     solvedTickets: "15 tickets",
-  //     sla: "90% on-time",
-  //     categoryPriority: "Low",
-  //   },
-  //   {
-  //     key: "3",
-  //     categoryName: "Account Management",
-  //     activeTickets: "15 tickets",
-  //     solvedTickets: "16 tickets",
-  //     sla: "90% on-time",
-  //     categoryPriority: "Medium",
-  //   },
-  //   {
-  //     key: "4",
-  //     categoryName: "General Enquiry",
-  //     activeTickets: "30 tickets",
-  //     solvedTickets: "25 tickets",
-  //     sla: "90% on-time",
-  //     categoryPriority: "High",
-  //   },
-  // ];
-
-  const columns2 = [
-    {
-      title: "Ticket Id",
-      dataIndex: "ticketId",
-    },
-    {
-      title: "Issue Summary",
-      dataIndex: "issueSummary",
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-    },
-    {
-      title: "Priority",
-      dataIndex: "categoryPriority",
-    },
-    {
-      title: "Action",
-      dataIndex: "action",
-      render: () => (
-        <Dropdown overlay={actionMenu} trigger={["click"]}>
-          <span style={{ cursor: "pointer" }}>...</span>
-        </Dropdown>
-      ),
-    },
-  ];
-
-  const data2 = [
-    {
-      key: "1",
-      ticketId: "# 1002",
-      issueSummary: "App Creashes on Launch",
-      status: "Open",
-      categoryPriority: "High",
-    },
-    {
-      key: "2",
-      ticketId: "# 1004",
-      issueSummary: "Payment Error",
-      status: "In Progress",
-      categoryPriority: "Medium",
-    },
-    {
-      key: "3",
-      ticketId: "# 1006",
-      issueSummary: "Request for Refund",
-      status: "Open",
-      categoryPriority: "Low",
-    },
-  ];
+  const fetchCategories = async () => {
+    try {
+      await axiosInstanceForTicket.get("ticket-category")
+      .then(response=>{
+        console.log('response',response);
+        setCategories(response.data); // Set fetched categories
+      })
+      .catch(error =>{
+        console.log(error);
+      })
+    } catch (error) {
+      setError(error.message); // Handle error
+    } finally {
+      setLoading(false); // Set loading to false after fetch
+    }
+  };
 
   // Fetch categories from backend
   useEffect(() => {
-        const fetchCategories = async () => {
-            try {
-                const response = await fetch("https://diskuss-1mv4.onrender.com/api/v1/ticket-category");
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                const data = await response.json();
-                setCategories(data); // Set fetched categories
-            } catch (error) {
-                setError(error.message); // Handle error
-            } finally {
-                setLoading(false); // Set loading to false after fetch
-            }
-        };
-
-        fetchCategories();
-    }, []);
+    fetchCategories();
+  }, []);
+  useEffect(() => {
+    fetchCategories();
+  }, [isModalVisible]);
 
   return (
     <div className="container">
@@ -291,7 +232,7 @@ const TicketCategories = () => {
         <div className="d-flex mb-4 flex-lg-row flex-xl-row flex-column justify-content-between gap-4">
           <h2>Category List </h2>
           <div className="search-table-container d-flex gap-2">
-            <Dropdown overlay={sortMenu} trigger={["click"]}>
+            {/* <Dropdown overlay={sortMenu} trigger={["click"]}>
               <button className="table-action-btn d-flex gap-2 align-items-center">
                 <span>Sort By</span>
                 <TbArrowsDownUp
@@ -314,7 +255,7 @@ const TicketCategories = () => {
                   }}
                 />
               </button>
-            </Dropdown>
+            </Dropdown> */}
           </div>
         </div>
         <div className="col-lg-12">
@@ -329,7 +270,7 @@ const TicketCategories = () => {
         </div>
       </div>
 
-      <div className="application-table-section mb-3">
+      {/* <div className="application-table-section mb-3">
         <div className="d-flex justify-content-between ticketCategories-table-dropdown-div gap-2 mb-3">
           <div className="d-flex gap-3 align-items-center">
             <h2 className="ticketCategories-details-h5">Category Details </h2>
@@ -379,8 +320,8 @@ const TicketCategories = () => {
             />
           </div>
         </div>
-      </div>
-      <AddTicket open={isModalVisible} onClose={handleCancel} />
+      </div> */}
+      <AddTicket open={isModalVisible} onClose={handleCancel} edit={edit}/>
     </div>
   );
 };

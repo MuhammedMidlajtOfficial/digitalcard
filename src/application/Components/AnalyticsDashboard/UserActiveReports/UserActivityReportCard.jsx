@@ -66,7 +66,7 @@ const UserActivityReportCard = () => {
   return (
     <div className="container">
       <div className="row">
-        {cardData.map(
+        {cardData?.map(
           (
             { icon: Icon, title, value, bgColor, textColor, onClick },
             index

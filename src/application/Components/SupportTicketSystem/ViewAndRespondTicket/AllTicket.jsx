@@ -6,33 +6,51 @@ import { useNavigate } from "react-router-dom";
 
 import { Spin, Divider, Flex } from "antd"; // Import Spin for loading indicator
 import { useLoading } from "../../../Services/loadingService";
+import axiosInstanceForTicket from "../../../../AxiosContigForTicket";
+import axiosInstance from "../../../../AxiosConfig";
 
 const AllTicket = () => {
     const [tickets, setTickets] = useState([]);
+    const [user, setUser] = useState({});
     const { loading, startLoading, stopLoading } = useLoading();
     const navigate = useNavigate();
 
-    // Fetch tickets from the API
+    const fetchTickets = async () => {
+      try {
+        startLoading(); 
+        const userId = localStorage.getItem('userId');
+        let userData = {}
+        await axiosInstance.get(`adminAuth/getSuperAdmin/${userId}`)
+          .then(response => {
+            setUser(response.data.user)
+            userData = response.data.user
+          })
+          .catch(error =>{
+            console.log(error);
+          })
+          console.log('userData-',userData);
+        let response
+        if(userData.userType === "Employee"){
+          response = await axiosInstanceForTicket(`ticket?userId=${userId}`);
+        }
+        if(!response){
+          response = await axiosInstanceForTicket(`ticket`);
+        }
+        setTickets(response.data.tickets);
+        console.log('response.data.tickets-',response.data.tickets);
+      } catch (error) {
+        console.error("Error fetching tickets:", error);
+      } finally {
+        stopLoading();
+      }
+    };
+    
     useEffect(() => {
-        startLoading(); // Start loading indicator
-        const fetchTickets = async () => {
-            try {
-                const response = await fetch("http://localhost:2000/api/v1/ticket");
-                const data = await response.json();
-                setTickets(data);
-                console.log("data------",response);
-            } catch (error) {
-                // stopLoading();
-                console.error("Error fetching tickets:", error);
-            } finally {
-                stopLoading(); // Stop loading regardless of success or error
-            }
-        };
-        fetchTickets();
+      fetchTickets();
     }, []);
 
     const handleClick = (ticketId) => {
-        navigate(`/admin/supportticketsystem/viewandrespondticket/open-ticket/${ticketId}`);
+      navigate(`/admin/supportticketsystem/viewandrespondticket/open-ticket/${ticketId}`);
     };
 
     return (
@@ -57,7 +75,6 @@ const AllTicket = () => {
                                     <div className="allTickets-medium-priority-p">{ticket.priority} Priority</div>
                                     :
                                   <div className="allTickets-high-priority-p">{ticket.priority} Priority</div>
-
                                 }
                             </div>
                             <div>Posted at {new Date(ticket.createdAt).toLocaleTimeString()}</div>
@@ -79,9 +96,14 @@ const AllTicket = () => {
                                 objectFit: "cover" 
                               }} 
                             />                                
-                            <p className="allTickets-p mb-0">{ticket.createdBy.username}</p>
+                            <p className="allTickets-p mb-0">{ticket.createdBy.username ? ticket.createdBy.username : ticket.createdBy.companyName}</p>
                             </div>
-                            <button className="allTickets-openticket-button" onClick={() => handleClick(ticket._id)}> Open Ticket </button>
+                            {
+                              ticket.status === "Resolved" ?
+                              <button className="allTickets-closedticket-button" onClick={() => handleClick(ticket._id)}> Resolved Ticket </button>
+                              :
+                              <button className="allTickets-openticket-button" onClick={() => handleClick(ticket._id)}> Open Ticket </button>
+                            }
                         </div>
                     </div>
                 ))

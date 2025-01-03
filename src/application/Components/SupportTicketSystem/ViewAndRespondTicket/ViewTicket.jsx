@@ -96,13 +96,15 @@ const ViewTicket = () => {
 
   return (
     <div className="container">
-      <h4 className="RBACPermission-list-heading mb-2">Tickets</h4>
+      <h4 className="RBACPermission-list-heading mb-2"
+        style={{ fontSize:"25px",fontWeight:"bold" }}
+      >Ticket System</h4>
       <div className="d-flex mb-4 flex-lg-row flex-xl-row flex-column justify-content-between gap-4">
-        <div>
+        {/* <div>
           <Search placeholder="Enter search text" />
-        </div>
+        </div> */}
         <div className="d-flex gap-2">
-          <Dropdown overlay={sortMenu} trigger={["click"]}>
+          {/* <Dropdown overlay={sortMenu} trigger={["click"]}>
             <button className="d-flex gap-2 align-items-center supportticket-viewTicket-filters-buttons">
               <span>{selectedPriority}</span>
               <MdKeyboardArrowDown />
@@ -113,7 +115,7 @@ const ViewTicket = () => {
               <span>{selectedFilter}</span>
               <MdKeyboardArrowDown />
             </button>
-          </Dropdown>
+          </Dropdown> */}
         </div>
       </div>
       <Tickets />

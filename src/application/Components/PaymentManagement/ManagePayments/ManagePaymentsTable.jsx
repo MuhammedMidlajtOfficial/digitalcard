@@ -249,15 +249,15 @@ export const ManagePaymentsTable = () => {
         </span>
       ),
     },
-    {
-      title: "Action",
-      dataIndex: "action",
-      render: (_, record) => (
-        <Dropdown overlay={actionMenu(record)} trigger={["click"]}>
-          <Button type="text" icon={<IoEllipsisHorizontalSharp />} />
-        </Dropdown>
-      ),
-    },
+    // {
+    //   title: "Action",
+    //   dataIndex: "action",
+    //   render: (_, record) => (
+    //     <Dropdown overlay={actionMenu(record)} trigger={["click"]}>
+    //       <Button type="text" icon={<IoEllipsisHorizontalSharp />} />
+    //     </Dropdown>
+    //   ),
+    // },
   ];
 
   return (

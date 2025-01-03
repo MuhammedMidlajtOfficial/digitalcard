@@ -12,7 +12,7 @@ const UserActivityIndex = () => {
       <div className="row">
         <UserActivityReportCard />
         <UserActivityGraphs />
-        <UserActivityReportTable />
+        {/* <UserActivityReportTable /> */}
       </div>
     </div>
   );
