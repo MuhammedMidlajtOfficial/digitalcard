@@ -24,6 +24,7 @@ export const showErrorMessage = (message) => {
     confirmButtonColor: "var(--gradient-start-color)",
   });
 };
+
 export const showDeleteMessage = ({ 
   title = "Are you sure you want to delete this item?", 
   content = "This action cannot be undone.", 

@@ -183,15 +183,16 @@ const EmployeeList = () => {
         </button>
       </div>
       <div className="d-flex mb-4 justify-content-between">
-        <div className="search-container">
-          <FiSearch className="search-icon" />
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={handleSearch}
-          />
-        </div>
+      <div className="search-container">
+        <FiSearch className="search-icon" />
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleSearch}
+          className="search-input"
+        />
+      </div>
         <div className="d-flex gap-4">
           <RxGrid onClick={() => toggleView("grid")} />
           <LuMenu onClick={() => toggleView("table")} />
