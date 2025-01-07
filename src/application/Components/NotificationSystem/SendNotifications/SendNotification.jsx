@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
+import { Select, Tooltip } from "antd";
 
+const { Option } = Select;
 const SendNotification = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -21,15 +23,20 @@ const SendNotification = () => {
 
     switch (name) {
       case "title":
-        newErrors.title = !value.trim() ? "Title is required and cannot be just spaces." : "";
+        newErrors.title = !value.trim()
+          ? "Title is required and cannot be just spaces."
+          : "";
         break;
       case "body":
-        newErrors.body = !value.trim() ? "Body is required and cannot be just spaces." : "";
+        newErrors.body = !value.trim()
+          ? "Body is required and cannot be just spaces."
+          : "";
         break;
       case "imageUrl":
         if (!value.trim()) {
-          newErrors.imageUrl = "Image URL is required and cannot be just spaces.";
-        } else if (!/^[^\s]+$/.test(value))  {
+          newErrors.imageUrl =
+            "Image URL is required and cannot be just spaces.";
+        } else if (!/^[^\s]+$/.test(value)) {
           newErrors.imageUrl = "Please enter a valid URL.";
         } else {
           newErrors.imageUrl = "";
@@ -77,7 +84,8 @@ const SendNotification = () => {
     } catch (error) {
       // Handle errors gracefully
       console.error("Error sending notification:", error);
-      const errorMessage = error.response?.data || "Failed to send notification.";
+      const errorMessage =
+        error.response?.data || "Failed to send notification.";
       alert(errorMessage);
     } finally {
       // Stop loading regardless of success or failure
@@ -89,11 +97,14 @@ const SendNotification = () => {
   const validateForm = () => {
     const isTitleValid = title.trim();
     const isBodyValid = body.trim();
-    const isImageUrlValid = imageUrl.trim() && /^https?:\/\/[^\s]+$/.test(imageUrl);
+    const isImageUrlValid =
+      imageUrl.trim() && /^https?:\/\/[^\s]+$/.test(imageUrl);
 
     if (!isTitleValid || !isBodyValid || !isImageUrlValid) {
       setErrors({
-        title: !isTitleValid ? "Title is required and cannot be just spaces." : "",
+        title: !isTitleValid
+          ? "Title is required and cannot be just spaces."
+          : "",
         body: !isBodyValid ? "Body is required and cannot be just spaces." : "",
         imageUrl: !isImageUrlValid ? "Please enter a valid URL." : "",
       });
@@ -149,28 +160,66 @@ const SendNotification = () => {
               placeholder="Enter image URL"
               required
             />
-            {errors.imageUrl && <span className="error">{errors.imageUrl}</span>}
+            {errors.imageUrl && (
+              <span className="error">{errors.imageUrl}</span>
+            )}
           </div>
-
           <div className="form-group">
             <label>Select Topic</label>
-            <select
+            <Select
               value={topic}
-              onChange={(e) => setTopic(e.target.value)}
-              required
+              onChange={setTopic}
+              placeholder="Select a topic"
+              style={{ width: "100%" }}
             >
-              <option value="" disabled>
+              <Option value="" disabled>
                 Select a topic
-              </option>
-              <option value="unregistered">General</option>
-              <option value="individual_subscribed">Individual Subscribed</option>
-              <option value="individual_trial">Individual Trial</option>
-              <option value="enterprise_subscribed">Enterprise Subscribed</option>
-              <option value="enterprise_trial">Enterprise Trial</option>
-              <option value="enterprise_employee">Enterprise Employee</option>
-            </select>
-          </div>
+              </Option>
+              <Option value="unregistered">
+                <Tooltip
+                  title="Users installed the app but not registered/registered and logged out"
+                  placement="right"
+                  overlayClassName="custom-tooltip"
+                >
+                  <div style={{ padding: "5px" }}>General</div>
+                </Tooltip>
+              </Option>
+              <Option value="individual_subscribed">
+                <Tooltip title="Users who have paid" placement="right"   overlayClassName="custom-tooltip"
+                >
+                  <div style={{ padding: "5px" }}>Individual Subscribed</div>
+                </Tooltip>
+              </Option>
+              <Option value="individual_trial">
+                <Tooltip title="Users who are in free trial" placement="right"   overlayClassName="custom-tooltip"
+                >
+                  <div style={{ padding: "5px" }}>Individual Trial</div>
+                </Tooltip>
+              </Option>
+              <Option value="enterprise_subscribed">
+                <Tooltip title="Enterprises who have paid" placement="right"   overlayClassName="custom-tooltip"
+                >
+                  <div style={{ padding: "5px" }}>Enterprise Subscribed</div>
+                </Tooltip>
+              </Option>
+              <Option value="enterprise_trial">
+                <Tooltip
+                  title="Enterprises who are in free trial"
+                  placement="right"
+                 overlayClassName="custom-tooltip"
 
+                >
+                  <div style={{ padding: "5px" }}>Enterprise Trial</div>
+                </Tooltip>
+              </Option>
+              <Option value="enterprise_employee">
+                <Tooltip title="Enterprise employees" placement="right"   overlayClassName="custom-tooltip"
+>
+                  <div style={{ padding: "5px" }}>Enterprise Employee</div>
+                </Tooltip>
+              </Option>
+            </Select>
+          </div>
           <button
             type="submit"
             className={`submit-btn ${loading ? "disabled" : ""}`}
@@ -185,9 +234,7 @@ const SendNotification = () => {
         </form>
 
         {submitted && (
-          <div className="success-message">
-            Notification sent successfully!
-          </div>
+          <div className="success-message">Notification sent successfully!</div>
         )}
       </div>
     </div>
