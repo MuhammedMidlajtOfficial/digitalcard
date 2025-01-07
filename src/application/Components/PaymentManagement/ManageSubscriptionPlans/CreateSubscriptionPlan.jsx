@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import { Button, Modal, Form, Input, Select, Radio, Row, Col } from "antd";
-// import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
 const { Option } = Select;
 
@@ -14,29 +12,32 @@ const CreateSubscriptionPlan = ({
   const [form] = Form.useForm();
 
   useEffect(() => {
-    form.resetFields()
+    form.resetFields();
   }, [open]);
 
   useEffect(() => {
     if (initialData) {
-      // Format features as a string for ReactQuill
-      const featuresAsText = initialData.features?.join(", ") || "";
-
-      form.setFieldsValue({
-        name: initialData.name,
-        price: initialData.price,
-        packageType: initialData.duration === 30 ? "monthly" : "yearly",
-        plan: initialData.plan,
-        userType: initialData.type,
-        description: featuresAsText,
-      });
+      const featuresAsText =
+        Array.isArray(initialData.features) && initialData.features.length > 0
+          ? initialData.features.join(", ")
+          : ""; 
+          form.setFieldsValue({
+            name: initialData.name,
+            price: initialData.price,
+            packageType: initialData.duration === 30 ? "monthly" : "yearly",
+            plan: initialData.planId,
+            type: initialData.type,
+            description: featuresAsText,
+            status: initialData.status || "active",
+          });
     } else {
       form.resetFields();
     }
   }, [initialData, form]);
+  
 
   const handleFinish = (values) => {
-    // Convert description back to features array
+    console.log("Form Values Before Submit:", values);
     const featuresArray = values.description
       ? values.description
           .split(",")
@@ -48,15 +49,19 @@ const CreateSubscriptionPlan = ({
       ...values,
       features: featuresArray,
       duration: values.packageType === "monthly" ? 30 : 365,
+      type: values.type,
     };
-
     onSubmit(formattedData);
   };
 
   return (
     <Modal
       open={open}
-      title={initialData ? "Edit Subscription" : "Create Subscription"}
+      title={
+        <div className="custom-modal-title">
+          {initialData ? "Edit Subscription" : "Create Subscription"}
+        </div>
+      }
       onCancel={handleCancel}
       footer={[
         <Button key="back" onClick={handleCancel}>
@@ -64,10 +69,10 @@ const CreateSubscriptionPlan = ({
         </Button>,
         <Button
           key="save"
-          className="add-all-users"
+          className="add-all-users-button"
           onClick={() => form.submit()}
         >
-          Save
+          {initialData ? "Update" : "Save"}{" "}
         </Button>,
       ]}
     >
@@ -99,25 +104,27 @@ const CreateSubscriptionPlan = ({
 
         <Row gutter={16}>
           <Col span={8}>
-          <Form.Item
-            name="price"
-            label="Price"
-            rules={[
-              { required: true, message: "Please enter the price" },
-              {
-                validator(_, value) {
-                  if (!value || /^\d+$/.test(value)) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(
-                    new Error("The price must be a valid number without spaces")
-                  );
+            <Form.Item
+              name="price"
+              label="Price"
+              rules={[
+                { required: true, message: "Please enter the price" },
+                {
+                  validator(_, value) {
+                    if (!value || /^\d+$/.test(value)) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(
+                      new Error(
+                        "The price must be a valid number without spaces"
+                      )
+                    );
+                  },
                 },
-              },
-            ]}
-          >
-            <Input prefix="₹" placeholder="999" />
-          </Form.Item>
+              ]}
+            >
+              <Input prefix="₹" placeholder="999" />
+            </Form.Item>
           </Col>
 
           <Col span={8}>
@@ -132,24 +139,10 @@ const CreateSubscriptionPlan = ({
               </Select>
             </Form.Item>
           </Col>
-
-          {/* <Col span={8}>
-            <Form.Item
-              name="plan"
-              label="Select Plan"
-              rules={[{ required: true, message: "Please select a plan" }]}
-            >
-              <Select placeholder="Select Plan">
-                <Option value="silver">Silver</Option>
-                <Option value="gold">Gold</Option>
-                <Option value="platinum">Platinum</Option>
-              </Select>
-            </Form.Item>
-          </Col> */}
         </Row>
 
-        {/* <Form.Item
-          name="userType"
+        <Form.Item
+          name="type"
           label="User Type"
           rules={[{ required: true, message: "Please select a user type" }]}
         >
@@ -157,7 +150,7 @@ const CreateSubscriptionPlan = ({
             <Radio value="Individual">Individual</Radio>
             <Radio value="Enterprise">Enterprise</Radio>
           </Radio.Group>
-        </Form.Item> */}
+        </Form.Item>
 
         <Form.Item
           name="description"
@@ -171,15 +164,13 @@ const CreateSubscriptionPlan = ({
               validator(_, value) {
                 if (
                   value &&
-                  value
-                    .split(",")
-                    .every((feature) => feature.trim().length > 0)
+                  value.split(",").every((feature) => feature.trim().length > 0)
                 ) {
                   return Promise.resolve();
                 }
                 return Promise.reject(
                   new Error(
-                    "Each feature must contain at least one letter and cannot be empty or remove unwanted coma(,)"
+                    "Each feature must contain at least one letter and cannot be empty or remove unwanted comma(,)"
                   )
                 );
               },
@@ -187,6 +178,17 @@ const CreateSubscriptionPlan = ({
           ]}
         >
           <Input placeholder="Feature 1, Feature 2, Feature 3" />
+        </Form.Item>
+        <Form.Item
+          name="status"
+          label="Status"
+          initialValue="active"
+          rules={[{ required: true, message: "Please select a status" }]}
+        >
+          <Radio.Group>
+            <Radio value="active">Active</Radio>
+            <Radio value="inactive">Inactive</Radio>
+          </Radio.Group>
         </Form.Item>
       </Form>
     </Modal>
