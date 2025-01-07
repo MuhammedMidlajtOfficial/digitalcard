@@ -352,6 +352,9 @@
   font-size: 12px;
   padding: 8px 16px;
   letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 .table-search-button {
   color: var(--white-color);
