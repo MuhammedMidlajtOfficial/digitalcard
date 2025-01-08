@@ -199,7 +199,7 @@ const MainContent = () => {
     "/admin/paymentmanagement/customerrefundinfo",
     "/admin/notificationsystem/sendnotifications",
     "/admin/createEmployee",
-    "/admin/logview"
+    "/admin/logview",
     "/admin/watiList",
     "/admin/AllConfigurationList"
   ];

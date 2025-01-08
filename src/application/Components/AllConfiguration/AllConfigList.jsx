@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Spin, Button, Card, Modal } from "antd";
-import axiosInstance from "../../../AxiosConfig";
+import {axiosInstance} from "../../../AxiosConfig";
 import { useLoading } from "../../Services/loadingService";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { MdDeleteOutline } from "react-icons/md";
