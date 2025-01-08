@@ -105,6 +105,7 @@ import UnAuthorized from "./application/Page/Unauthorized";
 import EmployeeLIsts from "./application/Page/CreateEmployee/EmployeeLists";
 import WatiLists from "./application/Page/Wati";
 import CreateWatis from "./application/Page/Wati/CreateWati";
+import AllConfigurationIndex from "./application/Page/AllConfiguration/AllConfigurationIndex";
 
 
 const Loader = () => {
@@ -197,6 +198,7 @@ const MainContent = () => {
     "/admin/paymentmanagement/customerrefundinfo",
     "/admin/notificationsystem/sendnotifications",
     "/admin/createEmployee",
+    "/admin/watiList",
   ];
 
   const isApplicationRoute = applicationRoutes.some(route => location.pathname.startsWith(route));
@@ -543,6 +545,10 @@ const MainContent = () => {
             <Route
               path="/admin/createWati/:id"
               element={<PrivateRoute element={CreateWatis} requiredPermission="wati"/>}
+            />
+             <Route
+              path="/admin/AllConfigurationList"
+              element={<PrivateRoute element={AllConfigurationIndex} />}
             />
             <Route
               path="/admin/Unauthorized"
