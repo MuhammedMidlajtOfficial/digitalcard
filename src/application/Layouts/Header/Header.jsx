@@ -7,8 +7,7 @@ import Swal from "sweetalert2";
 import logoutimg from "../../Assets/Images/admin.png";
 import { useNavigate } from "react-router-dom";
 import { Avatar } from "antd";
-import axiosInstance from "../../../AxiosConfig";
-
+import { axiosInstance } from "../../../AxiosConfig";
 
 const HeaderApplication = () => {
   const navigate = useNavigate();
@@ -16,25 +15,25 @@ const HeaderApplication = () => {
   const [user, setUser] = useState({});
 
   const infoUsers = {
-    username: user?.username, 
+    username: user?.username,
     role: user?.userType,
-    image: user?.image
+    image: user?.image,
   };
 
   useEffect(() => {
-    const userId = localStorage.getItem('userId'); // Retrieve userId from localStorage
-    
+    const userId = localStorage.getItem("userId"); // Retrieve userId from localStorage
+
     if (!userId) {
       console.error("User ID not found in localStorage");
       navigate("/login"); // Redirect to login if userId is missing
       return;
     }
-  
+
     axiosInstance
       .get(`adminAuth/getSuperAdmin/${userId}`)
       .then((response) => {
         if (response) {
-          console.log('response.data.user-',response.data);
+          console.log("response.data.user-", response.data);
           setUser(response.data.user);
         } else {
           console.error("User not found");
@@ -46,12 +45,10 @@ const HeaderApplication = () => {
   }, [navigate]);
 
   useEffect(() => {
-    console.log('user-',user);
-    return () => {
-      
-    };
+    console.log("user-", user);
+    return () => {};
   }, []);
-  
+
   const handlelogout = () => {
     Swal.fire({
       title: "Are you sure",
@@ -74,7 +71,6 @@ const HeaderApplication = () => {
     setIsDropdownOpen((prev) => !prev);
   };
 
-
   return (
     <div style={{ position: "sticky", top: "0", zIndex: "999" }}>
       <nav className="navbar-header">
@@ -83,7 +79,7 @@ const HeaderApplication = () => {
           <input type="text" placeholder="Search..." className="search-input" />
         </div> */}
         <div className="d-flex w-100 justify-content-end">
-          <div 
+          <div
             className="d-flex align-items-center gap-2"
             onClick={toggleDropdown}
           >
@@ -101,10 +97,12 @@ const HeaderApplication = () => {
                 className="user-image"
                 type="button"
                 aria-controls="user-menu"
-                
                 aria-expanded={isDropdownOpen}
               >
-                <Avatar size="large" src={infoUsers.image? infoUsers.image : logoutimg} />
+                <Avatar
+                  size="large"
+                  src={infoUsers.image ? infoUsers.image : logoutimg}
+                />
               </button>
               <div className="user-info">
                 <span

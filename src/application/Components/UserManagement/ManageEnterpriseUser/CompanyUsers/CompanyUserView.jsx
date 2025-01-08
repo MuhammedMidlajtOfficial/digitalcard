@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   MDBCol,
   MDBContainer,
@@ -12,64 +12,96 @@ import {
   MDBPagination,
   MDBPaginationItem,
   MDBPaginationLink,
-  MDBBtn
-} from 'mdb-react-ui-kit';
-import axiosInstance from '../../../../../AxiosConfig';
-import './CompanyUserView.css';
+  MDBBtn,
+} from "mdb-react-ui-kit";
+import { Modal,Spin } from "antd";
+import { axiosInstance, logInstance } from "../../../../../AxiosConfig";
+import "./CompanyUserView.css";
 
 export default function CompanyUserView({ userId }) {
-  console.log('userId-', userId);
+  console.log("userId-", userId);
   const [userData, setUserData] = useState({
-    companyName: '',
-    email: '',
-    phnNumber: '',
-    address: '',
-    image: '',
+    companyName: "",
+    email: "",
+    phnNumber: "",
+    address: "",
+    image: "",
     socialMedia: {
-      whatsappNo: '',
-      facebookLink: '',
-      instagramLink: '',
-      twitterLink: '',
+      whatsappNo: "",
+      facebookLink: "",
+      instagramLink: "",
+      twitterLink: "",
     },
-    employees: []
+    employees: [],
   });
-
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const[isLoading,setIsLoading]=useState(false)
+  
   const [currentPage, setCurrentPage] = useState(1);
   const employeesPerPage = 9;
 
+
+  const handleCardClick = (empId) => {
+    setIsLoading(true);
+    logInstance
+      .get(`/enterpriseEmployee/getProfile/${empId}`)
+      .then((response) => {
+        setSelectedEmployee(response.data.user || {});
+        setIsModalVisible(true);
+      })
+      .catch((error) => {
+        console.error("Error fetching employee details:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  // Close modal
+  const handleModalClose = () => {
+    setIsModalVisible(false);
+    setSelectedEmployee(null);
+  };
+
+
+  
   useEffect(() => {
     axiosInstance
       .get(`/user/getEnterpriseUserById/${userId}`)
       .then((response) => {
         const data = response.data.userData || {};
-        console.log('data-', data);
+        console.log("data-", data);
         setUserData({
-          companyName: data.companyName || 'No Name',
-          email: data.email || 'N/A',
-          phnNumber: data.phnNumber || 'N/A',
-          address: data.address || 'N/A',
+          companyName: data.companyName || "No Name",
+          email: data.email || "N/A",
+          phnNumber: data.phnNumber || "N/A",
+          address: data.address || "N/A",
           image:
             data.image ||
-            'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp',
+            "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp",
           socialMedia: {
-            whatsappNo: data.socialMedia?.whatsappNo || '',
-            facebookLink: data.socialMedia?.facebookLink || '',
-            instagramLink: data.socialMedia?.instagramLink || '',
-            twitterLink: data.socialMedia?.twitterLink || '',
+            whatsappNo: data.socialMedia?.whatsappNo || "",
+            facebookLink: data.socialMedia?.facebookLink || "",
+            instagramLink: data.socialMedia?.instagramLink || "",
+            twitterLink: data.socialMedia?.twitterLink || "",
           },
-          employees: data.empId || []
+          employees: data.empIds || [],
         });
       })
       .catch((error) => {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
       });
   }, [userId]);
 
   // Pagination Logic
   const indexOfLastEmployee = currentPage * employeesPerPage;
   const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
-  const currentEmployees = userData.employees.slice(indexOfFirstEmployee, indexOfLastEmployee);
-
+  const currentEmployees = userData.employees.slice(
+    indexOfFirstEmployee,
+    indexOfLastEmployee
+  );
+  console.log("Current Employees to display:", currentEmployees);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   // Determine total pages
@@ -85,7 +117,7 @@ export default function CompanyUserView({ userId }) {
         >
           Back
         </div>
-        
+
         {/* Company Information */}
         <MDBRow className="justify-content-center">
           <MDBCol md="12">
@@ -94,19 +126,32 @@ export default function CompanyUserView({ userId }) {
                 <MDBCol
                   md="4"
                   className="gradient-custom text-center text-white d-flex flex-column justify-content-center align-items-center"
-                  style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem' }}
+                  style={{
+                    borderTopLeftRadius: ".5rem",
+                    borderBottomLeftRadius: ".5rem",
+                  }}
                 >
                   <MDBCardImage
                     src={userData.image}
                     alt="Avatar"
                     className="my-4 rounded-circle"
-                    style={{ width: '120px', height: '120px', objectFit: 'cover' }}
+                    style={{
+                      width: "120px",
+                      height: "120px",
+                      objectFit: "cover",
+                    }}
                     fluid
                   />
-                  <MDBTypography tag="h5" className="mb-2" style={{ fontWeight:'bold', fontSize:'20px'}}>
+                  <MDBTypography
+                    tag="h5"
+                    className="mb-2"
+                    style={{ fontWeight: "bold", fontSize: "20px" }}
+                  >
                     {userData.companyName}
                   </MDBTypography>
-                  <MDBCardText className="text-light">Company Profile</MDBCardText>
+                  <MDBCardText className="text-light">
+                    Company Profile
+                  </MDBCardText>
                 </MDBCol>
                 <MDBCol md="8">
                   <MDBCardBody className="p-4">
@@ -119,13 +164,17 @@ export default function CompanyUserView({ userId }) {
                         <MDBTypography tag="h6" className="fw-bold">
                           Email
                         </MDBTypography>
-                        <MDBCardText className="text-muted">{userData.email}</MDBCardText>
+                        <MDBCardText className="text-muted">
+                          {userData.email}
+                        </MDBCardText>
                       </MDBCol>
                       <MDBCol size="6" className="mb-4">
                         <MDBTypography tag="h6" className="fw-bold">
                           Phone
                         </MDBTypography>
-                        <MDBCardText className="text-muted">{userData.phnNumber}</MDBCardText>
+                        <MDBCardText className="text-muted">
+                          {userData.phnNumber}
+                        </MDBCardText>
                       </MDBCol>
                     </MDBRow>
                     <MDBRow>
@@ -133,7 +182,9 @@ export default function CompanyUserView({ userId }) {
                         <MDBTypography tag="h6" className="fw-bold">
                           Address
                         </MDBTypography>
-                        <MDBCardText className="text-muted">{userData.address}</MDBCardText>
+                        <MDBCardText className="text-muted">
+                          {userData.address}
+                        </MDBCardText>
                       </MDBCol>
                     </MDBRow>
                     {/* <MDBTypography tag="h6" className="fw-bold">
@@ -141,34 +192,54 @@ export default function CompanyUserView({ userId }) {
                     </MDBTypography> */}
                     <div className="d-flex">
                       <a
-                        href={userData.socialMedia.whatsappNo ? `https://wa.me/${userData.socialMedia.whatsappNo}` : '#'}
+                        href={
+                          userData.socialMedia.whatsappNo
+                            ? `https://wa.me/${userData.socialMedia.whatsappNo}`
+                            : "#"
+                        }
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`me-3 ${userData.socialMedia.whatsappNo ? 'text-success' : 'text-muted'}`}
+                        className={`me-3 ${
+                          userData.socialMedia.whatsappNo
+                            ? "text-success"
+                            : "text-muted"
+                        }`}
                       >
                         <MDBIcon fab icon="whatsapp" size="lg" />
                       </a>
                       <a
-                        href={userData.socialMedia.facebookLink || '#'}
+                        href={userData.socialMedia.facebookLink || "#"}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`me-3 ${userData.socialMedia.facebookLink ? 'text-primary' : 'text-muted'}`}
+                        className={`me-3 ${
+                          userData.socialMedia.facebookLink
+                            ? "text-primary"
+                            : "text-muted"
+                        }`}
                       >
                         <MDBIcon fab icon="facebook" size="lg" />
                       </a>
                       <a
-                        href={userData.socialMedia.instagramLink || '#'}
+                        href={userData.socialMedia.instagramLink || "#"}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`me-3 ${userData.socialMedia.instagramLink ? 'text-danger' : 'text-muted'}`}
+                        className={`me-3 ${
+                          userData.socialMedia.instagramLink
+                            ? "text-danger"
+                            : "text-muted"
+                        }`}
                       >
                         <MDBIcon fab icon="instagram" size="lg" />
                       </a>
                       <a
-                        href={userData.socialMedia.twitterLink || '#'}
+                        href={userData.socialMedia.twitterLink || "#"}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`me-3 ${userData.socialMedia.twitterLink ? 'text-info' : 'text-muted'}`}
+                        className={`me-3 ${
+                          userData.socialMedia.twitterLink
+                            ? "text-info"
+                            : "text-muted"
+                        }`}
                       >
                         <MDBIcon fab icon="twitter" size="lg" />
                       </a>
@@ -189,21 +260,37 @@ export default function CompanyUserView({ userId }) {
               <MDBRow>
                 {currentEmployees.map((employee, index) => (
                   <MDBCol key={index} lg="4" md="6" sm="12" className="mb-4">
-                    <MDBCard className="shadow-3">
+                   <MDBCard
+                      className="shadow-3 cursor-pointer"
+                      onClick={() => handleCardClick(employee.empId?._id)}
+                    >
                       <MDBCardBody>
                         <MDBCardImage
-                          src={employee.image || 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp'}
+                          src={
+                            employee.empId?.image ||
+                            "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                          }
                           alt="Employee Avatar"
                           className="my-4 rounded-circle"
-                          style={{ width: '80px', height: '80px', objectFit: 'cover' }}
+                          style={{
+                            width: "80px",
+                            height: "80px",
+                            objectFit: "cover",
+                          }}
                           fluid
                         />
                         <MDBTypography tag="h6" className="fw-bold">
-                          {employee.username || 'No Name'}
+                          {employee.empId?.username || "No Name"}
                         </MDBTypography>
-                        <MDBCardText className="text-muted">Role: {employee.role || 'N/A'}</MDBCardText>
-                        <MDBCardText className="text-muted">Email: {employee.email || 'N/A'}</MDBCardText>
-                        <MDBCardText className="text-muted">Phone: {employee.phnNumber || 'N/A'}</MDBCardText>
+                        <MDBCardText className="text-muted">
+                          Company Name: {employee.empId?.companyName || "N/A"}
+                        </MDBCardText>
+                        <MDBCardText className="text-muted">
+                          Email: {employee.empId?.email || "N/A"}
+                        </MDBCardText>
+                        <MDBCardText className="text-muted">
+                          Phone: {employee.empId?.phnNumber || "N/A"}
+                        </MDBCardText>
                       </MDBCardBody>
                     </MDBCard>
                   </MDBCol>
@@ -212,23 +299,84 @@ export default function CompanyUserView({ userId }) {
               {/* Pagination Controls */}
               <MDBPagination>
                 <MDBPaginationItem disabled={currentPage === 1}>
-                  <MDBPaginationLink onClick={() => paginate(currentPage - 1)} previous />
+                  <MDBPaginationLink
+                    onClick={() => paginate(currentPage - 1)}
+                    previous
+                  />
                 </MDBPaginationItem>
                 {[...Array(totalPages)].map((_, index) => (
-                  <MDBPaginationItem key={index} active={index + 1 === currentPage}>
+                  <MDBPaginationItem
+                    key={index}
+                    active={index + 1 === currentPage}
+                  >
                     <MDBPaginationLink onClick={() => paginate(index + 1)}>
                       {index + 1}
                     </MDBPaginationLink>
                   </MDBPaginationItem>
                 ))}
                 <MDBPaginationItem disabled={currentPage === totalPages}>
-                  <MDBPaginationLink onClick={() => paginate(currentPage + 1)} next />
+                  <MDBPaginationLink
+                    onClick={() => paginate(currentPage + 1)}
+                    next
+                  />
                 </MDBPaginationItem>
               </MDBPagination>
             </MDBCol>
           </MDBRow>
         )}
       </MDBContainer>
+
+      <Modal
+        title="Employee Details"
+        visible={isModalVisible}
+        onCancel={handleModalClose}
+        footer={null}
+      >
+        {isLoading ? (
+          <Spin />
+        ) : selectedEmployee ? (
+          <div>
+            <img
+              src={
+                selectedEmployee.image ||
+                "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+              }
+              alt="Employee"
+              style={{
+                width: "100px",
+                height: "100px",
+                objectFit: "cover",
+                borderRadius: "50%",
+                marginBottom: "20px",
+              }}
+            />
+            <p>
+              <strong>Name:</strong> {selectedEmployee.username || "N/A"}
+            </p>
+            <p>
+              <strong>Email:</strong> {selectedEmployee.email || "N/A"}
+            </p>
+            <p>
+              <strong>Phone:</strong> {selectedEmployee.phnNumber || "N/A"}
+            </p>
+            <p>
+              <strong>Role:</strong> {selectedEmployee.role || "N/A"}
+            </p>
+            <p>
+              <strong>Status:</strong> {selectedEmployee.status || "N/A"}
+            </p>
+            <p>
+              <strong>User Type:</strong> {selectedEmployee.userType || "N/A"}
+            </p>
+            <p>
+              <strong>Address:</strong> {selectedEmployee.address || "N/A"}
+            </p>
+          </div>
+        ) : (
+          <p>No employee data available.</p>
+        )}
+      </Modal>
+ 
     </section>
   );
 }

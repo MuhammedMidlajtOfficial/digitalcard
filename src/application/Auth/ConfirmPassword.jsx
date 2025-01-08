@@ -4,7 +4,7 @@ import login from "../Assets/Images/loginbackground.png";
 import { Form, Input } from "antd";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import Instance from "../../../src/AxiosConfig";
+import { axiosInstance } from "../../../src/AxiosConfig";
 import { showErrorToast } from "../Services/toastService";
 
 const ConfirmPassword = () => {
@@ -26,7 +26,7 @@ const ConfirmPassword = () => {
     try {
       setLoading(true)
 
-      const response = await Instance.post(
+      const response = await axiosInstance.post(
         "adminAuth/forgotPassword/reset-password",
         { token, newPassword },
       );

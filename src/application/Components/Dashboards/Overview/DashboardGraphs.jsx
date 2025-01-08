@@ -10,7 +10,7 @@ import {
   Cell,
   Tooltip,
 } from "recharts";
-import axiosInstance from "../../../../AxiosConfig";
+import {axiosInstance} from "../../../../AxiosConfig";
 
 const DashboardGraphs = () => {
   const [totalUsers, setTotalUsers] = useState('');

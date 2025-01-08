@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BillingHistoryCards from "./BillingHistoryCards";
 import { BillingHistoryTable } from "./BillingHistoryTable";
-import axiosInstance from "../../../../AxiosConfig";
+import {axiosInstance} from "../../../../AxiosConfig";
 
 const BillingHistoryIndex = () => {
   

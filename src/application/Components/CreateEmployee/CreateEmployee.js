@@ -3,7 +3,7 @@ import { Form, Input, Button, Checkbox } from "antd";
 import { TbEdit } from "react-icons/tb";
 import { useNavigate, useLocation } from "react-router-dom";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import axiosInstance from "../../../AxiosConfig";
+import {axiosInstance} from "../../../AxiosConfig";
 import Swal from "sweetalert2";
 
 const CreateEmployee = () => {

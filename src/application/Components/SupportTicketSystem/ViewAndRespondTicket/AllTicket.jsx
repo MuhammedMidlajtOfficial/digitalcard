@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { Spin, Divider, Flex } from "antd"; // Import Spin for loading indicator
 import { useLoading } from "../../../Services/loadingService";
 import axiosInstanceForTicket from "../../../../AxiosContigForTicket";
-import axiosInstance from "../../../../AxiosConfig";
+import {axiosInstance} from "../../../../AxiosConfig";
 
 const AllTicket = () => {
     const [tickets, setTickets] = useState([]);

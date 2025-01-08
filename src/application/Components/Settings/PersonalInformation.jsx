@@ -3,7 +3,7 @@ import { Form, Input } from "antd";
 import { TbEdit } from "react-icons/tb";
 import DefaultUser from "../../Assets/Images/admin.png";
 import "react-international-phone/style.css";
-import axiosInstance from "../../../AxiosConfig";
+import {axiosInstance} from "../../../AxiosConfig";
 import { useNavigate } from "react-router-dom";
 import { showErrorToast, showSuccessToast } from "../../Services/toastService";
 

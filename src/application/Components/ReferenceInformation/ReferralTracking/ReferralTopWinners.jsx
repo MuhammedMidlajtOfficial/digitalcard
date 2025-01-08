@@ -3,7 +3,7 @@ import admin from "../../../Assets/Images/admin.png";
 import medal1 from "../../../Assets/Images/medal1.png";
 import medal2 from "../../../Assets/Images/medal2.png";
 import medal3 from "../../../Assets/Images/medal3.png";
-import axiosInstance from "../../../../AxiosConfig";
+import {axiosInstance} from "../../../../AxiosConfig";
 
 const ReferralTopWinners = () => {
     const [topReferrers, setTopReferrers] = useState([]);
