@@ -106,6 +106,7 @@ import EmployeeLIsts from "./application/Page/CreateEmployee/EmployeeLists";
 import WatiLists from "./application/Page/Wati";
 import CreateWatis from "./application/Page/Wati/CreateWati";
 import ViewLogpage from "./application/Page/ViewLogs/ViewLogPage";
+import AllConfigurationIndex from "./application/Page/AllConfiguration/AllConfigurationIndex";
 
 
 const Loader = () => {
@@ -199,6 +200,8 @@ const MainContent = () => {
     "/admin/notificationsystem/sendnotifications",
     "/admin/createEmployee",
     "/admin/logview"
+    "/admin/watiList",
+    "/admin/AllConfigurationList"
   ];
 
   const isApplicationRoute = applicationRoutes.some(route => location.pathname.startsWith(route));
@@ -545,6 +548,10 @@ const MainContent = () => {
             <Route
               path="/admin/createWati/:id"
               element={<PrivateRoute element={CreateWatis} requiredPermission="wati"/>}
+            />
+             <Route
+              path="/admin/AllConfigurationList"
+              element={<PrivateRoute element={AllConfigurationIndex} />}
             />
             <Route
               path="/admin/Unauthorized"
