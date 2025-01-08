@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Modal, message } from "antd";
-import axiosInstance from "../../../AxiosConfig";
+import {axiosInstance} from "../../../AxiosConfig";
 
 const EditConfigModal = ({ config, onClose, refreshList }) => {
     const [form] = Form.useForm();

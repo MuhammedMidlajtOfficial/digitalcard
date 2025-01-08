@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button, Input } from "antd";
-import axiosInstance from "../../../AxiosConfig";
+import {axiosInstance} from "../../../AxiosConfig";
 import { CloseOutlined } from "@ant-design/icons";
 
 const AddConfigurationModal = ({ visible, onCancel, refreshList }) => {
