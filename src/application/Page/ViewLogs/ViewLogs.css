@@ -1,0 +1,41 @@
+
+  
+  .view-logs-container h1 {
+    font-size: 24px;
+    color:var(--gradient-start-color);
+    font-weight: 600;
+  }
+  
+  .view-logs-container.error-message {
+    color: var(--danger-color);
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0;
+  }
+  
+  .view-logs-container.logs-wrapper {
+    margin-top: 20px;
+    background-color: var(--white-color);
+    padding: 10px;
+    
+  }
+  
+  .log-entry {
+    padding: 8px;
+    margin-bottom: 4px;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+  
+  .info-log {
+    background-color: #e7f7e7;
+    color: #1b5e20;
+    border: 1px solid #81c784;
+  }
+  
+  .error-log {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #e57373;
+  }
+  

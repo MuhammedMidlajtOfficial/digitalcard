@@ -4,7 +4,7 @@ import login from "../Assets/Images/loginbackground.png";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { Form } from "antd";
-import Instance from "../../../src/AxiosConfig";
+import { axiosInstance } from "../../../src/AxiosConfig";
 
 const OtpScreen = () => {
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ const OtpScreen = () => {
     const email = sessionStorage.getItem("otpEmail");
     try {
       setLoading(true)
-      const response = await Instance.post(
+      const response = await axiosInstance.post(
         "adminAuth/forgotPassword/validate-otp",
         { email, otp },
       );

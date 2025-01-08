@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Radio } from "antd"; 
-import axiosInstance from "../../../AxiosConfig";
+import { Radio } from "antd";
+import { axiosInstance } from "../../../AxiosConfig";
 import { RiCheckboxCircleFill } from "react-icons/ri";
 
 const PricingPlans = () => {
@@ -13,9 +13,9 @@ const PricingPlans = () => {
     try {
       setIsLoading(true);
       const response = await axiosInstance.get("subscription");
-      const formattedPlans = response.data.SubscriptionPlans.map(plan => ({
+      const formattedPlans = response.data.SubscriptionPlans.map((plan) => ({
         ...plan,
-        price: plan.price?.$numberDecimal || plan.price, 
+        price: plan.price?.$numberDecimal || plan.price,
         features: Array.isArray(plan.features) ? plan.features : [],
       }));
       console.log("res", response);
@@ -31,7 +31,7 @@ const PricingPlans = () => {
     fetchSubscriptions();
   }, []);
 
-  const filteredPlans = cards.filter(plan => {
+  const filteredPlans = cards.filter((plan) => {
     // Filter by billing cycle, type (selectedView), and active status
     return (
       plan.status === "active" && // Check if the plan is active
@@ -40,24 +40,30 @@ const PricingPlans = () => {
       plan.type.toLowerCase() === selectedView
     );
   });
-  
 
   return (
     <div className="pricing-plan-section">
       <div className="container">
         <h1>Diskuss Pricing Plans</h1>
         <p className="subtitles">
-          Explore affordable Diskuss pricing plans for individuals and enterprises. Enjoy flexible plans with features like team collaboration, analytics, and contact sharing. Start your free trial today.
+          Explore affordable Diskuss pricing plans for individuals and
+          enterprises. Enjoy flexible plans with features like team
+          collaboration, analytics, and contact sharing. Start your free trial
+          today.
         </p>
         <div className="price-button-group">
           <button
-            className={`price-explore-button ${selectedView === "individual" ? "active" : ""}`}
+            className={`price-explore-button ${
+              selectedView === "individual" ? "active" : ""
+            }`}
             onClick={() => setSelectedView("individual")}
           >
             Individual
           </button>
           <button
-            className={`price-learn-more-btn ${selectedView === "enterprise" ? "active" : ""}`}
+            className={`price-learn-more-btn ${
+              selectedView === "enterprise" ? "active" : ""
+            }`}
             onClick={() => setSelectedView("enterprise")}
           >
             Enterprise
@@ -79,18 +85,20 @@ const PricingPlans = () => {
                 key={index}
                 className={`pricing-card ${plan.popular ? "popular" : ""}`}
               >
-                {plan.popular && <div className="popular-tag">Most Popular</div>}
+                {plan.popular && (
+                  <div className="popular-tag">Most Popular</div>
+                )}
                 <center>
                   <h2>{plan.name}</h2>
                   <div className="price">&#8377; {plan.price}</div>
-                  <div style={{fontSize:"14px"}}>
-                  {plan.type === "Enterprise"
-              ? plan.duration === 365
-                ? "per year / per user / inclusive GST"
-                : "per month / per user / inclusive GST"
-              : plan.duration === 365
-              ? "per year / inclusive GST"
-              : "per month / inclusive GST"}
+                  <div style={{ fontSize: "14px" }}>
+                    {plan.type === "Enterprise"
+                      ? plan.duration === 365
+                        ? "per year / per user / inclusive GST"
+                        : "per month / per user / inclusive GST"
+                      : plan.duration === 365
+                      ? "per year / inclusive GST"
+                      : "per month / inclusive GST"}
                   </div>
                 </center>
                 <ul className="mt-2">
@@ -109,7 +117,9 @@ const PricingPlans = () => {
               </div>
             ))
           ) : (
-            <div>No plans are available for the selected billing cycle and type.</div>
+            <div>
+              No plans are available for the selected billing cycle and type.
+            </div>
           )}
         </div>
       </div>

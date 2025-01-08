@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../Redux/tokenActions";
 import { showErrorToast, showSuccessToast } from "../Services/toastService";
-import axiosInstance from "../../AxiosConfig";
+import {axiosInstance} from "../../AxiosConfig";
 import { useAuth } from '../Context/AuthContext';
 
 const Login = () => {

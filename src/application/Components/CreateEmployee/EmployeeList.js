@@ -7,7 +7,7 @@ import { LuMenu } from "react-icons/lu";
 import { IoEllipsisHorizontalSharp } from "react-icons/io5";
 import { UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../../../AxiosConfig";
+import {axiosInstance} from "../../../AxiosConfig";
 import { useLoading } from "../../Services/loadingService";
 import { showDeleteMessage } from "../../../globalConstant";
 

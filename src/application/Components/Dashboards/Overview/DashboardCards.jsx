@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FiUsers, FiUser, FiUserCheck } from "react-icons/fi";
 import { BsClipboardPlus, BsTicketPerforated } from "react-icons/bs";
 // import { LuUsers2 } from "react-icons/lu";
-import axiosInstance from "../../../../AxiosConfig";
+import {axiosInstance} from "../../../../AxiosConfig";
 
 const DashboardCards = () => {
   const [individialUserCount, setIndividialUserCount] =  useState('')
