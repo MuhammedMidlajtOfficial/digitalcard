@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Avatar } from "antd";
-import { UserOutlined } from '@ant-design/icons'; // Import the UserOutlined icon
-import axiosInstance from "../../../../AxiosConfig";
+import { UserOutlined } from '@ant-design/icons'; 
+import {axiosInstance} from "../../../../AxiosConfig";
 
 const UserSection = ({ avatar, name, status, planCount }) => {
   const getStatusStyle = (status) => {
