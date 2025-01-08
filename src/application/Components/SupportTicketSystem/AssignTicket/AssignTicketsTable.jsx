@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Input, Select, Table, Button } from "antd";
 import axios from "axios";
-import { showErrorToast, showSuccessToast } from "../../../Services/toastService";
+import {
+  showErrorToast,
+  showSuccessToast,
+} from "../../../Services/toastService";
 import axiosInstanceForTicket from "../../../../AxiosContigForTicket";
-import axiosInstance from "../../../../AxiosConfig";
+import { axiosInstance } from "../../../../AxiosConfig";
 import { useLoading } from "../../../Services/loadingService";
 
 const AssignTicketsTable = () => {
@@ -20,28 +23,30 @@ const AssignTicketsTable = () => {
     description: "",
     priority: "",
     createdBy: "",
-    status:"Open"
+    status: "Open",
   });
 
   useEffect(() => {
     // Set the createdBy field from localStorage when the component mounts
-    const userId = localStorage.getItem('userId');
+    const userId = localStorage.getItem("userId");
     setNewTicketData((prevState) => ({
       ...prevState,
       createdBy: userId || null,
     }));
-  },[])
+  }, []);
 
   const fetchTickets = async () => {
     try {
-      startLoading()
-      const response = await axiosInstanceForTicket.get("ticket/getOpenTicket?page=1&limit=10");
+      startLoading();
+      const response = await axiosInstanceForTicket.get(
+        "ticket/getOpenTicket?page=1&limit=10"
+      );
       setTickets(response.data);
-      console.log('fetchTickets',response.data);
+      console.log("fetchTickets", response.data);
     } catch (error) {
       console.error("Error fetching tickets:", error);
     } finally {
-      stopLoading()
+      stopLoading();
     }
   };
 
@@ -65,16 +70,23 @@ const AssignTicketsTable = () => {
     }
 
     try {
-      await axios.post("http://localhost:2000/api/v1/ticket", newTicketData)
-        .then(response => {
+      await axios
+        .post("http://localhost:2000/api/v1/ticket", newTicketData)
+        .then((response) => {
           showSuccessToast(response.data.message);
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("Error in axios.post:", error);
           showErrorToast(error.message);
         });
       fetchTickets(); // Refresh the ticket list after creating a new ticket
-      setNewTicketData({ title: "", description: "", priority: "", createdBy: "", status: "Open" }); // Reset form
+      setNewTicketData({
+        title: "",
+        description: "",
+        priority: "",
+        createdBy: "",
+        status: "Open",
+      }); // Reset form
     } catch (error) {
       console.error("Error creating ticket:", error);
     }
@@ -85,7 +97,7 @@ const AssignTicketsTable = () => {
     {
       title: "Category",
       dataIndex: "category",
-      render: (category) => category ? category.categoryName : "No Category", // Handle null/undefined category
+      render: (category) => (category ? category.categoryName : "No Category"), // Handle null/undefined category
     },
     { title: "Issue Summary", dataIndex: "description" },
     { title: "Priority", dataIndex: "priority" },
@@ -103,33 +115,43 @@ const AssignTicketsTable = () => {
     setTicketId(id);
     try {
       await axiosInstanceForTicket(`ticket/${id}`)
-        .then( response => {
-          setAssignTicketData(response.data)
+        .then((response) => {
+          setAssignTicketData(response.data);
         })
-        .catch( error => {
+        .catch((error) => {
           console.log(error);
-        })
+        });
 
-      await axiosInstance(`adminAuth/getUserByCategory?category=view-respond-tickets`)
-        .then( response => {
-          setEmployeeData(response.data.user)
-          console.log('setEmployeeData',response.data.user);
+      await axiosInstance(
+        `adminAuth/getUserByCategory?category=view-respond-tickets`
+      )
+        .then((response) => {
+          setEmployeeData(response.data.user);
+          console.log("setEmployeeData", response.data.user);
         })
-        .catch( error => {
+        .catch((error) => {
           console.log(error);
-        })
-
+        });
     } catch (error) {
-      console.log('Error from handleAssign-', error);
+      console.log("Error from handleAssign-", error);
     }
-    setShowStatusCard(true)
+    setShowStatusCard(true);
   };
 
   const priorities = ["High", "Medium", "Low"];
 
-  const FloatingLabelInput = ({ label, value, name, placeholder, disabled, onChange }) => {
+  const FloatingLabelInput = ({
+    label,
+    value,
+    name,
+    placeholder,
+    disabled,
+    onChange,
+  }) => {
     return (
-      <div style={{ position: "relative", marginBottom: "20px", width: "100%" }}>
+      <div
+        style={{ position: "relative", marginBottom: "20px", width: "100%" }}
+      >
         {/* Label */}
         <label
           htmlFor={name}
@@ -164,7 +186,7 @@ const AssignTicketsTable = () => {
             border: "1px solid #D3D3D3",
             borderRadius: "5px",
             outline: "none",
-            height:"auto"
+            height: "auto",
           }}
         />
       </div>
@@ -195,12 +217,12 @@ const AssignTicketsTable = () => {
           maxWidth: "500px", // Limit modal width
         }}
       >
-        <h3 
-          style={{ 
-            marginBottom: "25px", 
-            fontSize:"20px",
-            fontWeight:"bold", 
-          }} 
+        <h3
+          style={{
+            marginBottom: "25px",
+            fontSize: "20px",
+            fontWeight: "bold",
+          }}
         >
           Assign Ticket
         </h3>
@@ -233,14 +255,16 @@ const AssignTicketsTable = () => {
           name="status"
           disabled
         />
-        <div style={{ position: "relative", marginBottom: "20px", width: "100%" }}>
+        <div
+          style={{ position: "relative", marginBottom: "20px", width: "100%" }}
+        >
           {/* Label */}
           <label
             style={{
               position: "absolute",
-              top: "0px" ,
+              top: "0px",
               left: "12px",
-              zIndex:"2",
+              zIndex: "2",
               fontSize: "12px",
               color: "purple",
               backgroundColor: "white",
@@ -265,14 +289,14 @@ const AssignTicketsTable = () => {
             }}
             dropdownStyle={{ boxShadow: "none" }}
             placeholder="Assign..."
-            value={assignedUser} 
-            onChange={value => setAssignedUser(value)}
+            value={assignedUser}
+            onChange={(value) => setAssignedUser(value)}
           >
-          { employeeData?.map(employee => (
-            <Select.Option key={employee._id} value={employee._id}>
-              {employee.username}
-            </Select.Option>
-          ))}
+            {employeeData?.map((employee) => (
+              <Select.Option key={employee._id} value={employee._id}>
+                {employee.username}
+              </Select.Option>
+            ))}
           </Select>
         </div>
 
@@ -290,32 +314,32 @@ const AssignTicketsTable = () => {
     </div>
   );
 
-  const handleCloseClick = ()=>{
-    setShowStatusCard(false)
-    setAssignedUser(null)
-  }
+  const handleCloseClick = () => {
+    setShowStatusCard(false);
+    setAssignedUser(null);
+  };
 
   const handleAssignClick = async () => {
-    await axiosInstanceForTicket.patch('ticket/assignUser', {
-      ticketId: ticketId, 
-      employeeId: assignedUser
-    })
-    .then(response => {
-      if (response.status === 200) {
-        showSuccessToast(response.data.message);
-        setShowStatusCard(false)
-        
-      }
-    })
-    .catch(error => {
-      showErrorToast(error.message)
-      console.log(error);
-    })
-    .finally(()=>{
-      setAssignedUser(null)
-      fetchTickets()
-    })
-}
+    await axiosInstanceForTicket
+      .patch("ticket/assignUser", {
+        ticketId: ticketId,
+        employeeId: assignedUser,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          showSuccessToast(response.data.message);
+          setShowStatusCard(false);
+        }
+      })
+      .catch((error) => {
+        showErrorToast(error.message);
+        console.log(error);
+      })
+      .finally(() => {
+        setAssignedUser(null);
+        fetchTickets();
+      });
+  };
 
   return (
     <div>
@@ -332,20 +356,29 @@ const AssignTicketsTable = () => {
               <Input
                 placeholder="Title"
                 value={newTicketData.title}
-                onChange={(e) => setNewTicketData({ ...newTicketData, title: e.target.value })}
-                style={{ marginBottom:"5px" }}
+                onChange={(e) =>
+                  setNewTicketData({ ...newTicketData, title: e.target.value })
+                }
+                style={{ marginBottom: "5px" }}
               />
               <Input.TextArea
                 placeholder="Description"
                 value={newTicketData.description}
-                onChange={(e) => setNewTicketData({ ...newTicketData, description: e.target.value })}
-                style={{ marginBottom:"5px" }}
+                onChange={(e) =>
+                  setNewTicketData({
+                    ...newTicketData,
+                    description: e.target.value,
+                  })
+                }
+                style={{ marginBottom: "5px" }}
               />
               <Select
                 placeholder="Select Priority"
-                style={{ width: "auto", marginBottom:"5px" }}
+                style={{ width: "auto", marginBottom: "5px" }}
                 value={newTicketData.priority || undefined}
-                onChange={(value) => setNewTicketData({ ...newTicketData, priority: value })}
+                onChange={(value) =>
+                  setNewTicketData({ ...newTicketData, priority: value })
+                }
               >
                 {priorities.map((priority) => (
                   <Select.Option key={priority} value={priority}>
@@ -355,7 +388,13 @@ const AssignTicketsTable = () => {
               </Select>
             </div>
             <div>
-              <Button style={{ margin:"5px 5px 20px 0" }} type="primary" onClick={handleCreateTicket}>Submit</Button>
+              <Button
+                style={{ margin: "5px 5px 20px 0" }}
+                type="primary"
+                onClick={handleCreateTicket}
+              >
+                Submit
+              </Button>
               <Button onClick={() => setShowUserList(false)}>Cancel</Button>
             </div>
           </div>
@@ -366,7 +405,7 @@ const AssignTicketsTable = () => {
       </div>
 
       {/* Render the modal if showStatusCard is true */}
-      {showStatusCard && <Modal/>}
+      {showStatusCard && <Modal />}
     </div>
   );
 };

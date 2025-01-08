@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Form, Input, Button } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
-import axiosInstance from "../../../AxiosConfig";
+import { axiosInstance } from "../../../AxiosConfig";
 import Swal from "sweetalert2";
 
 const CreateWati = () => {
@@ -54,8 +54,7 @@ const CreateWati = () => {
           title: "Wati Updated!",
           text: "The Wati configuration has been updated successfully.",
         });
-        console.log("responce",response);
-        
+        console.log("responce", response);
       } else {
         // Create new Wati configuration
         const response = await axiosInstance.post("/wati", payload);
@@ -64,7 +63,7 @@ const CreateWati = () => {
           title: "Wati Created!",
           text: "The Wati configuration has been created successfully.",
         });
-        console.log("responce",response);
+        console.log("responce", response);
       }
 
       navigate("/admin/watiList");
@@ -74,7 +73,9 @@ const CreateWati = () => {
       Swal.fire({
         icon: "error",
         title: "Error!",
-        text: `Failed to ${watiId ? "update" : "create"} Wati configuration. Please try again.`,
+        text: `Failed to ${
+          watiId ? "update" : "create"
+        } Wati configuration. Please try again.`,
       });
     }
   };
@@ -111,7 +112,9 @@ const CreateWati = () => {
               <Form.Item
                 label="API Key"
                 name="apiKey"
-                rules={[{ required: true, message: "Please enter an API Key!" }]}
+                rules={[
+                  { required: true, message: "Please enter an API Key!" },
+                ]}
               >
                 <Input placeholder="Enter API Key" />
               </Form.Item>

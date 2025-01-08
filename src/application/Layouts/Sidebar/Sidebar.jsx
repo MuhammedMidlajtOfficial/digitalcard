@@ -13,7 +13,7 @@ import {
 } from "react-icons/fi";
 import Swal from "sweetalert2";
 import { RiFolderChartFill } from "react-icons/ri";
-import { TbCalendarUp, TbCashBanknote, TbReportMedical } from "react-icons/tb";
+import { TbCalendarUp, TbCashBanknote, TbLogs, TbReportMedical } from "react-icons/tb";
 import { FaChartLine, FaWhatsapp } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { IoMenu } from "react-icons/io5";
@@ -1108,6 +1108,18 @@ function SidebarApplication() {
                   }`}
                 >
                   <FaWhatsapp className="sidebar-icon" /> Wati List
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/admin/logView"
+                  className={`nav-link ${
+                    location.pathname === "/admin/logview"
+                      ? "active-nav-links"
+                      : ""
+                  }`}
+                >
+                  <TbLogs className="sidebar-icon" /> View Logs
                 </Link>
               </li>
               <div className="line-dashed"></div>

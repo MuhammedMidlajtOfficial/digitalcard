@@ -8,7 +8,7 @@ import {
     ResponsiveContainer,
     Tooltip,
 } from "recharts";
-import axiosInstance from "../../../../AxiosConfig";
+import {axiosInstance} from "../../../../AxiosConfig";
 
 const ReferralGraph = () => {
     const [referralData, setReferralData] = useState([]);

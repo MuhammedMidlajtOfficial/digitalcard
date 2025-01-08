@@ -8,7 +8,7 @@ import { RxGrid } from "react-icons/rx";
 import { LuMenu } from "react-icons/lu";
 import { EnterpriseListUsers } from "./EnterpriseListUsers";
 import { useLoading } from "../../../Services/loadingService";
-import axiosInstance from "../../../../AxiosConfig";
+import { axiosInstance } from "../../../../AxiosConfig";
 import { UserOutlined } from "@ant-design/icons";
 
 const EnterpriseUsers = () => {
@@ -23,19 +23,19 @@ const EnterpriseUsers = () => {
   const [isTableView, setIsTableView] = useState(false);
 
   const fetchUsers = () => {
-    console.log('hereeeeeee');
+    console.log("hereeeeeee");
     startLoading();
     axiosInstance
       .get(`user/getEnterpriseUser`, {
         params: {
           page: currentPage,
           pageSize,
-          sortOrder, 
+          sortOrder,
           search: searchTerm,
         },
       })
       .then((response) => {
-        console.log('response-',response);
+        console.log("response-", response);
         setUsers(response.data.users); // Update with users array from response
         setTotalUsers(response.data.totalCount); // Update total users count
         stopLoading();
@@ -85,7 +85,9 @@ const EnterpriseUsers = () => {
           <h4>{employeeCount} Employees</h4>
           <button
             onClick={() =>
-              navigate(`/admin/usermanagement/entepriseusers/companyusers/${user._id}`)
+              navigate(
+                `/admin/usermanagement/entepriseusers/companyusers/${user._id}`
+              )
             }
             className="mt-2"
           >
@@ -99,7 +101,7 @@ const EnterpriseUsers = () => {
   // Handle page and page size change for pagination
   const handlePageChange = (page, size) => {
     setCurrentPage(page);
-    setPageSize(size);  // Update page size when user navigates to a different page
+    setPageSize(size); // Update page size when user navigates to a different page
   };
 
   return (

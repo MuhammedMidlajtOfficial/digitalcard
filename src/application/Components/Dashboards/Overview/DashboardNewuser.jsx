@@ -3,7 +3,7 @@ import { Avatar, DatePicker } from "antd";
 import DashboardMembers from "./DashboardMembers";
 import DashboardUsersplans from "./DashboardUsersplans";
 import dayjs from "dayjs";
-import axiosInstance from "../../../../AxiosConfig";
+import {axiosInstance} from "../../../../AxiosConfig";
 
 const UserSection = ({ avatar, name, role, status, roleColor }) => (
   <div className="d-flex gap-3 mb-4 new-user-section align-items-center">

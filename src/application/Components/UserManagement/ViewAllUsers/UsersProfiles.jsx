@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Pagination, Spin, Avatar, Dropdown, Menu } from "antd";
-import axiosInstance from "../../../../AxiosConfig";
+import { axiosInstance } from "../../../../AxiosConfig";
 import { useNavigate } from "react-router-dom";
 import { FiFilter, FiSearch } from "react-icons/fi";
 import { FaPlus } from "react-icons/fa6";
@@ -251,7 +251,7 @@ const UsersProfiles = ({ setChange }) => {
       ) : isTableView ? (
         <AllUsersTableList
           allUser={allUser}
-          filter={filter}
+          filter={activeFilter}
           currentPage={currentPage}
           pageSize={pageSize}
           totalUsers={totalUsers}

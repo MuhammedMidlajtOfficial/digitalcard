@@ -1,25 +1,29 @@
-
 import React, { useEffect, useState } from "react";
 import { FiUser } from "react-icons/fi";
 import { LuCalendar, LuVideo } from "react-icons/lu";
-import axiosInstance from "../../../../AxiosConfig";
+import { axiosInstance } from "../../../../AxiosConfig";
 
 const EnterpriseCards = () => {
-  const [enterpriseUserCount, setEnterpriseUserCount] =  useState(0)
-  const [activeEnterpriseUsersCount, setActiveEnterpriseUsersCount] =  useState(0)
-  const [thisMonthEnterpriseUsersCount, setThisMonthEnterpriseUsersCount] =  useState(0)
+  const [enterpriseUserCount, setEnterpriseUserCount] = useState(0);
+  const [activeEnterpriseUsersCount, setActiveEnterpriseUsersCount] =
+    useState(0);
+  const [thisMonthEnterpriseUsersCount, setThisMonthEnterpriseUsersCount] =
+    useState(0);
 
   useEffect(() => {
     // getCountIndividualUsers
-    axiosInstance.get('user/getEnterpriseUserCount')
-      .then((response)=>{
-        setEnterpriseUserCount(response.data.EnterpriseUserCount)
-        setActiveEnterpriseUsersCount(response.data.activeEnterpriseUsersCount)
-        setThisMonthEnterpriseUsersCount(response.data.thisMonthEnterpriseUsersCount)
+    axiosInstance
+      .get("user/getEnterpriseUserCount")
+      .then((response) => {
+        setEnterpriseUserCount(response.data.EnterpriseUserCount);
+        setActiveEnterpriseUsersCount(response.data.activeEnterpriseUsersCount);
+        setThisMonthEnterpriseUsersCount(
+          response.data.thisMonthEnterpriseUsersCount
+        );
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-    });
+      });
   }, []);
 
   const formatNumber = (num) => {
