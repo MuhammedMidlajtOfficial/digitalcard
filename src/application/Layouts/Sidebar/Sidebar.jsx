@@ -20,7 +20,7 @@ import { IoMenu } from "react-icons/io5";
 import { CiBullhorn } from "react-icons/ci";
 import { MdOutlineFeedback, MdOutlineContactPage } from "react-icons/md";
 import { LuScanFace, LuTicket } from "react-icons/lu";
-
+import { GrConfigure } from "react-icons/gr";
 import { GoBell } from "react-icons/go";
 
 function SidebarApplication() {
@@ -1108,6 +1108,18 @@ function SidebarApplication() {
                   }`}
                 >
                   <FaWhatsapp className="sidebar-icon" /> Wati List
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/admin/AllConfigurationList"
+                  className={`nav-link ${
+                    location.pathname === "/admin/AllConfigurationList"
+                      ? "active-nav-links"
+                      : ""
+                  }`}
+                >
+                  <GrConfigure  className="sidebar-icon" /> All Configuration
                 </Link>
               </li>
               <div className="line-dashed"></div>
