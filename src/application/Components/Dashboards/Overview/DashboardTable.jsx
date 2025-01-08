@@ -4,7 +4,7 @@ import { Dropdown, Menu, Table, Avatar } from "antd";
 // import { TbArrowsDownUp } from "react-icons/tb";
 import image1 from "../../../Assets/Images/admin.png";
 import { FiFilter } from "react-icons/fi";
-import axiosInstance from "../../../../AxiosConfig";
+import {axiosInstance} from "../../../../AxiosConfig";
 
 export const DashboardTable = () => {
   const [filter, setFilter] = useState('individualUsers');
@@ -14,6 +14,7 @@ export const DashboardTable = () => {
     console.log('filter',filter);
     axiosInstance.get(`dashboard/getRecentRegister/${filter}`)
     .then((response)=>{
+      console.log("response.data.recentUsers",response.data.recentUsers);
       
       setRecentUser(response.data.recentUsers)
       // console.log('recentUser--',response);
