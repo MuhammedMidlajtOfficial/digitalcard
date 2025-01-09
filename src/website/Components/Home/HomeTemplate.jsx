@@ -70,16 +70,14 @@ const HomeTemplate = () => {
           <button
             className="explore-button"
             onClick={() =>
-              window.open(
-                "https://play.google.com/store/apps",
-                "_blank"
-              )
+              window.open("https://play.google.com/store/apps", "_blank")
             }
           >
             Create Own Design
           </button>
           <button
             className="learn-more-btn"
+            style={{ display: "flex", alignItems: "center", gap: "4px" }}
             onClick={() => navigate("/resources")}
           >
             Browse all Templates <FaArrowRight />

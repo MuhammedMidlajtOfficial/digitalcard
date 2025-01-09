@@ -166,7 +166,7 @@ const Header = () => {
                 </button>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <div className="header-btn-links">
-                  <Link to="/contact"><FaPhone style={{fontSize:"16px"}}/> Book Demo</Link>
+                  <Link className="header-contact-links" to="/contact"><FaPhone style={{fontSize:"16px", color:"blue"}}/> Book Demo</Link>
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <Link to="/"><FaRegUserCircle style={{fontSize:"30px", color:"var(--black-text-color"}}/></Link>
                 </div>
