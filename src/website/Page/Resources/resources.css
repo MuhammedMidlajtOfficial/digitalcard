@@ -1,7 +1,7 @@
 
 .resources-banner-section {
   padding: 20px 0;
-  background: var(--black-text-color);
+  background: linear-gradient(90deg, #D7E8FF 0%, #83b7ff 50%);
 }
 
 .resources-banner-section h2 {

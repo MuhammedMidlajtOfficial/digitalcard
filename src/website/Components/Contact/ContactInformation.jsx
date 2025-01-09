@@ -1,7 +1,7 @@
 import React from "react";
-import email from "../../Assets/image/contact/contact-email.png";
-import whatsapp from "../../Assets/image/contact/contact-whatsapp.png";
-import location from "../../Assets/image/contact/contact-location.png";
+import email from "../../Assets/image/contact/contact-email.svg";
+import whatsapp from "../../Assets/image/contact/contact-whatsapp.svg";
+import location from "../../Assets/image/contact/contact-location.svg";
 import { Form, Input, Button, Checkbox } from "antd";
 import { IoArrowForward } from "react-icons/io5";
 import ScrollAnimation from "../../../ScrollAnimation"; // Adjust path if necessary
@@ -93,7 +93,7 @@ const ContactInformation = () => {
                 <Input placeholder="Enter your Email address" />
               </Form.Item>
 
-              <Form.Item name="phnNumber" label="Phone Number">
+              <Form.Item name="phoneNumber" label="Phone Number">
                 <Input placeholder="Enter your Phone No" />
               </Form.Item>
 

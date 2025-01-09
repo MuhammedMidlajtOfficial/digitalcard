@@ -1,6 +1,6 @@
 .pricing-banner-section {
   padding: 100px 0;
-  background-image: url("../../Assets/image/pricing/pricing-hero-section.png");
+  background-image: url("../../Assets/image/home/features-banner.png");
   background-position: center;
   height: 200px;
   background-size: cover;
@@ -79,15 +79,15 @@
 
 .pricing-plan-section {
   padding: 40px 0;
-  background: linear-gradient(to bottom, #fff, #468EF0 50%, #fff);
+  background: linear-gradient(90deg, #D7E8FF 0%, #83b7ff 50%);
 }
 
 .pricing-plan-section h1 {
   text-align: center;
-  color: var(--text-color);
+  color: var(--white-color);
   margin-bottom: 20px;
-  font-size: 30px;
-  font-weight: 800;
+  font-size: 35px;
+  font-weight: 900;
   letter-spacing: -0.1px;
 }
 
@@ -145,6 +145,7 @@
 .pricing-card h2 {
   font-size: 24px;
   color: var(--text-color);
+  margin-top: 40px;
   font-weight: 800;
   letter-spacing: -0.1px;
 }
@@ -201,7 +202,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   position: absolute;
-  bottom: 20px;
+  bottom: 10px;
   left: 10px;
   right: 10px;
 }
@@ -465,12 +466,12 @@ textarea {
   font-size: 24px;
   font-weight: 700;
   letter-spacing: -0.2px;
-  color: var(--white-color);
+  color: var(--text-color);
   margin-bottom: 20px;
 }
 
 .feature-description p {
-  color: var(--white-color);
+  color: var(--text-color);
   margin-bottom: 20px;
   font-size: 16px;
   font-weight: 500;
@@ -574,8 +575,4 @@ textarea {
   .action-line {
     display: none;
   }
-}
-.check-blue-icon{
-  color: var(--gradient-start-color);
-  font-size: 16px;
 }
