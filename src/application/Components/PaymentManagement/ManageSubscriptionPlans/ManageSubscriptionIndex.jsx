@@ -3,7 +3,7 @@ import { GiCheckMark } from "react-icons/gi";
 import { FaPlus } from "react-icons/fa6";
 import CreateSubscriptionPlan from "./CreateSubscriptionPlan";
 import { useLoading } from "../../../Services/loadingService";
-import axiosInstance from "../../../../AxiosConfig";
+import {axiosInstance} from "../../../../AxiosConfig";
 import {
   showErrorToast,
   showSuccessToast,

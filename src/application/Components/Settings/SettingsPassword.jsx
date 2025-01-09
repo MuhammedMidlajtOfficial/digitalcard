@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Input } from "antd";
 import { MdOutlineLock } from "react-icons/md";
-import axiosInstance from "../../../AxiosConfig";
+import {axiosInstance} from "../../../AxiosConfig";
 import { showErrorToast, showSuccessToast } from "../../Services/toastService";
 
 export const SettingsPassword = () => {

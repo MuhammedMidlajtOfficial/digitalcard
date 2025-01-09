@@ -8,7 +8,7 @@ import { LuEye } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { UserOutlined } from "@ant-design/icons";
-import axiosInstance from "../../../../AxiosConfig";
+import {axiosInstance} from "../../../../AxiosConfig";
 import { Option } from "antd/es/mentions";
 import { showErrorToast, showSuccessToast } from "../../../Services/toastService";
 

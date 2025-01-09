@@ -1,77 +1,55 @@
-import React, { useState } from "react";
-import { Radio } from "antd"; 
-
-const pricingPlansData = {
-  individual: [
-    {
-      name: "Silver Plan",
-      monthlyPrice: "777",
-      yearlyPrice: "777",
-      perMonth: "per month",
-      features: ["Essentials for Personal Contact Management."],
-      buttonText: "Get Started",
-    },
-    {
-      name: "Gold Plan",
-      monthlyPrice: "999",
-      yearlyPrice: "999",
-      perMonth: "per month",
-      popular: true,
-      features: [
-        "Premium Features for Enhanced Networking.",
-      ],
-      buttonText: "Try Now",
-    },
-    {
-      name: "Contact Sales",
-      monthlyPrice: "0",
-      yearlyPrice: "0",
-      perMonth: "per month",
-      features: ["Custom Solutions for Unique Needs."],
-      buttonText: "Choose Enterprise",
-    },
-  ],
-  enterprise: [
-    {
-      name: "Silver Plan",
-      monthlyPrice: "1,777",
-      yearlyPrice: "1,777",
-      perMonth: "per year",
-      features: ["Comprehensive Tools for Small Teams."],
-      buttonText: "Get Started",
-    },
-    {
-      name: "Gold Plan",
-      monthlyPrice: "1,999",
-      yearlyPrice: "1,999",
-      perMonth: "per year",
-      popular: true,
-      features: [
-        "Advanced Capabilities for Large Teams.",
-      ],
-      buttonText: "Try Now",
-    },
-    {
-      name: "Contact Sales",
-      monthlyPrice: "0",
-      yearlyPrice: "0",
-      perMonth: "per year",
-      features: ["Enterprise Custom Solutions."],
-      buttonText: "Choose Enterprise",
-    },
-  ],
-};
+import React, { useEffect, useState } from "react";
+import { Radio } from "antd";
+import { axiosInstance } from "../../../AxiosConfig";
+import { RiCheckboxCircleFill } from "react-icons/ri";
 
 const PricingPlans = () => {
   const [selectedView, setSelectedView] = useState("individual");
   const [billingCycle, setBillingCycle] = useState("monthly");
+  const [cards, setCards] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchSubscriptions = async () => {
+    try {
+      setIsLoading(true);
+      const response = await axiosInstance.get("subscription");
+      const formattedPlans = response.data.SubscriptionPlans.map((plan) => ({
+        ...plan,
+        price: plan.price?.$numberDecimal || plan.price,
+        features: Array.isArray(plan.features) ? plan.features : [],
+      }));
+      console.log("res", response);
+      setCards(formattedPlans);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching subscriptions:", error);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchSubscriptions();
+  }, []);
+
+  const filteredPlans = cards.filter((plan) => {
+    // Filter by billing cycle, type (selectedView), and active status
+    return (
+      plan.status === "active" && // Check if the plan is active
+      ((billingCycle === "monthly" && plan.duration === 30) ||
+        (billingCycle === "yearly" && plan.duration === 365)) &&
+      plan.type.toLowerCase() === selectedView
+    );
+  });
 
   return (
     <div className="pricing-plan-section">
       <div className="container">
         <h1>Diskuss Pricing Plans</h1>
         <p className="subtitles">
-        Explore affordable Diskuss pricing plans for individuals and enterprises. Enjoy flexible plans with features like team collaboration, analytics, and contact sharing. Start your free trial today.
+          Explore affordable Diskuss pricing plans for individuals and
+          enterprises. Enjoy flexible plans with features like team
+          collaboration, analytics, and contact sharing. Start your free trial
+          today.
         </p>
         <div className="price-button-group">
           <button
@@ -101,35 +79,48 @@ const PricingPlans = () => {
         </Radio.Group>
 
         <div className="pricing-cards">
-          {pricingPlansData[selectedView].map((plan, index) => (
-            <div
-              key={index}
-              className={`pricing-card ${plan.popular ? "popular" : ""}`}
-            >
-              {plan.popular && <div className="popular-tag">Most Popular</div>}
-              <center>
-                <h2>{plan.name}</h2>
-                <div className="price">
-                  &#8377;{" "}
-                  {billingCycle === "monthly"
-                    ? plan.monthlyPrice
-                    : plan.yearlyPrice}
-                </div>
-                <div className="per-month">
-                  {billingCycle === "monthly" ? "per month" : "per year"}
-                </div>
-                <h3>1 User</h3>
-              </center>
-              <ul>
-                {plan.features.map((feature, i) => (
-                  <li key={i}>{feature}</li>
-                ))}
-              </ul>
-              <center>
-                <button>{plan.buttonText}</button>
-              </center>
+          {filteredPlans.length > 0 ? (
+            filteredPlans.map((plan, index) => (
+              <div
+                key={index}
+                className={`pricing-card ${plan.popular ? "popular" : ""}`}
+              >
+                {plan.popular && (
+                  <div className="popular-tag">Most Popular</div>
+                )}
+                <center>
+                  <h2>{plan.name}</h2>
+                  <div className="price">&#8377; {plan.price}</div>
+                  <div style={{ fontSize: "14px" }}>
+                    {plan.type === "Enterprise"
+                      ? plan.duration === 365
+                        ? "per year / per user / inclusive GST"
+                        : "per month / per user / inclusive GST"
+                      : plan.duration === 365
+                      ? "per year / inclusive GST"
+                      : "per month / inclusive GST"}
+                  </div>
+                </center>
+                <ul className="mt-2">
+                  {plan.features.map((feature, i) => (
+                    <li key={i} className="plans-item">
+                      <div className="d-flex align-items-center gap-2">
+                        <RiCheckboxCircleFill className="check-blue-icon" />
+                        <span className="feature-text">{feature}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <center>
+                  <button>Get Started</button>
+                </center>
+              </div>
+            ))
+          ) : (
+            <div>
+              No plans are available for the selected billing cycle and type.
             </div>
-          ))}
+          )}
         </div>
       </div>
     </div>

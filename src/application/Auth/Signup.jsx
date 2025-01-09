@@ -3,7 +3,7 @@ import "./auth.css";
 import login from "../Assets/Images/loginbackground.png";
 import { Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
-import Instance from "../../../src/AxiosConfig";
+import  { axiosInstance } from "../../../src/AxiosConfig";
 import { showSuccessMessage, showErrorMessage } from "../../../src/globalConstant";
 
 
@@ -20,7 +20,7 @@ const Signup = () => {
         showErrorMessage("Please enter an email.");
         return;
       }
-      const response = await Instance.post(
+      const response = await axiosInstance.post(
         "/individual/sendotp",
         { email },
         {
@@ -45,7 +45,7 @@ const onFinish = async (values) => {
   const { email, username, password, otp } = values;
 
   try {
-    const response = await Instance.post(
+    const response = await axiosInstance.post(
       "/individual/signup",
       { email, username, password, otp },
       {

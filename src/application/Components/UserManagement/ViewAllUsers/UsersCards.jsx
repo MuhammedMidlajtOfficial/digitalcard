@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FiUser, FiUserCheck, FiUsers } from "react-icons/fi";
-import axiosInstance from "../../../../AxiosConfig";
+import { axiosInstance } from "../../../../AxiosConfig";
 import { LuUsersRound } from "react-icons/lu";
 import { PiUsersFour } from "react-icons/pi";
 
@@ -110,6 +110,7 @@ const UsersCards = ({ change, activeFilter, setActiveFilter }) => {
                     activeFilter === key && index < 3 ? bgColor : "#f0f0f0",
                   color:
                     activeFilter === key && index < 3 ? textColor : "#000000",
+                    cursor:"pointer"
                 }}
                 onClick={() => handleCardClick(key, index)}
               >

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FiUsers, FiUser, FiUserCheck } from "react-icons/fi";
-import axiosInstance from "../../../../AxiosConfig";
+import {axiosInstance} from "../../../../AxiosConfig";
 
 const UserStaticCards = () => {
   const [individialUserCount, setIndividialUserCount] =  useState('')
