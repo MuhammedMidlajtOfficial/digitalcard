@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import image1 from "../../Assets/image/home/howitworks1.png"
-import image2 from "../../Assets/image/home/howitworks2.png"
-import image3 from "../../Assets/image/home/howitworks3.png"
-import image4 from "../../Assets/image/home/howitworks4.png"
+import image1 from "../../Assets/image/home/howitworks1.svg"
+import image2 from "../../Assets/image/home/howitworks2.svg"
+import image3 from "../../Assets/image/home/howitworks3.svg"
+import image4 from "../../Assets/image/home/howitworks4.svg"
 
 const cardsData = [
   { id: 1, title: "Download Diskuss app", subtext: "Download the Diskuss app", videoSrc: "video1.mp4",bgImage:image1 },
@@ -12,7 +12,7 @@ const cardsData = [
 ];
 
 const HowItWorks = () => {
-  const [hoveredCard, setHoveredCard] = useState(null);
+  const [hoveredCard, setHoveredCard] = useState("");
 
   return (
     <div className="how-it-works-container">
@@ -35,20 +35,18 @@ const HowItWorks = () => {
               backgroundImage: `url(${card.bgImage})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
+              padding:"0 15px"
             }}
             
             onMouseEnter={() => setHoveredCard(index)}
             onMouseLeave={() => setHoveredCard(null)}
           >
-             <div
-                    className="work-card-video"
-                   
-                  >
-              <video src={card.videoSrc} muted loop />
-              <div className="work-play-button">▶</div>
+             <div className="work-card-video">
+              {/* <video src={card.videoSrc} muted loop />
+              <div className="work-play-button">▶</div> */}
             </div>
-            <h4 className="work-card-title">{card.title}</h4>
-            <p className={`work-card-subtext ${hoveredCard === index ? "visible" : ""}`}>{card.subtext}</p>
+            {/* <h4 className="work-card-title">{card.title}</h4>
+            <p className={`work-card-subtext ${hoveredCard === index ? "visible" : ""}`}>{card.subtext}</p> */}
           </div>
         ))}
       </div>

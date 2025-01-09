@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import individual from '../../Assets/image/home/individual-benefit.png';
-import enterprise from '../../Assets/image/home/enterprize-benefit.png';
+import individual from '../../Assets/image/home/individual-benefit.svg';
+import enterprise from '../../Assets/image/home/enterprize-benefit.svg';
 import ind from "../../Assets/image/home/Icons/ind.svg";
 import ent from "../../Assets/image/home/Icons/ent.svg";
 import ScrollAnimation from '../../../ScrollAnimation';
