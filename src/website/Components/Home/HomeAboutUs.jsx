@@ -44,7 +44,7 @@ const HomeAboutUs = () => {
             </div>
             <h1>Effortless Contact Management, Reimagined.<br /></h1>
             <p>Diskuss transforms the way you handle communication by replacing the traditional phone dial pad with a smarter, more efficient solution. It’s your go-to app for managing calls, organizing contacts, and staying on top of follow-ups—all in one seamless platform.</p>
-            <ul>
+            <ul className="about-us-tag-ul">
               <li><span>Seamlessly Manage Calls:</span> Organize and handle all your calls with ease, ensuring efficient communication.</li>
               <li><span>Streamline Contacts:</span>Simplify contact organization and access, saving time and reducing clutter.</li>
               <li><span>Enhance Follow-Ups:</span>Stay on top of your conversations with powerful follow-up tools to nurture relationships.</li>
