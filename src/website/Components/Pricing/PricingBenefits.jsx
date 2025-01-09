@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import individual from "../../Assets/image/pricing/pricing-keybenefits.png";
-import enterprise from "../../Assets/image/pricing/pricing-keybenefits.png";
+import individual from "../../Assets/image/pricing/pricing-keybenefits.svg";
+import enterprise from "../../Assets/image/pricing/pricing-keybenefits.svg";
 import ScrollAnimation from "../../../ScrollAnimation";
 import { FaCheckCircle } from "react-icons/fa";
 
@@ -49,7 +49,12 @@ const PricingBenefits = () => {
                   <li><FaCheckCircle /> Analytics on contact engagement.</li>
                   <li><FaCheckCircle /> Easy sharing with customizable formats.</li>
                 </ul>
-                <button className="get-started-benefit-btn">Get Started</button>
+                <button className="get-started-benefit-btn"  onClick={() =>
+              window.open(
+                "https://play.google.com/store/apps",
+                "_blank"
+              )
+            }>Get Started</button>
               </div>
             </ScrollAnimation>
             <ScrollAnimation animationClass="animate__fadeInUp" className="col-lg-6">
@@ -83,7 +88,12 @@ const PricingBenefits = () => {
                   <li><FaCheckCircle /> Role-based access for enhanced security.</li>
                   <li><FaCheckCircle /> Scalable solutions for large teams.</li>
                 </ul>
-                <button className="get-started-benefit-btn">Learn More</button>
+                <button className="get-started-benefit-btn"   onClick={() =>
+              window.open(
+                "https://play.google.com/store/apps",
+                "_blank"
+              )
+            }>Learn More</button>
               </div>
             </ScrollAnimation>
           </div>

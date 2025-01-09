@@ -1,5 +1,5 @@
 import React from "react";
-import homeBanner from "../../Assets/image/home/home-banner2.png";
+import homeBanner from "../../Assets/image/home/home-banner2.svg";
 import ScrollAnimation from "../../../ScrollAnimation";
 import { Avatar } from "antd";
 import user from "../../Assets/image/home/users/user.png";
@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 const HomeBanner = () => {
   const navigate=useNavigate();
   return (
-    <div className="banner-container">
+    <div className="banner-container"> 
       <div className="container">
         <div className="row">
           <div className="col-lg-5">
@@ -34,14 +34,14 @@ const HomeBanner = () => {
               Redefine the way you manage business contacts, connect seamlessly, and elevate your networking game. Your next big opportunity is just a tap away.
               </p>
               <div className="buttons">
-                <button className="btn btn-primary explore-button d-lg-inline-block">
+                {/* <button className="btn btn-primary explore-button d-lg-inline-block">
                   Watch Video
-                </button>
+                </button> */}
                 <button className="learn-more-btn" onClick={()=>navigate('/about-us')}>
                   Learn More
                 </button>
               </div>
-              <div
+              {/* <div
                 className="mt-4"
                 style={{ display: "flex", alignItems: "center" }}
               >
@@ -74,7 +74,7 @@ const HomeBanner = () => {
                     users around the globe
                   </span>
                 </p>
-              </div>
+              </div> */}
             </ScrollAnimation>
           </div>
         </div>

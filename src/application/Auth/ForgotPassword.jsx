@@ -3,7 +3,7 @@ import "./auth.css";
 import login from "../Assets/Images/loginbackground.png";
 import { Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
-import Instance from "../../../src/AxiosConfig";
+import { axiosInstance } from "../../../src/AxiosConfig";
 import {
   showSuccessMessage,
   showErrorMessage,
@@ -22,7 +22,7 @@ const ForgotPassword = () => {
         return;
       }
       setLoading(true)
-      const response = await Instance.post(
+      const response = await axiosInstance.post(
         "adminAuth/forgotPassword/request-otp",
         { email }
       );

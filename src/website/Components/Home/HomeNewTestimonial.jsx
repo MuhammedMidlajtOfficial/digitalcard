@@ -24,13 +24,13 @@ const testimonials = [
   },
   {
     image: home3,
-    text: "The real-time updates and analytics have given us incredible insights into our networking efforts. Diskuss is a game-changer!",
+    text: "Managing my contacts has never been this easy! Diskuss helps me stay organized, saving time and ensuring I never lose track of important clients.",
     name: "Manesh C",
     role: "Taxation & Audit",
   },
   {
     image: home4,
-    text: "Diskuss has completely changed the way I manage my contacts. Its so easy to use, and the integration with my CRM is seamless.",
+    text: "Diskuss has made organizing contacts and events a breeze. It saves us time and enhances collaboration with clients effortlessly.",
     name: "Vanitha S",
     role: "Event Management",
   },

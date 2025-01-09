@@ -2,7 +2,7 @@ import React, { useState, useRef, } from "react";
 import { Form, Input, Radio, Row, Col, Card, Button } from "antd";
 import { TbEdit } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../../../../AxiosConfig";
+import { axiosInstance }from "../../../../AxiosConfig";
 import { useLoading } from "../../../Services/loadingService";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { showErrorToast, showInfoToast, showSuccessToast, showWarningToast } from "../../../Services/toastService";

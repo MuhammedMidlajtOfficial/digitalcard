@@ -9,6 +9,10 @@ const axiosInstance = axios.create({
     // baseURL: "https://diskuss-admin.onrender.com/api/v1/",
 });
 
+const logInstance = axios.create({
+  baseURL: "http://13.203.24.247:2000/api/v1/",
+});
+
 axiosInstance.interceptors.request.use(
     (config) => {
       const token = localStorage.getItem("token");  // Get token from localStorage
@@ -22,4 +26,4 @@ axiosInstance.interceptors.request.use(
     }
 );  
 
-export default axiosInstance;
+export  {axiosInstance,logInstance};
