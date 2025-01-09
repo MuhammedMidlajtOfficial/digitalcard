@@ -74,6 +74,9 @@
       var(--gradient-end-color));
   color: var(--white-color);
   font-weight: 600;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px;
   padding: 8px 12px;
   border-radius: 8px;
   font-size: 14px;
@@ -200,6 +203,8 @@
 
 .header-btn-links {
   margin-right: 12px;
+  display: flex !important;
+  align-items: center !important;
 }
 
 .display-mobile {
@@ -228,4 +233,8 @@
   .navbar-nav {
     margin: unset !important;
   }
+}
+.header-contact-links{
+  display: flex !important;
+  gap: 4px;
 }

@@ -77,7 +77,7 @@ const HomeNewTestimonial = () => {
                 <div>
                   <Rate disabled defaultValue={5} />
                 </div>
-                <p>4.5 / 5.0 rated on <img src={google} alt="" /> </p>
+                <p className="rating-image">4.5 / 5.0 rated on <img src={google} alt="" /> </p>
               </div>
               {/* <p className="mt-3">
                 3k <Link to="/" style={{textDecoration:"none"}}><span>Total User Reviews</span> <FaArrowRight /></Link>
