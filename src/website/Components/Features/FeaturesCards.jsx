@@ -1,8 +1,8 @@
 import React from 'react'
-import icon1 from "../../Assets/image/feature/icons/chip.png"
-import icon2 from "../../Assets/image/feature/icons/qrcode.png"
-import icon3 from "../../Assets/image/feature/icons/ios.png"
-import icon4 from "../../Assets/image/feature/icons/plugandplay.png"
+import icon1 from "../../Assets/image/feature/icons/chip.svg"
+import icon2 from "../../Assets/image/feature/icons/qrcode.svg"
+import icon3 from "../../Assets/image/feature/icons/ios.svg"
+import icon4 from "../../Assets/image/feature/icons/plugandplay.svg"
 import ScrollAnimation from '../../../ScrollAnimation'
 
 

@@ -1,0 +1,41 @@
+.delete-form-container {
+    border-radius: 10px;
+    padding: 30px;
+    background: linear-gradient(180deg, #c6ddf0, #fff,#40a1f1); 
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+
+  }
+  .delete-form-text h1 {
+    font-size: 24px;
+    color: var(--gradient-start-color);
+    font-weight: 700;
+  }
+  .delete-form-text h3 {
+    font-size: 18px;
+    color: var(--gradient-start-color);
+    font-weight: 700;
+  }
+  .delete-form-text p{
+    font-size: 14px;
+    color: var(--black-text-color);
+    font-weight: 200;
+  }
+  .delete-form-container h3 {
+    font-size: 16px;
+    color: var(--black-text-color);
+    font-weight: 600;
+  }
+  .delete-form-container h6 {
+    font-size: 16px;
+    color: var(--text-secondary-color);
+  }
+  .delete-form-container h4 {
+    font-size: 32px;
+    color: var(--white-color);
+    font-weight: 600;
+  }
+  .delete-form-container p {
+    font-size: 14px;
+    color: var(--black-text-color);
+    font-weight: 200;
+  }

@@ -25,7 +25,7 @@
 
 .about-who-we-are-section {
   padding: 40px 0;
-  background: linear-gradient(to bottom, #fff, #468EF0 50%, #fff);
+  background: linear-gradient(90deg, #D7E8FF 0%, #83b7ff 50%);
   
 
 }
@@ -118,7 +118,7 @@
 /* about-vision css */
 
 .about-vision-section {
-  background: linear-gradient(to bottom right, #D7E8FF 0%, #9AC5FF 80%, #2A84FF 100%);
+  background: linear-gradient(to bottom right, #fff, #98bef5 50%, #fff);
 
   padding: 50px 0;
 }
@@ -289,14 +289,14 @@
 
 .about-certification-section {
   padding: 40px 0 30px 0;
-  background: linear-gradient(to bottom, #fff, #468EF0 50%, #fff);
+  background: linear-gradient(to bottom right, #D7E8FF 0%, #9AC5FF 80%, #2A84FF 100%);
 }
 
 .about-certification-section h2 {
   font-size: 30px;
   font-weight: 800;
   letter-spacing: -0.1px;
-  color: var(--white-color);
+  color: var(--text-color);
   margin-bottom: 20px;
 }
 
@@ -304,7 +304,7 @@
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 40px;
-  color: var(--white-color);
+  color: var(--text-color);
 }
 
 .cert-card {
@@ -374,7 +374,7 @@
   font-size: 30px;
   font-weight: 800;
   letter-spacing: -0.1px;
-  color: var(--white-color);
+  color: var(--gradient-start-color);
   margin-bottom: 20px;
 }
 
@@ -383,7 +383,7 @@
   font-weight: 500;
   margin-bottom: 40px;
   letter-spacing: -0.1px;
-  color: var(--white-color);
+  color: var(--text-color);
 }
 
 .awards-container {
