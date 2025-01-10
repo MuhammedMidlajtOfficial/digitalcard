@@ -236,13 +236,13 @@ const UsersProfiles = ({ setChange }) => {
             className="d-flex align-items-center"
             onClick={handleGridViewToggle}
           >
-            <RxGrid />
+            <RxGrid className="table-card-list" />
           </div>
           <div
             className="d-flex align-items-center"
             onClick={handleTableViewToggle}
           >
-            <LuMenu />
+            <LuMenu className="table-data-list" />
           </div>
         </div>
       </div>
