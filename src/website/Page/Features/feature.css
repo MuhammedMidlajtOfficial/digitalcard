@@ -27,7 +27,8 @@
   text-align: center;
 }
 .features-image-container img {
-  width: 100%;
+  width: 50%;
+  height: 50%;
 }
 .features-cards-div {
   background-color: var(--features-black-color);
@@ -775,4 +776,5 @@ button {
 }
 .content ul li{
   color: var(--text-color);
+  list-style: disc;
 }
