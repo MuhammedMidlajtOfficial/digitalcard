@@ -7,7 +7,7 @@ import DashboardNewuser from "./DashboardNewuser";
 const Dashboards = () => {
   const [username, setUsername] = useState("");
   useEffect(() => {
-    const storedUsername = localStorage.getItem("UserName");
+    const storedUsername = sessionStorage.getItem("UserName");
     console.log("USER NAME", storedUsername)
     if (storedUsername) {
       setUsername(storedUsername);

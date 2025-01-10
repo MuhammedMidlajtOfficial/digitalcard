@@ -12,7 +12,7 @@ const ForgotPassword = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  //const loggedInUserInfo = JSON.parse(localStorage.getItem("loggedInUserInfo"));
+  //const loggedInUserInfo = JSON.parse(sessionStorage.getItem("loggedInUserInfo"));
 
   const sendOtp = async () => {
     try {
@@ -30,7 +30,7 @@ const ForgotPassword = () => {
       if (response.status === 200) {
         showSuccessMessage("OTP sent to your email.");
         sessionStorage.setItem("otpEmail",email)
-        navigate("/otp-verification",{ replace: true });
+        navigate("/otp-verification",{ state: { email } });
       } else {
         showErrorMessage(response.data.message || "Failed to send OTP.");
       }

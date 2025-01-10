@@ -15,7 +15,7 @@ const Resolved = () => {
   const fetchTickets = async () => {
     try {
       startLoading();
-      const userId = localStorage.getItem("userId");
+      const userId = sessionStorage.getItem("userId");
       let userData = {};
       await axiosInstance
         .get(`adminAuth/getSuperAdmin/${userId}`)

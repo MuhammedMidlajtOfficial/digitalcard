@@ -38,10 +38,14 @@
   border-radius: 8px;
   color: var(--white-color);
   font-size: 14px;
+  border: none;
+  outline: none; 
   font-weight: 400;
   letter-spacing: 0.5px;
 }
-
+.search-input:focus-within {
+  border: none;
+}
 .search-input:focus {
   outline: none;
 }
