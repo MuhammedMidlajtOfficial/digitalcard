@@ -217,6 +217,10 @@
   background-color: var(--white-color)!important;
   color: var(--gradient-start-color)!important;
 }
+.create-btn:hover{
+  background-color: var(--white-color)!important;
+  color: var(--gradient-start-color)!important;
+}
 
 
 .profile-icon-section button:hover,

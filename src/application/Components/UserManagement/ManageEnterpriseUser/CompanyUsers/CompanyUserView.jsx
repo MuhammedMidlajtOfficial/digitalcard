@@ -335,7 +335,7 @@ export default function CompanyUserView({ userId }) {
         {isLoading ? (
           <Spin />
         ) : selectedEmployee ? (
-          <div>
+          <div className="employee-details-modal">
             <img
               src={
                 selectedEmployee.image ||

@@ -6,6 +6,7 @@ import "react-international-phone/style.css";
 import {axiosInstance} from "../../../AxiosConfig";
 import { useNavigate } from "react-router-dom";
 import { showErrorToast, showSuccessToast } from "../../Services/toastService";
+import TextArea from "antd/es/input/TextArea";
 
 export const PersonalInformation = () => {
   const navigate = useNavigate();
@@ -219,7 +220,7 @@ export const PersonalInformation = () => {
                   { validator: validateWhitespace },
                 ]}
               >
-                <Input
+                <TextArea
                   placeholder="Enter Your Address"
                   onChange={(e) => setUserData({ ...userData, address: e.target.value })}
                 />
