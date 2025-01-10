@@ -116,11 +116,12 @@ const WatiList = () => {
       </div>
       <div className="d-flex mb-4 justify-content-between">
         <div className="search-container">
-          <FiSearch className="search-icon" />
+          <FiSearch className="search-icon-wati" />
           <input
             type="text"
             placeholder="Search..."
             value={searchTerm}
+            className="search-input-css"
             onChange={handleSearch}
           />
         </div>

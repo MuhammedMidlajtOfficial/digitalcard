@@ -100,6 +100,7 @@ const Login = () => {
                       <Checkbox onChange={handleRememberMeChange}>Remember</Checkbox>
                     </Form.Item>
                     <button
+                    type="button"
                       className="forgot-password-button"
                       onClick={() => navigate("/forgot-password")}
                     >
