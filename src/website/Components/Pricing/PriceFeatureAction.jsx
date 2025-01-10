@@ -20,18 +20,18 @@ const PriceFeatureAction = () => {
       description:
         "Diskuss makes it easy to keep your contacts organized. With customizable tags, detailed notes, and powerful search functionality, you will never lose track of an important connection.",
     },
-    {
-      icon: <FaRocketchat />,
-      title: "Seamless Integrations",
-      description:
-        "Diskuss integrates with popular CRM systems, email platforms, and other business tools, ensuring that your workflow remains uninterrupted and your data synchronized across platforms.",
-      highlighted: true,
-    },
+    // {
+    //   icon: <FaRocketchat />,
+    //   title: "Seamless Integrations",
+    //   description:
+    //     "Diskuss integrates with popular CRM systems, email platforms, and other business tools, ensuring that your workflow remains uninterrupted and your data synchronized across platforms.",
+    //   highlighted: true,
+    // },
     {
       icon: <FaBarsProgress />,
-      title: "Real-time Analytics",
+      title: "Advanced Analytics & Reporting",
       description:
-        "Monitor how your digital business cards are performing with detailed analytics. See how many times your card was viewed, shared, and saved, helping you optimize your networking efforts.",
+        "Diskuss offers analytics and reporting to help you understand contact engagement and interaction trends. Use data-driven insights to optimize your networking strategies, from individual interactions to team performance overviews.",
     },
     {
       icon: <FaSlideshare />,
@@ -41,9 +41,9 @@ const PriceFeatureAction = () => {
     },
     {
       icon: <FaListCheck />,
-      title: "Customizable Business Cards",
+      title: "Secure Data and Privacy Controls",
       description:
-        "Your brand, your style. Diskuss offers a range of templates that you can customize with your brand colors, logo, and personal details to create a digital business card that stands out.",
+        "Diskuss prioritizes data privacy with industry-standard encryption and access controls, ensuring that your information is stored securely. Role-based access and granular privacy settings make it easy to manage who sees what, giving you peace of mind"
     },
   ];
 
@@ -75,7 +75,7 @@ const PriceFeatureAction = () => {
                         decision-making
                       </li>
                       <li>
-                        <FaExplosion /> &nbsp; Robust Data Security Measures
+                        <FaExplosion /> &nbsp; Secure Data and Privacy Controls
                       </li>
                     </ul>
                   </div>

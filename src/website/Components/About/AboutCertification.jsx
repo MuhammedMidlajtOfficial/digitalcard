@@ -50,9 +50,9 @@ const AboutCertification = () => {
                   className="cert-icon"
                 />
                 <h5>{cert.title}</h5>
-                <a href={cert.link} className="view-certification">
+                {/* <a href={cert.link} className="view-certification">
                   View Certification <FaArrowRight />
-                </a>
+                </a> */}
               </div>
             </ScrollAnimation>
           ))}

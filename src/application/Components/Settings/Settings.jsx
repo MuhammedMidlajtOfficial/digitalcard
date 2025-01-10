@@ -26,7 +26,7 @@ export const Settings = () => {
     <div className="settings-section">
       <div>
         <div className="row mt-4">
-          <h2>Settings</h2>
+          <h2 className="mb-4">Settings</h2>
           <div className="col-lg-4">
             <div className="settings-options">
               <div

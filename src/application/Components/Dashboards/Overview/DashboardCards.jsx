@@ -2,83 +2,83 @@ import React, { useEffect, useState } from "react";
 import { FiUsers, FiUser, FiUserCheck } from "react-icons/fi";
 import { BsClipboardPlus, BsTicketPerforated } from "react-icons/bs";
 // import { LuUsers2 } from "react-icons/lu";
-import {axiosInstance} from "../../../../AxiosConfig";
+import { axiosInstance } from "../../../../AxiosConfig";
 
 const DashboardCards = () => {
-  const [individialUserCount, setIndividialUserCount] =  useState('')
-  const [enterpriseUserCount, setEnterpriseUserCount] =  useState('')
-  const [enterpriseEmployeeCount, setEnterpriseEmployeeCount] =  useState('')
-  const [cardCount, setCardCount] =  useState('')
-  const [newUsersCount, setNewUsersCount] =  useState('')
-  const [subscribedCount, setSubscribedCount] =  useState('')
-  const [failedPaymentCount, setFailedPaymentCount] =  useState('')
-  const [activeUsersCount, setActiveUsersCount] =  useState('')
+  const [individialUserCount, setIndividialUserCount] = useState('')
+  const [enterpriseUserCount, setEnterpriseUserCount] = useState('')
+  const [enterpriseEmployeeCount, setEnterpriseEmployeeCount] = useState('')
+  const [cardCount, setCardCount] = useState('')
+  const [newUsersCount, setNewUsersCount] = useState('')
+  const [subscribedCount, setSubscribedCount] = useState('')
+  const [failedPaymentCount, setFailedPaymentCount] = useState('')
+  const [activeUsersCount, setActiveUsersCount] = useState('')
 
   useEffect(() => {
     // getCountIndividualUsers
     axiosInstance.get('dashboard/getCountIndividualUsers')
-      .then((response)=>{
+      .then((response) => {
         setIndividialUserCount(response.data.user)
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-    });
+      });
     // getCountEnterpriseUsers
     axiosInstance.get('dashboard/getCountEnterpriseUsers')
-      .then((response)=>{
+      .then((response) => {
         setEnterpriseUserCount(response.data.user)
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-    });
+      });
     // getCountEnterpriseEmployee
     axiosInstance.get('dashboard/getCountEnterpriseEmployee')
-      .then((response)=>{
+      .then((response) => {
         setEnterpriseEmployeeCount(response.data.user)
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-    });
+      });
     // getTotalCards
     axiosInstance.get('dashboard/getTotalCards')
-      .then((response)=>{
+      .then((response) => {
         setCardCount(response.data.cardCount)
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-    });
+      });
     // getNewUsers
     axiosInstance.get('dashboard/getNewUsers')
-      .then((response)=>{
+      .then((response) => {
         setNewUsersCount(response.data.newUsers)
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-    });
+      });
     // getSubscribedUsers
     axiosInstance.get('dashboard/getSubscribedUsers')
-      .then((response)=>{
+      .then((response) => {
         setSubscribedCount(response.data.subscribedUsers)
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-    });
+      });
     // getFailedPayment
     axiosInstance.get('dashboard/getFailedPayment')
-      .then((response)=>{
+      .then((response) => {
         setFailedPaymentCount(response.data.failedPaymentCount)
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-    });
+      });
     // getActiveUsers
     axiosInstance.get('dashboard/getActiveUsers')
-      .then((response)=>{
+      .then((response) => {
         setActiveUsersCount(response.data.activeUsersCount)
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-    });
+      });
   }, []);
 
 
@@ -119,7 +119,7 @@ const DashboardCards = () => {
       textColor: "#ffffff",
     },
     {
-      icon: 'LuUsers2',
+      icon: FiUsers,
       title: "Subscribed Users",
       value: subscribedCount,
       bgColor: "#ffa8cd",

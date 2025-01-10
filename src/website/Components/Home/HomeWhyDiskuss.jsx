@@ -6,7 +6,7 @@ import {
   FaMedal,
   FaShieldAlt,
 } from "react-icons/fa";
-import starIcon from "../../Assets/image/home/Icons/star-icon.png"
+
 const HomeWhyDiskuss = () => {
   const stats = [
     { value: "5.6M+", label: "Downloads" },
@@ -55,7 +55,7 @@ const HomeWhyDiskuss = () => {
             </div>
             <div className="downloads-label mt-4">
               <h4>4.9 </h4>
-              <img src={starIcon} alt="" />
+              
               <h5>Ratings out of 5</h5>
             </div>
           </div>

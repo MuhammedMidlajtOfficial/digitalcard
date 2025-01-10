@@ -24,13 +24,13 @@ const testimonials = [
   },
   {
     image: home3,
-    text: "The real-time updates and analytics have given us incredible insights into our networking efforts. Diskuss is a game-changer!",
+    text: "Managing my contacts has never been this easy! Diskuss helps me stay organized, saving time and ensuring I never lose track of important clients.",
     name: "Manesh C",
     role: "Taxation & Audit",
   },
   {
     image: home4,
-    text: "Diskuss has completely changed the way I manage my contacts. Its so easy to use, and the integration with my CRM is seamless.",
+    text: "Diskuss has made organizing contacts and events a breeze. It saves us time and enhances collaboration with clients effortlessly.",
     name: "Vanitha S",
     role: "Event Management",
   },
@@ -77,7 +77,7 @@ const HomeNewTestimonial = () => {
                 <div>
                   <Rate disabled defaultValue={5} />
                 </div>
-                <p>4.5 / 5.0 rated on <img src={google} alt="" /> </p>
+                <p className="rating-image">4.5 / 5.0 rated on <img src={google} alt="" /> </p>
               </div>
               {/* <p className="mt-3">
                 3k <Link to="/" style={{textDecoration:"none"}}><span>Total User Reviews</span> <FaArrowRight /></Link>

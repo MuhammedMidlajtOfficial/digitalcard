@@ -1,5 +1,5 @@
 import React from "react";
-import who from "../../Assets/image/about/aboutus-image.png";
+import who from "../../Assets/image/about/aboutus-image.svg";
 import ScrollAnimation from "../../../ScrollAnimation";
 
 const AboutWhoWeAre = () => {
