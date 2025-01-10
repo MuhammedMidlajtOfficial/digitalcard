@@ -112,8 +112,8 @@ const OtpScreen = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-5 col-sm-12 col-md-12 login-left">
-            <h2 className="login-heading">Diskuss</h2>
-            <div className="login-card col-lg-12">
+            <h2 className="login-heading-forgot">Diskuss</h2>
+            <div className="login-card-forgot col-lg-12">
               <center>
                 <h2>OTP Verification</h2>
                 <p>Enter OTP Code sent to your email</p>
@@ -136,7 +136,7 @@ const OtpScreen = () => {
                 </Form.Item>
                 <div className="resend-info">
                   <p>
-                    Didn’t get OTP? <span>Resend in 30 seconds</span>
+                    Didn’t get OTP? 
                   </p>
                   <p className="resend-link">Resend Code</p>
                 </div>

@@ -489,3 +489,27 @@
   }
 }
 
+.search-icon-wati {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  margin-left: -5px;
+  font-size: 26px !important;
+  color: var(--text-secondary-color);
+}
+.search-container {
+  gap: 4px !important;
+  position: relative;
+}
+.search-input-css {
+  padding: 4px 24px;
+  background: transparent;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary-color);
+  letter-spacing: 0.5px;
+}
