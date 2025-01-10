@@ -35,9 +35,9 @@ const Login = () => {
       
         dispatch(setUser({ userType, username, category }));
         dispatch(setToken(accessToken,user._id));
-        localStorage.setItem("userId", user._id);
-        localStorage.setItem("UserName", username);
-        localStorage.setItem("refreshToken", refreshToken);
+        sessionStorage.setItem("userId", user._id);
+        sessionStorage.setItem("UserName", username);
+        sessionStorage.setItem("refreshToken", refreshToken);
 
         syncAuthState();
 

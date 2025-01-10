@@ -26,7 +26,7 @@ const OpenTicket = ({ ticketId }) => {
       return showErrorToast("Please add Description");
     } 
 
-    const userId = localStorage.getItem('userId');
+    const userId = sessionStorage.getItem('userId');
 
     // Update the replayBy field with the current user ID
     const submitBody = {

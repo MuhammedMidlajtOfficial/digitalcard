@@ -243,11 +243,7 @@ const CreateEmployee = () => {
                   />
                 </Form.Item>
               </div>
-            </div>
-          )}
-
-          <div className="row">
-            <div className="col-md-6 mb-1">
+              <div className="col-md-6 mb-1">
               <Form.Item
                 label="Phone Number"
                 name="phnNumber"
@@ -262,7 +258,8 @@ const CreateEmployee = () => {
                 <Input placeholder="Enter Phone Number" />
               </Form.Item>
             </div>
-          </div>
+            </div>
+          )}
 
           <div className="row mt-4">
             <div className="col-md-12 mb-1">
@@ -291,14 +288,6 @@ const CreateEmployee = () => {
 
                     <Checkbox value="manage-enterprise-user">
                       Manage Enterprise User
-                    </Checkbox>
-
-                    <Checkbox value="user-activity-reports">
-                      User Activity Reports
-                    </Checkbox>
-
-                    <Checkbox value="card-share-interaction">
-                      Card Share & Interaction
                     </Checkbox>
 
                     <Checkbox value="manage-subscription-plans">
