@@ -4,7 +4,7 @@ import login from "../Assets/Images/loginbackground.png";
 import { Form, Input } from "antd";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import Instance from "../../../src/AxiosConfig";
+import { axiosInstance } from "../../../src/AxiosConfig";
 import { showErrorToast } from "../Services/toastService";
 
 const ConfirmPassword = () => {
@@ -12,7 +12,7 @@ const ConfirmPassword = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  //const loggedInUserInfo = JSON.parse(localStorage.getItem("loggedInUserInfo"));
+  //const loggedInUserInfo = JSON.parse(sessionStorage.getItem("loggedInUserInfo"));
 
   const createPassword = async (values) => {
     const { newPassword, confirmPassword } = values;
@@ -26,7 +26,7 @@ const ConfirmPassword = () => {
     try {
       setLoading(true)
 
-      const response = await Instance.post(
+      const response = await axiosInstance.post(
         "adminAuth/forgotPassword/reset-password",
         { token, newPassword },
       );
@@ -80,7 +80,7 @@ const ConfirmPassword = () => {
                 form={form}
                 layout="vertical"
                 className="login-form"
-                onFinish={createPassword} // Pass createPassword directly to onFinish
+                onFinish={createPassword} 
               >
                 <div className="col-lg-12">
                 <Form.Item

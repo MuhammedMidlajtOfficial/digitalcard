@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FiUsers } from "react-icons/fi";
 import { SiTicktick } from "react-icons/si";
 import { MdOutlinePendingActions } from "react-icons/md";
-// import axiosInstance from "../../../../AxiosConfig";
+// import {axiosInstance} from "../../../../AxiosConfig";
 
 const ReferralCards = () => {
     const [referralCounts, setReferralCounts] = useState({

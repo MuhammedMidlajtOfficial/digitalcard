@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Form, Input, Button } from "antd";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../../../../AxiosConfig";
+import { axiosInstance }from "../../../../AxiosConfig";
 import { showErrorToast, showInfoToast, showSuccessToast, showWarningToast } from "../../../Services/toastService";
 import { useLoading } from "../../../Services/loadingService";
 

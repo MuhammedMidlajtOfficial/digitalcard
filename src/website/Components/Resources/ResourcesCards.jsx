@@ -1,14 +1,14 @@
 import React from "react";
-import card from "../../Assets/image/resources/card.png";
-import card1 from "../../Assets/image/resources/card1.png";
-import card2 from "../../Assets/image/resources/card2.png";
-import card3 from "../../Assets/image/resources/card3.png";
-import card4 from "../../Assets/image/resources/card9.png";
-import card5 from "../../Assets/image/resources/card5.png";
-import card6 from "../../Assets/image/resources/card6.png";
-import card7 from "../../Assets/image/resources/card7.png";
-import card8 from "../../Assets/image/resources/card8.png";
-import vector from "../../Assets/image/resources/vector.png";
+import card from "../../Assets/image/resources/card.svg";
+import card1 from "../../Assets/image/resources/card1.svg";
+import card2 from "../../Assets/image/resources/card2.svg";
+import card3 from "../../Assets/image/resources/card3.svg";
+import card4 from "../../Assets/image/resources/card4.svg";
+import card5 from "../../Assets/image/resources/card5.svg";
+import card6 from "../../Assets/image/resources/card6.svg";
+import card7 from "../../Assets/image/resources/card7.svg";
+import card8 from "../../Assets/image/resources/card8.svg";
+import vector from "../../Assets/image/resources/vector.svg";
 import { IoMdArrowRoundForward } from "react-icons/io";
 import ScrollAnimation from "../../../ScrollAnimation"; // Make sure this path is correct
 
@@ -31,13 +31,13 @@ const ResourcesCards = () => {
       <div className="resources-banner-section">
         <div className="container">
           <ScrollAnimation animationClass="animate__fadeInDown">
-            <h2>About Diskuss</h2>
+            <h2>Cards Management</h2>
             <p className="subtitle">Connecting Businesses, Empowering Success.</p>
           </ScrollAnimation>
         </div>
       </div>
       <div className="container">
-        <div className="row mb-5">
+        <div className="row my-5">
           {cardData.map((cardInfo, index) => (
             <ScrollAnimation
               animationClass={index % 2 === 0 ? "animate__fadeInUp" : "animate__fadeInDown"}
@@ -63,12 +63,12 @@ const ResourcesCards = () => {
                   </div>
                 </div>
               </div>
-              <div className="d-flex justify-content-center">
+              {/* <div className="d-flex justify-content-center">
                 <button className="resources-edit">
                   Edit
                   <IoMdArrowRoundForward />
                 </button>
-              </div>
+              </div> */}
             </ScrollAnimation>
           ))}
         </div>

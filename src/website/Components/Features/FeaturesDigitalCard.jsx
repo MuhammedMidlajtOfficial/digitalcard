@@ -1,6 +1,6 @@
 import React from "react";
-import image1 from "../../Assets/image/feature/feature-digital-card.png";
-import image2 from "../../Assets/image/feature/feature-share-analytics.png"
+import image1 from "../../Assets/image/feature/feature-digital-card.svg";
+import image2 from "../../Assets/image/feature/feature-share-analytics.svg"
 import ScrollAnimation from "../../../ScrollAnimation";
 export const FeaturesDigitalCard = () => {
   return (

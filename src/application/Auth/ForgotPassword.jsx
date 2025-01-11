@@ -3,7 +3,7 @@ import "./auth.css";
 import login from "../Assets/Images/loginbackground.png";
 import { Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
-import Instance from "../../../src/AxiosConfig";
+import { axiosInstance } from "../../../src/AxiosConfig";
 import {
   showSuccessMessage,
   showErrorMessage,
@@ -12,7 +12,7 @@ const ForgotPassword = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  //const loggedInUserInfo = JSON.parse(localStorage.getItem("loggedInUserInfo"));
+  //const loggedInUserInfo = JSON.parse(sessionStorage.getItem("loggedInUserInfo"));
 
   const sendOtp = async () => {
     try {
@@ -22,7 +22,7 @@ const ForgotPassword = () => {
         return;
       }
       setLoading(true)
-      const response = await Instance.post(
+      const response = await axiosInstance.post(
         "adminAuth/forgotPassword/request-otp",
         { email }
       );
@@ -30,7 +30,7 @@ const ForgotPassword = () => {
       if (response.status === 200) {
         showSuccessMessage("OTP sent to your email.");
         sessionStorage.setItem("otpEmail",email)
-        navigate("/otp-verification",{ replace: true });
+        navigate("/otp-verification",{ state: { email } });
       } else {
         showErrorMessage(response.data.message || "Failed to send OTP.");
       }
@@ -51,11 +51,10 @@ const ForgotPassword = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-5 col-sm-12 col-md-12 login-left">
-            <h2 className="login-heading">Diskuss</h2>
-            <div className="login-card col-lg-12">
+            <h2 className="login-heading-forgot">Diskuss</h2>
+            <div className="login-card-forgot col-lg-12">
               <center>
                 <h2>Forgot password</h2>
-                <p>New Password</p>
               </center>
               <Form
                 layout="vertical"

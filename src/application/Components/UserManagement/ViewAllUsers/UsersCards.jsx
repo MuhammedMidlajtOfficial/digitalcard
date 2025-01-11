@@ -1,57 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { FiUser, FiUserCheck, FiUsers } from "react-icons/fi";
-import axiosInstance from "../../../../AxiosConfig";
+import { axiosInstance } from "../../../../AxiosConfig";
+import { LuUsersRound } from "react-icons/lu";
+import { PiUsersFour } from "react-icons/pi";
 
-
-
-const UsersCards = ({change}) => {
-  const [individialUserCount, setIndividialUserCount] =  useState('')
-  const [enterpriseUserCount, setEnterpriseUserCount] =  useState('')
-  const [enterpriseEmployeeCount, setEnterpriseEmployeeCount] =  useState('')
-  const [newUsersCount, setNewUsersCount] =  useState('')
-  const [activeUsersCount, setActiveUsersCount] =  useState('')
+const UsersCards = ({ change, activeFilter, setActiveFilter }) => {
+  const [individualUserCount, setIndividualUserCount] = useState("");
+  const [enterpriseUserCount, setEnterpriseUserCount] = useState("");
+  const [enterpriseEmployeeCount, setEnterpriseEmployeeCount] = useState("");
+  const [newUsersCount, setNewUsersCount] = useState("");
+  const [activeUsersCount, setActiveUsersCount] = useState("");
 
   useEffect(() => {
-    // getCountIndividualUsers
-    axiosInstance.get('dashboard/getCountIndividualUsers')
-      .then((response)=>{
-        setIndividialUserCount(response.data.user)
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-    });
-    // getCountEnterpriseUsers
-    axiosInstance.get('dashboard/getCountEnterpriseUsers')
-      .then((response)=>{
-        setEnterpriseUserCount(response.data.user)
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-    });
-    // getCountEnterpriseEmployee
-    axiosInstance.get('dashboard/getCountEnterpriseEmployee')
-      .then((response)=>{
-        setEnterpriseEmployeeCount(response.data.user)
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-    });
-    // getNewUsers
-    axiosInstance.get('dashboard/getNewUsers')
-      .then((response)=>{
-        setNewUsersCount(response.data.newUsers)
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-    });
-    // getActiveUsers
-    axiosInstance.get('dashboard/getActiveUsers')
-      .then((response)=>{
-        setActiveUsersCount(response.data.activeUsersCount)
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-    });
+    axiosInstance
+      .get("dashboard/getCountIndividualUsers")
+      .then((response) => setIndividualUserCount(response.data.user))
+      .catch((error) => console.error("Error fetching data:", error));
+
+    axiosInstance
+      .get("dashboard/getCountEnterpriseUsers")
+      .then((response) => setEnterpriseUserCount(response.data.user))
+      .catch((error) => console.error("Error fetching data:", error));
+
+    axiosInstance
+      .get("dashboard/getCountEnterpriseEmployee")
+      .then((response) => setEnterpriseEmployeeCount(response.data.user))
+      .catch((error) => console.error("Error fetching data:", error));
+
+    axiosInstance
+      .get("dashboard/getNewUsers")
+      .then((response) => setNewUsersCount(response.data.newUsers))
+      .catch((error) => console.error("Error fetching data:", error));
+
+    axiosInstance
+      .get("dashboard/getActiveUsers")
+      .then((response) => setActiveUsersCount(response.data.activeUsersCount))
+      .catch((error) => console.error("Error fetching data:", error));
   }, [change]);
 
   const formatNumber = (num) => {
@@ -64,24 +48,27 @@ const UsersCards = ({change}) => {
   const cardData = [
     {
       icon: FiUsers,
-      title: "Total Individial Users",
-      value: formatNumber(individialUserCount),
+      title: "Total Individual Users",
+      value: formatNumber(individualUserCount),
       bgColor: "#8b81f7",
       textColor: "#ffffff",
+      key: "individualUser",
     },
     {
-      icon: FiUsers,
+      icon: PiUsersFour,
       title: "Total Enterprise Users",
       value: formatNumber(enterpriseUserCount),
       bgColor: "#ce81f7",
       textColor: "#ffffff",
+      key: "enterpriseUser",
     },
     {
-      icon: FiUsers,
+      icon: LuUsersRound,
       title: "Total Enterprise Employee",
       value: formatNumber(enterpriseEmployeeCount),
       bgColor: "#f781d8",
       textColor: "#ffffff",
+      key: "enterpriseEmploye",
     },
     {
       icon: FiUserCheck,
@@ -89,6 +76,7 @@ const UsersCards = ({change}) => {
       value: formatNumber(newUsersCount),
       bgColor: "#ffcb64",
       textColor: "#ffffff",
+      key: "newUsers",
     },
     {
       icon: FiUser,
@@ -96,22 +84,42 @@ const UsersCards = ({change}) => {
       value: formatNumber(activeUsersCount),
       bgColor: "#33ab65",
       textColor: "#ffffff",
+      key: "activeUsers",
     },
   ];
+
+  const handleCardClick = (key, index) => {
+    // Only update the active filter if the clicked card is one of the first three
+    if (index < 3) {
+      setActiveFilter(key);
+    }
+  };
 
   return (
     <div className="container">
       <div className="row">
         {cardData.map(
-          ({ icon: Icon, title, value, bgColor, textColor }, index) => (
+          ({ icon: Icon, title, value, bgColor, textColor, key }, index) => (
             <div key={index} className="col-lg-4 mb-4">
-              <div className="application-all-users-card">
+              <div
+                className={`application-all-users-card ${
+                  activeFilter === key && index < 3 ? "active-card" : ""
+                }`}
+                style={{
+                  backgroundColor:
+                    activeFilter === key && index < 3 ? bgColor : "#f0f0f0",
+                  color:
+                    activeFilter === key && index < 3 ? textColor : "#000000",
+                    cursor:"pointer"
+                }}
+                onClick={() => handleCardClick(key, index)}
+              >
                 <div className="card-body d-flex align-items-center">
                   <div
                     className="all-users-icon-wrapper p-2 rounded-circle me-3"
                     style={{ backgroundColor: bgColor, color: textColor }}
                   >
-                    <Icon className="" size={22} />
+                    <Icon size={22} />
                   </div>
                   <div>
                     <h6 className="all-users-cards-subtitle mb-2">{title}</h6>

@@ -1,6 +1,8 @@
-.card-type-header{
+.card-type-header {
   background: var(--text-color);
   color: var(--white-color);
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 .view-subscription-heading h1 {
@@ -37,8 +39,8 @@
   background-position: center;
   background-repeat: no-repeat;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid #e0e0e0; 
-  border-radius: 8px; 
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
   padding: 20px;
   background: #ffffff;
 }
@@ -49,6 +51,7 @@
   color: var(--black-text-color);
   font-weight: 600;
   margin-bottom: 0;
+  margin-top: 8px;
 }
 
 .vertical-line-plans {
@@ -57,7 +60,7 @@
   margin: 0 10px;
 }
 .pricing-plan-header p {
-  font-size: 16px;
+  font-size: 14px;
   color: var(--black-text-color);
   font-weight: 700;
   text-align: left;
@@ -116,26 +119,31 @@
   text-align: left;
 }
 
-.plans-subscription-btn {
+.edit-subscription-btn:hover {
   background-color: var(--gradient-start-color);
   color: var(--white-color);
   border: none;
-  padding: 12px 20px;
+  padding: 4px 10px;
   border-radius: 8px;
   width: 100%;
   font-size: 16px;
   cursor: pointer;
 }
-.plans-subscription-btn:hover,
+.edit-subscription-btn,
 .view-subscription-create:hover {
   background-color: var(--white-color);
   color: var(--gradient-start-color);
   border: 1px solid var(--gradient-start-color);
+  padding: 4px 10px;
+  border-radius: 8px;
+  width: 100%;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .card-subscription-plan:hover {
-  transform: translateY(-5px); 
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
@@ -249,7 +257,7 @@
 }
 
 .label {
-  width: 150px;
+  width: 130px;
   font-weight: 600;
   color: var(--text-secondary-color);
 }
@@ -262,6 +270,7 @@
 .value {
   font-weight: 600;
   color: var(--black-text-color);
+  width: 200px;
 }
 
 .billing-table {
@@ -269,26 +278,37 @@
   border-top: 2px solid var(--border-color);
   border-bottom: 2px solid var(--border-color);
   padding-bottom: 20px;
+   display: grid;
+    gap: 10px;
+    margin-top: 20px;
+  
 }
 
-.table-header,
+.table-header, .table-row {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.table-header {
+  font-weight: bold;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 10px;
+}
+
 .table-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 0;
+  border-bottom: 1px solid #eaeaea;
+  padding: 10px 0;
 }
 
 .table-header p {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
 }
 
-.table-row {
-  border-bottom: 2px dotted var(--border-color);
-}
 .table-row-gst {
-  font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
 }
 .table-row.total-row {
   font-weight: 600;
@@ -310,7 +330,7 @@
   font-weight: bold;
   font-size: 12px;
 }
-.billing-authorization{
+.billing-authorization {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -336,33 +356,33 @@
   color: var(--gradient-start-color);
   border: 1px solid var(--gradient-start-color);
 }
-.ivoice-form-heading{
+.ivoice-form-heading {
   font-size: 20px;
   color: var(--gradient-start-color);
   font-weight: 600;
 }
-.view-invoice-page{
+.view-invoice-page {
   border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 15px;
 }
-.payment-gateway-notification{
+.payment-gateway-notification {
   font-size: 12px;
   border: 1px solid var(--border-color);
   background-color: var(--bglight-blue-color);
   border-radius: 5px;
   padding: 10px;
 }
-.gateway-notification-button{
+.gateway-notification-button {
   background-color: none;
   border: 1px solid var(--border-color);
 }
-.notification-alert{
+.notification-alert {
   color: var(--gradient-end-color);
   font-size: 18px;
   font-weight: 600;
 }
-.request-span span{
+.request-span span {
   width: 12px;
   height: 12px;
   background-color: var(--green-button-color);
@@ -370,37 +390,97 @@
   display: inline-block;
   margin-right: 8px;
 }
-.request-span{
+.request-span {
   color: var(--black-text-color);
   font-weight: 600;
   font-size: 14px;
 }
-.request-time{
+.request-time {
   color: var(--footer-secondary-color);
   font-weight: 400;
   font-size: 12px;
 }
-.request-heading{
+.request-heading {
   font-size: 18px;
   font-weight: 600;
   color: var(--black-text-color);
 }
-.request-paragraph{
+.request-paragraph {
   color: var(--footer-secondary-color);
   font-weight: 500;
 }
-.button-reject{
+.button-reject {
   background: none;
   color: var(--maroon-color);
 }
-.button-accept{
+.button-accept {
   background: none;
   color: var(--green-button-color);
 }
-@media (max-width:768px){
+@media (max-width: 768px) {
   .search-table-container .create-invoice,
-.create-invoice {
-  padding: 8px 8px;
+  .create-invoice {
+    padding: 8px 8px;
+  }
 }
+.custom-modal-title {
+  color: var(--gradient-start-color);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-size: 16px;
+}
+.add-all-users-button {
+  color: var(--white-color);
+  border: 1px solid var(--gradient-start-color);
+  background-color: var(--gradient-start-color);
+  font-size: 12px;
+  padding: 8px 16px;
+  letter-spacing: 1px;
+}
+
+.subscription-type-tag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: var(--gradient-start-color);
+  color: var(--white-color);
+  padding: 10px 20px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 0;
+  font-size: 12px;
+  font-weight: 800;
+  opacity: 0.7;
+}
+.edit-subscription-btn.btn-active{
+  color: var(--green-color);
+  border: 1px solid var(--green-color);
+  cursor: pointer;
+  }
+.edit-subscription-btn.btn-active:hover {
+  background-color: var(--green-color); 
+  color: var(--white-color);
+  cursor: pointer; 
+  opacity: 0.6;
+}
+.edit-subscription-btn.btn-inactive {
+  color: var(--danger-color);
+  border: 1px solid var(--danger-color);
+}
+.edit-subscription-btn.btn-inactive:hover {
+  background-color: var(--danger-color);
+  color: var(--white-color);
+  cursor: pointer;
+}
+
+.card-disabled {
+  background-color: #e0dbdb; 
+  border: 1px solid #a694f5;
+  opacity: 0.6; 
+ 
+}
+.invoice-vertical-line{
+  border: 1px solid var(--border-color);
 
 }

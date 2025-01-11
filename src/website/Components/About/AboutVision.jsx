@@ -1,8 +1,8 @@
 import React from "react";
 import vision from "../../Assets/image/about/about-vision.svg";
-import rocket from "../../Assets/image/about/icon/rocket.png";
-import bulb from "../../Assets/image/about/icon/bulb.png";
-import degree from "../../Assets/image/about/icon/360degrees.png";
+import rocket from "../../Assets/image/about/icon/rocket.svg";
+import bulb from "../../Assets/image/about/icon/bulb.svg";
+import degree from "../../Assets/image/about/icon/360degrees.svg";
 import ScrollAnimation from "../../../ScrollAnimation";
 
 const AboutVision = () => {

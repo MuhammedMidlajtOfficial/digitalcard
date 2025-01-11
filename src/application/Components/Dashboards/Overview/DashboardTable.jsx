@@ -4,27 +4,29 @@ import { Dropdown, Menu, Table, Avatar } from "antd";
 // import { TbArrowsDownUp } from "react-icons/tb";
 import image1 from "../../../Assets/Images/admin.png";
 import { FiFilter } from "react-icons/fi";
-import axiosInstance from "../../../../AxiosConfig";
+import { axiosInstance } from "../../../../AxiosConfig";
+import { UserOutlined } from "@ant-design/icons";
 
 export const DashboardTable = () => {
-  const [filter, setFilter] = useState('individualUsers');
+  const [filter, setFilter] = useState("individualUsers");
   const [recentUser, setRecentUser] = useState([]);
 
   useEffect(() => {
-    console.log('filter',filter);
-    axiosInstance.get(`dashboard/getRecentRegister/${filter}`)
-    .then((response)=>{
-      
-      setRecentUser(response.data.recentUsers)
-      // console.log('recentUser--',response);
-    })
-    .catch((error) => {
-      console.error("Error fetching data:", error);
-  });
+    console.log("filter", filter);
+    axiosInstance
+      .get(`dashboard/getRecentRegister/${filter}`)
+      .then((response) => {
+        console.log("response.data.recentUsers", response.data.recentUsers);
+        setRecentUser(response.data.recentUsers);
+        // console.log('recentUser--',response);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
 
-  return () => {
-    setRecentUser([])
-  };
+    return () => {
+      setRecentUser([]);
+    };
   }, [filter]);
 
   const filterMenu = (
@@ -63,11 +65,12 @@ export const DashboardTable = () => {
       render: (companyName, record) => (
         <div className="d-flex align-items-center">
           <Avatar
-            src={record.image || "/default-avatar.png"} // Fallback if no image
+            src={record.image}
             size={40}
             className="me-2"
+            icon={!record.image && <UserOutlined />}
           />
-          {companyName}
+          {companyName || "N/A"}
         </div>
       ),
     },
@@ -99,15 +102,15 @@ export const DashboardTable = () => {
     },
   ];
 
-    // {
-    //   title: "Action",
-    //   dataIndex: "action",
-    //   render: () => (
-    //     <Dropdown overlay={actionMenu} trigger={['click']}>
-    //       <Button type="text" icon={<IoEllipsisHorizontalSharp />} />
-    //     </Dropdown>
-    //   ),
-    // },
+  // {
+  //   title: "Action",
+  //   dataIndex: "action",
+  //   render: () => (
+  //     <Dropdown overlay={actionMenu} trigger={['click']}>
+  //       <Button type="text" icon={<IoEllipsisHorizontalSharp />} />
+  //     </Dropdown>
+  //   ),
+  // },
 
   const data = [
     {

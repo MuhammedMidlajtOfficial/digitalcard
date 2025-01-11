@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FiFilter, FiSearch } from "react-icons/fi";
 import { IoIosArrowForward } from "react-icons/io";
 import { TbArrowsDownUp } from "react-icons/tb";
-import axiosInstance from "../../../../AxiosConfig";
+import {axiosInstance} from "../../../../AxiosConfig";
 
 export const ReferralUsers = () => {
     const navigate = useNavigate();

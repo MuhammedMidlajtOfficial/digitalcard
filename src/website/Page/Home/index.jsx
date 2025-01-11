@@ -34,7 +34,7 @@ const Home = () => {
 
       <div className="main-wrapper">
         <HomeBanner />
-        <HomeClients />
+        {/* <HomeClients /> */}
         <HomeAboutUs />
         <HomeFeatures />
         <HomeTemplate />

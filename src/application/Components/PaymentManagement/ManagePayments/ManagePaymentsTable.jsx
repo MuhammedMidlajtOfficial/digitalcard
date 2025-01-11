@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Dropdown, Menu, Table, Avatar, Button, Spin, message } from "antd";
+import { Dropdown, Menu, Table, Avatar, Button, Spin, message, Select } from "antd";
 import { IoIosArrowForward } from "react-icons/io";
 import { TbArrowsDownUp } from "react-icons/tb";
-import { FiFilter, FiSearch} from "react-icons/fi";
+import { FiFilter, FiSearch } from "react-icons/fi";
 import { IoEllipsisHorizontalSharp } from "react-icons/io5";
 import { LuEye } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { UserOutlined } from "@ant-design/icons";
-import axiosInstance from "../../../../AxiosConfig";
+import {axiosInstance} from "../../../../AxiosConfig";
+import { Option } from "antd/es/mentions";
+import { showErrorToast, showSuccessToast } from "../../../Services/toastService";
 
 
 export const ManagePaymentsTable = () => {
@@ -22,8 +24,9 @@ export const ManagePaymentsTable = () => {
     setLoading(true);
     try {
       const response = await axiosInstance.get("/payment");
+      console.log("PAYMENT DETAILS:", response.data)
 
-  
+
       // Map the response data to the table format
       setFilteredData(
         response.data.map((item, index) => ({
@@ -36,7 +39,8 @@ export const ManagePaymentsTable = () => {
           date: new Date(item.subscription?.startDate), // Format start date
           paymethod: "Razorpay", // Hardcoded payment method
           status: item.subscription?.status || "pending", // Subscription status
-          transactionid: (item.subscription?.payment && item.subscription.payment[0]) || "N/A", // First payment ID
+          transactionid: (item.subscription?.payment && item.subscription.payment[0]) || "N/A",
+          subscriptionId: item.subscription?._id || "NA",
         }))
       );
       setData(
@@ -50,7 +54,8 @@ export const ManagePaymentsTable = () => {
           date: new Date(item.subscription?.startDate), // Format start date
           paymethod: "Razorpay", // Hardcoded payment method
           status: item.subscription?.status || "Pending", // Subscription status
-          transactionid: (item.subscription?.payment && item.subscription.payment[0]) || "N/A", // First payment ID
+          transactionid: (item.subscription?.payment && item.subscription.payment[0]) || "N/A",
+          subscriptionId: item.subscription?._id || "NA",
         }))
       );
     } catch (error) {
@@ -59,7 +64,7 @@ export const ManagePaymentsTable = () => {
       setLoading(false);
     }
   };
-  
+
 
   useEffect(() => {
     fetchPayments();
@@ -77,34 +82,34 @@ export const ManagePaymentsTable = () => {
     setFilteredData(filtered);
   }, [searchTerm, data]);
 
-  const handleFilter=(status)=>{
-    const filter  = data.filter((payment)=>payment.status===status);
+  const handleFilter = (status) => {
+    const filter = data.filter((payment) => payment.status === status);
     setFilteredData(filter);
   }
 
   const filterMenu = (
     <Menu>
-      <Menu.Item 
-        key="active" 
-        className="filter-menu-item" 
-        style={{ color:"green",fontWeight:"600"}}
-        onClick={()=>{handleFilter("active")}}
+      <Menu.Item
+        key="active"
+        className="filter-menu-item"
+        style={{ color: "green", fontWeight: "600" }}
+        onClick={() => { handleFilter("active") }}
       >
         Active
       </Menu.Item>
-      <Menu.Item 
-        key="inactive" 
-        className="filter-menu-item" 
-        style={{ color:"red",fontWeight:"600"}}
-        onClick={()=>{handleFilter("inactive")}}
+      <Menu.Item
+        key="inactive"
+        className="filter-menu-item"
+        style={{ color: "red", fontWeight: "600" }}
+        onClick={() => { handleFilter("inactive") }}
       >
         Inactive
       </Menu.Item>
-      <Menu.Item 
-        key="pending" 
-        className="filter-menu-item" 
-        style={{ color:"orange",fontWeight:"600"}}
-        onClick={()=>{handleFilter("pending")}}
+      <Menu.Item
+        key="pending"
+        className="filter-menu-item"
+        style={{ color: "orange", fontWeight: "600" }}
+        onClick={() => { handleFilter("pending") }}
       >
         Pending
       </Menu.Item>
@@ -121,15 +126,15 @@ export const ManagePaymentsTable = () => {
           marginBottom: "2px",
           padding: "3px 6px",
         }}
-        onClick={() => {setFilteredData(data)}}
+        onClick={() => { setFilteredData(data) }}
       >
         Reset
       </Menu.Item>
     </Menu>
   );
 
-  const handleSort=(sortBy)=>{
-    const sortedData  = [...filteredData].sort((a, b) => {
+  const handleSort = (sortBy) => {
+    const sortedData = [...filteredData].sort((a, b) => {
       const dateA = a.date;
       const dateB = b.date;
 
@@ -146,19 +151,19 @@ export const ManagePaymentsTable = () => {
 
   const sortMenu = (
     <Menu>
-      <Menu.Item 
-        key="newest" 
+      <Menu.Item
+        key="newest"
         className="filter-menu-item"
-        style={{color: "blue",fontWeight:"600"}}
-        onClick={()=>{handleSort("newest")}}
+        style={{ color: "blue", fontWeight: "600" }}
+        onClick={() => { handleSort("newest") }}
       >
         Newest First <IoIosArrowForward className="right-arrow" />
       </Menu.Item>
-      <Menu.Item 
-        key="oldest" 
+      <Menu.Item
+        key="oldest"
         className="filter-menu-item"
-        style={{ color: "gray",fontWeight:"600"}}
-        onClick={()=>{handleSort("oldest")}}
+        style={{ color: "gray", fontWeight: "600" }}
+        onClick={() => { handleSort("oldest") }}
       >
         Oldest First <IoIosArrowForward className="right-arrow" />
       </Menu.Item>
@@ -198,6 +203,30 @@ export const ManagePaymentsTable = () => {
     }
   };
 
+  const handleStatusChange = (value, record) => {
+    setLoading(true); 
+    console.log("RECORD", record);
+    console.log("value", value);
+  
+    const apiUrl = `payment/${record.subscriptionId}/status`;
+  
+    axiosInstance
+      .patch(apiUrl, { status: value }) 
+      .then((response) => {
+        showSuccessToast("Status updated successfully!");
+        fetchPayments();
+      })
+      .catch((error) => {
+        console.error("Error updating status:", error.response || error);
+        showErrorToast("Failed to update status. Please try again.");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+  
+
+
   const columns = [
     {
       title: "Payer Name",
@@ -205,8 +234,8 @@ export const ManagePaymentsTable = () => {
       render: (username) => (
         <div className="d-flex align-items-center">
           <Avatar src={username.image || null}
-          icon={!username.image ? <UserOutlined /> : null}
-          size={40} className="me-2" />
+            icon={!username.image ? <UserOutlined /> : null}
+            size={40} className="me-2" />
           {username.name}
         </div>
       ),
@@ -218,7 +247,7 @@ export const ManagePaymentsTable = () => {
     {
       title: "Date",
       dataIndex: "date",
-      render: (date)=> date.toLocaleDateString()
+      render: (date) => date.toLocaleDateString()
     },
     {
       title: "Pay Method",
@@ -231,24 +260,29 @@ export const ManagePaymentsTable = () => {
     {
       title: "Status",
       dataIndex: "status",
-      render: (status) => (
-        <span
-          className="table-status-tag"
+      render: (status, record) => (
+        <Select
+          value={status}
+          onChange={(value) => handleStatusChange(value, record)}
+          className="custom-select-status"
           style={{
             color:
               status === "active"
                 ? "green"
                 : status === "pending"
-                ? "orange"
-                : status === "inactive"
-                ? "red"
-                : "gray",
+                  ? "orange"
+                  : status === "inactive"
+                    ? "red"
+                    : "gray",
           }}
+          placeholder="Select Status"
         >
-          {status}
-        </span>
+          <Option value="active">Active</Option>
+          <Option value="pending">Pending</Option>
+          <Option value="inactive">Inactive</Option>
+        </Select>
       ),
-    },
+    }
     // {
     //   title: "Action",
     //   dataIndex: "action",
@@ -264,15 +298,15 @@ export const ManagePaymentsTable = () => {
     <div className="container">
       <div className="row">
         <div className="col-lg-12">
-          <div className="search-container" style={{marginBottom:"15px"}}>
-              <FiSearch className="search-icon" />
-              <input
-                type="text"
-                placeholder="Search..."
-                className="create-survey-search-input"
-                value={searchTerm} // Bind search term
-                onChange={(e) => setSearchTerm(e.target.value)} // Update state on input
-              />
+          <div className="search-container" style={{ marginBottom: "15px" }}>
+            <FiSearch className="search-icon" />
+            <input
+              type="text"
+              placeholder="Search..."
+              className="create-survey-search-input"
+              value={searchTerm} // Bind search term
+              onChange={(e) => setSearchTerm(e.target.value)} // Update state on input
+            />
           </div>
           <div className="application-table-section">
             <div className="d-flex mb-4 flex-lg-row flex-xl-row flex-column justify-content-between gap-4">

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../Redux/tokenActions";
 import { showErrorToast, showSuccessToast } from "../Services/toastService";
-import axiosInstance from "../../AxiosConfig";
+import {axiosInstance} from "../../AxiosConfig";
 import { useAuth } from '../Context/AuthContext';
 
 const Login = () => {
@@ -35,8 +35,9 @@ const Login = () => {
       
         dispatch(setUser({ userType, username, category }));
         dispatch(setToken(accessToken,user._id));
-        localStorage.setItem("userId", user._id);
-        localStorage.setItem("refreshToken", refreshToken);
+        sessionStorage.setItem("userId", user._id);
+        sessionStorage.setItem("UserName", username);
+        sessionStorage.setItem("refreshToken", refreshToken);
 
         syncAuthState();
 
@@ -100,6 +101,7 @@ const Login = () => {
                       <Checkbox onChange={handleRememberMeChange}>Remember</Checkbox>
                     </Form.Item>
                     <button
+                    type="button"
                       className="forgot-password-button"
                       onClick={() => navigate("/forgot-password")}
                     >

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Pagination, Spin } from "antd"; // Ant Design's Spin for loading indicator
-import axiosInstance from "../../../../AxiosConfig";
-import { AllUsersTableList } from "./AllUsersTableList";
-import { Avatar, Dropdown, Menu } from "antd";
+import { Pagination, Spin, Avatar, Dropdown, Menu } from "antd";
+import { axiosInstance } from "../../../../AxiosConfig";
 import { useNavigate } from "react-router-dom";
 import { FiFilter, FiSearch } from "react-icons/fi";
 import { FaPlus } from "react-icons/fa6";
@@ -12,9 +10,14 @@ import { RxGrid } from "react-icons/rx";
 import { LuMenu } from "react-icons/lu";
 import { UserOutlined } from "@ant-design/icons";
 import { useLoading } from "../../../Services/loadingService";
-import { showErrorToast, showSuccessToast } from "../../../Services/toastService";
+import {
+  showErrorToast,
+  showSuccessToast,
+} from "../../../Services/toastService";
+import UsersCards from "./UsersCards";
+import { AllUsersTableList } from "./AllUsersTableList";
 
-const UsersProfiles = ({setChange}) => {
+const UsersProfiles = ({ setChange }) => {
   const [isTableView, setIsTableView] = useState(false);
   const [filter, setFilter] = useState("individualUser");
   const [sortOrder, setSortOrder] = useState("asc");
@@ -22,67 +25,77 @@ const UsersProfiles = ({setChange}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
   const [totalUsers, setTotalUsers] = useState(0);
-  const [searchTerm, setSearchTerm] = useState(""); // State for search term
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeFilter, setActiveFilter] = useState("individualUser");
 
-  const { loading, startLoading, stopLoading } = useLoading(); // Use the loading state
+  const { loading, startLoading, stopLoading } = useLoading();
   const navigate = useNavigate();
 
-  const handleTableViewToggle = () => setIsTableView(true);
   const handleGridViewToggle = () => setIsTableView(false);
+  const handleTableViewToggle = () => setIsTableView(true);
+
+  const handleFilterChange = (key) => {
+    setFilter(key);
+    setActiveFilter(key);
+  };
 
   useEffect(() => {
     fetchUsers();
     return () => setAllUser([]);
-  }, [filter, currentPage, pageSize, sortOrder, searchTerm]); // Include searchTerm in dependencies
+  }, [activeFilter, currentPage, pageSize, sortOrder, searchTerm]);
 
   const fetchUsers = () => {
-    startLoading(); // Start loading indicator
+    startLoading();
     axiosInstance
-      .get(`user/getAllUser/${filter}`, {
+      .get(`user/getAllUser/${activeFilter}`, {
         params: {
           page: currentPage,
           pageSize,
           sortOrder,
-          search: searchTerm, // Pass the search term in the API request
+          search: searchTerm,
         },
       })
       .then((response) => {
+        console.log(response);
         setAllUser(response.data.totalUser);
         setTotalUsers(response.data.totalCount);
-        stopLoading(); // Stop loading when data is fetched
+        stopLoading();
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-        stopLoading(); // Stop loading in case of an error
+        stopLoading();
       });
   };
 
   const handleSearch = (e) => {
-    setSearchTerm(e.target.value); // Update the search term
-    setCurrentPage(1); // Reset to the first page when the search term changes
+    setSearchTerm(e.target.value);
+    setCurrentPage(1);
   };
 
   const handleChangeStatus = (userId) => {
-    startLoading(); // Start loading indicator
+    startLoading();
     axiosInstance
       .get(`user/changeUserStatus/${userId}`)
       .then((response) => {
-        if(response.status === 200){
-          showSuccessToast(response.data.message)
-          fetchUsers()
-          setChange((prev)=>!prev)
+        if (response.status === 200) {
+          showSuccessToast(response.data.message);
+          fetchUsers();
+          setChange((prev) => !prev);
         }
-        stopLoading(); // Stop loading when data is fetched
+        stopLoading();
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-        showErrorToast("Something went wrong. Please try again later")
-        stopLoading(); // Stop loading in case of an error
+        showErrorToast("Something went wrong. Please try again later");
+        stopLoading();
       });
   };
 
   const filterMenu = (
-    <Menu onClick={({ key }) => setFilter(key)} selectedKeys={[filter]}>
+    <Menu
+      onClick={({ key }) => handleFilterChange(key)}
+      selectedKeys={[filter]}
+    >
       <Menu.Item key="individualUser">Individual User</Menu.Item>
       <Menu.Item key="enterpriseUser">Enterprise User</Menu.Item>
       <Menu.Item key="enterpriseEmploye">Enterprise Employee</Menu.Item>
@@ -100,10 +113,18 @@ const UsersProfiles = ({setChange}) => {
     </Menu>
   );
 
-
   const renderUserProfileCard = (user) => {
-    const { _id, image, username, companyName, subscriptionPlan, email, phnNumber, status } = user;
-    const color = status === 'active' ? 'green' : 'red';
+    const {
+      _id,
+      image,
+      username,
+      companyName,
+      subscriptionPlan,
+      email,
+      phnNumber,
+      status,
+    } = user;
+    const color = status === "active" ? "green" : "red";
     let tagClass = "";
     switch (subscriptionPlan) {
       case "Gold":
@@ -131,7 +152,9 @@ const UsersProfiles = ({setChange}) => {
             />
           </div>
           <h2 className="mt-3">
-            {filter === "enterpriseUser" ? companyName || "N/A" : username || "N/A"}
+            {activeFilter === "enterpriseUser"
+              ? companyName || "N/A"
+              : username || "N/A"}
           </h2>
           <div className="d-flex justify-content-center">
             {subscriptionPlan ? (
@@ -144,20 +167,20 @@ const UsersProfiles = ({setChange}) => {
           <h4>{phnNumber || "N/A"}</h4>
           <h4>
             <span style={{ color: color }}>
-              {status.charAt(0).toUpperCase() + status.slice(1)}
-              {' '}
-              user
+              {status.charAt(0).toUpperCase() + status.slice(1)} user
             </span>
           </h4>
           <div className="d-flex gap-2 mt-2" style={{ width: "100" }}>
             <button
               className="edit-button"
-              onClick={() => navigate(`/admin/usermanagement/editusers/${_id}`) }
+              onClick={() => navigate(`/admin/usermanagement/editusers/${_id}`)}
             >
               Edit
             </button>
             <button
-              className={`status-button ${status === "active" ? "inactive" : "active"}`}
+              className={`status-button ${
+                status === "active" ? "inactive" : "active"
+              }`}
               onClick={() => handleChangeStatus(_id)}
             >
               {status === "active" ? "Inactive" : "Active"}
@@ -170,6 +193,11 @@ const UsersProfiles = ({setChange}) => {
 
   return (
     <div className="container">
+      <UsersCards
+        activeFilter={activeFilter}
+        setActiveFilter={setActiveFilter}
+        handleFilterChange={handleFilterChange}
+      />
       <div className="application-users-section mb-4 d-flex justify-content-between">
         <h2>View All Users</h2>
         <button
@@ -187,8 +215,8 @@ const UsersProfiles = ({setChange}) => {
             type="text"
             placeholder="Search..."
             className="create-survey-search-input"
-            value={searchTerm} // Bind the input field to the search term
-            onChange={handleSearch} // Trigger search on input change
+            value={searchTerm}
+            onChange={handleSearch}
           />
         </div>
         <div className="search-table-container d-flex gap-4">
@@ -208,13 +236,13 @@ const UsersProfiles = ({setChange}) => {
             className="d-flex align-items-center"
             onClick={handleGridViewToggle}
           >
-            <RxGrid />
+            <RxGrid className="table-card-list" />
           </div>
           <div
             className="d-flex align-items-center"
             onClick={handleTableViewToggle}
           >
-            <LuMenu />
+            <LuMenu className="table-data-list" />
           </div>
         </div>
       </div>
@@ -223,7 +251,7 @@ const UsersProfiles = ({setChange}) => {
       ) : isTableView ? (
         <AllUsersTableList
           allUser={allUser}
-          filter={filter}
+          filter={activeFilter}
           currentPage={currentPage}
           pageSize={pageSize}
           totalUsers={totalUsers}

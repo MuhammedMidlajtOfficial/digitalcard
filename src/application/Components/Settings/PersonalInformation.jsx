@@ -3,9 +3,10 @@ import { Form, Input } from "antd";
 import { TbEdit } from "react-icons/tb";
 import DefaultUser from "../../Assets/Images/admin.png";
 import "react-international-phone/style.css";
-import axiosInstance from "../../../AxiosConfig";
+import {axiosInstance} from "../../../AxiosConfig";
 import { useNavigate } from "react-router-dom";
 import { showErrorToast, showSuccessToast } from "../../Services/toastService";
+import TextArea from "antd/es/input/TextArea";
 
 export const PersonalInformation = () => {
   const navigate = useNavigate();
@@ -25,10 +26,10 @@ export const PersonalInformation = () => {
   const [previewImage, setPreviewImage] = useState('')
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId"); // Retrieve userId from localStorage
+    const userId = sessionStorage.getItem("userId"); // Retrieve userId from sessionStorage
   
     if (!userId) {
-      console.error("User ID not found in localStorage");
+      console.error("User ID not found in sessionStorage");
       navigate("/login"); // Redirect to login if userId is missing
       return;
     }
@@ -95,10 +96,10 @@ export const PersonalInformation = () => {
   };
 
   const handleSubmit = (values) => {
-    const userId = localStorage.getItem("userId");
+    const userId = sessionStorage.getItem("userId");
 
     if (!userId) {
-      console.error("User ID not found in localStorage");
+      console.error("User ID not found in sessionStorage");
       return;
     }
 
@@ -219,7 +220,7 @@ export const PersonalInformation = () => {
                   { validator: validateWhitespace },
                 ]}
               >
-                <Input
+                <TextArea
                   placeholder="Enter Your Address"
                   onChange={(e) => setUserData({ ...userData, address: e.target.value })}
                 />

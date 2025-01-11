@@ -1,7 +1,7 @@
 .navbar-header {
   background: var(--text-color);
   padding: 10px 24px;
-  margin-left: 240px;
+  margin-left: 255px;
   border-bottom: 1px solid var(--border-color);
   position: sticky;
   top: 0;
@@ -17,16 +17,16 @@
   border: 1px solid var(--white-color);
 }
 
-/* .search-icon {
+.search-icon {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
   align-items: center;
   padding-left: 8px;
-  font-size: 24px;
+  font-size: 26px !important;
   color: var(--text-secondary-color);
-} */
+}
 
 .search-icon svg {
   color: var(--text-color);
@@ -36,12 +36,16 @@
   padding: 8px 32px;
   background: transparent;
   border-radius: 8px;
-  color: var(--black-text-color);
+  color: var(--white-color);
   font-size: 14px;
+  border: none;
+  outline: none; 
   font-weight: 400;
   letter-spacing: 0.5px;
 }
-
+.search-input:focus-within {
+  border: none;
+}
 .search-input:focus {
   outline: none;
 }
@@ -139,7 +143,7 @@
 }
 
 .sidebar {
-  width: 240px;
+  width: 255px;
   position: fixed;
   top: 0;
   left: 0;
@@ -284,13 +288,14 @@
   display: block;
   color: var(--footer-secondary-color) !important;
   border-radius: 8px !important;
+  margin-left: 8px;
 }
 .active-sub-link {
   background-color: var(--gradient-start-color) !important;
-  color: var(--white-color) !important; 
+  color: var(--white-color) !important;
 }
 .sub-nav-link:hover {
-  padding: 8px 16px;
+  /* padding: 8px 16px; */
   text-decoration: none;
   display: block;
   color: var(--white-color) !important;
@@ -302,7 +307,7 @@
 }
 
 .application-wrapper {
-  margin-left: 240px;
+  margin-left: 255px;
   padding: 16px;
   background: var(--white-color);
   min-height: 87vh;

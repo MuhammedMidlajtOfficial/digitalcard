@@ -4,7 +4,7 @@ import { FiSearch } from "react-icons/fi";
 import { FaPlus } from "react-icons/fa";
 import { IoEllipsisHorizontalSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../../../AxiosConfig";
+import { axiosInstance } from "../../../AxiosConfig";
 import { useLoading } from "../../Services/loadingService";
 import { showDeleteMessage } from "../../../globalConstant";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
@@ -74,7 +74,8 @@ const WatiList = () => {
   // Table Columns
   const columns = [
     { title: "URL", dataIndex: "url" },
-    { title: "API Key", 
+    {
+      title: "API Key",
       dataIndex: "apiKey",
       render: (text) => (text.length > 20 ? `${text.slice(0, 20)}...` : text),
     },
@@ -98,7 +99,6 @@ const WatiList = () => {
         </div>
       ),
     },
-    
   ];
 
   useEffect(() => {
@@ -109,21 +109,19 @@ const WatiList = () => {
     <div className="container">
       <div className="application-users-section mb-4 d-flex justify-content-between">
         <h2>View All Wati Records</h2>
-        <button
-          className="add-all-users"
-          onClick={() => navigateToForm()}
-        >
+        <button className="add-all-users" onClick={() => navigateToForm()}>
           <FaPlus />
           Add Wati Record
         </button>
       </div>
       <div className="d-flex mb-4 justify-content-between">
         <div className="search-container">
-          <FiSearch className="search-icon" />
+          <FiSearch className="search-icon-wati" />
           <input
             type="text"
             placeholder="Search..."
             value={searchTerm}
+            className="search-input-css"
             onChange={handleSearch}
           />
         </div>

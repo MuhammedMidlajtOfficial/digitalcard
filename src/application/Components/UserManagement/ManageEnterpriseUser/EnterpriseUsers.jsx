@@ -8,8 +8,10 @@ import { RxGrid } from "react-icons/rx";
 import { LuMenu } from "react-icons/lu";
 import { EnterpriseListUsers } from "./EnterpriseListUsers";
 import { useLoading } from "../../../Services/loadingService";
-import axiosInstance from "../../../../AxiosConfig";
+import { axiosInstance } from "../../../../AxiosConfig";
 import { UserOutlined } from "@ant-design/icons";
+import { FaPlus } from "react-icons/fa6";
+import AddEnterprise from "./AddEnterprise";
 
 const EnterpriseUsers = () => {
   const [sortOrder, setSortOrder] = useState("asc");
@@ -21,21 +23,22 @@ const EnterpriseUsers = () => {
   const { loading, startLoading, stopLoading } = useLoading();
   const navigate = useNavigate();
   const [isTableView, setIsTableView] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Control modal visibility
 
   const fetchUsers = () => {
-    console.log('hereeeeeee');
+    console.log("hereeeeeee");
     startLoading();
     axiosInstance
       .get(`user/getEnterpriseUser`, {
         params: {
           page: currentPage,
           pageSize,
-          sortOrder, 
+          sortOrder,
           search: searchTerm,
         },
       })
       .then((response) => {
-        console.log('response-',response);
+        console.log("response-", response);
         setUsers(response.data.users); // Update with users array from response
         setTotalUsers(response.data.totalCount); // Update total users count
         stopLoading();
@@ -49,21 +52,15 @@ const EnterpriseUsers = () => {
   useEffect(() => {
     fetchUsers();
   }, [currentPage, pageSize, sortOrder, searchTerm]);
+  const handleAddEnterprise = () => {
+    setIsModalOpen(true); // Open modal when button is clicked
+  };
 
-  const sortMenu = (
-    <Menu onClick={({ key }) => setSortOrder(key)} selectedKeys={[sortOrder]}>
-      <Menu.Item key="asc">
-        <div className="menu-item-content">
-          ASC <IoIosArrowForward className="right-arrow" />
-        </div>
-      </Menu.Item>
-      <Menu.Item key="desc">
-        <div className="menu-item-content">
-          DESC <IoIosArrowForward className="right-arrow" />
-        </div>
-      </Menu.Item>
-    </Menu>
-  );
+  const closeAddEnterpriseModal = () => {
+    setIsModalOpen(false); // Close modal
+    fetchUsers(); // Refresh users list after adding an enterprise
+  };
+ 
 
   const renderUserProfileCard = (user) => {
     const { image, companyName, email, phnNumber, employeeCount } = user;
@@ -85,7 +82,9 @@ const EnterpriseUsers = () => {
           <h4>{employeeCount} Employees</h4>
           <button
             onClick={() =>
-              navigate(`/admin/usermanagement/entepriseusers/companyusers/${user._id}`)
+              navigate(
+                `/admin/usermanagement/entepriseusers/companyusers/${user._id}`
+              )
             }
             className="mt-2"
           >
@@ -99,7 +98,7 @@ const EnterpriseUsers = () => {
   // Handle page and page size change for pagination
   const handlePageChange = (page, size) => {
     setCurrentPage(page);
-    setPageSize(size);  // Update page size when user navigates to a different page
+    setPageSize(size); // Update page size when user navigates to a different page
   };
 
   return (
@@ -121,18 +120,10 @@ const EnterpriseUsers = () => {
               />
             </div>
             <div className="search-table-container d-flex gap-4">
-              <Dropdown overlay={sortMenu} trigger={["click"]}>
-                <button className="table-action-btn d-flex gap-2 align-items-center">
-                  <span>Sort By</span>
-                  <TbArrowsDownUp
-                    style={{
-                      fontWeight: 500,
-                      fontSize: "14px",
-                      color: "GrayText",
-                    }}
-                  />
-                </button>
-              </Dropdown>
+              <button onClick={handleAddEnterprise} className="membership-btn">
+
+                + Add Enterprise
+              </button>
 
               <div
                 className="d-flex align-items-center"
@@ -165,6 +156,10 @@ const EnterpriseUsers = () => {
             />
           </div>
         </div>
+        <AddEnterprise
+        visible={isModalOpen}
+        onClose={closeAddEnterpriseModal}
+      />
       </div>
     </div>
   );
