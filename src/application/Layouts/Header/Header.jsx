@@ -1,21 +1,18 @@
 import { useEffect, useState } from "react";
 import "../layout.css";
-import { MdOutlineNotificationsActive } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 import Swal from "sweetalert2";
-import logoutimg from "../../Assets/Images/admin.png";
 import { useNavigate } from "react-router-dom";
 import { Avatar } from "antd";
 import { axiosInstance } from "../../../AxiosConfig";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 
 const HeaderApplication = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [user, setUser] = useState({});
-  const dispatch = useDispatch();
   const userData = useSelector((state) => state?.user?.userData);
 
   console.log("STATE USER DETAILS:", userData);
@@ -31,11 +28,11 @@ const HeaderApplication = () => {
 
   useEffect(() => {
 
-    const userId = sessionStorage.getItem("userId"); // Retrieve userId from sessionStorage
+    const userId = sessionStorage.getItem("userId"); 
 
     if (!userId) {
       console.error("User ID not found in sessionStorage");
-      navigate("/login"); // Redirect to login if userId is missing
+      navigate("/login"); 
       return;
     }
 

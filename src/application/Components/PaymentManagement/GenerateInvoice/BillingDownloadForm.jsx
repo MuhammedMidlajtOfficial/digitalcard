@@ -45,31 +45,31 @@ export const BillingDownloadForm = ({
       console.error("Error generating PDF: ", error);
     }
   };
-  const[configs,setConfigs]=useState([])
+  const [configs, setConfigs] = useState([]);
   const fetchConfigs = () => {
     axiosInstance
-        .get(`/config`)
-        .then((response) => {
-            setConfigs(response.data || []);
-            console.log("ALL CONFIG", response.data);
-        })
-        .catch((error) => {
-            console.error("Error fetching configs:", error);
-        })
-};
+      .get(`/config`)
+      .then((response) => {
+        setConfigs(response.data || []);
+        console.log("ALL CONFIG", response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching configs:", error);
+      });
+  };
 
-useEffect(() => {
+  useEffect(() => {
     fetchConfigs();
-}, []);
+  }, []);
 
-const getConfigById = (id) => {
-  return configs.find((config) => config._id === id) || null;
-};
+  const getConfigById = (id) => {
+    return configs.find((config) => config._id === id) || null;
+  };
 
-// Use the specific ID directly to fetch the configuration
-const specificConfig = getConfigById("677fbbac80c574a3504f94d2"); // Replace with the correct ID
+  // Use the specific ID directly to fetch the configuration
+  const specificConfig = getConfigById("677fbbac80c574a3504f94d2"); // Replace with the correct ID
 
-console.log("Specific Config: ", specificConfig);
+  console.log("Specific Config: ", specificConfig);
   //Calculating CGST, SGST and totalAmount
   // const calculateTaxAmounts = (amount) => {
   //   const CGST = amount * 0.09;
@@ -80,7 +80,13 @@ console.log("Specific Config: ", specificConfig);
 
   // const { CGSTAmount, SGSTAmount, totalAmount } = invoice?.amount ?
   //   calculateTaxAmounts(Number(invoice?.amount?.$numberDecimal || 0)) : { CGSTAmount: "N/A", SGSTAmount: "N/A", totalAmount: "N/A" };
+  const invoiceAmount = parseFloat(invoice?.amount?.$numberDecimal || 0);
+  const CgstPercent = parseFloat(specificConfig?.config?.Cgst || 0);
+  const SgstPercent = parseFloat(specificConfig?.config?.Sgst || 0);
 
+  const CgstAmount = (invoiceAmount * CgstPercent) / 100;
+  const SgstAmount = (invoiceAmount * SgstPercent) / 100;
+  const finalTotalAmount = invoiceAmount + CgstAmount + SgstAmount;
   return (
     <Modal
       open={isModalVisible}
@@ -124,18 +130,22 @@ console.log("Specific Config: ", specificConfig);
                 <span className="label">Company Address</span>{" "}
                 <span className="separator">:</span>
                 <span className="value">
-                {specificConfig?.config?.CompanyAddress || "N/A"}
+                  {specificConfig?.config?.CompanyAddress || "N/A"}
                 </span>
               </p>
               <p>
                 <span className="label">Company's GSTIN </span>{" "}
                 <span className="separator">:</span>
-                <span className="value">{specificConfig?.config?.CompanyGstIn || "N/A"}</span>
+                <span className="value">
+                  {specificConfig?.config?.CompanyGstIn || "N/A"}
+                </span>
               </p>
               <p>
                 <span className="label">Company's PAN</span>{" "}
                 <span className="separator">:</span>
-                <span className="value">{specificConfig?.config?.CompanyPAN || "N/A"}</span>
+                <span className="value">
+                  {specificConfig?.config?.CompanyPAN || "N/A"}
+                </span>
               </p>
             </div>
             <div className="invoice-vertical-line"></div>
@@ -197,16 +207,12 @@ console.log("Specific Config: ", specificConfig);
               </p>
             </div>
 
-            <div className="d-flex justify-content-end gap-5">
-              <p className="table-row-gst">GST RATE</p>
+            {/* <div className="d-flex justify-content-end gap-5">
+              <p className="table-row-gst">CGST @ {specificConfig?.config?.Cgst || "N/A"}%</p>
               <p className="table-row-gst">N/A</p>
             </div>
             <div className="d-flex justify-content-end gap-5">
-              <p className="table-row-gst">CGST @ 9%</p>
-              <p className="table-row-gst">N/A</p>
-            </div>
-            <div className="d-flex justify-content-end gap-5">
-              <p className="table-row-gst">SGST @ 9%</p>
+              <p className="table-row-gst">SGST @ {specificConfig?.config?.Sgst || "N/A"}%</p>
               <p className="table-row-gst">N/A</p>
             </div>
             <div className="d-flex justify-content-end gap-5">
@@ -216,6 +222,29 @@ console.log("Specific Config: ", specificConfig);
                   ? `₹${invoice?.amount?.$numberDecimal}`
                   : "N/A"}
               </p>
+            </div> */}
+
+            <div className="d-flex justify-content-end gap-5">
+              <p className="table-row-gst">IGST RATE</p>
+              <p className="table-row-gst">
+                {specificConfig?.config?.Igst || "N/A"}%
+              </p>
+            </div>
+            <div className="d-flex justify-content-end gap-5">
+              <p className="table-row-gst">CGST @ {CgstPercent || "N/A"}%</p>
+              <p className="table-row-gst">₹{CgstAmount.toFixed(2)}</p>
+            </div>
+
+            {/* SGST Row */}
+            <div className="d-flex justify-content-end gap-5">
+              <p className="table-row-gst">SGST @ {SgstPercent || "N/A"}%</p>
+              <p className="table-row-gst">₹{SgstAmount.toFixed(2)}</p>
+            </div>
+
+            {/* Final Total Row */}
+            <div className="d-flex justify-content-end gap-5">
+              <p>Total</p>
+              <p>₹{finalTotalAmount.toFixed(2)}</p>
             </div>
 
             <div className="customer-info">
@@ -225,23 +254,26 @@ console.log("Specific Config: ", specificConfig);
               <p>
                 <span className="label">Bank Name</span>{" "}
                 <span className="separator">:</span>
-                <span className="value">{specificConfig?.config?.BankName || "N/A"}</span>
+                <span className="value">
+                  {specificConfig?.config?.BankName || "N/A"}
+                </span>
               </p>
               <p>
                 <span className="label">Account No</span>{" "}
                 <span className="separator">:</span>
                 <span className="value">
-                {specificConfig?.config?.AccountNumber || "N/A"}
+                  {specificConfig?.config?.AccountNumber || "N/A"}
                 </span>
               </p>
               <p>
                 <span className="label">Branch & Ifsc code </span>{" "}
                 <span className="separator">:</span>
-                <span className="value">{specificConfig?.config?.BranchName || "N/A" } & {specificConfig?.config?.IFSCcode || "N/A"}</span>
+                <span className="value">
+                  {specificConfig?.config?.BranchName || "N/A"} &{" "}
+                  {specificConfig?.config?.IFSCcode || "N/A"}
+                </span>
               </p>
-              
             </div>
-          
           </div>
         </div>
         <div className="billing-footer">

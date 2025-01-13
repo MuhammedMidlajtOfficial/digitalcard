@@ -10,19 +10,16 @@ import AddConfigurationModal from "./AddConfigurationModal";
 
 const AllConfigList = () => {
     const [allConfigs, setAllConfigs] = useState([]);
-    const [selectedConfig, setSelectedConfig] = useState(null); // Track the selected config for editing
+    const [selectedConfig, setSelectedConfig] = useState(null);
     const { loading, startLoading, stopLoading } = useLoading();
-    const [isAddConfigModalVisible, setIsAddConfigModalVisible] = useState(false); // State for modal visibility
-
-
-    // Fetch Config Records
+    const [isAddConfigModalVisible, setIsAddConfigModalVisible] = useState(false); 
     const fetchConfigs = () => {
         startLoading();
         axiosInstance
             .get(`/config`)
             .then((response) => {
-                setAllConfigs(response.data || []);
                 console.log("ALL CONFIG", response.data);
+                setAllConfigs(response.data || []);
             })
             .catch((error) => {
                 console.error("Error fetching configs:", error);
@@ -42,8 +39,6 @@ const AllConfigList = () => {
             onOk: () => deleteConfig(id), // Call delete function if confirmed
         });
     };
-
-    // Delete Configuration
     const deleteConfig = (id) => {
         startLoading();
         axiosInstance

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Form, Input } from "antd";
-import { MdOutlineLock } from "react-icons/md";
 import { axiosInstance } from "../../../AxiosConfig";
 import { showErrorToast, showSuccessToast } from "../../Services/toastService";
 import { useNavigate } from "react-router-dom";
@@ -22,7 +21,7 @@ export const SettingsPassword = () => {
       return;
     }
     const userId = sessionStorage.getItem("userId");
-    setLoading(true); // Start loading spinner
+    setLoading(true); 
     axiosInstance.patch(`adminAuth/updateUserPassword/${userId}`, {
       oldPassword,
       newPassword,
@@ -35,7 +34,7 @@ export const SettingsPassword = () => {
         showErrorToast(error.response?.data?.message || "An error occurred")
       })
       .finally(() => {
-        setLoading(false); // Stop loading spinner
+        setLoading(false); 
       });
   }
 
@@ -49,7 +48,6 @@ export const SettingsPassword = () => {
               <div className="col-md-12 mb-1">
                 <Form.Item label="Current Password" name="oldPassword">
                   <div className="d-flex align-items-center">
-                    {/* <MdOutlineLock className="lock-edit" /> */}
                     <Input.Password placeholder="Enter Current Password" />
                   </div>
                 </Form.Item>
@@ -59,7 +57,6 @@ export const SettingsPassword = () => {
               <div className="col-md-6 mb-1">
                 <Form.Item label="New Password" name="newPassword">
                   <div className="d-flex align-items-center">
-                    {/* <MdOutlineLock className="lock-edit" /> */}
                     <Input.Password placeholder="Enter New Password" />
                   </div>
                 </Form.Item>
@@ -67,7 +64,6 @@ export const SettingsPassword = () => {
               <div className="col-md-6 mb-1">
                 <Form.Item label="Confirm Password" name="confirmPassword">
                   <div className="d-flex align-items-center">
-                    {/* <MdOutlineLock className="lock-edit" /> */}
                     <Input.Password placeholder="Confirm New Password" />
                   </div>
                 </Form.Item>
