@@ -47,9 +47,9 @@ function SidebarApplication() {
       confirmButtonText: "Yes, logout me!",
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("userId");
-        localStorage.removeItem("refreshToken");
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("userId");
+        sessionStorage.removeItem("refreshToken");
         navigate("/login");
       }
     });

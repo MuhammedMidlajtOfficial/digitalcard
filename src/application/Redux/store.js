@@ -3,8 +3,8 @@ import { createStore } from 'redux';
 
 // Initial state
 const initialState = {
-  token: localStorage.getItem('token') || null,
-  userId: localStorage.getItem('userId') || null,
+  token: sessionStorage.getItem('token') || null,
+  userId: sessionStorage.getItem('userId') || null,
 };
 
 // Reducer
