@@ -91,3 +91,18 @@
   margin-right: -16px;
   z-index: 2;
 }
+
+.Phno-field::-webkit-inner-spin-button,
+.Phno-field::-webkit-outer-spin-button {
+  -webkit-appearance: none; 
+  margin: 0;
+}
+
+.Phno-field:hover::-webkit-inner-spin-button,
+.Phno-field:hover::-webkit-outer-spin-button {
+  -webkit-appearance: none; 
+}
+
+.Phno-field {
+  -moz-appearance: textfield; 
+}

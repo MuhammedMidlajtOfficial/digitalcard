@@ -8,19 +8,29 @@ import logoutimg from "../../Assets/Images/admin.png";
 import { useNavigate } from "react-router-dom";
 import { Avatar } from "antd";
 import { axiosInstance } from "../../../AxiosConfig";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const HeaderApplication = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [user, setUser] = useState({});
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state?.user?.userData);
+
+  console.log("STATE USER DETAILS:", userData);
 
   const infoUsers = {
-    username: user?.username,
+    username: user?.username || user?.username,
     role: user?.userType,
-    image: user?.image,
+    image: user?.image || user?.image,
   };
 
+  const displayedUsername = userData?.username || infoUsers?.username;
+  const displayedImage = userData?.image || infoUsers?.image;
+
   useEffect(() => {
+
     const userId = sessionStorage.getItem("userId"); // Retrieve userId from sessionStorage
 
     if (!userId) {
@@ -99,10 +109,7 @@ const HeaderApplication = () => {
                 aria-controls="user-menu"
                 aria-expanded={isDropdownOpen}
               >
-                <Avatar
-                  size="large"
-                  src={infoUsers.image ? infoUsers.image : logoutimg}
-                />
+                <Avatar size="large" src={displayedImage} />
               </button>
               <div className="user-info">
                 <span
@@ -113,7 +120,7 @@ const HeaderApplication = () => {
                     letterSpacing: "0.5px",
                   }}
                 >
-                  {`${infoUsers.username}`}
+                  {displayedUsername}
                 </span>
                 <br />
                 <span className="xl-2">{infoUsers.role}</span>
