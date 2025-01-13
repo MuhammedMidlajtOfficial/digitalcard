@@ -190,7 +190,6 @@ export const BillingDownloadForm = ({
             <div className="table-header">
               <p>Id</p>
               <p>Description of Service</p>
-              <p>HSN/SAC</p>
               <p>Quantity</p>
               <p>Total (INR)</p>
             </div>
@@ -198,7 +197,6 @@ export const BillingDownloadForm = ({
             <div className="table-row">
               <p>1</p>
               <p>Digital business card Gold member</p>
-              <p>45678</p>
               <p>2</p>
               <p>
                 {invoice?.amount?.$numberDecimal
