@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Table, Pagination, Button, Dropdown, Menu, Spin } from "antd";
+import { Table, Pagination, Button, Spin } from "antd";
 import { FiSearch } from "react-icons/fi";
 import { FaPlus } from "react-icons/fa";
-import { IoEllipsisHorizontalSharp } from "react-icons/io5";
+import { HiOutlinePencilSquare } from "react-icons/hi2";
+import { MdDeleteOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../../AxiosConfig";
 import { useLoading } from "../../Services/loadingService";
 import { showDeleteMessage } from "../../../globalConstant";
-import { HiOutlinePencilSquare } from "react-icons/hi2";
-import { MdDeleteOutline } from "react-icons/md";
 
 const WatiList = () => {
   const [allWatis, setAllWatis] = useState([]);
+  const [filteredWatis, setFilteredWatis] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
   const [totalWatis, setTotalWatis] = useState(0);
@@ -25,10 +25,12 @@ const WatiList = () => {
     startLoading();
     axiosInstance
       .get(`/wati`, {
-        params: { page: currentPage, pageSize, search: searchTerm },
+        params: { page: currentPage, pageSize },
       })
       .then((response) => {
-        setAllWatis(response.data || []);
+        const data = response.data || [];
+        setAllWatis(data);
+        setFilteredWatis(data); // Initialize filtered data
         setTotalWatis(response.data.totalCount || 0);
       })
       .catch((error) => {
@@ -58,18 +60,30 @@ const WatiList = () => {
   };
 
   const navigateToForm = (watiId = null) => {
-    if (watiId) {
-      navigate(`/admin/createWati?id=${watiId}`);
-    } else {
-      navigate(`/admin/createWati`);
-    }
+    navigate(watiId ? `/admin/createWati?id=${watiId}` : `/admin/createWati`);
   };
 
   // Search Handler
   const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
+    const value = e.target.value.toLowerCase();
+    setSearchTerm(value);
+
+    // Filter existing table data based on the "url" field
+    const filtered = allWatis.filter((wati) =>
+      wati.url.toLowerCase().includes(value)
+    );
+    setFilteredWatis(filtered);
   };
+
+  // Pagination Handler
+  const handlePaginationChange = (page, size) => {
+    setCurrentPage(page);
+    setPageSize(size);
+  };
+
+  useEffect(() => {
+    fetchWatis();
+  }, [currentPage, pageSize]);
 
   // Table Columns
   const columns = [
@@ -101,10 +115,6 @@ const WatiList = () => {
     },
   ];
 
-  useEffect(() => {
-    fetchWatis();
-  }, [currentPage, pageSize, searchTerm]);
-
   return (
     <div className="container">
       <div className="application-users-section mb-4 d-flex justify-content-between">
@@ -131,15 +141,12 @@ const WatiList = () => {
       ) : (
         <Table
           columns={columns}
-          dataSource={allWatis.map((wati, idx) => ({ ...wati, key: idx }))}
+          dataSource={filteredWatis.map((wati, idx) => ({ ...wati, key: idx }))}
           pagination={{
             current: currentPage,
             pageSize,
-            total: totalWatis,
-            onChange: (page, size) => {
-              setCurrentPage(page);
-              setPageSize(size);
-            },
+            total: filteredWatis.length,
+            onChange: handlePaginationChange,
             showSizeChanger: true,
             pageSizeOptions: [12, 24, 60, 120],
           }}
