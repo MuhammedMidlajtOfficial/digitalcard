@@ -97,7 +97,6 @@ const EditConfigModal = ({ config, onClose, refreshList }) => {
                     </div>
                 ))}
 
-                {/ Render extra fields /}
                 {extraFields.map((_, index) => (
                     <div className="row " key={`extra_${index}`} >
                         <div className="col-lg-11">
