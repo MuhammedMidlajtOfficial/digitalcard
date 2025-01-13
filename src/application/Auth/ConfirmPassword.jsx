@@ -12,7 +12,7 @@ const ConfirmPassword = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  //const loggedInUserInfo = JSON.parse(localStorage.getItem("loggedInUserInfo"));
+  //const loggedInUserInfo = JSON.parse(sessionStorage.getItem("loggedInUserInfo"));
 
   const createPassword = async (values) => {
     const { newPassword, confirmPassword } = values;
@@ -80,7 +80,7 @@ const ConfirmPassword = () => {
                 form={form}
                 layout="vertical"
                 className="login-form"
-                onFinish={createPassword} // Pass createPassword directly to onFinish
+                onFinish={createPassword} 
               >
                 <div className="col-lg-12">
                 <Form.Item

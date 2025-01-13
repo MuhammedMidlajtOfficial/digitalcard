@@ -3,8 +3,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './userSlice';
 
 const initialState = {
-  token: localStorage.getItem('token') || null,
-  userId: localStorage.getItem('userId') || null,
+  token: sessionStorage.getItem('token') || null,
+  userId: sessionStorage.getItem('userId') || null,
 };
 
 const tokenReducer = (state = initialState, action) => {

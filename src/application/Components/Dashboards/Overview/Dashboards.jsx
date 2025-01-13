@@ -9,7 +9,7 @@ const Dashboards = () => {
   const [username, setUsername] = useState("");
   const userData = useSelector((state) => state?.user?.userData);
   useEffect(() => {
-    const storedUsername = localStorage.getItem("UserName");
+    const storedUsername = sessionStorage.getItem("UserName");
     console.log("USER NAME", storedUsername)
     if (storedUsername) {
       setUsername(storedUsername);

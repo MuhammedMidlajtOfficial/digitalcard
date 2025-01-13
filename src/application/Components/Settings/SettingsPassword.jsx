@@ -21,7 +21,7 @@ export const SettingsPassword = () => {
       showErrorToast("New Password can not be same as old password");
       return;
     }
-    const userId = localStorage.getItem("userId");
+    const userId = sessionStorage.getItem("userId");
     setLoading(true); // Start loading spinner
     axiosInstance.patch(`adminAuth/updateUserPassword/${userId}`, {
       oldPassword,

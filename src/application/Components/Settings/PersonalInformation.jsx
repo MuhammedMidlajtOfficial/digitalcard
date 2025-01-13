@@ -30,11 +30,12 @@ export const PersonalInformation = () => {
   const [previewImage, setPreviewImage] = useState('')
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId"); 
 
+    const userId = sessionStorage.getItem("userId"); // Retrieve userId from sessionStorage
+  
     if (!userId) {
-      console.error("User ID not found in localStorage");
-      navigate("/login");
+      console.error("User ID not found in sessionStorage");
+      navigate("/login"); // Redirect to login if userId is missing
       return;
     }
 
@@ -100,10 +101,10 @@ export const PersonalInformation = () => {
   };
 
   const handleSubmit = (values) => {
-    const userId = localStorage.getItem("userId");
+    const userId = sessionStorage.getItem("userId");
 
     if (!userId) {
-      console.error("User ID not found in localStorage");
+      console.error("User ID not found in sessionStorage");
       return;
     }
 
