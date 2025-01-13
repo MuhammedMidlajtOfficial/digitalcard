@@ -1,13 +1,12 @@
-// src/store.js
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
+import userReducer from './userSlice';
 
-// Initial state
 const initialState = {
   token: localStorage.getItem('token') || null,
   userId: localStorage.getItem('userId') || null,
 };
 
-// Reducer
 const tokenReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_TOKEN':
@@ -19,10 +18,15 @@ const tokenReducer = (state = initialState, action) => {
   }
 };
 
-// Create Redux store
-const store = createStore(
-  tokenReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() // Enable Redux DevTools
-);
+
+const rootReducer = combineReducers({
+  token: tokenReducer, 
+  user: userReducer,   
+});
+
+const store = configureStore({
+  reducer: rootReducer,
+  devTools: process.env.NODE_ENV !== 'production', 
+});
 
 export default store;
