@@ -18,9 +18,11 @@ const DashboardGraphs = () => {
   
   useEffect(() => {
     // getTotalCount 
-    axiosInstance.get('dashboard/getTotalCount')
+    axiosInstance.get('dashboard/getActiveUsers')
     .then((response)=>{
-      setTotalUsers(response.data.totalUser)
+      console.log("response.data.totalUser",response.data.activeUsersCount);
+      
+      setTotalUsers(response.data.activeUsersCount)
     })
     .catch((error) => {
       console.error("Error fetching data:", error);
