@@ -5,21 +5,19 @@ import { CloseOutlined } from "@ant-design/icons";
 
 const AddConfigurationModal = ({ visible, onCancel, refreshList }) => {
     const [configData, setConfigData] = useState([
-        { key: "", value: "" }, // Initial key-value pair
+        { key: "", value: "" }, 
     ]);
 
     const handleSave = () => {
-        // Format the data to match the required structure
         const formattedData = configData.reduce((acc, { key, value }) => {
             if (key && value) {
-                acc[key] = value; // Dynamically use configData.key and configData.value
+                acc[key] = value; 
             }
             return acc;
         }, {});
 
-        // Make the POST request to save the configuration
         axiosInstance
-            .post(`/config/`, formattedData) // Send the formatted data in the request body
+            .post(`/config/`, formattedData) 
             .then((response) => {
                 console.log("Config saved successfully", response.data);
                 refreshList();
@@ -30,17 +28,17 @@ const AddConfigurationModal = ({ visible, onCancel, refreshList }) => {
                 console.error("Error saving config:", error);
             });
 
-        onCancel(); // Close the modal after saving
+        onCancel(); 
     };
 
     const handleAddMore = () => {
-        setConfigData([...configData, { key: "", value: "" }]); // Add new key-value pair
+        setConfigData([...configData, { key: "", value: "" }]);
     };
 
     const handleInputChange = (index, field, value) => {
         const updatedData = [...configData];
         updatedData[index][field] = value;
-        setConfigData(updatedData); // Update the respective field in the array
+        setConfigData(updatedData); 
     };
 
     const handleRemoveField = (index) => {
@@ -51,8 +49,8 @@ const AddConfigurationModal = ({ visible, onCancel, refreshList }) => {
     return (
         <Modal
             title="Add Configuration"
-            visible={visible} // Modal visibility controlled by the parent component
-            onCancel={onCancel} // Close modal on cancel
+            visible={visible}
+            onCancel={onCancel} 
             footer={[
                 <Button key="back" onClick={onCancel}>
                     Cancel

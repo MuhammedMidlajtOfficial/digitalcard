@@ -82,6 +82,7 @@ const ManageSubscriptionIndex = () => {
     try {
       startLoading();
       const response = await axiosInstance.get("subscription");
+      
       const formattedPlans = response.data.SubscriptionPlans.map((plan) => ({
         ...plan,
         price: plan.price?.$numberDecimal || plan.price,

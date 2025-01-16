@@ -30,7 +30,7 @@
   padding: 24px;
   display: flex;
   flex-direction: column;
-  /* min-height: 315px; */
+  height: 315px !important;
 }
 .application-users-profile-card h2 {
   font-size: 14px;
@@ -524,4 +524,21 @@
 }
 .search-input-css:focus-within {
   border: none;
+}
+
+.select-package.ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
+  padding: 18px 10px;
+
+}
+.input-padding-style.ant-select:not(.ant-select-customize-input) .ant-select-selector{
+  padding: 4px 0px;
+}
+.color-padding.ant-input-outlined{
+  padding: 14px 4px;
+}
+.ant-input[type="color"]{
+  height: 42px;
+}
+.input-padding-css.ant-select:not(.ant-select-customize-input) .ant-select-selector{
+  padding: 18px 6px;
 }

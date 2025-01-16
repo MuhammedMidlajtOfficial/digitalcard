@@ -56,7 +56,7 @@ const UsersProfiles = ({ setChange }) => {
         },
       })
       .then((response) => {
-        console.log(response);
+        console.log("dddddd", response.data);
         setAllUser(response.data.totalUser);
         setTotalUsers(response.data.totalCount);
         stopLoading();
@@ -163,7 +163,7 @@ const UsersProfiles = ({ setChange }) => {
               <p className="null-member-tag">No Plan</p>
             )}
           </div>
-          <h4>{email}</h4>
+          <h4 className="mt-2 employee-email">{email}</h4>
           <h4>{phnNumber || "N/A"}</h4>
           <h4>
             <span style={{ color: color }}>
@@ -210,13 +210,13 @@ const UsersProfiles = ({ setChange }) => {
       </div>
       <div className="d-flex mb-4 flex-lg-row flex-xl-row flex-column justify-content-between gap-4">
         <div className="search-container">
-          <FiSearch className="search-icon" />
+          <FiSearch className="search-icon-wati" />
           <input
             type="text"
             placeholder="Search..."
-            className="create-survey-search-input"
             value={searchTerm}
             onChange={handleSearch}
+            className="search-input-css"
           />
         </div>
         <div className="search-table-container d-flex gap-4">
@@ -233,13 +233,17 @@ const UsersProfiles = ({ setChange }) => {
             </button>
           </Dropdown>
           <div
-            className="d-flex align-items-center"
+            className={`d-flex align-items-center ${
+              !isTableView ? "active-view" : ""
+            }`}
             onClick={handleGridViewToggle}
           >
             <RxGrid className="table-card-list" />
           </div>
           <div
-            className="d-flex align-items-center"
+            className={`d-flex align-items-center ${
+              isTableView ? "active-view" : ""
+            }`}
             onClick={handleTableViewToggle}
           >
             <LuMenu className="table-data-list" />
@@ -251,6 +255,7 @@ const UsersProfiles = ({ setChange }) => {
       ) : isTableView ? (
         <AllUsersTableList
           allUser={allUser}
+          setAllUser={setAllUser}
           filter={activeFilter}
           currentPage={currentPage}
           pageSize={pageSize}
