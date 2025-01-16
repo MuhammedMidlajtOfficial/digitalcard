@@ -7,6 +7,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import EditConfigModal from "./EditConfigModal"; // Import the modal component
 import { FaPlus } from "react-icons/fa6";
 import AddConfigurationModal from "./AddConfigurationModal";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 const AllConfigList = () => {
     const [allConfigs, setAllConfigs] = useState([]);
@@ -33,20 +34,20 @@ const AllConfigList = () => {
 
     const openDeleteModal = (id) => {
         Modal.confirm({
-            title: "Are you sure you want to delete this configuration?",
+            title: "Deleting this configuration may affect its functionality on other pages. Please confirm if you wish to proceed.",
+            icon: <ExclamationCircleOutlined style={{ color: "red" }} />,
             okText: "Yes",
             cancelText: "No",
-            onOk: () => deleteConfig(id), // Call delete function if confirmed
+            onOk: () => deleteConfig(id), 
         });
     };
     const deleteConfig = (id) => {
         startLoading();
         axiosInstance
             .delete(`/config`, {
-                data: { configId: id }, // Sending configId in the body of the DELETE request
+                data: { configId: id }, 
             })
             .then(() => {
-                // Successfully deleted, now fetch updated configs
                 fetchConfigs();
             })
             .catch((error) => {
