@@ -20,7 +20,7 @@ const cardData = [
   },
   {
     icon: AiOutlineDollar,
-    title: "Completed Transections",
+    title: "Completed Transactions",
     value: "₹2,50,000",
     bgColor: "#ffcb64",
     textColor: "#ffffff",
@@ -32,7 +32,7 @@ const ManagePaymentsCards = () => {
     <div className="container">
       <div className="row">
         <div className="manage-payments-section">
-          <h2>View payment</h2>
+          <h2>View Payment</h2>
         </div>
         {cardData.map(
           ({ icon: Icon, title, value, bgColor, textColor }, index) => (

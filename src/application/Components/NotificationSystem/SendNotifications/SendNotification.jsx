@@ -222,7 +222,7 @@ const SendNotification = () => {
           </div>
           <button
             type="submit"
-            className={`submit-btn ${loading ? "disabled" : ""}`}
+            className={`submit-notification-btn ${loading ? "disabled" : ""}`}
             disabled={loading}
           >
             {loading ? (

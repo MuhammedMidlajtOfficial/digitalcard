@@ -29,7 +29,9 @@
 
 /* Hover effect */
 .back-btn:hover {
-  background-color: #0572e6;  /* Darker blue on hover */
+  background-color: var(--white-color);  
+color: var(--gradient-end-color);
+border: 1px solid var(--gradient-end-color);
 }
 
 /* Focus effect removal */

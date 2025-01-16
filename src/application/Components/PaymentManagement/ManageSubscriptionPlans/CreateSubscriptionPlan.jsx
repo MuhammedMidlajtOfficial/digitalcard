@@ -86,7 +86,7 @@ const CreateSubscriptionPlan = ({
           name="name"
           label="Subscription Name"
           rules={[
-            { required: true, message: "Please enter subscription name" },
+            { required: true, message: "Please enter Subscription name" },
             {
               validator(_, value) {
                 if (value && value.trim().length >= 3) {
@@ -99,16 +99,25 @@ const CreateSubscriptionPlan = ({
             },
           ]}
         >
-          <Input placeholder="Enter subscription name" />
+          <Input placeholder="Enter Subscription name" />
         </Form.Item>
-
+        <Form.Item
+          name="type"
+          label="User Type"
+          rules={[{ required: true, message: "Please select a user type" }]}
+        >
+          <Radio.Group>
+            <Radio value="Individual">Individual</Radio>
+            <Radio value="Enterprise">Enterprise</Radio>
+          </Radio.Group>
+        </Form.Item>
         <Row gutter={16}>
-          <Col span={8}>
+          <Col span={12}>
             <Form.Item
               name="price"
               label="Price"
               rules={[
-                { required: true, message: "Please enter the price" },
+                { required: true, message: "Please enter the Price" },
                 {
                   validator(_, value) {
                     if (!value || /^\d+$/.test(value)) {
@@ -126,32 +135,19 @@ const CreateSubscriptionPlan = ({
               <Input prefix="₹" placeholder="999" />
             </Form.Item>
           </Col>
-
-          <Col span={8}>
+          <Col span={12}>
             <Form.Item
               name="packageType"
               label="Select Package"
               rules={[{ required: true, message: "Please select a package" }]}
             >
-              <Select placeholder="Select Package">
+              <Select className="select-package" placeholder="Select Package">
                 <Option value="monthly">Monthly</Option>
                 <Option value="yearly">Yearly</Option>
               </Select>
             </Form.Item>
           </Col>
         </Row>
-
-        <Form.Item
-          name="type"
-          label="User Type"
-          rules={[{ required: true, message: "Please select a user type" }]}
-        >
-          <Radio.Group>
-            <Radio value="Individual">Individual</Radio>
-            <Radio value="Enterprise">Enterprise</Radio>
-          </Radio.Group>
-        </Form.Item>
-
         <Form.Item
           name="description"
           label="Subscription Features (comma-separated)"
