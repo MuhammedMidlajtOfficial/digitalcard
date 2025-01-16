@@ -107,7 +107,6 @@ import WatiLists from "./application/Page/Wati";
 import CreateWatis from "./application/Page/Wati/CreateWati";
 import ViewLogpage from "./application/Page/ViewLogs/ViewLogPage";
 import AllConfigurationIndex from "./application/Page/AllConfiguration/AllConfigurationIndex";
-import { ProfilePage } from "./website/Page/ProfilePage";
 
 
 const Loader = () => {
@@ -117,7 +116,6 @@ const Loader = () => {
 const MainContent = () => {
   const [loading, setLoading] = useState(false);
   const location = useLocation();
-  const isUserProfileRoute = location.pathname.startsWith("/user-profile/");
 
   // <Route path="/admin/dashboard/overview" element={<DashboardPage />} />;
   const applicationRoutes = [
@@ -222,7 +220,7 @@ const MainContent = () => {
       {!loading && (
         <>
           {/* Show header only if it's not an application route */}
-          {!isApplicationRoute && !isUserProfileRoute && <Header />}
+          {!isApplicationRoute && <Header />}
           <Routes>
             {/* website routes */}
             <Route path="/" element={<Home />} />
@@ -232,7 +230,6 @@ const MainContent = () => {
             <Route path="resources" element={<Resources />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/user-profile/:id" element={<ProfilePage />} />
             <Route
               path="terms-and-conditions"
               element={<TermsAndConditions />}
@@ -567,9 +564,7 @@ const MainContent = () => {
           </Routes>
 
           {/* Show footer only if it's not an application route  */}
-          {!isApplicationRoute && !isUserProfileRoute && <Footer />}
-          
-
+          {!isApplicationRoute && <Footer />}
         </>
       )}
     </>
