@@ -12,7 +12,6 @@ const ForgotPassword = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  //const loggedInUserInfo = JSON.parse(sessionStorage.getItem("loggedInUserInfo"));
 
   const sendOtp = async () => {
     try {

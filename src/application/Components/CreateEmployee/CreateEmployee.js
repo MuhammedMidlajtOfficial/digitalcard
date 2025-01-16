@@ -205,7 +205,7 @@ const CreateEmployee = () => {
                 label="User Name"
                 name="username"
                 rules={[
-                  { required: true, message: "Please enter a username!" },
+                  { required: true, message: "Please enter a Username!" },
                 ]}
               >
                 <Input placeholder="Enter User Name" />
@@ -216,8 +216,8 @@ const CreateEmployee = () => {
                 label="Email"
                 name="email"
                 rules={[
-                  { required: true, message: "Please enter an email!" },
-                  { type: "email", message: "Enter a valid email address!" },
+                  { required: true, message: "Please enter an Email!" },
+                  { type: "email", message: "Enter a valid Email address!" },
                 ]}
               >
                 <Input placeholder="Enter Email" />

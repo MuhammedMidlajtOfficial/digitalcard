@@ -492,3 +492,12 @@
   }
 }
 
+.active-view {
+  background-color: #e0f7fa;
+  border-radius: 8px; 
+  padding: 5px;       
+}
+.active-view .table-card-list,
+.active-view .table-data-list {
+  color: #007bff;
+}

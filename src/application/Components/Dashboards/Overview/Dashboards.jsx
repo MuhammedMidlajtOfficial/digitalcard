@@ -20,7 +20,7 @@ const Dashboards = () => {
 
   return (
     <div className="application-dashboard-section">
-      <div className="row dashboard-main-section">
+      <div className="row dashboard-main-section mb-3">
         <h2>Hello, {UserName}!</h2>
         <p>Have a nice day at great work</p>
       </div>

@@ -303,12 +303,12 @@ const AssignTicketsTable = () => {
         <div>
           <Button
             style={{ marginRight: "10px" }}
-            type="primary"
+            className="assign-ticket-btn"
             onClick={handleAssignClick}
           >
             Assign Ticket
           </Button>
-          <Button onClick={handleCloseClick}>Close</Button>
+          <Button onClick={handleCloseClick} className="close-btn">Close</Button>
         </div>
       </div>
     </div>

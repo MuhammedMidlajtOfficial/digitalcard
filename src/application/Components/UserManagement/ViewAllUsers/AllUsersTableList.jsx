@@ -10,11 +10,11 @@ import { useLoading } from "../../../Services/loadingService";
 export const AllUsersTableList = ({
   allUser = [],
   filter,
+  onPaginationChange,
   setAllUser,
   currentPage,
   pageSize,
-  totalUsers,
-  onPaginationChange, 
+  totalUsers
 }) => {
   const navigate = useNavigate();
 console.log("asd",allUser)
@@ -132,13 +132,6 @@ console.log("asd",allUser)
     return <div className="text-center mt-5">No users found.</div>;
   }
 
-  const handlePaginationChange = (page, size) => {
-    if (typeof onPaginationChange === "function") {
-      onPaginationChange(page, size);
-    } else {
-      console.warn("onPaginationChange function is not provided.");
-    }
-  };
 
   return (
     <div className="row">

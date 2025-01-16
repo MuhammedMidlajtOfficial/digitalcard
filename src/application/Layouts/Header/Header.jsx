@@ -4,19 +4,21 @@ import { Link } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { Avatar } from "antd";
 import { axiosInstance } from "../../../AxiosConfig";
 import { useSelector } from "react-redux";
-
+import { Avatar, message, List } from 'antd';
+import { allAdminRoutes } from "./allAdminRoutes";
 
 const HeaderApplication = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [user, setUser] = useState({});
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredRoutes, setFilteredRoutes] = useState([]);
+
+
   const userData = useSelector((state) => state?.user?.userData);
-
-  // console.log("STATE USER DETAILS:", userData);
-
   const infoUsers = {
     username: user?.username || user?.username,
     role: user?.userType,
@@ -77,13 +79,67 @@ const HeaderApplication = () => {
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
+  
+  const handleSearch = (value) => {
+    const searchQuery = value.toLowerCase().trim().replace(/\s+/g, "");
+    setSearchQuery(searchQuery);
 
+    if (!searchQuery || searchQuery === "") {
+      setFilteredRoutes([]); 
+      return;
+  }
+
+    const suggestions = allAdminRoutes.filter((route) =>
+      route.keyWords.some((keyword) =>
+        keyword.toLowerCase().replace(/\s+/g, "").includes(searchQuery)
+      )
+    );
+
+    setFilteredRoutes(suggestions);
+
+    if (suggestions.length === 0) {
+      message.error("No matching page found");
+    }
+  };
+  const handleSelect = (route) => {
+    navigate(route);
+    setSearchQuery("");
+    setFilteredRoutes([]);
+  };
   return (
     <div style={{ position: "sticky", top: "0", zIndex: "999" }}>
       <nav className="navbar-header">
         <div className="search-container-header">
           <FiSearch className="search-icon" />
-          <input type="text" placeholder="Search..." className="search-input" />
+          <input type="text" placeholder="Search..." className="search-input" 
+          value={searchQuery}
+          onChange={(e) => handleSearch(e.target.value)} 
+          />
+           {filteredRoutes.length > 0 && (
+        <List
+          style={{
+            marginTop: "10px",
+            width: "400px",
+            maxHeight: "200px",
+            overflowY: "auto", 
+            backgroundColor: "white", 
+            borderRadius: "4px",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+            position: "absolute", 
+            zIndex: 1, 
+          }}
+          bordered
+          dataSource={filteredRoutes}
+          renderItem={(item) => (
+            <List.Item
+              onClick={() => handleSelect(item.route)}
+              style={{ cursor: "pointer" }}
+            >
+              {item.title}
+            </List.Item>
+          )}
+        />
+      )}
         </div>
         <div className="d-flex w-100 justify-content-end">
           <div
