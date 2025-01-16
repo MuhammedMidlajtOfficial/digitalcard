@@ -255,6 +255,7 @@ const UsersProfiles = ({ setChange }) => {
       ) : isTableView ? (
         <AllUsersTableList
           allUser={allUser}
+          setAllUser={setAllUser}
           filter={activeFilter}
           currentPage={currentPage}
           pageSize={pageSize}

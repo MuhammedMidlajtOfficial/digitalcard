@@ -318,6 +318,8 @@ const CreateEmployee = () => {
                       Send Notification
                     </Checkbox>
                     <Checkbox value="wati">Wati Lists</Checkbox>
+                    <Checkbox value="logs">View Logs</Checkbox>
+                    <Checkbox value="config">All Configuration</Checkbox>
                   </div>
                 </Checkbox.Group>
               </Form.Item>

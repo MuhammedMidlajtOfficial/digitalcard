@@ -23,8 +23,17 @@ const EnterpriseUsers = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchUsers = () => {
-    console.log("hereeeeeee");
+    console.log("Fetching users...");
+    console.log("API Endpoint: user/getEnterpriseUser");
+    console.log("Request Parameters:", {
+      page: currentPage,
+      pageSize,
+      sortOrder,
+      search: searchTerm,
+    });
+  
     startLoading();
+  
     axiosInstance
       .get(`user/getEnterpriseUser`, {
         params: {
@@ -35,15 +44,22 @@ const EnterpriseUsers = () => {
         },
       })
       .then((response) => {
+
         setUsers(response.data.users); // Update with users array from response
         setTotalUsers(response.data.totalCount); // Update total users count
+  
         stopLoading();
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
+        console.error("Error Response Details:", error.response || "No additional error details available.");
         stopLoading();
+      })
+      .finally(() => {
+        console.log("Fetch Users API call completed.");
       });
   };
+  
 
   useEffect(() => {
     fetchUsers();

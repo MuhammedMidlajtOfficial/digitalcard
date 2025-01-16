@@ -546,15 +546,15 @@ const MainContent = () => {
             />
              <Route
               path="/admin/AllConfigurationList"
-              element={<PrivateRoute element={AllConfigurationIndex} />}
+              element={<PrivateRoute element={AllConfigurationIndex} requiredPermission="config"/>}
+            />
+            <Route
+              path="/admin/logview"
+              element={<PrivateRoute element={ViewLogpage} requiredPermission="logs"/>}
             />
             <Route
               path="/admin/Unauthorized"
               element={<PrivateRoute element={UnAuthorized} />}
-            />
-            <Route
-              path="/admin/logview"
-              element={<PrivateRoute element={ViewLogpage} />}
             />
           </Routes>
 

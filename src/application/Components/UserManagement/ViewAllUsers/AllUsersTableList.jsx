@@ -1,27 +1,60 @@
 import React from "react";
-import { Table, Avatar, Dropdown, Button, Menu } from "antd";
+import { Table, Avatar, Dropdown, Button, Menu,Modal } from "antd";
 import { IoEllipsisHorizontalSharp } from "react-icons/io5";
 import { UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { showErrorToast, showSuccessToast } from "../../../Services/toastService";
+import { axiosInstance } from "../../../../AxiosConfig";
+import { useLoading } from "../../../Services/loadingService";
 
 export const AllUsersTableList = ({
   allUser = [],
   filter,
   onPaginationChange,
+  setAllUser,
+  currentPage,
+  pageSize,
+  totalUsers,
+  onPaginationChange, 
 }) => {
   const navigate = useNavigate();
+console.log("asd",allUser)
+  const { loading, startLoading, stopLoading } = useLoading();
 
-  const actionMenu = (
-    <Menu>
-      <Menu.Item
-        key="1"
-        onClick={() => navigate("/admin/usermanagement/editusers")}
-      >
-        Edit
-      </Menu.Item>
-      <Menu.Item key="2">Delete</Menu.Item>
-    </Menu>
-  );
+  const handleChangeStatus = (userId, currentStatus) => {
+    Modal.confirm({
+      title: "Are you sure you want to change the status?",
+      content: `This will set the status to ${currentStatus === "active" ? "inactive" : "active"}.`,
+      okText: "Yes",
+      cancelText: "No",
+      onOk: () => {
+        startLoading();
+        axiosInstance
+          .get(`user/changeUserStatus/${userId}`)
+          .then((response) => {
+            if (response.status === 200) {
+              showSuccessToast(response.data.message);
+              // Update the local user list
+              setAllUser((prevUsers) =>
+                prevUsers.map((user) =>
+                  user._id === userId
+                    ? { ...user, status: currentStatus === "active" ? "inactive" : "active" }
+                    : user
+                )
+              );
+            }
+            stopLoading();
+          })
+          .catch((error) => {
+            console.error("Error changing status:", error);
+            showErrorToast("Something went wrong. Please try again later.");
+            stopLoading();
+          });
+      },
+    });
+  };
+
+
 
   const columns = [
     {
@@ -64,11 +97,30 @@ export const AllUsersTableList = ({
     {
       title: "Action",
       dataIndex: "action",
-      render: () => (
-        <Dropdown overlay={actionMenu} trigger={["click"]}>
-          <Button type="text" icon={<IoEllipsisHorizontalSharp />} />
-        </Dropdown>
-      ),
+      render: (_, record) => {
+        const actionMenu = (
+          <Menu>
+            <Menu.Item
+              key="1"
+              onClick={() => navigate("/admin/usermanagement/editusers")}
+            >
+              Edit
+            </Menu.Item>
+            <Menu.Item
+              key="2"
+              onClick={() => handleChangeStatus(record._id)}
+            >
+              {record.status === "active" ? "Inactive" : "Active"}
+            </Menu.Item>
+          </Menu>
+        );
+
+        return (
+          <Dropdown overlay={actionMenu} trigger={["click"]}>
+            <Button type="text" icon={<IoEllipsisHorizontalSharp />} />
+          </Dropdown>
+        );
+      },
     },
   ];
 
