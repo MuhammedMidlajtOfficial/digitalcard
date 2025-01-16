@@ -65,36 +65,59 @@ export const EditUser = ({ userId }) => {
 
   const HandleSubmitForm = async (values) => {
     const allowedFields = {
-      individual: ['username', 'email', 'image', 'role', 'name', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink'],
-      enterprise: ['email', 'image', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink', 'companyName', 'industryType', 'aboutUs'],
-      enterpriseEmp: ['username', 'email', 'image', 'role', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink']
+      individual: [ 'username', 'email', 'image', 'role', 'name', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink',],
+      enterprise: [ 'email', 'image', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink', 'companyName', 'industryType', 'aboutUs',],
+      enterpriseEmp: [ 'username', 'email', 'image', 'role', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink',],
     }[selectedUserType];
   
-    // Filter out only allowed fields
+    // Filter values to include only allowed fields
     const filteredData = Object.fromEntries(
       Object.entries(values).filter(([key]) => allowedFields.includes(key))
     );
   
-    // If there's an image in userData, include it in the submission
+    // Group social media fields
+    const socialMedia = {
+      whatsappNo: filteredData.whatsappNo,
+      facebookLink: filteredData.facebookLink,
+      instagramLink: filteredData.instagramLink,
+      twitterLink: filteredData.twitterLink,
+    };
+  
+    // Remove individual social media fields from filteredData
+    ['whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink'].forEach((key) =>
+      delete filteredData[key]
+    );
+  
+    if (Object.values(socialMedia).some((value) => value)) {
+      filteredData.socialMedia = socialMedia;
+    }
+  
+    // Include Base64 image if already in userData
     if (userData.image) {
-      filteredData.image = userData.image; // Add the Base64 image from userData
+      filteredData.image = userData.image;
     }
   
     try {
       setIsLoading(true);
-      // Send the PATCH request to update the user profile
-      const response = await axiosInstance.patch(`/user/updateProfile/${userId}`, { ...filteredData, userType: selectedUserType });
+      console.log('filteredData--', filteredData);
   
-      // Show success toast on successful update
+      // Make PATCH request
+      const response = await axiosInstance.patch(`/user/updateProfile/${userId}`, {
+        ...filteredData,
+        userType: selectedUserType,
+      });
+  
+      // Success toast
       showSuccessToast(response.data.message);
       navigate('/admin/usermanagement/viewallusers');
     } catch (error) {
-      // Show error toast on failure
-      showErrorToast(error.response?.data?.message || "Update failed");
+      // Error toast
+      showErrorToast(error.response?.data?.message || 'Update failed');
     } finally {
-      setIsLoading(false); // Set loading to false after the request is finished
+      setIsLoading(false);
     }
   };
+  
   
   useEffect(() => {
     console.log('userData-',userData);
