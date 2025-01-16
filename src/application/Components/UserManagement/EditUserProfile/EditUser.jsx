@@ -48,10 +48,10 @@ export const EditUser = ({ userId }) => {
           website: data.website || "",
           phnNumber: data.phnNumber || "",
           address: data.address || "",
-          whatsappNo: data.whatsappNo || "",
-          facebookLink: data.facebookLink || "",
-          instagramLink: data.instagramLink || "",
-          twitterLink: data.twitterLink || "",
+          whatsappNo: data.socialMedia?.whatsappNo || "",
+          facebookLink:  data.socialMedia?.facebookLink || "",
+          instagramLink:  data.socialMedia?.instagramLink || "",
+          twitterLink:  data.socialMedia?.twitterLink || "",
           companyName: data.companyName || "",
           industryType: data.industryType || "",
           aboutUs: data.aboutUs || "",
@@ -70,29 +70,57 @@ export const EditUser = ({ userId }) => {
       enterpriseEmp: ['username', 'email', 'image', 'role', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink']
     }[selectedUserType];
   
+  
     // Filter out only allowed fields
     const filteredData = Object.fromEntries(
       Object.entries(values).filter(([key]) => allowedFields.includes(key))
     );
   
+    // console.log("Filtered Data (before social media restructuring):", filteredData);
+  
+    // Restructure social media fields
+    const socialMediaFields = ['whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink'];
+    const socialMedia = {};
+    socialMediaFields.forEach(field => {
+      if (filteredData[field]) {
+        socialMedia[field] = filteredData[field];
+        delete filteredData[field]; // Remove from root level
+      }
+    });
+  
+    // console.log("Restructured Social Media Object:", socialMedia);
+  
+    // Add socialMedia object if any social media fields exist
+    if (Object.keys(socialMedia).length > 0) {
+      filteredData.socialMedia = socialMedia;
+    }
+  
     // If there's an image in userData, include it in the submission
     if (userData.image) {
-      filteredData.image = userData.image; // Add the Base64 image from userData
+      filteredData.image = userData.image;
     }
+  
+    console.log("Final Data to be Submitted:", {
+      ...filteredData,
+      userType: selectedUserType
+    });
   
     try {
       setIsLoading(true);
       // Send the PATCH request to update the user profile
-      const response = await axiosInstance.patch(`/user/updateProfile/${userId}`, { ...filteredData, userType: selectedUserType });
+      const response = await axiosInstance.patch(`/user/updateProfile/${userId}`, {
+        ...filteredData,
+        userType: selectedUserType
+      });
   
-      // Show success toast on successful update
+      console.log("API Response:", response);
       showSuccessToast(response.data.message);
       navigate('/admin/usermanagement/viewallusers');
     } catch (error) {
-      // Show error toast on failure
+      console.error("API Error:", error.response?.data);
       showErrorToast(error.response?.data?.message || "Update failed");
     } finally {
-      setIsLoading(false); // Set loading to false after the request is finished
+      setIsLoading(false);
     }
   };
   
@@ -109,10 +137,10 @@ export const EditUser = ({ userId }) => {
       role: userData?.role,
       address: userData?.address,
       website: userData?.website,
-      whatsappNo: userData?.whatsappNo,
-      facebookLink: userData?.facebookLink,
-      instagramLink: userData?.instagramLink,
-      twitterLink: userData?.twitterLink,
+      whatsappNo: userData.whatsappNo,
+      facebookLink: userData.facebookLink,
+      instagramLink: userData.instagramLink,
+      twitterLink: userData.twitterLink,
       companyName: userData?.companyName,
       industryType: userData?.industryType,
       aboutUs: userData?.aboutUs,
