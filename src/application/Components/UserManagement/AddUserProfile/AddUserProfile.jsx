@@ -47,7 +47,8 @@ export const AddUserProfile = () => {
     whatsappNo: "",   
     facebookLink: "", 
     instagramLink: "",
-    twitterLink: "",  
+    twitterLink: "",
+    userName:""  
   });
   const [previewImage, setPreviewImage] = useState("");
   const navigate=useNavigate();
@@ -109,9 +110,10 @@ export const AddUserProfile = () => {
     setIsSubmitting(true);
     setIsLoading(true); // Enable blur effect
     startLoading(); // Start loading indicator
-    
+    console.log('Data to be submitted:', enterpriseUserData);
     axiosInstance
       .post(`user/addEnterpriseUser`, {
+        username:enterpriseUserData.userName,
         companyName: enterpriseUserData.companyName,
         industryType: enterpriseUserData.industryType,
         email: enterpriseUserData.email,
@@ -594,6 +596,25 @@ export const AddUserProfile = () => {
             <>
               {/* Company Name & Industry Type */}
               <div className="row mt-4">
+              <div className="col-md-6 mb-1">
+                  <Form.Item
+                    label="User Name"
+                    name="username"
+                    className="edit-user-form"
+                    rules={[
+                      { required: true, message: "Please enter a username!" },
+                      { min: 3, message: "Username must be at least 3 characters long." },
+                    ]}
+                  >
+                    <Input
+                      placeholder="Enter User Name"
+                      className="form-placeholder-field"
+                      name="userName"
+                      value={enterpriseUserData.userName}
+                      onChange={handleEnterpriseInputChange}
+                    />
+                  </Form.Item>
+                </div>
                 <div className="col-md-6 mb-1">
                   <Form.Item
                     label="Company Name"
@@ -851,7 +872,8 @@ export const AddUserProfile = () => {
                   <Button
                     className="create-btn"
                     type="primary"
-                    htmlType="submit"
+                    // htmlType="submit"
+                    onClick={addEnterpriseUser}
                   >
                     Create
                   </Button>

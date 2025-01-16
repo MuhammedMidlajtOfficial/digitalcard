@@ -35,8 +35,9 @@ const Login = () => {
       
         dispatch(setUser({ userType, username, category }));
         dispatch(setToken(accessToken,user._id));
-        localStorage.setItem("userId", user._id);
-        localStorage.setItem("refreshToken", refreshToken);
+        sessionStorage.setItem("userId", user._id);
+        sessionStorage.setItem("UserName", username);
+        sessionStorage.setItem("refreshToken", refreshToken);
 
         syncAuthState();
 
@@ -100,6 +101,7 @@ const Login = () => {
                       <Checkbox onChange={handleRememberMeChange}>Remember</Checkbox>
                     </Form.Item>
                     <button
+                    type="button"
                       className="forgot-password-button"
                       onClick={() => navigate("/forgot-password")}
                     >

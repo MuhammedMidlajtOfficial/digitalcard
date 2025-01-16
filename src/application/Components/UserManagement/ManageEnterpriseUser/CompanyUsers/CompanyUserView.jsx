@@ -17,7 +17,8 @@ import {
 import { Modal,Spin } from "antd";
 import { axiosInstance, logInstance } from "../../../../../AxiosConfig";
 import "./CompanyUserView.css";
-
+import AddEmployee from "./AddEmployee";
+import defaultUser from "../../../../Assets/Images/default user.png"
 export default function CompanyUserView({ userId }) {
   console.log("userId-", userId);
   const [userData, setUserData] = useState({
@@ -79,7 +80,7 @@ export default function CompanyUserView({ userId }) {
           address: data.address || "N/A",
           image:
             data.image ||
-            "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp",
+            defaultUser,
           socialMedia: {
             whatsappNo: data.socialMedia?.whatsappNo || "",
             facebookLink: data.socialMedia?.facebookLink || "",
@@ -104,19 +105,70 @@ export default function CompanyUserView({ userId }) {
   console.log("Current Employees to display:", currentEmployees);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+   const[configs,setConfigs]=useState([])
+    const fetchConfigs = () => {
+      axiosInstance
+          .get(`/config`)
+          .then((response) => {
+              setConfigs(response.data || []);
+              console.log("ALL CONFIG", response.data);
+          })
+          .catch((error) => {
+              console.error("Error fetching configs:", error);
+          })
+  };
+  
+  useEffect(() => {
+      fetchConfigs();
+  }, []);
+  
+  const getConfigById = (id) => {
+    return configs.find((config) => config._id === id) || null;
+  };
+  
+  const specificConfig = getConfigById("6784cb4e3a4c28778d35986a"); 
+  
+  console.log("Specific Config: ", specificConfig);
   // Determine total pages
-  const totalPages = Math.ceil(userData.employees.length / employeesPerPage);
 
+  const getThemeByCode = (themeCode) => {
+    const specificConfig = getConfigById("6784cb4e3a4c28778d35986a");
+    if (specificConfig && specificConfig.config && specificConfig.config[themeCode]) {
+      return specificConfig.config[themeCode];
+    }
+    return "N/A";  // Fallback if the theme is not found
+  };
+
+  const totalPages = Math.ceil(userData.employees.length / employeesPerPage);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleAddEmloyee = () => {
+      setIsModalOpen(true); 
+    };
+  
+    const closeAddEnterpriseModal = () => {
+      setIsModalOpen(false); 
+    };
+  
+ 
   return (
     <section className="company-user-view">
       <MDBContainer>
         {/* Back Button */}
-        <div
+       <div className="justify-content-between d-flex">
+       <div
           className="no-focus back-btn mb-3"
           onClick={() => window.history.back()}
         >
           Back
         </div>
+        <div
+          className="no-focus back-btn mb-3"
+          onClick={handleAddEmloyee}
+        >
+         + Add Employee
+        </div>
+       </div>
 
         {/* Company Information */}
         <MDBRow className="justify-content-center">
@@ -132,7 +184,7 @@ export default function CompanyUserView({ userId }) {
                   }}
                 >
                   <MDBCardImage
-                    src={userData.image}
+                    src={userData.image || defaultUser}
                     alt="Avatar"
                     className="my-4 rounded-circle"
                     style={{
@@ -268,7 +320,7 @@ export default function CompanyUserView({ userId }) {
                         <MDBCardImage
                           src={
                             employee.empId?.image ||
-                            "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                            defaultUser
                           }
                           alt="Employee Avatar"
                           className="my-4 rounded-circle"
@@ -290,6 +342,9 @@ export default function CompanyUserView({ userId }) {
                         </MDBCardText>
                         <MDBCardText className="text-muted">
                           Phone: {employee.empId?.phnNumber || "N/A"}
+                        </MDBCardText>
+                        <MDBCardText className="text-muted">
+                         Theme: {getThemeByCode(employee.empId?.theme) || "N/A"}
                         </MDBCardText>
                       </MDBCardBody>
                     </MDBCard>
@@ -335,11 +390,11 @@ export default function CompanyUserView({ userId }) {
         {isLoading ? (
           <Spin />
         ) : selectedEmployee ? (
-          <div>
+          <div className="employee-details-modal">
             <img
               src={
                 selectedEmployee.image ||
-                "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+               defaultUser
               }
               alt="Employee"
               style={{
@@ -376,7 +431,11 @@ export default function CompanyUserView({ userId }) {
           <p>No employee data available.</p>
         )}
       </Modal>
- 
+      <AddEmployee
+          visible={isModalOpen}
+          onClose={closeAddEnterpriseModal}
+        />
+
     </section>
   );
 }

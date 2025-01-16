@@ -17,16 +17,16 @@
   border: 1px solid var(--white-color);
 }
 
-/* .search-icon {
+.search-icon {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
   align-items: center;
   padding-left: 8px;
-  font-size: 24px;
+  font-size: 26px !important;
   color: var(--text-secondary-color);
-} */
+}
 
 .search-icon svg {
   color: var(--text-color);
@@ -36,12 +36,16 @@
   padding: 8px 32px;
   background: transparent;
   border-radius: 8px;
-  color: var(--black-text-color);
+  color: var(--white-color);
   font-size: 14px;
+  border: none;
+  outline: none; 
   font-weight: 400;
   letter-spacing: 0.5px;
 }
-
+.search-input:focus-within {
+  border: none;
+}
 .search-input:focus {
   outline: none;
 }
@@ -288,7 +292,7 @@
 }
 .active-sub-link {
   background-color: var(--gradient-start-color) !important;
-  color: var(--white-color) !important; 
+  color: var(--white-color) !important;
 }
 .sub-nav-link:hover {
   /* padding: 8px 16px; */
