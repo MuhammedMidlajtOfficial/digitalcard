@@ -11,7 +11,7 @@ const Signup = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [otpSent, setOtpSent] = useState(false);
-  const loggedInUserInfo = JSON.parse(localStorage.getItem("loggedInUserInfo"));
+  const loggedInUserInfo = JSON.parse(sessionStorage.getItem("loggedInUserInfo"));
 
   const sendOtp = async () => {
     try {

@@ -27,8 +27,8 @@ const AssignTicketsTable = () => {
   });
 
   useEffect(() => {
-    // Set the createdBy field from localStorage when the component mounts
-    const userId = localStorage.getItem("userId");
+    // Set the createdBy field from sessionStorage when the component mounts
+    const userId = sessionStorage.getItem("userId");
     setNewTicketData((prevState) => ({
       ...prevState,
       createdBy: userId || null,

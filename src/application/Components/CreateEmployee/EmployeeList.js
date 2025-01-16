@@ -7,7 +7,7 @@ import { LuMenu } from "react-icons/lu";
 import { IoEllipsisHorizontalSharp } from "react-icons/io5";
 import { UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import {axiosInstance} from "../../../AxiosConfig";
+import { axiosInstance } from "../../../AxiosConfig";
 import { useLoading } from "../../Services/loadingService";
 import { showDeleteMessage } from "../../../globalConstant";
 
@@ -30,6 +30,8 @@ const EmployeeList = () => {
         params: { page: currentPage, pageSize, search: searchTerm },
       })
       .then((response) => {
+        console.log("response.data.employees", response.data.employees);
+
         setAllUsers(response.data.employees || []);
         setTotalUsers(response.data.totalCount || 0);
       })
@@ -106,7 +108,7 @@ const EmployeeList = () => {
               <Menu.Item
                 key="edit"
                 onClick={() =>
-                   navigateToForm(record._id)
+                  navigateToForm(record._id)
                 }
               >
                 Edit
@@ -141,11 +143,27 @@ const EmployeeList = () => {
           />
         </div>
         <h2 className="mt-3">{user.username || "N/A"}</h2>
-        <h4>{user.email}</h4>
-        <h4>{user.phnNumber || "N/A"}</h4>
-        <h5>
-          Categories: {user.category?.length ? user.category.join(", ") : "N/A"}
-        </h5>
+        <h4 className="mt-2 employee-email">{user.email}</h4>
+        <h4 className="mt-2">{user.phnNumber || "N/A"}</h4>
+        <h5 className="categories-list">Categories</h5>
+        {user.category?.length ? (
+          <ul style={{ listStyleType: "disc", paddingLeft: "20px" }}>
+            {user.category.slice(0, 3).map((cat, index) => (
+              <li style={{ fontSize: "14px" }} key={index}>
+              {index === 2 && user.category.length > 3 ? (
+                <>
+                  {cat}
+                  <span style={{ color: "red", fontSize:"24px" }}>...</span>
+                </>
+              ) : (
+                cat
+              )}
+            </li>
+            ))}
+          </ul>
+        ) : (
+          <p>N/A</p>
+        )}
         <div className="d-flex gap-2 mt-2">
           <button
             className="edit-button"
@@ -183,19 +201,19 @@ const EmployeeList = () => {
         </button>
       </div>
       <div className="d-flex mb-4 justify-content-between">
-      <div className="search-container">
-        <FiSearch className="search-icon" />
-        <input
-          type="text"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={handleSearch}
-          className="search-input"
-        />
-      </div>
+        <div className="search-container">
+          <FiSearch className="search-icon-wati" />
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={handleSearch}
+            className="search-input-css"
+          />
+        </div>
         <div className="d-flex gap-4">
-          <RxGrid onClick={() => toggleView("grid")} />
-          <LuMenu onClick={() => toggleView("table")} />
+          <RxGrid className="table-card-list" onClick={() => toggleView("grid")} />
+          <LuMenu className="table-data-list" onClick={() => toggleView("table")} />
         </div>
       </div>
       {loading ? (

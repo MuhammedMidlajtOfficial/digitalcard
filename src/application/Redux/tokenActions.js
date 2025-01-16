@@ -1,7 +1,7 @@
 
 export const setToken = (token, userId) => {
-  localStorage.setItem('token', token);
-  localStorage.setItem('userId', userId);
+  sessionStorage.setItem('token', token);
+  sessionStorage.setItem('userId', userId);
   return {
     type: 'SET_TOKEN',
     payload: { token, userId },
@@ -9,8 +9,8 @@ export const setToken = (token, userId) => {
 };
 
 export const removeToken = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('userId');
+  sessionStorage.removeItem('token');
+  sessionStorage.removeItem('userId');
   return {
     type: 'REMOVE_TOKEN',
   };

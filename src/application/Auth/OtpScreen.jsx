@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./auth.css";
 import login from "../Assets/Images/loginbackground.png";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Form } from "antd";
 import { axiosInstance } from "../../../src/AxiosConfig";
 
@@ -10,7 +10,10 @@ const OtpScreen = () => {
   const navigate = useNavigate();
   const [otpCode, setOtpCode] = useState(new Array(6).fill(""));
   const [loading, setLoading] = useState(false);
-  //const loggedInUserInfo = JSON.parse(localStorage.getItem("loggedInUserInfo"));
+  const location = useLocation();
+
+  const email = location.state?.email;
+  console.log("ssss",email);
 
   const handleChange = (e, index) => {
     const value = e.target.value;
@@ -44,7 +47,6 @@ const OtpScreen = () => {
   };
   const onFinish = async () => {
     const otp = otpCode.join("");
-    const email = sessionStorage.getItem("otpEmail");
     try {
       setLoading(true)
       const response = await axiosInstance.post(
@@ -106,14 +108,48 @@ const OtpScreen = () => {
       setLoading(false);
     }
   };
-  
+  const handleResend = async () => {
+    const email = sessionStorage.getItem("otpEmail");
+    try {
+      const response = await axiosInstance.post(
+        "adminAuth/forgotPassword/request-otp",
+        { email }
+      );
+
+      if (response.status === 200) {
+        Swal.fire({
+          icon: "success",
+          title: "OTP Resent",
+          text: "A new OTP has been sent to your email.",
+          confirmButtonText: "OK",
+          confirmButtonColor: "var(--green-color)",
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: response.data.message || "Failed to resend OTP.",
+          confirmButtonText: "Try Again",
+          confirmButtonColor: "var(--danger-color)",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "An error occurred while resending OTP.",
+        confirmButtonText: "Try Again",
+        confirmButtonColor: "var(--danger-color)",
+      });
+    }
+  };
   return (
     <div className="login-container">
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-5 col-sm-12 col-md-12 login-left">
-            <h2 className="login-heading">Diskuss</h2>
-            <div className="login-card col-lg-12">
+            <h2 className="login-heading-forgot">Diskuss</h2>
+            <div className="login-card-forgot col-lg-12">
               <center>
                 <h2>OTP Verification</h2>
                 <p>Enter OTP Code sent to your email</p>
@@ -136,9 +172,14 @@ const OtpScreen = () => {
                 </Form.Item>
                 <div className="resend-info">
                   <p>
-                    Didn’t get OTP? <span>Resend in 30 seconds</span>
+                    Didn’t get OTP? 
                   </p>
-                  <p className="resend-link">Resend Code</p>
+                  <p
+                    className="resend-link"
+                    onClick={handleResend}
+                  >
+                    Resend Code
+                  </p>
                 </div>
                 <button type="submit" className="sign-button" disabled={loading}>
                   {loading ? "Verify & Proceed..." : "Verify & Proceed"}

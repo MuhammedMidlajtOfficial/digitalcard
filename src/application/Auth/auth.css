@@ -145,6 +145,9 @@
   font-size: 14px;
   font-weight: 600;
 }
+.resend-link:hover {
+  color: var(--gradient-start-color) !important;
+}
 
 .ant-input-outlined {
   padding: 8px 16px;
@@ -197,4 +200,33 @@
 }
 .register-btn:hover {
   color: var(--secondary-gray-color);
+}
+.login-card-forgot {
+  background-color: var(--white-color);
+  border-radius: 12px;
+  padding: 30px;
+  position: relative;
+  left: 40px;
+  align-items: center;
+}
+.login-card-forgot h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--black-text-color);
+  letter-spacing: -0.2px;
+}
+
+.login-card-forgot p {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-color);
+  letter-spacing: -0.2px;
+}
+.login-heading-forgot {
+  background-color: transparent;
+  color: var(--white-color);
+  font-size: 40px;
+  position: relative;
+  left: -140px;
+  margin-bottom: 20px;
 }

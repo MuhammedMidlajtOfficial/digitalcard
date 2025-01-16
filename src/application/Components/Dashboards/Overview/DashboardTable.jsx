@@ -3,8 +3,10 @@ import { Dropdown, Menu, Table, Avatar } from "antd";
 import { FiFilter } from "react-icons/fi";
 import { axiosInstance } from "../../../../AxiosConfig";
 
+import { UserOutlined } from "@ant-design/icons";
+
 export const DashboardTable = () => {
-  const [filter, setFilter] = useState('individualUsers');
+  const [filter, setFilter] = useState("individualUsers");
   const [recentUser, setRecentUser] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -44,6 +46,7 @@ export const DashboardTable = () => {
 
     fetchUsers();
 
+
     return () => {
       setRecentUser([]);
     };
@@ -78,11 +81,13 @@ export const DashboardTable = () => {
       render: (companyName, record) => (
         <div className="d-flex align-items-center">
           <Avatar
-            src={record.image || "/default-avatar.png"}
+
+            src={record.image}
             size={40}
             className="me-2"
+            icon={!record.image && <UserOutlined />}
           />
-          {companyName}
+          {companyName || "N/A"}
         </div>
       ),
     },
@@ -112,6 +117,19 @@ export const DashboardTable = () => {
         </span>
       ),
     },
+
+
+  // {
+  //   title: "Action",
+  //   dataIndex: "action",
+  //   render: () => (
+  //     <Dropdown overlay={actionMenu} trigger={['click']}>
+  //       <Button type="text" icon={<IoEllipsisHorizontalSharp />} />
+  //     </Dropdown>
+  //   ),
+  // },
+
+
     {
       title: "User Type",
       dataIndex: "userType",

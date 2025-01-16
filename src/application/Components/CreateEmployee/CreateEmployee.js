@@ -3,7 +3,7 @@ import { Form, Input, Button, Checkbox } from "antd";
 import { TbEdit } from "react-icons/tb";
 import { useNavigate, useLocation } from "react-router-dom";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import {axiosInstance} from "../../../AxiosConfig";
+import { axiosInstance } from "../../../AxiosConfig";
 import Swal from "sweetalert2";
 
 const CreateEmployee = () => {
@@ -111,7 +111,7 @@ const CreateEmployee = () => {
       console.error("Error submitting form:", error);
       if (error.response) {
         const { status, data } = error.response;
-  
+
         if (status === 400) {
           Swal.fire({
             icon: "error",
@@ -134,9 +134,8 @@ const CreateEmployee = () => {
           Swal.fire({
             icon: "error",
             title: "Error",
-            text: `Failed to ${
-              employeeId ? "update" : "create"
-            } employee profile. Please try again.`,
+            text: `Failed to ${employeeId ? "update" : "create"
+              } employee profile. Please try again.`,
           });
         }
       } else {
@@ -162,6 +161,7 @@ const CreateEmployee = () => {
         >
           {employeeId ? "Edit Employee Profile" : "Add Employee Profile"}
         </h4>
+        <hr style={{ width: "30%", margin: "5px auto", border: "1px solid #2238ff" }} />
 
         <Form layout="vertical" form={form} onFinish={handleSubmitForm}>
           <div className="row mt-4">
@@ -243,26 +243,23 @@ const CreateEmployee = () => {
                   />
                 </Form.Item>
               </div>
+              <div className="col-md-6 mb-1">
+                <Form.Item
+                  label="Phone Number"
+                  name="phnNumber"
+                  rules={[
+                    { required: true, message: "Please enter a phone number!" },
+                    {
+                      pattern: /^\d{10}$/,
+                      message: "Phone number must be 10 digits.",
+                    },
+                  ]}
+                >
+                  <Input placeholder="Enter Phone Number" />
+                </Form.Item>
+              </div>
             </div>
           )}
-
-          <div className="row">
-            <div className="col-md-6 mb-1">
-              <Form.Item
-                label="Phone Number"
-                name="phnNumber"
-                rules={[
-                  { required: true, message: "Please enter a phone number!" },
-                  {
-                    pattern: /^\d{10}$/,
-                    message: "Phone number must be 10 digits.",
-                  },
-                ]}
-              >
-                <Input placeholder="Enter Phone Number" />
-              </Form.Item>
-            </div>
-          </div>
 
           <div className="row mt-4">
             <div className="col-md-12 mb-1">
@@ -293,14 +290,6 @@ const CreateEmployee = () => {
                       Manage Enterprise User
                     </Checkbox>
 
-                    <Checkbox value="user-activity-reports">
-                      User Activity Reports
-                    </Checkbox>
-
-                    <Checkbox value="card-share-interaction">
-                      Card Share & Interaction
-                    </Checkbox>
-
                     <Checkbox value="manage-subscription-plans">
                       Manage Subscription Plans
                     </Checkbox>
@@ -329,6 +318,8 @@ const CreateEmployee = () => {
                       Send Notification
                     </Checkbox>
                     <Checkbox value="wati">Wati Lists</Checkbox>
+                    <Checkbox value="logs">View Logs</Checkbox>
+                    <Checkbox value="config">All Configuration</Checkbox>
                   </div>
                 </Checkbox.Group>
               </Form.Item>

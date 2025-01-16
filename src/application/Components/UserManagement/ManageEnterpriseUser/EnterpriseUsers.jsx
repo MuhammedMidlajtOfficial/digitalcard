@@ -10,6 +10,8 @@ import { EnterpriseListUsers } from "./EnterpriseListUsers";
 import { useLoading } from "../../../Services/loadingService";
 import { axiosInstance } from "../../../../AxiosConfig";
 import { UserOutlined } from "@ant-design/icons";
+import { FaPlus } from "react-icons/fa6";
+import AddEnterprise from "./AddEnterprise";
 
 const EnterpriseUsers = () => {
   const [sortOrder, setSortOrder] = useState("asc");
@@ -21,6 +23,7 @@ const EnterpriseUsers = () => {
   const { loading, startLoading, stopLoading } = useLoading();
   const navigate = useNavigate();
   const [isTableView, setIsTableView] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Control modal visibility
 
   const fetchUsers = () => {
     console.log("Fetching users...");
@@ -67,21 +70,15 @@ const EnterpriseUsers = () => {
   useEffect(() => {
     fetchUsers();
   }, [currentPage, pageSize, sortOrder, searchTerm]);
+  const handleAddEnterprise = () => {
+    setIsModalOpen(true); // Open modal when button is clicked
+  };
 
-  const sortMenu = (
-    <Menu onClick={({ key }) => setSortOrder(key)} selectedKeys={[sortOrder]}>
-      <Menu.Item key="asc">
-        <div className="menu-item-content">
-          ASC <IoIosArrowForward className="right-arrow" />
-        </div>
-      </Menu.Item>
-      <Menu.Item key="desc">
-        <div className="menu-item-content">
-          DESC <IoIosArrowForward className="right-arrow" />
-        </div>
-      </Menu.Item>
-    </Menu>
-  );
+  const closeAddEnterpriseModal = () => {
+    setIsModalOpen(false); // Close modal
+    fetchUsers(); // Refresh users list after adding an enterprise
+  };
+ 
 
   const renderUserProfileCard = (user) => {
     const { image, companyName, email, phnNumber, employeeCount } = user;
@@ -141,18 +138,10 @@ const EnterpriseUsers = () => {
               />
             </div>
             <div className="search-table-container d-flex gap-4">
-              <Dropdown overlay={sortMenu} trigger={["click"]}>
-                <button className="table-action-btn d-flex gap-2 align-items-center">
-                  <span>Sort By</span>
-                  <TbArrowsDownUp
-                    style={{
-                      fontWeight: 500,
-                      fontSize: "14px",
-                      color: "GrayText",
-                    }}
-                  />
-                </button>
-              </Dropdown>
+              <button onClick={handleAddEnterprise} className="membership-btn">
+
+                + Add Enterprise
+              </button>
 
               <div
                 className="d-flex align-items-center"
@@ -185,6 +174,10 @@ const EnterpriseUsers = () => {
             />
           </div>
         </div>
+        <AddEnterprise
+        visible={isModalOpen}
+        onClose={closeAddEnterpriseModal}
+      />
       </div>
     </div>
   );

@@ -1,46 +1,75 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Modal, Button } from "antd";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { axiosInstance } from "../../../../AxiosConfig";
 
-export const BillingDownloadForm = ({ isModalVisible, setIsModalVisible,invoice={} }) => {
+export const BillingDownloadForm = ({
+  isModalVisible,
+  setIsModalVisible,
+  invoice = {},
+}) => {
   const billingCardRef = useRef(null);
-
+  console.log("invoice", invoice);
   const handleClose = () => {
     setIsModalVisible(false);
   };
 
   const handleDownloadPDF = async () => {
-	const input = billingCardRef.current;
-  
-	if (!input) {
-	  console.error("No input element found for PDF generation");
-	  return;
-	}
-	try {
-	  const canvas = await html2canvas(input, { scale: 2 });
-	  const imgData = canvas.toDataURL("image/png");
-	  const pdf = new jsPDF("p", "mm", "a4");
-	  const margin = 10;
-	  const imgWidth = 210 - 2 * margin;
-	  const pageHeight = 295 - 2 * margin;
-	  const imgHeight = (canvas.height * imgWidth) / canvas.width;
-	  let heightLeft = imgHeight-pageHeight;
-	  let position = margin;
-	  pdf.addImage(imgData, "PNG", margin, position, imgWidth, imgHeight);
-	  // heightLeft -= pageHeight;
-	  while (heightLeft >= 0) {
-      position = heightLeft - imgHeight + margin;
-      pdf.addPage();
+    const input = billingCardRef.current;
+
+    if (!input) {
+      console.error("No input element found for PDF generation");
+      return;
+    }
+    try {
+      const canvas = await html2canvas(input, { scale: 2 });
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      const margin = 10;
+      const imgWidth = 210 - 2 * margin;
+      const pageHeight = 295 - 2 * margin;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight - pageHeight;
+      let position = margin;
       pdf.addImage(imgData, "PNG", margin, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-	  }
-	  pdf.save(invoice.invoiceNumber);
-	} catch (error) {
-	  console.error("Error generating PDF: ", error);
-	}
+      // heightLeft -= pageHeight;
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight + margin;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", margin, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      pdf.save(invoice.invoiceNumber);
+    } catch (error) {
+      console.error("Error generating PDF: ", error);
+    }
+  };
+  const [configs, setConfigs] = useState([]);
+  const fetchConfigs = () => {
+    axiosInstance
+      .get(`/config`)
+      .then((response) => {
+        setConfigs(response.data || []);
+        console.log("ALL CONFIG", response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching configs:", error);
+      });
   };
 
+  useEffect(() => {
+    fetchConfigs();
+  }, []);
+
+  const getConfigById = (id) => {
+    return configs.find((config) => config._id === id) || null;
+  };
+
+  // Use the specific ID directly to fetch the configuration
+  const specificConfig = getConfigById("677fbbac80c574a3504f94d2"); // Replace with the correct ID
+
+  console.log("Specific Config: ", specificConfig);
   //Calculating CGST, SGST and totalAmount
   // const calculateTaxAmounts = (amount) => {
   //   const CGST = amount * 0.09;
@@ -49,16 +78,21 @@ export const BillingDownloadForm = ({ isModalVisible, setIsModalVisible,invoice=
   //   return { CGSTAmount: CGST.toFixed(2), SGSTAmount: SGST.toFixed(2), totalAmount: totalAmount.toFixed(2) };
   // };
 
-  // const { CGSTAmount, SGSTAmount, totalAmount } = invoice?.amount ? 
+  // const { CGSTAmount, SGSTAmount, totalAmount } = invoice?.amount ?
   //   calculateTaxAmounts(Number(invoice?.amount?.$numberDecimal || 0)) : { CGSTAmount: "N/A", SGSTAmount: "N/A", totalAmount: "N/A" };
+  const invoiceAmount = parseFloat(invoice?.amount?.$numberDecimal || 0);
+  const CgstPercent = parseFloat(specificConfig?.config?.Cgst || 0);
+  const SgstPercent = parseFloat(specificConfig?.config?.Sgst || 0);
 
-
+  const CgstAmount = (invoiceAmount * CgstPercent) / 100;
+  const SgstAmount = (invoiceAmount * SgstPercent) / 100;
+  const finalTotalAmount = invoiceAmount + CgstAmount + SgstAmount;
   return (
     <Modal
       open={isModalVisible}
       onCancel={handleClose}
       footer={null}
-      width={600}
+      width={750}
       className="billing-delete-modal"
       closable={false}
     >
@@ -75,58 +109,168 @@ export const BillingDownloadForm = ({ isModalVisible, setIsModalVisible,invoice=
               TAX ID <span>80808080</span>
             </h4>
             <h5>
-              GSTIN <span>12ABCDE1234AAB</span>
+              GSTIN <span>{specificConfig?.config?.CompanyGstIn || "N/A"}</span>
             </h5>
           </div>
         </div>
-        <div className="billing-body">
-          <div className="customer-info">
-            <p>
-              <span className="label">Customer Name</span>{" "}
-              <span className="separator">:</span>
-              <span className="value">{invoice?.username || "N/A"}</span>
-            </p>
-            <p>
-              <span className="label">Invoice</span>{" "}
-              <span className="separator">:</span>
-              <span className="value">{invoice?.invoiceNumber || "N/A"}</span>
-            </p>
-            <p>
-              <span className="label">Plan Type</span>{" "}
-              <span className="separator">:</span>
-              <span className="value">{invoice?.planName ? `${invoice.planName} Member` : "N/A"}</span>
-            </p>
-            <p>
-              <span className="label">Currency</span>{" "}
-              <span className="separator">:</span>
-              <span className="value">INR</span>
-            </p>
-            <p>
-              <span className="label">Issue Date</span>{" "}
-              <span className="separator">:</span>
-              <span className="value">{invoice?.paymentDate ? invoice.paymentDate.split('T')[0] : "N/A"}</span>
-            </p>
+        <div className="billing-body mt-4">
+          <div className="d-flex gap-3">
+            <div className="customer-info">
+              <h4>
+                <strong>Billed By</strong>
+              </h4>
+              <p>
+                <span className="label">Company Name</span>{" "}
+                <span className="separator">:</span>
+                <span className="value">
+                  {specificConfig?.config?.CompanyName || "N/A"}
+                </span>
+              </p>
+              <p>
+                <span className="label">Company Address</span>{" "}
+                <span className="separator">:</span>
+                <span className="value">
+                  {specificConfig?.config?.CompanyAddress || "N/A"}
+                </span>
+              </p>
+              <p>
+                <span className="label">Company's GSTIN </span>{" "}
+                <span className="separator">:</span>
+                <span className="value">
+                  {specificConfig?.config?.CompanyGstIn || "N/A"}
+                </span>
+              </p>
+              <p>
+                <span className="label">Company's PAN</span>{" "}
+                <span className="separator">:</span>
+                <span className="value">
+                  {specificConfig?.config?.CompanyPAN || "N/A"}
+                </span>
+              </p>
+            </div>
+            <div className="invoice-vertical-line"></div>
+            <div className="customer-info mt-2">
+              <h4>
+                <strong>Billed To</strong>
+              </h4>
+              <p>
+                <span className="label">Customer Name</span>{" "}
+                <span className="separator">:</span>
+                <span className="value">{invoice?.username || "N/A"}</span>
+              </p>
+              <p>
+                <span className="label">Invoice</span>{" "}
+                <span className="separator">:</span>
+                <span className="value">{invoice?.invoiceNumber || "N/A"}</span>
+              </p>
+              <p>
+                <span className="label">Plan Type</span>{" "}
+                <span className="separator">:</span>
+                <span className="value">
+                  {invoice?.planName ? `${invoice.planName} Member` : "N/A"}
+                </span>
+              </p>
+              <p>
+                <span className="label">Currency</span>{" "}
+                <span className="separator">:</span>
+                <span className="value">INR</span>
+              </p>
+              <p>
+                <span className="label">Issue Date</span>{" "}
+                <span className="separator">:</span>
+                <span className="value">
+                  {invoice?.paymentDate
+                    ? invoice.paymentDate.split("T")[0]
+                    : "N/A"}
+                </span>
+              </p>
+            </div>
           </div>
           <div className="billing-table">
             <div className="table-header">
-              <p>Description</p>
+              <p>Id</p>
+              <p>Description of Service</p>
+              <p>Quantity</p>
               <p>Total (INR)</p>
             </div>
+
             <div className="table-row">
-              <p style={{fontSize:"12px", color:"var(--text-secondary-color)"}}>Digital business card Gold member</p>
-              <p style={{fontSize:"12px"}}>{invoice?.amount?.$numberDecimal ? invoice?.amount?.$numberDecimal : "N/A"}</p>
+              <p>1</p>
+              <p>Digital business card Gold member</p>
+              <p>2</p>
+              <p>
+                {invoice?.amount?.$numberDecimal
+                  ? invoice?.amount?.$numberDecimal
+                  : "N/A"}
+              </p>
             </div>
-            <div className="table-row" style={{border:"none"}}>
-              <p className="table-row-gst">CGST</p>
+
+            {/* <div className="d-flex justify-content-end gap-5">
+              <p className="table-row-gst">CGST @ {specificConfig?.config?.Cgst || "N/A"}%</p>
               <p className="table-row-gst">N/A</p>
             </div>
-            <div className="table-row">
-              <p className="table-row-gst">SGST</p>
+            <div className="d-flex justify-content-end gap-5">
+              <p className="table-row-gst">SGST @ {specificConfig?.config?.Sgst || "N/A"}%</p>
               <p className="table-row-gst">N/A</p>
             </div>
-            <div className="table-row total-row">
+            <div className="d-flex justify-content-end gap-5">
               <p>Total</p>
-              <p>{invoice?.amount?.$numberDecimal ? `₹${invoice?.amount?.$numberDecimal}` : "N/A"}</p>
+              <p>
+                {invoice?.amount?.$numberDecimal
+                  ? `₹${invoice?.amount?.$numberDecimal}`
+                  : "N/A"}
+              </p>
+            </div> */}
+
+            <div className="d-flex justify-content-end gap-5">
+              <p className="table-row-gst">IGST RATE</p>
+              <p className="table-row-gst">
+                {specificConfig?.config?.Igst || "N/A"}%
+              </p>
+            </div>
+            <div className="d-flex justify-content-end gap-5">
+              <p className="table-row-gst">CGST @ {CgstPercent || "N/A"}%</p>
+              <p className="table-row-gst">₹{CgstAmount.toFixed(2)}</p>
+            </div>
+
+            {/* SGST Row */}
+            <div className="d-flex justify-content-end gap-5">
+              <p className="table-row-gst">SGST @ {SgstPercent || "N/A"}%</p>
+              <p className="table-row-gst">₹{SgstAmount.toFixed(2)}</p>
+            </div>
+
+            {/* Final Total Row */}
+            <div className="d-flex justify-content-end gap-5">
+              <p>Total</p>
+              <p>₹{finalTotalAmount.toFixed(2)}</p>
+            </div>
+
+            <div className="customer-info">
+              <h4>
+                <strong>Company Bank details</strong>
+              </h4>
+              <p>
+                <span className="label">Bank Name</span>{" "}
+                <span className="separator">:</span>
+                <span className="value">
+                  {specificConfig?.config?.BankName || "N/A"}
+                </span>
+              </p>
+              <p>
+                <span className="label">Account No</span>{" "}
+                <span className="separator">:</span>
+                <span className="value">
+                  {specificConfig?.config?.AccountNumber || "N/A"}
+                </span>
+              </p>
+              <p>
+                <span className="label">Branch & Ifsc code </span>{" "}
+                <span className="separator">:</span>
+                <span className="value">
+                  {specificConfig?.config?.BranchName || "N/A"} &{" "}
+                  {specificConfig?.config?.IFSCcode || "N/A"}
+                </span>
+              </p>
             </div>
           </div>
         </div>
@@ -139,7 +283,7 @@ export const BillingDownloadForm = ({ isModalVisible, setIsModalVisible,invoice=
             </p>
           </div>
         </div>
-		    <p className="billing-authorization mt-4">Diskuss ®</p>
+        <p className="billing-authorization mt-4">Diskuss ®</p>
         <br />
       </div>
       <div className="modal-actions">
