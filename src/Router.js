@@ -87,11 +87,6 @@ import ResponseAnalyticsPage from "./application/Page/UserFeedBack/ResponseAnaly
 import EmailSMSTemplate from "./application/Page/AutomatedMarketing/EmailSMSTemplate";
 import ViewInvoicePage from "./application/Page/PaymentManagment/ViewInvoice";
 import RenewalAndRemindersPage from "./application/Page/PaymentManagment/RenewalAndReminders";
-import PaymentGatewayPage from "./application/Page/PaymentManagment/PaymentGateway";
-import CampaignAnalytics from "./application/Page/AutomatedMarketing/CampaignAnalytics";
-import AutomatedTriggers from "./application/Page/AutomatedMarketing/AutomatedTriggers";
-import RefundProcessingPage from "./application/Page/PaymentManagment/RefundProcessing";
-import CustomerRefundInfoPage from "./application/Page/PaymentManagment/CustomerRefundInfo";
 import PrivacyPolicy from "./website/Page/PolicyPages/PrivacyPolicy";
 import TermsAndConditions from "./website/Page/PolicyPages/TermsAndConditions";
 import CancellationPolicy from "./website/Page/PolicyPages/CancellationPolicy";
