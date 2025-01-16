@@ -14,8 +14,7 @@ export const AllUsersTableList = ({
   setAllUser,
   currentPage,
   pageSize,
-  totalUsers,
-  onPaginationChange, 
+  totalUsers
 }) => {
   const navigate = useNavigate();
 console.log("asd",allUser)
