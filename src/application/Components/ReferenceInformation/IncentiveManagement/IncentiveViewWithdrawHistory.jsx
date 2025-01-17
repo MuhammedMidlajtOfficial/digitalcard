@@ -1,6 +1,6 @@
 import React from "react";
 import { Table, Avatar, Menu } from "antd";
-import image1 from "../../../Assets/Images/user2.png";
+import image1 from "../../../Assets/Images/user2.svg";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 

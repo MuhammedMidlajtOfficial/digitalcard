@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
 import { LuView } from "react-icons/lu";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import noDataImage from "../../../Assets/Images/noSurvey.png";
+import noDataImage from "../../../Assets/Images/noSurvey.svg";
 import { showDeleteMessage,showSuccessMessage } from "../../../../globalConstant"; 
 export const SurveyList = () => {
   const navigate = useNavigate();

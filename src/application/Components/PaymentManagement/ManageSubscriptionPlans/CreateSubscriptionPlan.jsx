@@ -64,7 +64,7 @@ const CreateSubscriptionPlan = ({
       }
       onCancel={handleCancel}
       footer={[
-        <Button key="back" onClick={handleCancel}>
+        <Button className="create-subscription-cancel-button"  onClick={handleCancel}>
           Cancel
         </Button>,
         <Button

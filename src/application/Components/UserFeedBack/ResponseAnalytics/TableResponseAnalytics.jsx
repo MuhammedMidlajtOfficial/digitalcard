@@ -2,7 +2,7 @@ import React from "react";
 import { Dropdown, Menu, Table, Avatar, Input, Button } from "antd";
 import { IoIosArrowForward } from "react-icons/io";
 import { TbArrowsDownUp } from "react-icons/tb";
-import profile3 from "../../../Assets/Images/profile3.png";
+import profile3 from "../../../Assets/Images/profile3.svg";
 import { FiFilter, FiSearch } from "react-icons/fi";
 import { IoSearch } from "react-icons/io5";
 import { IoEllipsisHorizontalSharp } from "react-icons/io5";
