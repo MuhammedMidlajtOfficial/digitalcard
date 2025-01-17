@@ -2,7 +2,7 @@ import React from "react";
 import { Avatar, Dropdown, Menu, Table } from "antd";
 import { FiFilter } from "react-icons/fi";
 import { TbArrowsDownUp } from "react-icons/tb";
-import John_img from "../../../Assets/Images/John_img.png";
+import John_img from "../../../Assets/Images/John_img.svg";
 
 const CampaignAnalyticsTable = () => {
   const filterMenu = (

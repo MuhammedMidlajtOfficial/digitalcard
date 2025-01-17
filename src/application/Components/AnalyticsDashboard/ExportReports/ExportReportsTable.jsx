@@ -10,7 +10,7 @@ import {
 } from "antd";
 import { IoIosArrowForward } from "react-icons/io";
 import { TbArrowsDownUp } from "react-icons/tb";
-import image1 from "../../../Assets/Images/admin.png";
+import image1 from "../../../Assets/Images/admin.svg";
 import { FiFilter } from "react-icons/fi";
 import { GiCheckMark } from "react-icons/gi";
 import { FiSearch } from "react-icons/fi";

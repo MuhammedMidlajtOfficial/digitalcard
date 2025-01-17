@@ -34,7 +34,7 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
   position: relative;
-  background-image: url("../../Assets/Images/subscriptionplan.png");
+  background-image: url("../../Assets/Images/subscriptionplan.svg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -436,6 +436,24 @@
   font-size: 12px;
   padding: 8px 16px;
   letter-spacing: 1px;
+}
+
+.add-all-users-button:hover{
+  background-color: var(--white-color);
+  color: var(--gradient-start-color);
+  border: 1px solid var(--gradient-start-color);
+}
+
+.create-subscription-cancel-button{
+  background-color: var(--white-color);
+  color: var(--gradient-start-color);
+  border: 1px solid var(--gradient-start-color);
+}
+
+.create-subscription-cancel-button:hover{
+  color: var(--white-color) !important;
+  border: 1px solid var(--gradient-start-color) !important;
+  background-color: var(--gradient-start-color) !important;
 }
 
 .subscription-type-tag {

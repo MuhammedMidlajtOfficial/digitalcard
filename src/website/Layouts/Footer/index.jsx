@@ -6,13 +6,12 @@ import {
   FaGooglePlay,
   FaInstagram,
   FaLinkedin,
-  FaXTwitter,
 } from "react-icons/fa6";
 import { FaTwitter } from "react-icons/fa";
 import { FaApple } from "react-icons/fa";
 import { IoIosSend } from "react-icons/io";
 
-import iconImage from "../../Assets/image/logo.png";
+import iconImage from "../../Assets/image/logo.svg";
 
 const Footer = () => {
   const [email, setEmail] = useState("");

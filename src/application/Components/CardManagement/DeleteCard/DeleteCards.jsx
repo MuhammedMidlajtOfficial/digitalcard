@@ -1,7 +1,7 @@
 import React from "react";
-import user from "../../../Assets/Images/card.png";
-import user1 from "../../../Assets/Images/card2.png";
-import user2 from "../../../Assets/Images/card3.png";
+import user from "../../../Assets/Images/card.svg";
+import user1 from "../../../Assets/Images/card2.svg";
+import user2 from "../../../Assets/Images/card3.svg";
 import { RiDeleteBinLine } from "react-icons/ri";
 const DeleteCards = () => {
   const users = [

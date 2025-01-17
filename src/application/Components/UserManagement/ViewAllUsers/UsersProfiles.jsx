@@ -56,7 +56,7 @@ const UsersProfiles = ({ setChange }) => {
         },
       })
       .then((response) => {
-        console.log("dddddd", response.data);
+        console.log("fetchUsers in UsersProfiles -", response.data);
         setAllUser(response.data.totalUser);
         setTotalUsers(response.data.totalCount);
         stopLoading();

@@ -96,7 +96,7 @@ const TicketCategories = () => {
   const handleCancel = () => {
     setEdit(() => ({
       id: null,
-      status: true,
+      status: false,
     }));   
     setIsModalVisible(false);
   };

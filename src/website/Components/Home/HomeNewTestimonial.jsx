@@ -6,8 +6,6 @@ import home3 from "../../Assets/image/home/users/manesh.png";
 import home4 from "../../Assets/image/home/users/vanitha.png";
 
 import { Avatar, Rate } from "antd";
-import { FaArrowRight } from "react-icons/fa6";
-import { Link } from "react-router-dom";
 
 const testimonials = [
   {

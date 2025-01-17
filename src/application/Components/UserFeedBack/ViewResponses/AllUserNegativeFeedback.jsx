@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Avatar, Pagination } from "antd";
 import { LiaTelegram } from "react-icons/lia";
-import profile4 from "../../../Assets/Images/profile4.png";
+import profile4 from "../../../Assets/Images/profile4.svg";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 

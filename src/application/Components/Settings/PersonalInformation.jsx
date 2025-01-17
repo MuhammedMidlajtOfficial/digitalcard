@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { TbEdit } from "react-icons/tb";
-import DefaultUser from "../../Assets/Images/admin.png";
+import DefaultUser from "../../Assets/Images/admin.svg";
 import "react-international-phone/style.css";
 import { axiosInstance } from "../../../AxiosConfig";
 import { useNavigate } from "react-router-dom";

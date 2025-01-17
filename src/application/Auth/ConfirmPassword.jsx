@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./auth.css";
-import login from "../Assets/Images/loginbackground.png";
+import login from "../Assets/Images/loginbackground.svg";
 import { Form, Input } from "antd";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
