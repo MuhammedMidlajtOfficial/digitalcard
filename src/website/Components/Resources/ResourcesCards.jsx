@@ -9,8 +9,7 @@ import card6 from "../../Assets/image/resources/card6.svg";
 import card7 from "../../Assets/image/resources/card7.svg";
 import card8 from "../../Assets/image/resources/card8.svg";
 import vector from "../../Assets/image/resources/vector.svg";
-import { IoMdArrowRoundForward } from "react-icons/io";
-import ScrollAnimation from "../../../ScrollAnimation"; // Make sure this path is correct
+import ScrollAnimation from "../../../ScrollAnimation"; 
 
 const ResourcesCards = () => {
   const cardData = [

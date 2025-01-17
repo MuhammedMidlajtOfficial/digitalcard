@@ -1,11 +1,6 @@
 import React from "react";
 import homeBanner from "../../Assets/image/home/home-banner2.svg";
 import ScrollAnimation from "../../../ScrollAnimation";
-import { Avatar } from "antd";
-import user from "../../Assets/image/home/users/user.png";
-import user1 from "../../Assets/image/home/users/user1.png";
-import user2 from "../../Assets/image/home/users/user2.png";
-import { UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 const HomeBanner = () => {
   const navigate=useNavigate();

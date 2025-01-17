@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 import { Select, Tooltip } from "antd";
@@ -16,8 +16,15 @@ const SendNotification = () => {
     body: "",
     imageUrl: "",
   });
+  useEffect(() => {
+    if (submitted) {
+      const timer = setTimeout(() => {
+        setSubmitted(false);
+      }, 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [submitted]);
 
-  // Validation logic for each field
   const validateField = (name, value) => {
     let newErrors = { ...errors };
 
@@ -51,8 +58,6 @@ const SendNotification = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Check if all fields are valid before submission
     if (!validateForm()) return;
 
     const form = { title, body, imageUrl, topic };
@@ -61,7 +66,6 @@ const SendNotification = () => {
       setLoading(true);
       setSubmitted(false);
 
-      // Making the POST request
       const response = await axios.post(
         "https://diskuss-admin.onrender.com/api/v1/fcm/send-notification",
         form,
@@ -72,28 +76,22 @@ const SendNotification = () => {
         }
       );
 
-      // Log the response on success
       console.log("Notification Sent:", response.data);
-
-      // Reset form and set state
       setSubmitted(true);
       setTitle("");
       setBody("");
       setImageUrl("");
       setTopic("");
     } catch (error) {
-      // Handle errors gracefully
       console.error("Error sending notification:", error);
       const errorMessage =
         error.response?.data || "Failed to send notification.";
       alert(errorMessage);
     } finally {
-      // Stop loading regardless of success or failure
       setLoading(false);
     }
   };
 
-  // Form validation for all fields before submission
   const validateForm = () => {
     const isTitleValid = title.trim();
     const isBodyValid = body.trim();
@@ -125,7 +123,7 @@ const SendNotification = () => {
               value={title}
               onChange={(e) => {
                 setTitle(e.target.value);
-                validateField("title", e.target.value); // Validate as user types
+                validateField("title", e.target.value);
               }}
               placeholder="Enter title"
               required
@@ -140,7 +138,7 @@ const SendNotification = () => {
               value={body}
               onChange={(e) => {
                 setBody(e.target.value);
-                validateField("body", e.target.value); // Validate as user types
+                validateField("body", e.target.value);
               }}
               placeholder="Enter message"
               required
@@ -155,7 +153,7 @@ const SendNotification = () => {
               value={imageUrl}
               onChange={(e) => {
                 setImageUrl(e.target.value);
-                validateField("imageUrl", e.target.value); // Validate as user types
+                validateField("imageUrl", e.target.value);
               }}
               placeholder="Enter image URL"
               required
@@ -185,19 +183,28 @@ const SendNotification = () => {
                 </Tooltip>
               </Option>
               <Option value="individual_subscribed">
-                <Tooltip title="Users who have paid" placement="right"   overlayClassName="custom-tooltip"
+                <Tooltip
+                  title="Users who have paid"
+                  placement="right"
+                  overlayClassName="custom-tooltip"
                 >
                   <div style={{ padding: "5px" }}>Individual Subscribed</div>
                 </Tooltip>
               </Option>
               <Option value="individual_trial">
-                <Tooltip title="Users who are in free trial" placement="right"   overlayClassName="custom-tooltip"
+                <Tooltip
+                  title="Users who are in free trial"
+                  placement="right"
+                  overlayClassName="custom-tooltip"
                 >
                   <div style={{ padding: "5px" }}>Individual Trial</div>
                 </Tooltip>
               </Option>
               <Option value="enterprise_subscribed">
-                <Tooltip title="Enterprises who have paid" placement="right"   overlayClassName="custom-tooltip"
+                <Tooltip
+                  title="Enterprises who have paid"
+                  placement="right"
+                  overlayClassName="custom-tooltip"
                 >
                   <div style={{ padding: "5px" }}>Enterprise Subscribed</div>
                 </Tooltip>
@@ -206,15 +213,17 @@ const SendNotification = () => {
                 <Tooltip
                   title="Enterprises who are in free trial"
                   placement="right"
-                 overlayClassName="custom-tooltip"
-
+                  overlayClassName="custom-tooltip"
                 >
                   <div style={{ padding: "5px" }}>Enterprise Trial</div>
                 </Tooltip>
               </Option>
               <Option value="enterprise_employee">
-                <Tooltip title="Enterprise employees" placement="right"   overlayClassName="custom-tooltip"
->
+                <Tooltip
+                  title="Enterprise employees"
+                  placement="right"
+                  overlayClassName="custom-tooltip"
+                >
                   <div style={{ padding: "5px" }}>Enterprise Employee</div>
                 </Tooltip>
               </Option>

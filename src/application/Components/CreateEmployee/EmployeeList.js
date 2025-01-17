@@ -144,7 +144,7 @@ const EmployeeList = () => {
         </div>
         <h2 className="mt-3">{user.username || "N/A"}</h2>
         <h4 className="mt-2 employee-email">{user.email}</h4>
-        <h4 className="mt-2">{user.phnNumber || "N/A"}</h4>
+        <h4 className="pt-0">{user.phnNumber || "N/A"}</h4>
         <h5 className="categories-list">Categories</h5>
         {user.category?.length ? (
           <ul style={{ listStyleType: "disc", paddingLeft: "20px" }}>

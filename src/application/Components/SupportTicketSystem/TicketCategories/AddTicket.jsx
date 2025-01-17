@@ -1,13 +1,16 @@
 import { Button, Form, Modal, Select } from "antd";
 import { Option } from "antd/es/mentions";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axiosInstanceForTicket from "../../../../AxiosContigForTicket";
-import { showErrorToast, showSuccessToast } from "../../../Services/toastService";
+import {
+  showErrorToast,
+  showSuccessToast,
+} from "../../../Services/toastService";
 
 const AddTicket = ({ open, onClose, edit }) => {
-  console.log('edit,',edit);
+  console.log("edit,", edit);
   const modules = {
     toolbar: [
       [{ header: [1, 2, false] }],
@@ -22,76 +25,95 @@ const AddTicket = ({ open, onClose, edit }) => {
   const [categoryPriority, setCategoryPriority] = useState("");
 
   const fetchCategories = async () => {
-    if (edit?.status) { // Check if edit exists and status is true
+    if (edit?.status) {
       try {
-        const response = await axiosInstanceForTicket.get(`ticket-category/${edit.id}`);
-        setCategoryName(response.data.categoryName)
-        setCategoryDescription(response.data.categoryDescription)
-        setCategoryPriority(response.data.categoryPriority)
+        const response = await axiosInstanceForTicket.get(
+          `ticket-category/${edit.id}`
+        );
+        setCategoryName(response.data.categoryName);
+        setCategoryDescription(response.data.categoryDescription);
+        setCategoryPriority(response.data.categoryPriority);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
     }
   };
-  
-  useEffect(() => {
-    fetchCategories();
-  }, [edit?.status, edit?.id]); 
-  
 
   useEffect(() => {
-  console.log('categoryName-',categoryName);    
-  console.log('categoryDescription-',categoryDescription);    
-  console.log('categoryPriority-',categoryPriority);    
+    fetchCategories();
+  }, [edit?.status, edit?.id]);
+
+  useEffect(() => {
+    console.log("categoryName-", categoryName);
+    console.log("categoryDescription-", categoryDescription);
+    console.log("categoryPriority-", categoryPriority);
   }, []);
 
   const handleSubmit = async () => {
+    if(!categoryName || !categoryDescription || !categoryPriority){
+      showErrorToast("Please fill all the fields.");
+      return;
+   }
     let body = {
-        categoryName: categoryName,
-        categoryDescription: categoryDescription,
-        categoryPriority: categoryPriority,
+      categoryName: categoryName,
+      categoryDescription: categoryDescription,
+      categoryPriority: categoryPriority,
     };
-
-    // If editing, only send the id
     if (edit.status === true) {
-      body = { id: edit.id, ...body }; // Include the id along with the other fields
+      body = { id: edit.id, ...body };
     }
 
     try {
-        let response;
-
-        // Choose whether to use PATCH or POST based on the edit status
-        if (edit.status === true) {
-            response = await axiosInstanceForTicket.patch("ticket-category", body);
-            if (response.status === 200) {
-                showSuccessToast('Ticket category updated successfully');
-            }
-        } else {
-            response = await axiosInstanceForTicket.post("ticket-category", body);
-            if (response.status === 200) {
-                showSuccessToast('Ticket category added successfully');
-            }
+      let response;
+      if (edit.status === true) {
+        response = await axiosInstanceForTicket.patch("ticket-category", body);
+        if (response.status === 200 || response.status === 201) {
+          showSuccessToast("Ticket category updated successfully");
+          setCategoryName("");
+          setCategoryDescription("");
+          setCategoryPriority("");
         }
-
-        // Close modal after successful submission
-        onClose();
+      } else {
+        response = await axiosInstanceForTicket.post("ticket-category", body);
+        if (response.status === 200 || response.status === 201 ) {
+          showSuccessToast("Ticket category added successfully");
+          setCategoryName("");
+          setCategoryDescription("");
+          setCategoryPriority("");
+        }
+      }
+      onClose();
     } catch (error) {
-        showErrorToast(error.message);
-        console.error("Error:", error);
+      console.error("Error:", error);
     }
-};
-  
-
+  };
   return (
     <Modal
-      title="Add Categories"
+      title={
+        <div style={{ fontSize: "20px", fontWeight: "semibold" }}>
+          Add Categories
+          <hr
+            style={{
+              marginTop: "2px",
+              borderColor: "#2a84ff",
+              width: "33%",
+              borderWidth: "3px",
+            }}
+          />
+        </div>
+      }
       open={open}
       onCancel={onClose}
       footer={[
         <Button key="cancel" onClick={onClose} className="cancel-btn">
           Cancel
         </Button>,
-        <Button key="save" type="primary"   onClick={handleSubmit} className="create-btn">
+        <Button
+          key="save"
+          type="primary"
+          onClick={handleSubmit}
+          className="create-btn"
+        >
           Save
         </Button>,
       ]}
@@ -125,7 +147,7 @@ const AddTicket = ({ open, onClose, edit }) => {
               />
             </Form.Item>
           </div>
-          <div className="col-12 mt-3">
+          {/* <div className="col-12 mt-3">
           <Form.Item>
             <label>Client Description (Plain Text)</label>
             <textarea
@@ -133,10 +155,10 @@ const AddTicket = ({ open, onClose, edit }) => {
               placeholder="Add a description"
               className="addTicket-description-input"
               onChange={(e) => {}}
-              style={{ width: '100%', resize: 'vertical' }}
+              style={{ width: '100%', resize: 'vertical',border: '1px solid #ccc', }}
             />
           </Form.Item>
-          </div>
+          </div> */}
         </div>
         <div className="col-lg-6">
           <Form.Item

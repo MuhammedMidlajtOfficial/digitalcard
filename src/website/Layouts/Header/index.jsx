@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./header.css";
 import { FaArrowRight, FaPhone } from "react-icons/fa6";
-import logoIcon from "../../Assets/image/logo.png";
+import logoIcon from "../../Assets/image/logo.svg";
 import { FaRegUserCircle } from "react-icons/fa";
 
 const Header = () => {
