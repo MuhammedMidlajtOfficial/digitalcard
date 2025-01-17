@@ -63,11 +63,14 @@ const AddTicket = ({ open, onClose, edit }) => {
         // Choose whether to use PATCH or POST based on the edit status
         if (edit.status === true) {
             response = await axiosInstanceForTicket.patch("ticket-category", body);
+            console.log("response",response)
             if (response.status === 200) {
+              
                 showSuccessToast('Ticket category updated successfully');
             }
         } else {
             response = await axiosInstanceForTicket.post("ticket-category", body);
+            console.log("response",response)
             if (response.status === 200) {
                 showSuccessToast('Ticket category added successfully');
             }
