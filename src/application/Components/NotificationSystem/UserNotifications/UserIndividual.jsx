@@ -1,7 +1,7 @@
 import React from "react";
-import profile4 from "../../../Assets/Images/profile4.png";
-import profile5 from "../../../Assets/Images/profile5.png";
-import profile3 from "../../../Assets/Images/profile3.png";
+import profile4 from "../../../Assets/Images/profile4.svg";
+import profile5 from "../../../Assets/Images/profile5.svg";
+import profile3 from "../../../Assets/Images/profile3.svg";
 import { Avatar } from "antd";
 import { FaRegSmile } from "react-icons/fa";
 import { IoIosCheckmark } from "react-icons/io";

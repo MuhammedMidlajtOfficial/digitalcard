@@ -2,7 +2,7 @@ import { Avatar, Button, Dropdown, Menu, Modal, Table } from "antd";
 import React, { useState } from "react";
 import { FiFilter, FiPlus, FiSearch } from "react-icons/fi";
 import { TbArrowsDownUp } from "react-icons/tb";
-import John_img from "../../../Assets/Images/John_img.png";
+import John_img from "../../../Assets/Images/John_img.svg";
 import RollCreationAddRole from "./RollCreationAddRole";
 
 const RollCreationTable = () => {

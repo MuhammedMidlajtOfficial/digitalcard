@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
 import { Form, Input, DatePicker, Select, Avatar } from "antd";
 import { TbEdit } from "react-icons/tb";
-import DefaultUser from "../../../../Assets/Images/admin.png";
-import companylogo from "../../../../Assets/Images/ennterprise3.png";
+import DefaultUser from "../../../../Assets/Images/admin.svg";
+import companylogo from "../../../../Assets/Images/ennterprise3.svg";
 import { Switch } from "antd";
 import { LuPencil } from "react-icons/lu";
 const onChange = (checked) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, Avatar, Dropdown, Button, Menu } from "antd";
 import { IoEllipsisHorizontalSharp } from "react-icons/io5";
-import image1 from "../../../../Assets/Images/admin.png";
+import image1 from "../../../../Assets/Images/admin.svg";
 import { useNavigate } from "react-router-dom";
 
 export const CompanyUsersList = () => {

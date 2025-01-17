@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Tickets.css";
-import john_img from "../../../Assets/Images/John_img.png";
+import john_img from "../../../Assets/Images/John_img.svg";
 import { useNavigate } from "react-router-dom";
 import { Spin, Divider, Flex } from "antd"; // Import Spin for loading indicator
 import { useLoading } from "../../../Services/loadingService";

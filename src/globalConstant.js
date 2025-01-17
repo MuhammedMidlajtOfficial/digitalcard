@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import deleteIcon from "./application/Assets/Images/delete-icon.png"
+import deleteIcon from "./application/Assets/Images/delete-icon.svg"
 import { Modal } from "antd";
 // export const IMG_URL = `https://digitalcard-bucket.s3.amazonaws.com`;
 

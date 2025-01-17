@@ -1,6 +1,6 @@
 import React from "react";
 import { Table, Avatar } from "antd";
-import image1 from "../../../Assets/Images/admin.png";
+import image1 from "../../../Assets/Images/admin.svg";
 import { RiDeleteBinLine } from "react-icons/ri";
 
 export const DeleteUsersList = () => {
