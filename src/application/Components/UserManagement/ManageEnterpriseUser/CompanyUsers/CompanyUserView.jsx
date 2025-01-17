@@ -9,12 +9,8 @@ import {
   MDBCardImage,
   MDBTypography,
   MDBIcon,
-  MDBPagination,
-  MDBPaginationItem,
-  MDBPaginationLink,
-  MDBBtn,
 } from "mdb-react-ui-kit";
-import { Modal, Spin } from "antd";
+import { Modal, Spin, Pagination } from "antd";
 import { axiosInstance, logInstance } from "../../../../../AxiosConfig";
 import "./CompanyUserView.css";
 import AddEmployee from "./AddEmployee";
@@ -100,7 +96,10 @@ export default function CompanyUserView({ userId }) {
     indexOfFirstEmployee,
     indexOfLastEmployee
   );
-  console.log("Current Employees to display:", currentEmployees);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const [configs, setConfigs] = useState([]);
@@ -347,31 +346,21 @@ export default function CompanyUserView({ userId }) {
                   </MDBCol>
                 ))}
               </MDBRow>
-              {/* Pagination Controls */}
-              <MDBPagination>
-                <MDBPaginationItem disabled={currentPage === 1}>
-                  <MDBPaginationLink
-                    onClick={() => paginate(currentPage - 1)}
-                    previous
-                  />
-                </MDBPaginationItem>
-                {[...Array(totalPages)].map((_, index) => (
-                  <MDBPaginationItem
-                    key={index}
-                    active={index + 1 === currentPage}
-                  >
-                    <MDBPaginationLink onClick={() => paginate(index + 1)}>
-                      {index + 1}
-                    </MDBPaginationLink>
-                  </MDBPaginationItem>
-                ))}
-                <MDBPaginationItem disabled={currentPage === totalPages}>
-                  <MDBPaginationLink
-                    onClick={() => paginate(currentPage + 1)}
-                    next
-                  />
-                </MDBPaginationItem>
-              </MDBPagination>
+              <div
+                style={{
+                  marginTop: "20px",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <Pagination
+                  current={currentPage}
+                  total={userData.employees.length}
+                  pageSize={employeesPerPage}
+                  onChange={handlePageChange}
+                  showSizeChanger={false}
+                />
+              </div>
             </MDBCol>
           </MDBRow>
         )}

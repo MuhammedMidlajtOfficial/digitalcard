@@ -50,6 +50,7 @@ export const DashboardTable = () => {
             userType: userTypeMap[filter],
           }));
           setRecentUser(usersWithType);
+          console.log("recent",response)
         }
       } catch (error) {
         console.error("Error fetching data:", error);

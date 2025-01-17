@@ -27,7 +27,7 @@ const UsersProfiles = ({ setChange }) => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilter, setActiveFilter] = useState("individualUser");
-
+  const [localChange, setLocalChange] = useState(false);
   const { loading, startLoading, stopLoading } = useLoading();
   const navigate = useNavigate();
 
@@ -56,7 +56,7 @@ const UsersProfiles = ({ setChange }) => {
         },
       })
       .then((response) => {
-        console.log("dddddd", response.data);
+        console.log("fetchUsers in UsersProfiles -", response.data);
         setAllUser(response.data.totalUser);
         setTotalUsers(response.data.totalCount);
         stopLoading();
@@ -80,6 +80,7 @@ const UsersProfiles = ({ setChange }) => {
         if (response.status === 200) {
           showSuccessToast(response.data.message);
           fetchUsers();
+          setLocalChange(prev => !prev);
           setChange((prev) => !prev);
         }
         stopLoading();
@@ -105,10 +106,10 @@ const UsersProfiles = ({ setChange }) => {
   const sortMenu = (
     <Menu onClick={({ key }) => setSortOrder(key)} selectedKeys={[sortOrder]}>
       <Menu.Item key="asc">
-        ASC <IoIosArrowForward />
+        <span className="d-flex gap-2 align-items-center">ASC <IoIosArrowForward /></span>
       </Menu.Item>
       <Menu.Item key="desc">
-        DESC <IoIosArrowForward />
+      <span className="d-flex gap-2 align-items-center"> DESC <IoIosArrowForward /></span>
       </Menu.Item>
     </Menu>
   );
@@ -197,6 +198,7 @@ const UsersProfiles = ({ setChange }) => {
         activeFilter={activeFilter}
         setActiveFilter={setActiveFilter}
         handleFilterChange={handleFilterChange}
+        change={localChange}
       />
       <div className="application-users-section mb-4 d-flex justify-content-between">
         <h2>View All Users</h2>

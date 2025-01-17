@@ -32,8 +32,8 @@ export const showDeleteMessage = ({
 }) => {
   Modal.confirm({
     title: (
-      <div style={{ display: 'flex', alignItems: 'center', flexDirection:"column", gap: '10px' }}>
-        <img src={deleteIcon} style={{width:"100px",height:"100px"}}/>
+      <div style={{ display: 'flex', alignItems: 'center', flexDirection: "column", gap: '10px' }}>
+        <img src={deleteIcon} style={{ width: "100px", height: "100px" }} />
         {title}
       </div>
     ),
@@ -42,7 +42,25 @@ export const showDeleteMessage = ({
     okType: "danger",
     cancelText: "Cancel",
     centered: true,
-    icon:null,
+    icon: null,
+    okButtonProps: {
+      style: {
+        backgroundColor: '#ff4d4f',
+        borderColor: '#ff4d4f',
+        color: '#fff',
+        transition: 'background-color 0.3s, border-color 0.3s, color 0.3s',
+      },
+      onMouseEnter: (e) => {
+        e.target.style.backgroundColor = '#fff';
+        e.target.style.borderColor = '#ff4d4f';
+        e.target.style.color = '#ff4d4f';
+      },
+      onMouseLeave: (e) => {
+        e.target.style.backgroundColor = '#ff4d4f';
+        e.target.style.borderColor = '#ff4d4f';
+        e.target.style.color = '#fff';
+      },
+    },
     onOk: () => {
       if (onDelete && typeof onDelete === "function") {
         onDelete();

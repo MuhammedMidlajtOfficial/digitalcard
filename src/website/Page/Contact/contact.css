@@ -1,6 +1,6 @@
 .contact-banner-section {
   padding: 200px 0;
-  background-image: url("../../Assets/image/about/aboutBanner.png");
+  background-image: url("../../Assets/image/about/aboutBanner.svg");
   height: 500px;
   background-position: center;
   background-repeat: no-repeat;
@@ -90,7 +90,7 @@
 /*contact map section*/
 
 .contact-map-section{
-  background-image: url("../../Assets/image/contact/map-image.png");
+  background-image: url("../../Assets/image/contact/map-image.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
