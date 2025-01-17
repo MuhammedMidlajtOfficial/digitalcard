@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 import { Select, Tooltip } from "antd";
+import { axiosInstance } from "../../../../AxiosConfig";
 
 const { Option } = Select;
 const SendNotification = () => {
@@ -62,8 +63,7 @@ const SendNotification = () => {
       setSubmitted(false);
 
       // Making the POST request
-      const response = await axios.post(
-        "https://diskuss-admin.onrender.com/api/v1/fcm/send-notification",
+      const response = await axiosInstance.post("fcm/send-notification",
         form,
         {
           headers: {
