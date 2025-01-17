@@ -1,6 +1,6 @@
 import React from "react";
-import client1 from "../../Assets/image/home/Clients/levon.png";
-import client2 from "../../Assets/image/home/Clients/b2b.png";
+import client1 from "../../Assets/image/home/Clients/levon.svg";
+import client2 from "../../Assets/image/home/Clients/b2b.svg";
 
 import ScrollAnimation from "../../../ScrollAnimation";
 
