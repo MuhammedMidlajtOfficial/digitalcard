@@ -48,10 +48,10 @@ export const EditUser = ({ userId }) => {
           website: data.website || "",
           phnNumber: data.phnNumber || "",
           address: data.address || "",
-          whatsappNo: data.socialMedia?.whatsappNo || "",
-          facebookLink:  data.socialMedia?.facebookLink || "",
-          instagramLink:  data.socialMedia?.instagramLink || "",
-          twitterLink:  data.socialMedia?.twitterLink || "",
+          whatsappNo: data.socialMedia.whatsappNo || "",
+          facebookLink: data.socialMedia.facebookLink || "",
+          instagramLink: data.socialMedia.instagramLink || "",
+          twitterLink: data.socialMedia.twitterLink || "",
           companyName: data.companyName || "",
           industryType: data.industryType || "",
           aboutUs: data.aboutUs || "",
@@ -65,64 +65,59 @@ export const EditUser = ({ userId }) => {
 
   const HandleSubmitForm = async (values) => {
     const allowedFields = {
-      individual: ['username', 'email', 'image', 'role', 'name', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink'],
-      enterprise: ['email', 'image', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink', 'companyName', 'industryType', 'aboutUs'],
-      enterpriseEmp: ['username', 'email', 'image', 'role', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink']
+      individual: [ 'username', 'email', 'image', 'role', 'name', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink',],
+      enterprise: [ 'email', 'image', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink', 'companyName', 'industryType', 'aboutUs',],
+      enterpriseEmp: [ 'username', 'email', 'image', 'role', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink',],
     }[selectedUserType];
   
-  
-    // Filter out only allowed fields
+    // Filter values to include only allowed fields
     const filteredData = Object.fromEntries(
       Object.entries(values).filter(([key]) => allowedFields.includes(key))
     );
   
-    // console.log("Filtered Data (before social media restructuring):", filteredData);
+    // Group social media fields
+    const socialMedia = {
+      whatsappNo: filteredData.whatsappNo,
+      facebookLink: filteredData.facebookLink,
+      instagramLink: filteredData.instagramLink,
+      twitterLink: filteredData.twitterLink,
+    };
   
-    // Restructure social media fields
-    const socialMediaFields = ['whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink'];
-    const socialMedia = {};
-    socialMediaFields.forEach(field => {
-      if (filteredData[field]) {
-        socialMedia[field] = filteredData[field];
-        delete filteredData[field]; // Remove from root level
-      }
-    });
+    // Remove individual social media fields from filteredData
+    ['whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink'].forEach((key) =>
+      delete filteredData[key]
+    );
   
-    // console.log("Restructured Social Media Object:", socialMedia);
-  
-    // Add socialMedia object if any social media fields exist
-    if (Object.keys(socialMedia).length > 0) {
+    if (Object.values(socialMedia).some((value) => value)) {
       filteredData.socialMedia = socialMedia;
     }
   
-    // If there's an image in userData, include it in the submission
+    // Include Base64 image if already in userData
     if (userData.image) {
       filteredData.image = userData.image;
     }
   
-    console.log("Final Data to be Submitted:", {
-      ...filteredData,
-      userType: selectedUserType
-    });
-  
     try {
       setIsLoading(true);
-      // Send the PATCH request to update the user profile
+      console.log('filteredData--', filteredData);
+  
+      // Make PATCH request
       const response = await axiosInstance.patch(`/user/updateProfile/${userId}`, {
         ...filteredData,
-        userType: selectedUserType
+        userType: selectedUserType,
       });
   
-      console.log("API Response:", response);
+      // Success toast
       showSuccessToast(response.data.message);
       navigate('/admin/usermanagement/viewallusers');
     } catch (error) {
-      console.error("API Error:", error.response?.data);
-      showErrorToast(error.response?.data?.message || "Update failed");
+      // Error toast
+      showErrorToast(error.response?.data?.message || 'Update failed');
     } finally {
       setIsLoading(false);
     }
   };
+  
   
   useEffect(() => {
     console.log('userData-',userData);
@@ -137,10 +132,10 @@ export const EditUser = ({ userId }) => {
       role: userData?.role,
       address: userData?.address,
       website: userData?.website,
-      whatsappNo: userData.whatsappNo,
-      facebookLink: userData.facebookLink,
-      instagramLink: userData.instagramLink,
-      twitterLink: userData.twitterLink,
+      whatsappNo: userData?.whatsappNo,
+      facebookLink: userData?.facebookLink,
+      instagramLink: userData?.instagramLink,
+      twitterLink: userData?.twitterLink,
       companyName: userData?.companyName,
       industryType: userData?.industryType,
       aboutUs: userData?.aboutUs,
