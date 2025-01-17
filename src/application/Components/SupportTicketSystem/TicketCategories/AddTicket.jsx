@@ -64,6 +64,7 @@ const AddTicket = ({ open, onClose, edit }) => {
     }
 
     try {
+
       let response;
       if (edit.status === true) {
         response = await axiosInstanceForTicket.patch("ticket-category", body);
@@ -72,6 +73,7 @@ const AddTicket = ({ open, onClose, edit }) => {
           setCategoryName("");
           setCategoryDescription("");
           setCategoryPriority("");
+
         }
       } else {
         response = await axiosInstanceForTicket.post("ticket-category", body);
