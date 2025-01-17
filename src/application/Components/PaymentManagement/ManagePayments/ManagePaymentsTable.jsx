@@ -74,9 +74,10 @@ export const ManagePaymentsTable = () => {
     // Filter logic for search
     const filtered = data.filter((item) => {
       const lowerCaseTerm = searchTerm.toLowerCase();
+      const transactionId = item.transactionid?.toString().toLowerCase() || "";
       return (
         item.username.name.toLowerCase().includes(lowerCaseTerm) ||
-        item.transactionid.toLowerCase().includes(lowerCaseTerm)
+        transactionId.includes(lowerCaseTerm)
       );
     });
     setFilteredData(filtered);

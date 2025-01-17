@@ -501,3 +501,7 @@
 .active-view .table-data-list {
   color: #007bff;
 }
+.hover-light-blue:hover {
+  background-color: #c4e7f7 !important; /* Light blue hover effect */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}

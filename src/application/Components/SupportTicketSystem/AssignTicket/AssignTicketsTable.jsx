@@ -320,6 +320,10 @@ const AssignTicketsTable = () => {
   };
 
   const handleAssignClick = async () => {
+    if (!assignedUser) {
+      showErrorToast("Please select an employee to assign the ticket.");
+      return;
+    }
     await axiosInstanceForTicket
       .patch("ticket/assignUser", {
         ticketId: ticketId,
