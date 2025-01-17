@@ -14,7 +14,7 @@ import { Modal, Spin, Pagination } from "antd";
 import { axiosInstance, logInstance } from "../../../../../AxiosConfig";
 import "./CompanyUserView.css";
 import AddEmployee from "./AddEmployee";
-import defaultUser from "../../../../Assets/Images/default user.png";
+import defaultUser from "../../../../Assets/Images/default-user.svg";
 export default function CompanyUserView({ userId }) {
   console.log("userId-", userId);
   const [userData, setUserData] = useState({

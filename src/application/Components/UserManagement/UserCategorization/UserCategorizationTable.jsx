@@ -1,6 +1,6 @@
 import React from "react";
 import { Table, Avatar, Dropdown, Menu, Input } from "antd";
-import image1 from "../../../Assets/Images/admin.png";
+import image1 from "../../../Assets/Images/admin.svg";
 import { FiFilter, FiSearch } from "react-icons/fi";
 import { TbArrowsDownUp } from "react-icons/tb";
 import { IoSearch } from "react-icons/io5";

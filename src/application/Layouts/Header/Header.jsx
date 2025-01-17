@@ -13,15 +13,13 @@ const HeaderApplication = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [user, setUser] = useState({});
-
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredRoutes, setFilteredRoutes] = useState([]);
-
 
   const userData = useSelector((state) => state?.user?.userData);
   const infoUsers = {
     username: user?.username || user?.username,
-    role: user?.userType,
+    role: user?.userType === 'SuperAdmin' ? 'Super Admin' : user?.userType,
     image: user?.image || user?.image,
   };
 
@@ -42,7 +40,7 @@ const HeaderApplication = () => {
       .get(`adminAuth/getSuperAdmin/${userId}`)
       .then((response) => {
         if (response) {
-          // console.log("response.data.user-", response.data);
+          console.log("response.data.user-", response.data);
           setUser(response.data.user);
         } else {
           console.error("User not found");
@@ -54,7 +52,7 @@ const HeaderApplication = () => {
   }, [navigate]);
 
   useEffect(() => {
-    // console.log("user-", user);
+    console.log("user-", user);
     return () => {};
   }, []);
 

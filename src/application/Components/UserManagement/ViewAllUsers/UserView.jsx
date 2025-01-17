@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Input } from "antd";
-import DefaultUser from "../../../Assets/Images/admin.png";
+import DefaultUser from "../../../Assets/Images/admin.svg";
 import { useNavigate } from "react-router-dom";
 export const UserView = () => {
   const navigate = useNavigate();

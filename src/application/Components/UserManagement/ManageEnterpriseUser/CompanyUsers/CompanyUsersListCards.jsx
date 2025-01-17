@@ -1,12 +1,12 @@
 
 import React, { useState } from "react";
-import user from "../../../../Assets/Images/profile.png";
-import user1 from "../../../../Assets/Images/profile1.png";
-import user2 from "../../../../Assets/Images/profile2.png";
-import user3 from "../../../../Assets/Images/profile3.png";
-import user4 from "../../../../Assets/Images/profile4.png";
-import user5 from "../../../../Assets/Images/profile5.png";
-import user6 from "../../../../Assets/Images/profile6.png";
+import user from "../../../../Assets/Images/profile.svg";
+import user1 from "../../../../Assets/Images/profile1.svg";
+import user2 from "../../../../Assets/Images/profile2.svg";
+import user3 from "../../../../Assets/Images/profile3.svg";
+import user4 from "../../../../Assets/Images/profile4.svg";
+import user5 from "../../../../Assets/Images/profile5.svg";
+import user6 from "../../../../Assets/Images/profile6.svg";
 import { useNavigate } from "react-router-dom";
 import { FiFilter, FiSearch } from "react-icons/fi";
 import { Dropdown, Menu, Avatar } from "antd";
