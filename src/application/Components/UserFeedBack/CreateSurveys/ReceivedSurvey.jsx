@@ -5,9 +5,9 @@ import { TbArrowsDownUp } from "react-icons/tb";
 import { FiFilter, FiSearch } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
-import image1 from "../../../Assets/Images/admin.png";
+import image1 from "../../../Assets/Images/admin.svg";
 
-import noDataImage from "../../../Assets/Images/noSurvey.png";
+import noDataImage from "../../../Assets/Images/noSurvey.svg";
 export const ReceivedSurveyList = () => {
   const navigate = useNavigate();
   const filterMenu = (

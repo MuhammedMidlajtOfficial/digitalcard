@@ -12,6 +12,7 @@ const CreateEmployee = () => {
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const [isImageUpdated, setIsImageUpdated] = useState(false); // Track if the image is updated
 
   const searchParams = new URLSearchParams(location.search);
   const employeeId = searchParams.get("id");
@@ -36,6 +37,8 @@ const CreateEmployee = () => {
         category: employeeData.category,
       });
       setPreviewImage(employeeData.image);
+      setIsImageUpdated(false);
+      
     } catch (error) {
       console.error("Error fetching employee details:", error);
       Swal.fire({
@@ -56,6 +59,8 @@ const CreateEmployee = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewImage(reader.result);
+        setIsImageUpdated(true);
+        
       };
       reader.readAsDataURL(file);
     }
@@ -70,17 +75,16 @@ const CreateEmployee = () => {
     try {
       const payload = {
         username: values.username,
-        image: previewImage,
+        // image: previewImage,
         email: values.email,
         password: values.password,
         phnNumber: values.phnNumber,
         category: values.category,
       };
 
-      if (previewImage) {
+      if (isImageUpdated) {
         payload.image = previewImage;
       }
-
       if (employeeId) {
         // Update existing employee
         const response = await axiosInstance.put(

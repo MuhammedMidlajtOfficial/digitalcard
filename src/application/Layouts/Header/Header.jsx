@@ -19,7 +19,7 @@ const HeaderApplication = () => {
   const userData = useSelector((state) => state?.user?.userData);
   const infoUsers = {
     username: user?.username || user?.username,
-    role: user?.userType,
+    role: user?.userType === 'SuperAdmin' ? 'Super Admin' : user?.userType,
     image: user?.image || user?.image,
   };
 

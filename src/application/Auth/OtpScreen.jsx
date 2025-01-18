@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./auth.css";
-import login from "../Assets/Images/loginbackground.png";
+import login from "../Assets/Images/loginbackground.svg";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Form } from "antd";
@@ -152,7 +152,7 @@ const OtpScreen = () => {
             <div className="login-card-forgot col-lg-12">
               <center>
                 <h2>OTP Verification</h2>
-                <p>Enter OTP Code sent to your email</p>
+                <p className="mb-2">Enter OTP Code sent to your email</p>
               </center>
               <Form layout="vertical" className="login-form" onFinish={onFinish}>
                 <Form.Item>

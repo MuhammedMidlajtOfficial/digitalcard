@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./auth.css";
-import login from "../Assets/Images/loginbackground.png";
+import login from "../Assets/Images/loginbackground.svg";
 import { Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../../src/AxiosConfig";
@@ -17,7 +17,7 @@ const ForgotPassword = () => {
     try {
       const email = form.getFieldValue("email");
       if (!email) {
-        showErrorMessage("Please enter an email.");
+        showErrorMessage("Please enter an Email.");
         return;
       }
       setLoading(true)
@@ -67,16 +67,16 @@ const ForgotPassword = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please enter your email!",
+                        message: "Please enter your Email!",
                       },
                       {
                         type: "email",
-                        message: "Please enter a valid email!",
+                        message: "Please enter a valid Email!",
                       },
                     ]}
                   >
                     <Input
-                      placeholder="Enter your email"
+                      placeholder="Enter your Email"
                       autoComplete="off"
                     />
                   </Form.Item>

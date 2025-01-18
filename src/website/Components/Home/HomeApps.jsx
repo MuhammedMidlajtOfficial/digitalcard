@@ -2,7 +2,7 @@ import React from "react";
 import iphoneImage from "../../Assets/image/home/iphone-phone.svg";
 import androidImage from "../../Assets/image/home/android-phone.svg";
 import qr from "../../Assets/image/home/qr.svg";
-import { FaApple, FaAndroid, FaGooglePlay } from "react-icons/fa6";
+import { FaApple, FaGooglePlay } from "react-icons/fa6";
 
 const HomeApps = () => {
   return (
@@ -17,11 +17,6 @@ const HomeApps = () => {
                 <div className="mobile-download-card1 mt-lg-5 mt-xl-5">
                   <div className="row">
                     <div className="col-lg-5">
-                      {/* <h3>Download for Iphone</h3>
-                      <p>
-                        Get the desktop app for SAP's comprehensive project management
-                        tools
-                      </p> */}
                       <div className="apple-store-home">
                   <div className="icon-store">
                     <FaApple />
@@ -47,11 +42,6 @@ const HomeApps = () => {
                 <div className="mobile-download-card mt-lg-5 mt-xl-5">
                   <div className="row">
                     <div className="col-lg-5">
-                      {/* <h3>Download for Android</h3>
-                      <p>
-                        Download the ultimate mobile app for SAP's project management
-                        on-the-go
-                      </p> */}
                       <div className="google-playstore-home">
                         <div className="icon-store">
                           <FaGooglePlay />

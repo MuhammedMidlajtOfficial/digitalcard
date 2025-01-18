@@ -4,7 +4,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { TbArrowsDownUp } from "react-icons/tb";
 import { FiFilter } from "react-icons/fi";
 import { FiSearch } from "react-icons/fi";
-import image1 from "../../../Assets/Images/admin.png";
+import image1 from "../../../Assets/Images/admin.svg";
 import { IoAlertCircleOutline } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
 

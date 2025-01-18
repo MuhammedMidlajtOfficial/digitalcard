@@ -14,8 +14,7 @@ export const AllUsersTableList = ({
   setAllUser,
   currentPage,
   pageSize,
-  totalUsers,
-  onPaginationChange, 
+  totalUsers
 }) => {
   const navigate = useNavigate();
 console.log("asd",allUser)
@@ -102,7 +101,7 @@ console.log("asd",allUser)
           <Menu>
             <Menu.Item
               key="1"
-              onClick={() => navigate("/admin/usermanagement/editusers")}
+              onClick={() => navigate(`/admin/usermanagement/editusers/${record._id}`)}
             >
               Edit
             </Menu.Item>

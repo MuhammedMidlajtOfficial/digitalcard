@@ -1,7 +1,7 @@
 import { Avatar, Progress, Rate, Tag } from "antd";
 import React from "react";
 import { FaArrowTrendUp, FaStar } from "react-icons/fa6";
-import image1 from "../../../Assets/Images/profile4.png";
+import image1 from "../../../Assets/Images/profile4.svg";
 import { useNavigate } from "react-router-dom";
 export const ViewFeedBack = () => {
   const ratingData = [

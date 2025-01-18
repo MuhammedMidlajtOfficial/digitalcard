@@ -3,8 +3,8 @@ import React from "react";
 import { Form, Input, Select } from "antd";
 import { PiImages } from "react-icons/pi";
 import { ColorPicker, Space } from "antd";
-import cardfront from "../../../Assets/Images/card2.png";
-import cardback from "../../../Assets/Images/cardback.png";
+import cardfront from "../../../Assets/Images/card2.svg";
+import cardback from "../../../Assets/Images/cardback.svg";
 
 const CreateCard = () => {
   const fontOptions = [

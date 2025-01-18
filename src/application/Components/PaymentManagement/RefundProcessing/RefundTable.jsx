@@ -3,7 +3,7 @@ import { Dropdown, Menu, Table, Avatar, Button, Input } from "antd";
 import { IoIosArrowForward } from "react-icons/io";
 import { TbArrowsDownUp } from "react-icons/tb";
 import { FiFilter } from "react-icons/fi";
-import image1 from "../../../Assets/Images/admin.png";
+import image1 from "../../../Assets/Images/admin.svg";
 import { IoEllipsisHorizontalSharp } from "react-icons/io5";
 import { LuEye } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
