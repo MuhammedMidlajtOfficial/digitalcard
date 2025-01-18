@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Dropdown, Menu, Table, Avatar, Button, Spin, message, Select } from "antd";
+import {
+  Dropdown,
+  Menu,
+  Table,
+  Avatar,
+  Button,
+  Spin,
+  message,
+  Select,
+} from "antd";
 import { IoIosArrowForward } from "react-icons/io";
 import { TbArrowsDownUp } from "react-icons/tb";
 import { FiFilter, FiSearch } from "react-icons/fi";
@@ -8,10 +17,12 @@ import { LuEye } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { UserOutlined } from "@ant-design/icons";
-import {axiosInstance} from "../../../../AxiosConfig";
+import { axiosInstance } from "../../../../AxiosConfig";
 import { Option } from "antd/es/mentions";
-import { showErrorToast, showSuccessToast } from "../../../Services/toastService";
-
+import {
+  showErrorToast,
+  showSuccessToast,
+} from "../../../Services/toastService";
 
 export const ManagePaymentsTable = () => {
   const [data, setData] = useState([]);
@@ -24,8 +35,7 @@ export const ManagePaymentsTable = () => {
     setLoading(true);
     try {
       const response = await axiosInstance.get("/payment");
-      console.log("PAYMENT DETAILS:", response.data)
-
+      console.log("PAYMENT DETAILS:", response.data);
 
       // Map the response data to the table format
       setFilteredData(
@@ -33,13 +43,15 @@ export const ManagePaymentsTable = () => {
           key: index,
           username: {
             name: item.user?.name || "Unknown", // Fetch the user name
-            image: item.user?.image || null,   // Fetch the user image
+            image: item.user?.image || null, // Fetch the user image
           },
           paymentid: item.subscription?.razorpayOrderId || "N/A", // Fetch Razorpay Order ID
           date: new Date(item.subscription?.startDate), // Format start date
           paymethod: "Razorpay", // Hardcoded payment method
           status: item.subscription?.status || "pending", // Subscription status
-          transactionid: (item.subscription?.payment && item.subscription.payment[0]) || "N/A",
+          transactionid:
+            (item.subscription?.payment && item.subscription.payment[0]) ||
+            "N/A",
           subscriptionId: item.subscription?._id || "NA",
         }))
       );
@@ -48,13 +60,15 @@ export const ManagePaymentsTable = () => {
           key: index,
           username: {
             name: item.user?.name || "Unknown", // Fetch the user name
-            image: item.user?.image || null,   // Fetch the user image
+            image: item.user?.image || null, // Fetch the user image
           },
           paymentid: item.subscription?.razorpayOrderId || "N/A", // Fetch Razorpay Order ID
           date: new Date(item.subscription?.startDate), // Format start date
           paymethod: "Razorpay", // Hardcoded payment method
           status: item.subscription?.status || "Pending", // Subscription status
-          transactionid: (item.subscription?.payment && item.subscription.payment[0]) || "N/A",
+          transactionid:
+            (item.subscription?.payment && item.subscription.payment[0]) ||
+            "N/A",
           subscriptionId: item.subscription?._id || "NA",
         }))
       );
@@ -64,7 +78,6 @@ export const ManagePaymentsTable = () => {
       setLoading(false);
     }
   };
-
 
   useEffect(() => {
     fetchPayments();
@@ -86,7 +99,7 @@ export const ManagePaymentsTable = () => {
   const handleFilter = (status) => {
     const filter = data.filter((payment) => payment.status === status);
     setFilteredData(filter);
-  }
+  };
 
   const filterMenu = (
     <Menu>
@@ -94,7 +107,9 @@ export const ManagePaymentsTable = () => {
         key="active"
         className="filter-menu-item"
         style={{ color: "green", fontWeight: "600" }}
-        onClick={() => { handleFilter("active") }}
+        onClick={() => {
+          handleFilter("active");
+        }}
       >
         Active
       </Menu.Item>
@@ -102,7 +117,9 @@ export const ManagePaymentsTable = () => {
         key="inactive"
         className="filter-menu-item"
         style={{ color: "red", fontWeight: "600" }}
-        onClick={() => { handleFilter("inactive") }}
+        onClick={() => {
+          handleFilter("inactive");
+        }}
       >
         Inactive
       </Menu.Item>
@@ -110,7 +127,9 @@ export const ManagePaymentsTable = () => {
         key="pending"
         className="filter-menu-item"
         style={{ color: "orange", fontWeight: "600" }}
-        onClick={() => { handleFilter("pending") }}
+        onClick={() => {
+          handleFilter("pending");
+        }}
       >
         Pending
       </Menu.Item>
@@ -127,7 +146,9 @@ export const ManagePaymentsTable = () => {
           marginBottom: "2px",
           padding: "3px 6px",
         }}
-        onClick={() => { setFilteredData(data) }}
+        onClick={() => {
+          setFilteredData(data);
+        }}
       >
         Reset
       </Menu.Item>
@@ -147,8 +168,8 @@ export const ManagePaymentsTable = () => {
       return 0;
     });
 
-    setFilteredData(sortedData)
-  }
+    setFilteredData(sortedData);
+  };
 
   const sortMenu = (
     <Menu>
@@ -156,7 +177,9 @@ export const ManagePaymentsTable = () => {
         key="newest"
         className="filter-menu-item"
         style={{ color: "blue", fontWeight: "600" }}
-        onClick={() => { handleSort("newest") }}
+        onClick={() => {
+          handleSort("newest");
+        }}
       >
         Newest First <IoIosArrowForward className="right-arrow" />
       </Menu.Item>
@@ -164,7 +187,9 @@ export const ManagePaymentsTable = () => {
         key="oldest"
         className="filter-menu-item"
         style={{ color: "gray", fontWeight: "600" }}
-        onClick={() => { handleSort("oldest") }}
+        onClick={() => {
+          handleSort("oldest");
+        }}
       >
         Oldest First <IoIosArrowForward className="right-arrow" />
       </Menu.Item>
@@ -205,14 +230,14 @@ export const ManagePaymentsTable = () => {
   };
 
   const handleStatusChange = (value, record) => {
-    setLoading(true); 
+    setLoading(true);
     console.log("RECORD", record);
     console.log("value", value);
-  
+
     const apiUrl = `payment/${record.subscriptionId}/status`;
-  
+
     axiosInstance
-      .patch(apiUrl, { status: value }) 
+      .patch(apiUrl, { status: value })
       .then((response) => {
         showSuccessToast("Status updated successfully!");
         fetchPayments();
@@ -225,8 +250,6 @@ export const ManagePaymentsTable = () => {
         setLoading(false);
       });
   };
-  
-
 
   const columns = [
     {
@@ -234,9 +257,12 @@ export const ManagePaymentsTable = () => {
       dataIndex: "username",
       render: (username) => (
         <div className="d-flex align-items-center">
-          <Avatar src={username.image || null}
+          <Avatar
+            src={username.image || null}
             icon={!username.image ? <UserOutlined /> : null}
-            size={40} className="me-2" />
+            size={40}
+            className="me-2"
+          />
           {username.name}
         </div>
       ),
@@ -248,7 +274,7 @@ export const ManagePaymentsTable = () => {
     {
       title: "Date",
       dataIndex: "date",
-      render: (date) => date.toLocaleDateString()
+      render: (date) => date.toLocaleDateString(),
     },
     {
       title: "Pay Method",
@@ -271,10 +297,10 @@ export const ManagePaymentsTable = () => {
               status === "active"
                 ? "green"
                 : status === "pending"
-                  ? "orange"
-                  : status === "inactive"
-                    ? "red"
-                    : "gray",
+                ? "orange"
+                : status === "inactive"
+                ? "red"
+                : "gray",
           }}
           placeholder="Select Status"
         >
@@ -283,7 +309,7 @@ export const ManagePaymentsTable = () => {
           <Option value="inactive">Inactive</Option>
         </Select>
       ),
-    }
+    },
     // {
     //   title: "Action",
     //   dataIndex: "action",
@@ -299,14 +325,14 @@ export const ManagePaymentsTable = () => {
     <div className="container">
       <div className="row">
         <div className="col-lg-12">
-          <div className="search-container" style={{ marginBottom: "15px" }}>
-            <FiSearch className="search-icon" />
+          <div className="search-container mb-2">
+            <FiSearch className="search-icon-wati" />
             <input
               type="text"
               placeholder="Search..."
-              className="create-survey-search-input"
-              value={searchTerm} // Bind search term
-              onChange={(e) => setSearchTerm(e.target.value)} // Update state on input
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)} 
+              className="search-input-css"
             />
           </div>
           <div className="application-table-section">
