@@ -448,6 +448,7 @@
   background-color: var(--white-color);
   color: var(--gradient-start-color);
   border: 1px solid var(--gradient-start-color);
+  margin-right: 10px;
 }
 
 .create-subscription-cancel-button:hover{

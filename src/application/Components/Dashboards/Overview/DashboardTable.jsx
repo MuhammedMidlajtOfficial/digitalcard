@@ -161,7 +161,9 @@ export const DashboardTable = () => {
               <div className="search-table-container d-flex gap-2">
                 <Dropdown overlay={filterMenu} trigger={["click"]}>
                   <button className="table-action-btn d-flex gap-3 align-items-center">
-                    <span>Filter: {getFilterDisplayName(filter)}</span>
+                    <span>Filter</span>     
+                    {/* : {getFilterDisplayName(filter)} */}
+                    
                     <FiFilter
                       style={{
                         fontWeight: 500,

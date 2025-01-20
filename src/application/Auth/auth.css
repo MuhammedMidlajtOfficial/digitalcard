@@ -94,8 +94,9 @@
   background-color: transparent;
   color: var(--white-color);
   font-size: 40px;
+  font-weight: 900px;
   position: relative;
-  left: -50px;
+  left: -60px;
 }
 
 .otp-input-group {

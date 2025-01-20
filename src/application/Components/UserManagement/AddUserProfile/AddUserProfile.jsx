@@ -343,7 +343,7 @@ export const AddUserProfile = () => {
                     name="username"
                     className="edit-user-form"
                     rules={[
-                      { required: true, message: "Please enter a username!" },
+                      { required: true, message: "Please enter a Username!" },
                       { min: 3, message: "Username must be at least 3 characters long." },
                     ]}
                   >
@@ -362,7 +362,7 @@ export const AddUserProfile = () => {
                     name="phnNumber"
                     className="edit-user-form"
                     rules={[
-                      { required: true, message: "Please enter a mobile number!" },
+                      { required: true, message: "Please enter a Mobile number!" },
                       { pattern: /^\d{10}$/, message: "Mobile number must be 10 digits." },
                     ]}
                   >
@@ -384,8 +384,8 @@ export const AddUserProfile = () => {
                     name="email"
                     className="edit-user-form"
                     rules={[
-                      { required: true, message: "Please enter an email!" },
-                      { type: "email", message: "Enter a valid email address!" },
+                      { required: true, message: "Please enter an Email!" },
+                      { type: "email", message: "Enter a valid Email address!" },
                     ]}
                   >
                     <Input
@@ -403,7 +403,7 @@ export const AddUserProfile = () => {
                     name="password"
                     className="edit-user-form"
                     rules={[
-                      { required: true, message: "Please enter a password!" },
+                      { required: true, message: "Please enter a Password!" },
                       { min: 6, message: "Password must be at least 6 characters long." },
                     ]}
                   >
@@ -439,6 +439,10 @@ export const AddUserProfile = () => {
                     label="Name"
                     name="name"
                     className="edit-user-form"
+                    rules={[
+                      { required: true, message: "Please enter an name!" },
+                      { type: "name", message: "Enter a valid name!" },
+                    ]}
                   >
                     <Input
                       placeholder="Enter Name"
@@ -602,7 +606,7 @@ export const AddUserProfile = () => {
                     name="username"
                     className="edit-user-form"
                     rules={[
-                      { required: true, message: "Please enter a username!" },
+                      { required: true, message: "Please enter a Username!" },
                       { min: 3, message: "Username must be at least 3 characters long." },
                     ]}
                   >
@@ -620,7 +624,7 @@ export const AddUserProfile = () => {
                     label="Company Name"
                     name="companyName"
                     className="edit-user-form"
-                    rules={[{ required: true, message: "Please enter the company name!" }]}
+                    rules={[{ required: true, message: "Please enter the Company name!" }]}
                   >
                     <Input
                       placeholder="Enter Company Name"
@@ -631,12 +635,17 @@ export const AddUserProfile = () => {
                     />
                   </Form.Item>
                 </div>
-                <div className="col-md-6 mb-1">
+
+              </div>
+
+              {/* Email & Password */}
+              <div className="row">
+              <div className="col-md-6 mb-1">
                   <Form.Item
                     label="Industry Type"
                     name="industryType"
                     className="edit-user-form"
-                    rules={[{ required: true, message: "Please enter the industry type!" }]}
+                    rules={[{ required: true, message: "Please enter the Industry type!" }]}
                   >
                     <Input
                       placeholder="Enter Industry Type"
@@ -647,18 +656,14 @@ export const AddUserProfile = () => {
                     />
                   </Form.Item>
                 </div>
-              </div>
-
-              {/* Email & Password */}
-              <div className="row">
                 <div className="col-md-6 mb-1">
                   <Form.Item
                     label="Email"
                     name="email"
                     className="edit-user-form"
                     rules={[
-                      { required: true, message: "Please enter an email!" },
-                      { type: "email", message: "Enter a valid email address!" },
+                      { required: true, message: "Please enter an Email!" },
+                      { type: "email", message: "Enter a valid Email address!" },
                     ]}
                   >
                     <Input
@@ -670,13 +675,18 @@ export const AddUserProfile = () => {
                     />
                   </Form.Item>
                 </div>
-                <div className="col-md-6 mb-1">
+
+              </div>
+
+              {/* Mobile Number & Website */}
+              <div className="row">
+              <div className="col-md-6 mb-1">
                   <Form.Item
                     label="Password"
                     name="password"
                     className="edit-user-form"
                     rules={[
-                      { required: true, message: "Please enter a password!" },
+                      { required: true, message: "Please enter a Password!" },
                       { min: 6, message: "Password must be at least 6 characters long." },
                     ]}
                   >
@@ -704,10 +714,6 @@ export const AddUserProfile = () => {
                     </div>
                   </Form.Item>
                 </div>
-              </div>
-
-              {/* Mobile Number & Website */}
-              <div className="row">
                 <div className="col-md-6 mb-1">
                   <Form.Item
                     label="Mobile Number"
@@ -726,7 +732,12 @@ export const AddUserProfile = () => {
                     />
                   </Form.Item>
                 </div>
-                <div className="col-md-6 mb-1">
+
+              </div>
+
+              {/* Address & About Us */}
+              <div className="row">
+              <div className="col-md-6 mb-1">
                   <Form.Item
                     label="Website"
                     name="website"
@@ -742,44 +753,6 @@ export const AddUserProfile = () => {
                     />
                   </Form.Item>
                 </div>
-              </div>
-
-              {/* Address & About Us */}
-              <div className="row">
-                <div className="col-md-6 mb-1">
-                  <Form.Item
-                    label="Address"
-                    name="address"
-                    className="edit-user-form"
-                  >
-                    <Input.TextArea
-                      placeholder="Enter Address"
-                      className="form-placeholder-field"
-                      name="address"
-                      value={enterpriseUserData.address}
-                      onChange={handleEnterpriseInputChange}
-                    />
-                  </Form.Item>
-                </div>
-                <div className="col-md-6 mb-1">
-                  <Form.Item
-                    label="About Us"
-                    name="aboutUs"
-                    className="edit-user-form"
-                  >
-                    <Input.TextArea
-                      placeholder="Tell us about your company"
-                      className="form-placeholder-field"
-                      name="aboutUs"
-                      value={enterpriseUserData.aboutUs}
-                      onChange={handleEnterpriseInputChange}
-                    />
-                  </Form.Item>
-                </div>
-              </div>
-
-              {/* WhatsApp Number & Facebook Link */}
-              <div className="row">
                 <div className="col-md-6 mb-1">
                   <Form.Item
                     label="WhatsApp Number"
@@ -805,7 +778,47 @@ export const AddUserProfile = () => {
                     />
                   </Form.Item>
                 </div>
+
+              </div>
+
+              {/* WhatsApp Number & Facebook Link */}
+              <div className="row">
+              <div className="col-md-6 mb-1">
+                  <Form.Item
+                    label="About Us"
+                    name="aboutUs"
+                    className="edit-user-form"
+                  >
+                    <Input.TextArea
+                      placeholder="Tell us about your company"
+                      className="form-placeholder-field"
+                      name="aboutUs"
+                      value={enterpriseUserData.aboutUs}
+                      onChange={handleEnterpriseInputChange}
+                    />
+                  </Form.Item>
+                </div>
                 <div className="col-md-6 mb-1">
+                  <Form.Item
+                    label="Address"
+                    name="address"
+                    className="edit-user-form"
+                  >
+                    <Input.TextArea
+                      placeholder="Enter Address"
+                      className="form-placeholder-field"
+                      name="address"
+                      value={enterpriseUserData.address}
+                      onChange={handleEnterpriseInputChange}
+                    />
+                  </Form.Item>
+                </div>
+
+              </div>
+
+              {/* Instagram Link & Twitter Link */}
+              <div className="row">
+              <div className="col-md-6 mb-1">
                   <Form.Item
                     label="Facebook Link"
                     name="facebookLink"
@@ -821,10 +834,6 @@ export const AddUserProfile = () => {
                     />
                   </Form.Item>
                 </div>
-              </div>
-
-              {/* Instagram Link & Twitter Link */}
-              <div className="row">
                 <div className="col-md-6 mb-1">
                   <Form.Item
                     label="Instagram Link"
@@ -841,7 +850,12 @@ export const AddUserProfile = () => {
                     />
                   </Form.Item>
                 </div>
-                <div className="col-md-6 mb-1">
+
+              </div>
+
+              {/* Submit & Cancel Buttons */}
+              <div className="row">
+              <div className="col-md-6 mb-1">
                   <Form.Item
                     label="Twitter Link"
                     name="twitterLink"
@@ -857,10 +871,6 @@ export const AddUserProfile = () => {
                     />
                   </Form.Item>
                 </div>
-              </div>
-
-              {/* Submit & Cancel Buttons */}
-              <div className="row">
                 <div className="d-flex justify-content-end gap-3">
                   <Button
                     className="cancel-btn"
