@@ -265,7 +265,7 @@ const AddEmployee = ({ visible, onClose }) => {
                   className="input-padding-css"
                 >
                   <Option value="Horizontal">Horizontal</Option>
-                  <Option value="Vertical">Vertical</Option>
+                  {/* <Option value="Vertical">Vertical</Option> */}
                 </Select>
               </Form.Item>
             </div>

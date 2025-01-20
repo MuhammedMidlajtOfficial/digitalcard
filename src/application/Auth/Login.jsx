@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./auth.css";
-import login from "../Assets/Images/loginbackground.svg";
+import login from "../Assets/Images/Cover.svg";
 import { Checkbox, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";

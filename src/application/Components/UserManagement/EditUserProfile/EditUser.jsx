@@ -289,7 +289,7 @@ export const EditUser = ({ userId }) => {
                     name="username"
                     className="edit-user-form"
                     rules={[
-                      { required: true, message: "Please enter a username!" },
+                      { required: true, message: "Please enter a Username!" },
                       { min: 3, message: "Username must be at least 3 characters long." },
                     ]}
                   >
@@ -509,7 +509,7 @@ export const EditUser = ({ userId }) => {
                     label="Company Name"
                     name="companyName"
                     className="edit-user-form"
-                    rules={[{ required: true, message: "Please enter the company name!" }]}
+                    rules={[{ required: true, message: "Please enter the Company name!" }]}
                   >
                     <Input
                       placeholder="Enter Company Name"
@@ -525,7 +525,7 @@ export const EditUser = ({ userId }) => {
                     label="Industry Type"
                     name="industryType"
                     className="edit-user-form"
-                    rules={[{ required: true, message: "Please enter the industry type!" }]}
+                    rules={[{ required: true, message: "Please enter the Industry type!" }]}
                   >
                     <Input
                       placeholder="Enter Industry Type"
@@ -742,7 +742,7 @@ export const EditUser = ({ userId }) => {
                     name="username"
                     className="edit-user-form"
                     rules={[
-                      { required: true, message: "Please enter a username!" },
+                      { required: true, message: "Please enter a Username!" },
                       { min: 3, message: "Username must be at least 3 characters long." },
                     ]}
                   >
@@ -761,7 +761,7 @@ export const EditUser = ({ userId }) => {
                     name="phnNumber"
                     className="edit-user-form"
                     rules={[
-                      { required: true, message: "Please enter a mobile number!" },
+                      { required: true, message: "Please enter a Mobile number!" },
                       { pattern: /^\d{10}$/, message: "Mobile number must be 10 digits." },
                     ]}
                   >

@@ -9,7 +9,7 @@ const AssignTicketCards = () => {
   const [ticketStats, setTicketStats] = useState({
     totalTickets: 0,
     progressTickets: 0,
-    awaitingAssignment: 0,
+    awaitingTickets: 0,
     closedTickets: 0,
   });
 
@@ -20,7 +20,7 @@ const AssignTicketCards = () => {
         setTicketStats({
           totalTickets: response.data.totalTickets,
           progressTickets: response.data.onGoingTickets, // Assuming progress tickets are open tickets
-          awaitingAssignment: response.data.openTickets || 0, // Placeholder if this data is not available
+          awaitingTickets: response.data.openTickets || 0, // Placeholder if this data is not available
           closedTickets: response.data.closedTickets,
         });
       } catch (error) {
@@ -48,8 +48,8 @@ const AssignTicketCards = () => {
     },
     {
       icon: TbClock,
-      title: "Awaiting Assignment",
-      value: ticketStats.awaitingAssignment,
+      title: "Awaiting Tickets",
+      value: ticketStats.awaitingTickets,
       bgColor: "#ffcb64",
       textColor: "#ffffff",
     },

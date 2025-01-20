@@ -369,7 +369,7 @@ const DashboardGraphs = () => {
                   >
                     <XAxis 
                       dataKey="month" 
-                      axisLine={false}
+                      axisLine={true} 
                       tickLine={false}
                     />
                     <YAxis
@@ -384,7 +384,7 @@ const DashboardGraphs = () => {
                           fill: "black",
                         },
                       }}
-                      axisLine={false}
+                      axisLine={true} 
                       tickLine={false}
                     />
                     <Tooltip 

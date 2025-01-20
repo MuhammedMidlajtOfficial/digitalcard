@@ -53,7 +53,7 @@ const ForgotPassword = () => {
             <h2 className="login-heading-forgot">Diskuss</h2>
             <div className="login-card-forgot col-lg-12">
               <center>
-                <h2>Forgot password</h2>
+                <h2>Forgot Password</h2>
               </center>
               <Form
                 layout="vertical"
