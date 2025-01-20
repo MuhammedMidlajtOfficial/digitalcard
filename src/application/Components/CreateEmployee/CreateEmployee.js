@@ -236,7 +236,7 @@ const CreateEmployee = () => {
                   label="Password"
                   name="password"
                   rules={[
-                    { required: true, message: "Please enter a password!" },
+                    { required: true, message: "Please enter a Password!" },
                   ]}
                 >
                   <Input.Password

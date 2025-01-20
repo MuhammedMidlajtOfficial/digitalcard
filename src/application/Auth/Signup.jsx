@@ -110,7 +110,7 @@ const onFinish = async (values) => {
                     rules={[
                       {
                         required: true,
-                        message: "Please enter your username.",
+                        message: "Please enter your Username.",
                       },
                     ]}
                   >

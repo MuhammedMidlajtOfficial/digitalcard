@@ -175,7 +175,7 @@ export const PersonalInformation = () => {
                 label="User Name"
                 name="username"
                 rules={[
-                  { required: true, message: "Please enter your username" },
+                  { required: true, message: "Please enter your Username" },
                   { validator: validateWhitespace },
                 ]}
               >
@@ -209,7 +209,7 @@ export const PersonalInformation = () => {
                 label="Phone Number"
                 name="phnNumber"
                 rules={[
-                  { required: true, message: "Please enter your phone number" },
+                  { required: true, message: "Please enter your Phone Number" },
                   {
                     pattern: /^[0-9]{10}$/,
                     message: "Phone number must be 10 digits",
@@ -237,7 +237,7 @@ export const PersonalInformation = () => {
                 label="Address"
                 name="address"
                 rules={[
-                  { required: true, message: "Please enter your address" },
+                  { required: true, message: "Please enter your Address" },
                   { validator: validateWhitespace },
                 ]}
               >

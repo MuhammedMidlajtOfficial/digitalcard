@@ -12,6 +12,10 @@ const DashboardMembers = () => {
 
   const { RangePicker } = DatePicker;
 
+  const disableFutureDates = (current) => {
+    return current && current > dayjs().endOf('day');
+  };
+
   useEffect(() => {
     if (filterDateRange[0] && filterDateRange[1]) {
       fetchMembersData();
@@ -104,6 +108,7 @@ const DashboardMembers = () => {
       textColor: "#ffffff",
     },
   ];
+
   const getNoDataMessage = () => {
     if (!filterDateRange[0] && !filterDateRange[1]) {
       return "Please select a date range to view members data";
@@ -125,6 +130,7 @@ const DashboardMembers = () => {
             id="date-range"
             format="YYYY-MM-DD"
             onChange={handleDateRange}
+            disabledDate={disableFutureDates}
           />
         </div>
         {cardData.map(
@@ -191,6 +197,7 @@ const DashboardMembers = () => {
             format="YYYY-MM-DD"
             allowEmpty={[true, true]}
             placeholder={['Start Date', 'End Date']}
+            disabledDate={disableFutureDates}
           />
         </div>
         <div>
@@ -255,6 +262,3 @@ const DashboardMembers = () => {
 };
 
 export default DashboardMembers;
-
-
-

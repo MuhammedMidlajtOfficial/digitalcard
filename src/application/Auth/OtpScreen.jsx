@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./auth.css";
 import login from "../Assets/Images/loginbackground.svg";
 import Swal from "sweetalert2";
@@ -10,50 +10,85 @@ const OtpScreen = () => {
   const navigate = useNavigate();
   const [otpCode, setOtpCode] = useState(new Array(6).fill(""));
   const [loading, setLoading] = useState(false);
+  const [timer, setTimer] = useState(30);
+  const [resendDisabled, setResendDisabled] = useState(false);
   const location = useLocation();
-
   const email = location.state?.email;
-  console.log("ssss",email);
 
   const handleChange = (e, index) => {
     const value = e.target.value;
-    if (/^[0-9]?$/.test(value)) {
+
+    if (/^\d$/.test(value)) {
       const newOtpCode = [...otpCode];
       newOtpCode[index] = value;
       setOtpCode(newOtpCode);
-      if (value && index < otpCode.length - 1) {
+
+      if (index < otpCode.length - 1) {
         document.getElementById(`otp-input-${index + 1}`).focus();
       }
+    } else if (value === "") {
+      const newOtpCode = [...otpCode];
+      newOtpCode[index] = "";
+      setOtpCode(newOtpCode);
     }
   };
+
+  const handleKeyDown = (e, index) => {
+    const value = e.key;
+
+    if (value === "Backspace") {
+      const newOtpCode = [...otpCode];
+      if (otpCode[index] === "") {
+        if (index > 0) {
+          document.getElementById(`otp-input-${index - 1}`).focus();
+        }
+      } else {
+        newOtpCode[index] = "";
+        setOtpCode(newOtpCode);
+      }
+    }
+
+    if (value === "ArrowLeft" && index > 0) {
+      document.getElementById(`otp-input-${index - 1}`).focus();
+    }
+
+    if (value === "ArrowRight" && index < otpCode.length - 1) {
+      document.getElementById(`otp-input-${index + 1}`).focus();
+    }
+  };
+
+  const handleFocus = (e) => {
+    e.target.select();
+  };
+
   const handlePaste = (e) => {
     e.preventDefault();
-    const pasteData = e.clipboardData.getData("text");
-    if (pasteData.length <= 6 && /^\d+$/.test(pasteData)) {
+    const pasteData = e.clipboardData.getData("text").slice(0, 6);
+    if (/^\d+$/.test(pasteData)) {
       const newOtpCode = [...otpCode];
-      for (let i = 0; i < pasteData.length; i++) {
-        if (i < otpCode.length) {
-          newOtpCode[i] = pasteData[i];
+      pasteData.split("").forEach((char, index) => {
+        if (index < otpCode.length) {
+          newOtpCode[index] = char;
         }
-      }
+      });
       setOtpCode(newOtpCode);
+
       const nextEmptyIndex = newOtpCode.findIndex((code) => code === "");
       if (nextEmptyIndex !== -1) {
         document.getElementById(`otp-input-${nextEmptyIndex}`).focus();
-      } else {
-        document.querySelector(".sign-button").focus();
       }
     }
   };
+
   const onFinish = async () => {
     const otp = otpCode.join("");
     try {
-      setLoading(true)
+      setLoading(true);
       const response = await axiosInstance.post(
         "adminAuth/forgotPassword/validate-otp",
-        { email, otp },
+        { email, otp }
       );
-  
+
       if (response.status === 200 || response.status === 201) {
         Swal.fire({
           icon: "success",
@@ -64,8 +99,8 @@ const OtpScreen = () => {
           confirmButtonColor: "var(--gradient-start-color)",
         }).then(() => {
           sessionStorage.removeItem("otpEmail");
-          sessionStorage.setItem("resetPasswordToken",response.data.token)
-          navigate("/create-password",{ replace: true });
+          sessionStorage.setItem("resetPasswordToken", response.data.token);
+          navigate("/create-password", { replace: true });
         });
       } else {
         Swal.fire({
@@ -77,39 +112,23 @@ const OtpScreen = () => {
         });
       }
     } catch (error) {
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
-        const errorMsg = error.response.data.message.includes(
-          "A user with this email address already exists"
-        )
-          ? "A user with this email address already exists. Please login instead."
-          : error.response.data.message;
-  
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: errorMsg,
-          confirmButtonText: "Try Again",
-          confirmButtonColor: "var(--danger-color)",
-        });
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "An error occurred during OTP validation.",
-          confirmButtonText: "Try Again",
-          confirmButtonColor: "var(--danger-color)",
-        });
-      }
-    }finally {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "An error occurred during OTP validation.",
+        confirmButtonText: "Try Again",
+        confirmButtonColor: "var(--danger-color)",
+      });
+    } finally {
       setLoading(false);
     }
   };
+
   const handleResend = async () => {
-    const email = sessionStorage.getItem("otpEmail");
+    setOtpCode(new Array(6).fill(""));
+    setResendDisabled(true);
+    setTimer(30);
+
     try {
       const response = await axiosInstance.post(
         "adminAuth/forgotPassword/request-otp",
@@ -119,7 +138,7 @@ const OtpScreen = () => {
       if (response.status === 200) {
         Swal.fire({
           icon: "success",
-          title: "OTP Resent",
+          title: "OTP Resend",
           text: "A new OTP has been sent to your email.",
           confirmButtonText: "OK",
           confirmButtonColor: "var(--green-color)",
@@ -143,6 +162,21 @@ const OtpScreen = () => {
       });
     }
   };
+
+  useEffect(() => {
+    let interval;
+    if (resendDisabled && timer > 0) {
+      interval = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+    } else if (timer === 0) {
+      clearInterval(interval);
+      setResendDisabled(false);
+    }
+
+    return () => clearInterval(interval);
+  }, [timer, resendDisabled]);
+
   return (
     <div className="login-container">
       <div className="container-fluid">
@@ -156,7 +190,10 @@ const OtpScreen = () => {
               </center>
               <Form layout="vertical" className="login-form" onFinish={onFinish}>
                 <Form.Item>
-                  <div className="otp-input-group" onPaste={handlePaste}>
+                  <div
+                    className="otp-input-group"
+                    onPaste={handlePaste}
+                  >
                     {otpCode.map((code, index) => (
                       <input
                         key={index}
@@ -165,6 +202,8 @@ const OtpScreen = () => {
                         maxLength={1}
                         value={code}
                         onChange={(e) => handleChange(e, index)}
+                        onKeyDown={(e) => handleKeyDown(e, index)}
+                        onFocus={handleFocus}
                         className="otp-input"
                       />
                     ))}
@@ -172,16 +211,21 @@ const OtpScreen = () => {
                 </Form.Item>
                 <div className="resend-info">
                   <p>
-                    Didn’t get OTP? 
-                  </p>
-                  <p
-                    className="resend-link"
-                    onClick={handleResend}
-                  >
-                    Resend Code
+                    Didn’t get OTP?{" "}
+                    {resendDisabled ? (
+                      <span>{`Resend in ${timer}s`}</span>
+                    ) : (
+                      <p className="resend-link" onClick={handleResend}>
+                        Resend Code
+                      </p>
+                    )}
                   </p>
                 </div>
-                <button type="submit" className="sign-button" disabled={loading}>
+                <button
+                  type="submit"
+                  className="sign-button"
+                  disabled={loading}
+                >
                   {loading ? "Verify & Proceed..." : "Verify & Proceed"}
                 </button>
               </Form>
@@ -197,3 +241,8 @@ const OtpScreen = () => {
 };
 
 export default OtpScreen;
+
+
+
+
+

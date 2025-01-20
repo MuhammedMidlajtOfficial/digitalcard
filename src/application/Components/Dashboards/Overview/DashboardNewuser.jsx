@@ -23,15 +23,31 @@ const DashboardNewuser = () => {
   const [filterDate, setFilterDate] = useState(dayjs());
   const [newUsers, setNewUsers] = useState([]);
 
+  const disableFutureDates = (current) => {
+    return current && current > dayjs().endOf('day');
+  };
+
+  const validateDate = (date) => {
+    if (!date) return null;
+    
+    const today = dayjs().endOf('day');
+    return date.isAfter(today) ? today : date;
+  };
+
   useEffect(() => {
-    axiosInstance
-      .get(`dashboard/getTodaysActiveUsers/${filterDate.format("YYYY-MM-DD")}`)
-      .then((response) => {
-        setNewUsers(response.data.activeUsers);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+    if (filterDate) {
+      axiosInstance
+        .get(`dashboard/getTodaysActiveUsers/${filterDate.format("YYYY-MM-DD")}`)
+        .then((response) => {
+          setNewUsers(response.data.activeUsers);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+          setNewUsers([]);
+        });
+    } else {
+      setNewUsers([]);
+    }
 
     return () => {
       setNewUsers([]);
@@ -39,10 +55,11 @@ const DashboardNewuser = () => {
   }, [filterDate]);
 
   const handleDateChange = (date) => {
-    setFilterDate(date ? dayjs(date) : null); 
+    const validatedDate = validateDate(date ? dayjs(date) : null);
+    setFilterDate(validatedDate);
   };
 
-  // const newUsers = [
+      // const newUsers = [
   //   {
   //     name: "Marvin McKinney",
   //     role: "Hospital Consulting",
@@ -80,10 +97,15 @@ const DashboardNewuser = () => {
 
             <div className="new-user-select d-flex justify-content-end align-items-center mb-3">
               <DatePicker
-                onChange={handleDateChange} 
-                value={filterDate} 
-                placeholder="Select Date" 
-                format="DD, MMM YYYY" 
+                onChange={handleDateChange}
+                value={filterDate}
+                placeholder="Select Date"
+                format="DD, MMM YYYY"
+                disabledDate={disableFutureDates}
+                defaultValue={dayjs()} 
+                allowClear={false} 
+                inputReadOnly 
+                showToday
               />
             </div>
 
@@ -102,23 +124,25 @@ const DashboardNewuser = () => {
 
                   return (
                     <UserSection
-                      key={index} 
+                      key={index}
                       avatar={user.image}
-                      name={user.username ? user.username : user.email} 
+                      name={user.username ? user.username : user.email}
                       role={
                         user.userType
                           ? "Enterprise Employee"
                           : user.empId
                           ? "Enterprise User"
                           : "Individual User"
-                      } 
-                      status={user.isSubscribed ? "Subscribed" : "Unsubscribed"} 
-                      roleColor={roleColor} 
+                      }
+                      status={user.isSubscribed ? "Subscribed" : "Unsubscribed"}
+                      roleColor={roleColor}
                     />
                   );
                 })
               ) : (
-                <span style={{ color: "red" }}>No Users Found</span>
+                <span style={{ color: "red" }}>
+                  {filterDate ? "No Users Found" : "Please select a date"}
+                </span>
               )}
             </div>
           </div>
@@ -136,4 +160,3 @@ const DashboardNewuser = () => {
 };
 
 export default DashboardNewuser;
-
