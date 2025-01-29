@@ -3,6 +3,7 @@ import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 import { Select, Tooltip } from "antd";
 import { axiosInstance } from "../../../../AxiosConfig";
+import { showErrorToast } from "../../../Services/toastService";
 
 const { Option } = Select;
 const SendNotification = () => {
@@ -86,9 +87,11 @@ const SendNotification = () => {
       setTopic("");
     } catch (error) {
       console.error("Error sending notification:", error);
-      const errorMessage =
-        error.response?.data || "Failed to send notification.";
-      alert(errorMessage);
+      const errorMessage = error.response?.data || "Failed to send notification.";
+      if(error.response.data?.noUser){
+        showErrorToast(error.response.data?.error);
+      }
+        showErrorToast(errorMessage);
     } finally {
       setLoading(false);
     }
