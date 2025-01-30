@@ -71,7 +71,7 @@ export const SettingsPassword = () => {
             </div>
             <div className="row mt-4">
               <div className="d-flex justify-content-end gap-3">
-                <button className="cancel-btn" type="button" onClick={()=>{navigate('/admin/dashboard/overview')}}>
+                <button className="cancel-btn" type="button" onClick={()=>{navigate('/admin/settings')}}>
                   Discard
                 </button>
                 <button

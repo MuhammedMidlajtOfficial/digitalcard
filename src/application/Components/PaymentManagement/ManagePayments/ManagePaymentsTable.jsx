@@ -29,6 +29,7 @@ export const ManagePaymentsTable = () => {
   const [loading, setLoading] = useState(false);
   const [filteredData, setFilteredData] = useState(data);
   const [searchTerm, setSearchTerm] = useState("");
+  const [activeSort, setActiveSort] = useState("newest"); // Track the active sort option
   const navigate = useNavigate();
 
   const fetchPayments = async () => {
@@ -36,48 +37,41 @@ export const ManagePaymentsTable = () => {
     try {
       const response = await axiosInstance.get("/payment");
       console.log("PAYMENT DETAILS:", response.data);
-
+  
       // Map the response data to the table format
-      setFilteredData(
-        response.data.map((item, index) => ({
-          key: index,
-          username: {
-            name: item.user?.name || "Unknown", // Fetch the user name
-            image: item.user?.image || null, // Fetch the user image
-          },
-          paymentid: item.subscription?.razorpayOrderId || "N/A", // Fetch Razorpay Order ID
-          date: new Date(item.subscription?.startDate), // Format start date
-          paymethod: "Razorpay", // Hardcoded payment method
-          status: item.subscription?.status || "pending", // Subscription status
-          transactionid:
-            (item.subscription?.payment && item.subscription.payment[0]) ||
-            "N/A",
-          subscriptionId: item.subscription?._id || "NA",
-        }))
-      );
-      setData(
-        response.data.map((item, index) => ({
-          key: index,
-          username: {
-            name: item.user?.name || "Unknown", // Fetch the user name
-            image: item.user?.image || null, // Fetch the user image
-          },
-          paymentid: item.subscription?.razorpayOrderId || "N/A", // Fetch Razorpay Order ID
-          date: new Date(item.subscription?.startDate), // Format start date
-          paymethod: "Razorpay", // Hardcoded payment method
-          status: item.subscription?.status || "Pending", // Subscription status
-          transactionid:
-            (item.subscription?.payment && item.subscription.payment[0]) ||
-            "N/A",
-          subscriptionId: item.subscription?._id || "NA",
-        }))
-      );
+      const mappedData = response.data.map((item, index) => ({
+        key: index,
+        username: {
+          name: item.user?.name || "Unknown", // If user is null, fallback to "Unknown"
+          image: item.user?.image || null, // If user is null, fallback to null
+        },
+        paymentid: item.subscription?.razorpayOrderId || "N/A", // Razorpay Order ID
+        date: new Date(item.subscription?.startDate), // Format the start date
+        paymethod: "Razorpay", // Hardcoded payment method
+        status: item.subscription?.status || "pending", // Subscription status
+        transactionid:
+          (item.subscription?.payment && item.subscription.payment[0]) ||
+          "N/A", // Get the first payment transaction ID
+        subscriptionId: item.subscription?._id || "NA", // Subscription ID
+      }));
+  
+      // Sort the data based on the active sort option (newest or oldest)
+      if (activeSort === "newest") {
+        mappedData.sort((a, b) => b.date - a.date); // Sort by date (newest first)
+      } else if (activeSort === "oldest") {
+        mappedData.sort((a, b) => a.date - b.date); // Sort by date (oldest first)
+      }
+  
+      // Set the state with the sorted and mapped data
+      setFilteredData(mappedData);
+      setData(mappedData);
     } catch (error) {
       message.error("Failed to fetch payment data");
     } finally {
       setLoading(false);
     }
   };
+  
 
   useEffect(() => {
     fetchPayments();
@@ -157,8 +151,8 @@ export const ManagePaymentsTable = () => {
 
   const handleSort = (sortBy) => {
     const sortedData = [...filteredData].sort((a, b) => {
-      const dateA = a.date;
-      const dateB = b.date;
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
 
       if (sortBy === "newest") {
         return dateB - dateA;
@@ -169,6 +163,7 @@ export const ManagePaymentsTable = () => {
     });
 
     setFilteredData(sortedData);
+    setActiveSort(sortBy); // Update the active sort option
   };
 
   const sortMenu = (
@@ -176,7 +171,10 @@ export const ManagePaymentsTable = () => {
       <Menu.Item
         key="newest"
         className="filter-menu-item"
-        style={{ color: "blue", fontWeight: "600" }}
+        style={{
+          color: activeSort === "newest" ? "blue" : "gray",
+          fontWeight: activeSort === "newest" ? "600" : "400",
+        }}
         onClick={() => {
           handleSort("newest");
         }}
@@ -186,7 +184,10 @@ export const ManagePaymentsTable = () => {
       <Menu.Item
         key="oldest"
         className="filter-menu-item"
-        style={{ color: "gray", fontWeight: "600" }}
+        style={{
+          color: activeSort === "oldest" ? "blue" : "gray",
+          fontWeight: activeSort === "oldest" ? "600" : "400",
+        }}
         onClick={() => {
           handleSort("oldest");
         }}
@@ -287,11 +288,8 @@ export const ManagePaymentsTable = () => {
     {
       title: "Status",
       dataIndex: "status",
-      render: (status, record) => (
-        <Select
-          value={status}
-          onChange={(value) => handleStatusChange(value, record)}
-          className="custom-select-status"
+      render: (status) => (
+        <span
           style={{
             color:
               status === "active"
@@ -302,14 +300,37 @@ export const ManagePaymentsTable = () => {
                 ? "red"
                 : "gray",
           }}
-          placeholder="Select Status"
         >
-          <Option value="active">Active</Option>
-          <Option value="pending">Pending</Option>
-          <Option value="inactive">Inactive</Option>
-        </Select>
+          {status.charAt(0).toUpperCase() + status.slice(1)}
+        </span>
       ),
-    },
+    }
+    // {
+    //   title: "Status",
+    //   dataIndex: "status",
+    //   render: (status, record) => (
+    //     <Select
+    //       value={status}
+    //       onChange={(value) => handleStatusChange(value, record)}
+    //       className="custom-select-status"
+    //       style={{
+    //         color:
+    //           status === "active"
+    //             ? "green"
+    //             : status === "pending"
+    //             ? "orange"
+    //             : status === "inactive"
+    //             ? "red"
+    //             : "gray",
+    //       }}
+    //       placeholder="Select Status"
+    //     >
+    //       <Option value="active">Active</Option>
+    //       <Option value="pending">Pending</Option>
+    //       <Option value="inactive">Inactive</Option>
+    //     </Select>
+    //   ),
+    // },
     // {
     //   title: "Action",
     //   dataIndex: "action",

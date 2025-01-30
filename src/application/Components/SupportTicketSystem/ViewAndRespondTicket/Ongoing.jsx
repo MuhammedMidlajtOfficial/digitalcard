@@ -121,7 +121,7 @@ const Ongoing = () => {
             <div className="d-flex justify-content-between mt-2">
               <div className="d-flex gap-2 align-items-center">
                 <img src={john_img} alt="" style={{ width: "30px" }} />
-                <p className="allTickets-p mb-0">{ticket.createdBy.username}</p>
+                <p className="allTickets-p mb-0">{ticket?.createdBy?.username}</p>
               </div>
               <button
                 className="allTickets-openticket-button"

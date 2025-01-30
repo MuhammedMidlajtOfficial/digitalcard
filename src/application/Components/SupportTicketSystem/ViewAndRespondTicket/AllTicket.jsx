@@ -96,7 +96,7 @@ const AllTicket = () => {
                                 objectFit: "cover" 
                               }} 
                             />                                
-                            <p className="allTickets-p mb-0">{ticket.createdBy.username ? ticket.createdBy.username : ticket.createdBy.companyName}</p>
+                            <p className="allTickets-p mb-0">{ticket?.createdBy?.username ? ticket.createdBy.username : ticket.createdBy?.companyName}</p>
                             </div>
                             {
                               ticket.status === "Resolved" ?
