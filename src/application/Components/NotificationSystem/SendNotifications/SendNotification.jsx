@@ -15,7 +15,7 @@ const SendNotification = () => {
   const [errors, setErrors] = useState({
     title: "",
     body: "",
-    imageUrl: "",
+    // imageUrl: "",
   });
   useEffect(() => {
     if (submitted) {
@@ -40,16 +40,16 @@ const SendNotification = () => {
           ? "Body is required and cannot be just spaces."
           : "";
         break;
-      case "imageUrl":
-        if (!value.trim()) {
-          newErrors.imageUrl =
-            "Image URL is required and cannot be just spaces.";
-        } else if (!/^[^\s]+$/.test(value)) {
-          newErrors.imageUrl = "Please enter a valid URL.";
-        } else {
-          newErrors.imageUrl = "";
-        }
-        break;
+      // case "imageUrl":
+      //   if (!value.trim()) {
+      //     newErrors.imageUrl =
+      //       "Image URL is required and cannot be just spaces.";
+      //   } else if (!/^[^\s]+$/.test(value)) {
+      //     newErrors.imageUrl = "Please enter a valid URL.";
+      //   } else {
+      //     newErrors.imageUrl = "";
+      //   }
+      //   break;
       default:
         break;
     }
@@ -82,7 +82,7 @@ const SendNotification = () => {
       setSubmitted(true);
       setTitle("");
       setBody("");
-      setImageUrl("");
+      // setImageUrl("");
       setTopic("");
     } catch (error) {
       console.error("Error sending notification:", error);
@@ -97,20 +97,20 @@ const SendNotification = () => {
   const validateForm = () => {
     const isTitleValid = title.trim();
     const isBodyValid = body.trim();
-    const isImageUrlValid =
-      imageUrl.trim() && /^https?:\/\/[^\s]+$/.test(imageUrl);
+    // const isImageUrlValid =
+    //   imageUrl.trim() && /^https?:\/\/[^\s]+$/.test(imageUrl);
 
-    if (!isTitleValid || !isBodyValid || !isImageUrlValid) {
+    if (!isTitleValid || !isBodyValid ) {
       setErrors({
         title: !isTitleValid
           ? "Title is required and cannot be just spaces."
           : "",
         body: !isBodyValid ? "Body is required and cannot be just spaces." : "",
-        imageUrl: !isImageUrlValid ? "Please enter a valid URL." : "",
+        // imageUrl: !isImageUrlValid ? "Please enter a valid URL." : "",
       });
     }
 
-    return isTitleValid && isBodyValid && isImageUrlValid;
+    return isTitleValid && isBodyValid 
   };
 
   return (
@@ -148,7 +148,7 @@ const SendNotification = () => {
             {errors.body && <span className="error">{errors.body}</span>}
           </div>
 
-          <div className="form-group">
+          {/* <div className="form-group">
             <label>Image URL</label>
             <input
               type="text"
@@ -163,7 +163,7 @@ const SendNotification = () => {
             {errors.imageUrl && (
               <span className="error">{errors.imageUrl}</span>
             )}
-          </div>
+          </div> */}
           <div className="form-group">
             <label>Select Topic</label>
             <Select

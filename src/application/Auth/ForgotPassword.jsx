@@ -97,7 +97,7 @@ const ForgotPassword = () => {
             </div>
           </div>
           <div className="col-lg-7 col-sm-0 col-md-0 login-right">
-            <img src={login} alt="Login background" />
+            {/* <img src={login} alt="Login background" /> */}
           </div>
         </div>
       </div>

@@ -125,7 +125,7 @@ const ConfirmPassword = () => {
             </div>
           </div>
           <div className="col-lg-7 col-sm-0 col-md-0 login-right">
-            <img src={login} alt="" />
+            {/* <img src={login} alt="" /> */}
           </div>
         </div>
       </div>
