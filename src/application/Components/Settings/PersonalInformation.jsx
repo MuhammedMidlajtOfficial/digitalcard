@@ -257,7 +257,7 @@ export const PersonalInformation = () => {
                 className="cancel-btn"
                 type="button"
                 onClick={() => {
-                  navigate("/admin/dashboard/overview");
+                  navigate("/admin/settings");
                 }}
               >
                 Discard
