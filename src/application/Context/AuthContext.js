@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
-// Create a context for authentication
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
@@ -13,22 +12,24 @@ const AuthProvider = ({ children }) => {
 
   const verifyToken = (token) => {
     try {
-      const decoded = JSON.parse(atob(token.split('.')[1]));
-      return (decoded.exp * 1000 > Date.now() || !decoded.exp);
+      const decoded = jwtDecode(token);
+
+      return decoded.exp ? decoded.exp * 1000 > Date.now() : true;
     } catch (error) {
+      console.error("Invalid Token:", error);
       return false;
     }
   };
 
   const syncAuthState = () => {
     const token = sessionStorage.getItem("token");
-    if (token) {
 
+    if (token) {
       const isValidToken = verifyToken(token);
       setIsAuthenticated(isValidToken);
-
+      
       if (isValidToken) {
-        const decoded = JSON.parse(atob(token.split('.')[1]));
+        const decoded = jwtDecode(token);
         setPermissions(decoded.category || []);
       } else {
         setPermissions([]);
