@@ -102,6 +102,7 @@ import WatiLists from "./application/Page/Wati";
 import CreateWatis from "./application/Page/Wati/CreateWati";
 import ViewLogpage from "./application/Page/ViewLogs/ViewLogPage";
 import AllConfigurationIndex from "./application/Page/AllConfiguration/AllConfigurationIndex";
+import RedirectingPage from "./website/Page/RedirectingPage";
 
 
 const Loader = () => {
@@ -555,6 +556,10 @@ const MainContent = () => {
             <Route
               path="/admin/Unauthorized"
               element={<PrivateRoute element={UnAuthorized} />}
+            />
+            <Route
+              path="/vcard/:id"
+               element={<RedirectingPage/>}
             />
           </Routes>
 
