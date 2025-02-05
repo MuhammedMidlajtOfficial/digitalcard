@@ -79,7 +79,7 @@ const SendNotification = () => {
       setSubmitted(true);
       setTitle("");
       setBody("");
-      // setImageUrl("");
+      setImageUrl("");
       setTopic("");
     } catch (error) {
       console.error("Error sending notification:", error);
@@ -172,7 +172,7 @@ const SendNotification = () => {
             {errors.body && <span className="error">{errors.body}</span>}
           </div>
 
-          {/* <div className="form-group">
+          <div className="form-group">
             <label>Image URL</label>
             <input
               type="text"
