@@ -22,6 +22,8 @@ import { MdOutlineFeedback, MdOutlineContactPage } from "react-icons/md";
 import { LuScanFace, LuTicket } from "react-icons/lu";
 import { GrConfigure } from "react-icons/gr";
 import { GoBell } from "react-icons/go";
+import { PiHandWithdraw } from "react-icons/pi";
+
 
 function SidebarApplication() {
   const navigate = useNavigate();
@@ -123,12 +125,12 @@ function SidebarApplication() {
       "/admin/referenceinformation/referraltracking": "referenceinformation",
       "/admin/referenceinformation/viewreferraluser": "referenceinformation",
       "/admin/referenceinformation/incentivemanagement": "referenceinformation",
-      "/admin/incentivemanagement/incentivereferralview":
-        "referenceinformation",
+      "/admin/incentivemanagement/incentivereferralview": "referenceinformation",
       "/admin/contentmanagemnt/subscriptionplanpage": "contentmanagement",
       "/admin/notificationsystem/usernotificationpage": "notificationsystem",
       "/admin/notificationsystem/adminnotifications": "notificationsystem",
       "/admin/notificationsystem/customizablealerts": "notificationsystem",
+      "/admin/withdrawalRequest": "withdrawalRequest",
     };
 
     const currentPath = location.pathname;
@@ -1135,6 +1137,18 @@ function SidebarApplication() {
                   }`}
                 >
                   <GrConfigure  className="sidebar-icon" /> All Configuration
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/admin/withdrawalRequest"
+                  className={`nav-link ${
+                    location.pathname === "/admin/withdrawalRequest"
+                      ? "active-nav-links"
+                      : ""
+                  }`}
+                >
+                  <PiHandWithdraw className="sidebar-icon" /> Withdrawal Request
                 </Link>
               </li>
               <div className="line-dashed"></div>
