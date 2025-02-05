@@ -103,6 +103,7 @@ import CreateWatis from "./application/Page/Wati/CreateWati";
 import ViewLogpage from "./application/Page/ViewLogs/ViewLogPage";
 import AllConfigurationIndex from "./application/Page/AllConfiguration/AllConfigurationIndex";
 import RedirectingPage from "./website/Page/RedirectingPage";
+import WithdrawalPage from "./application/Page/Withdrawal/withdrawalPage";
 
 
 const Loader = () => {
@@ -197,7 +198,8 @@ const MainContent = () => {
     "/admin/createEmployee",
     "/admin/logview",
     "/admin/watiList",
-    "/admin/AllConfigurationList"
+    "/admin/AllConfigurationList", 
+    "/admin/withdrawalRequest"
   ];
 
   const isApplicationRoute = applicationRoutes.some(route => location.pathname.startsWith(route));
@@ -556,6 +558,10 @@ const MainContent = () => {
             <Route
               path="/admin/Unauthorized"
               element={<PrivateRoute element={UnAuthorized} />}
+            />
+            <Route
+              path="/admin/withdrawalRequest"
+              element={ <WithdrawalPage/>}
             />
             <Route
               path="/vcard/:id"
