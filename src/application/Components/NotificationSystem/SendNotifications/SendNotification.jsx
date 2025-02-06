@@ -152,7 +152,6 @@ const SendNotification = () => {
                 validateField("title", e.target.value);
               }}
               placeholder="Enter title"
-              required
             />
             {errors.title && <span className="error">{errors.title}</span>}
           </div>
@@ -167,7 +166,6 @@ const SendNotification = () => {
                 validateField("body", e.target.value);
               }}
               placeholder="Enter message"
-              required
             />
             {errors.body && <span className="error">{errors.body}</span>}
           </div>
@@ -182,7 +180,6 @@ const SendNotification = () => {
                 validateField("imageUrl", e.target.value);
               }}
               placeholder="Enter image URL"
-              required
             />
             {errors.imageUrl && (
               <span className="error">{errors.imageUrl}</span>

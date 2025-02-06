@@ -8,6 +8,7 @@ import {
 import axiosInstanceForTicket from "../../../../AxiosContigForTicket";
 import { axiosInstance } from "../../../../AxiosConfig";
 import { useLoading } from "../../../Services/loadingService";
+import AssignTicketCards from "./AssignTicketCards";
 
 const AssignTicketsTable = () => {
   const { loading, startLoading, stopLoading } = useLoading();
@@ -347,6 +348,7 @@ const AssignTicketsTable = () => {
 
   return (
     <div>
+      <AssignTicketCards/>
       <div className="application-table-section mb-3">
         <div className="d-flex justify-content-between gap-2 mb-3">
           <h2>Ticket Queue</h2>
