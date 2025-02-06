@@ -5,7 +5,7 @@ import AssignTicketsTable from './AssignTicketsTable'
 const AssignTicket = () => {
   return (
     <div>
-      <AssignTicketCards/>
+      {/* <AssignTicketCards/> */}
       <AssignTicketsTable/>
     </div>
   )
