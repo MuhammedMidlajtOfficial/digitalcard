@@ -1,33 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { LuCalendar } from "react-icons/lu";
 import { FaFileInvoiceDollar } from "react-icons/fa";
 import { AiOutlineDollar } from "react-icons/ai";
 
-const cardData = [
-  {
-    icon: LuCalendar,
-    title: "Total Revenue",
-    value: "₹2,50,000",
-    bgColor: "#afa8ff",
-    textColor: "#ffffff",
-  },
-  {
-    icon: FaFileInvoiceDollar,
-    title: "Pending Payments",
-    value: "₹85,000",
-    bgColor: "#ffa0a9",
-    textColor: "#ffffff",
-  },
-  {
-    icon: AiOutlineDollar,
-    title: "Completed Transactions",
-    value: "₹2,50,000",
-    bgColor: "#ffcb64",
-    textColor: "#ffffff",
-  },
-];
-
 const ManagePaymentsCards = () => {
+  const [cardAmount, setCardAmount] = useState([]);
+
+  
+  
+  const cardData = [
+    {
+      icon: LuCalendar,
+      title: "Total Revenue",
+      value: "₹2,50,000",
+      bgColor: "#afa8ff",
+      textColor: "#ffffff",
+    },
+    {
+      icon: FaFileInvoiceDollar,
+      title: "Pending Payments",
+      value: "₹85,000",
+      bgColor: "#ffa0a9",
+      textColor: "#ffffff",
+    },
+    {
+      icon: AiOutlineDollar,
+      title: "Completed Transactions",
+      value: "₹2,50,000",
+      bgColor: "#ffcb64",
+      textColor: "#ffffff",
+    },
+  ];
+
   return (
     <div className="container">
       <div className="row">
