@@ -228,10 +228,11 @@ export const AddUserProfile = () => {
     fileInputRef.current.click();
   };
 
-  const HandleSubmitForm = () => {
+  const HandleSubmitForm = async () => {
     if (selectedUserType === "individual") {
       addIndividualUser();
     } else if (selectedUserType === "enterprise") {
+      await form.validateFields();
       addEnterpriseUser();
     }
   };
@@ -1079,8 +1080,8 @@ export const AddUserProfile = () => {
                 </Form.Item>
               </div>
             </div> */}
-          {/* </> */}
-          {/* )} */}
+          {/* </>
+        )} */}
 
           
         </Form>
