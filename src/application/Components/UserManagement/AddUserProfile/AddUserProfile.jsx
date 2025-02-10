@@ -232,7 +232,6 @@ export const AddUserProfile = () => {
     if (selectedUserType === "individual") {
       addIndividualUser();
     } else if (selectedUserType === "enterprise") {
-      await form.validateFields();
       addEnterpriseUser();
     }
   };
@@ -883,8 +882,8 @@ export const AddUserProfile = () => {
                   <Button
                     className="create-btn"
                     type="primary"
-                    // htmlType="submit"
-                    onClick={addEnterpriseUser}
+                    htmlType="submit"
+                    // onClick={addEnterpriseUser}
                   >
                     Create
                   </Button>
