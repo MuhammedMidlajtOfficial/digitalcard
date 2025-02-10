@@ -138,7 +138,7 @@ const TermsAndConditions = () => {
             <ul>
               <li>
                 Email:{" "}
-                <a href="mailto:contact@KC (Know Connections).in">contact@KC (Know Connections).in</a>
+                <a href="mailto:contact@knowconnections.com">contact@knowconnections.com</a>
               </li>
               <li>Phone: +91 8792976734</li>
               <li>
