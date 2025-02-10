@@ -50,7 +50,7 @@ const ForgotPassword = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-5 col-sm-12 col-md-12 login-left">
-            <h2 className="login-heading-forgot">Diskuss</h2>
+            <h2 className="login-heading-forgot">KC (Know Connections)</h2>
             <div className="login-card-forgot col-lg-12">
               <center>
                 <h2>Forgot Password</h2>

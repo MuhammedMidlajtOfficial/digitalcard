@@ -1,6 +1,6 @@
 {
-  "short_name": "Diskuss",
-  "name": "Diskuss - Digital Cards",
+  "short_name": "KC (Know Connections)",
+  "name": "KC (Know Connections) - Digital Cards",
   "icons": [
     {
       "src": "favicon.ico",
@@ -22,5 +22,5 @@
   "display": "standalone",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
-  "description": "Diskuss offers 1000+ digital cards to enhance your online presence with customizable and shareable designs."
+  "description": "KC (Know Connections) offers 1000+ digital cards to enhance your online presence with customizable and shareable designs."
 }

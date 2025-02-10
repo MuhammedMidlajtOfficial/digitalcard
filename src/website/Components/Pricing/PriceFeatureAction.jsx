@@ -24,7 +24,7 @@ const PriceFeatureAction = () => {
     //   icon: <FaRocketchat />,
     //   title: "Seamless Integrations",
     //   description:
-    //     "Diskuss integrates with popular CRM systems, email platforms, and other business tools, ensuring that your workflow remains uninterrupted and your data synchronized across platforms.",
+    //     "KC (Know Connections) integrates with popular CRM systems, email platforms, and other business tools, ensuring that your workflow remains uninterrupted and your data synchronized across platforms.",
     //   highlighted: true,
     // },
     {

@@ -59,7 +59,7 @@ const FeatureKeyFeatures = () => {
                     </div>
 
                     <div className="phone-container-feature">
-                        <img src={phoneImage} alt="Diskuss App Interface" className="phone-image-feature" />
+                        <img src={phoneImage} alt="KC (Know Connections) App Interface" className="phone-image-feature" />
                     </div>
 
                     <div className="features-right">

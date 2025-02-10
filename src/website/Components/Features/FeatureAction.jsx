@@ -42,14 +42,14 @@ const FeatureAction = () => {
       icon: <FaListCheck />,
       title: "Customizable Business Cards",
       description:
-        "Your brand, your style. Diskuss offers a range of templates that you can customize with your brand colors, logo, and personal details to create a digital business card that stands out.",
+        "Your brand, your style. KC (Know Connections) offers a range of templates that you can customize with your brand colors, logo, and personal details to create a digital business card that stands out.",
     },
   ];
 
   return (
     <div className="feature-diskuss-action">
       <div className="container">
-        <h2>Explore Diskuss in Action</h2>
+        <h2>Explore KC (Know Connections) in Action</h2>
         <p className="subtitles">
           See how KC (Know Connections) transforms the way you handle business contacts. From
           seamless organization to effortless networking, our product

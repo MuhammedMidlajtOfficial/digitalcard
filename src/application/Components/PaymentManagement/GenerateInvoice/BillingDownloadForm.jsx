@@ -104,7 +104,7 @@ export const BillingDownloadForm = ({
           </div>
           <div className="billing-contact-info d-flex flex-column">
             <h1>+19 8080808080</h1>
-            <h3>diskuss@gamil.com</h3>
+            <h3>knowconnections@gamil.com</h3>
             <h4>
               TAX ID <span>80808080</span>
             </h4>
@@ -283,7 +283,7 @@ export const BillingDownloadForm = ({
             </p>
           </div>
         </div>
-        <p className="billing-authorization mt-4">Diskuss ®</p>
+        <p className="billing-authorization mt-4">KC (Know Connections) ®</p>
         <br />
       </div>
       <div className="modal-actions">

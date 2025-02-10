@@ -22,12 +22,12 @@ const HomeAboutUs = () => {
     },
     {
       icon: <FaWallet />,
-      text: "Spend less, gain more with Diskuss",
+      text: "Spend less, gain more with KC (Know Connections)",
     },
   ];
 
   const description = [
-    "Say goodbye to your traditional phone dial pad and make Diskuss your go-to app. Seamlessly manage your calls, streamline contacts, and enhance follow-ups, all in one place. With KC (Know Connections), elevate your communication game and keep every relationship on track. It’s the ultimate tool for efficient business contact management.",
+    "Say goodbye to your traditional phone dial pad and make KC (Know Connections) your go-to app. Seamlessly manage your calls, streamline contacts, and enhance follow-ups, all in one place. With KC (Know Connections), elevate your communication game and keep every relationship on track. It’s the ultimate tool for efficient business contact management.",
   ];
 
   return (

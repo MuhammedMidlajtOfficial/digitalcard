@@ -117,7 +117,7 @@ const ShippingPolicy = () => {
             <h4>4. Delivery Address</h4>
             <p>
               Please ensure that the shipping address provided during checkout
-              is accurate. Diskuss is not responsible for delays or failed
+              is accurate. KC (Know Connections) is not responsible for delays or failed
               deliveries caused by incorrect or incomplete addresses.
             </p>
 
