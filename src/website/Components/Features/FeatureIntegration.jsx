@@ -50,7 +50,7 @@ const FeatureIntegration = () => {
           <div className="col-lg-6">
             <div className="integration-header">
               <span className="tag">Integrations</span>
-              <h2>Unlock Synergy, Seamless Integrations with Diskuss</h2>
+              <h2>Unlock Synergy, Seamless Integrations with KC (Know Connections)</h2>
               <p>
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industry's standard dummy

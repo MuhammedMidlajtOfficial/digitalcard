@@ -15,7 +15,7 @@ const HomeTemplate = () => {
           <p className="subtitle">
             Select from a variety of professional templates and customize them
             to suit your style and needs. Whether you prefer vertical or
-            horizontal layouts, Diskuss ensures your business card stands out.
+            horizontal layouts, KC (Know Connections) ensures your business card stands out.
           </p>
 
           {/* <div className="button-group">
