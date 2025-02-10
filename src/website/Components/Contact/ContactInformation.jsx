@@ -33,7 +33,7 @@ const ContactInformation = () => {
                 </div>
                 <div className="contact-email-info">
                   <h2>Email us</h2>
-                  <p>contact@diskuss.in</p>
+                  <p>contact@KC (Know Connections).in</p>
                 </div>
               </div>
             </ScrollAnimation>

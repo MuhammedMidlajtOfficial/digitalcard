@@ -5,14 +5,14 @@ const PrivacyPolicy = () => {
   return (
     <>
       <Helmet>
-        <title>Privacy Policy - Diskuss | Digital Card Solutions</title>
+        <title>Privacy Policy - KC (Know Connections) | Digital Card Solutions</title>
         <meta
           name="privacy policy"
-          content="Learn more about Diskuss and our mission to provide innovative digital card solutions. Discover how we offer 1000+ unique card designs and our commitment to enhancing your card-making experience."
+          content="Learn more about KC (Know Connections) and our mission to provide innovative digital card solutions. Discover how we offer 1000+ unique card designs and our commitment to enhancing your card-making experience."
         />
         <meta
           name="keywords"
-          content="About Diskuss, digital card solutions, Diskuss mission, digital card designs, card-making innovation, company background, Diskuss team, digital cards overview"
+          content="About KC (Know Connections), digital card solutions, KC (Know Connections) mission, digital card designs, card-making innovation, company background, KC (Know Connections) team, digital cards overview"
         />
       </Helmet>
 
@@ -26,9 +26,9 @@ const PrivacyPolicy = () => {
         </div>
         <div className="privacy-policy-section p-4">
         <div className="container  ">
-          <h2>Welcome to Diskuss!</h2>
+          <h2>Welcome to KC (Know Connections)!</h2>
           <p>
-            At Diskuss, operated under VRUDDHIMAN CONSULTANTS INDIA PRIVATE
+            At KC (Know Connections), operated under VRUDDHIMAN CONSULTANTS INDIA PRIVATE
             LIMITED, we are committed to protecting your privacy and ensuring
             the security of the personal information you share with us. This
             Privacy Policy outlines how we collect, use, and safeguard your data
@@ -112,7 +112,7 @@ const PrivacyPolicy = () => {
           </ul>
           <p>
             To exercise these rights, contact us at{" "}
-            <a href="mailto:contact@diskuss.in">contact@diskuss.in</a>.
+            <a href="mailto:contact@KC (Know Connections).in">contact@KC (Know Connections).in</a>.
           </p>
 
           <h2>6. Cookies</h2>
@@ -142,7 +142,7 @@ const PrivacyPolicy = () => {
           </p>
           <ul>
             <li>
-              Email: <a href="mailto:contact@diskuss.in">contact@diskuss.in</a>
+              Email: <a href="mailto:contact@KC (Know Connections).in">contact@KC (Know Connections) .in</a>
             </li>
             <li>Phone: +91 8792976734</li>
             <li>

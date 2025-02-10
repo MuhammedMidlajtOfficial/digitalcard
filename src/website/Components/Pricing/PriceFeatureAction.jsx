@@ -18,7 +18,7 @@ const PriceFeatureAction = () => {
       icon: <FaClipboardCheck />,
       title: "Smart Contact Management",
       description:
-        "Diskuss makes it easy to keep your contacts organized. With customizable tags, detailed notes, and powerful search functionality, you will never lose track of an important connection.",
+        "KC (Know Connections) makes it easy to keep your contacts organized. With customizable tags, detailed notes, and powerful search functionality, you will never lose track of an important connection.",
     },
     // {
     //   icon: <FaRocketchat />,
@@ -31,19 +31,19 @@ const PriceFeatureAction = () => {
       icon: <FaBarsProgress />,
       title: "Advanced Analytics & Reporting",
       description:
-        "Diskuss offers analytics and reporting to help you understand contact engagement and interaction trends. Use data-driven insights to optimize your networking strategies, from individual interactions to team performance overviews.",
+        "KC (Know Connections) offers analytics and reporting to help you understand contact engagement and interaction trends. Use data-driven insights to optimize your networking strategies, from individual interactions to team performance overviews.",
     },
     {
       icon: <FaSlideshare />,
       title: "NFC & QR Code Sharing",
       description:
-        "Share your contact information instantly with a simple tap on NFC-enabled devices or by scanning a QR code. Diskuss ensures your information is accessible in just a few seconds.",
+        "Share your contact information instantly with a simple tap on NFC-enabled devices or by scanning a QR code. KC (Know Connections) ensures your information is accessible in just a few seconds.",
     },
     {
       icon: <FaListCheck />,
       title: "Secure Data and Privacy Controls",
       description:
-        "Diskuss prioritizes data privacy with industry-standard encryption and access controls, ensuring that your information is stored securely. Role-based access and granular privacy settings make it easy to manage who sees what, giving you peace of mind"
+        "KC (Know Connections) prioritizes data privacy with industry-standard encryption and access controls, ensuring that your information is stored securely. Role-based access and granular privacy settings make it easy to manage who sees what, giving you peace of mind"
     },
   ];
 
@@ -54,9 +54,9 @@ const PriceFeatureAction = () => {
           <div className="row">
             <div className="col-lg-6">
               <div className="feature-description">
-                <h3>Diskuss in Detail </h3>
+                <h3>KC (Know Connections) in Detail </h3>
                 <p>
-                Built to streamline and simplify your professional interactions, Diskuss offers a blend of powerful features like smart contact storage, real-time updates, data privacy controls, and analytics to keep you in charge of your networking efforts.
+                Built to streamline and simplify your professional interactions, KC (Know Connections) offers a blend of powerful features like smart contact storage, real-time updates, data privacy controls, and analytics to keep you in charge of your networking efforts.
                 </p>
 
                 <div className="d-flex align-items-center justify-content-between">

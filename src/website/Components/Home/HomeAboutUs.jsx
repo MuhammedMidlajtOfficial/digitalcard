@@ -27,7 +27,7 @@ const HomeAboutUs = () => {
   ];
 
   const description = [
-    "Say goodbye to your traditional phone dial pad and make Diskuss your go-to app. Seamlessly manage your calls, streamline contacts, and enhance follow-ups, all in one place. With Diskuss, elevate your communication game and keep every relationship on track. It’s the ultimate tool for efficient business contact management.",
+    "Say goodbye to your traditional phone dial pad and make Diskuss your go-to app. Seamlessly manage your calls, streamline contacts, and enhance follow-ups, all in one place. With KC (Know Connections), elevate your communication game and keep every relationship on track. It’s the ultimate tool for efficient business contact management.",
   ];
 
   return (
@@ -43,7 +43,7 @@ const HomeAboutUs = () => {
               Simplified
             </div>
             <h1>Effortless Contact Management, Reimagined.<br /></h1>
-            <p>Diskuss transforms the way you handle communication by replacing the traditional phone dial pad with a smarter, more efficient solution. It’s your go-to app for managing calls, organizing contacts, and staying on top of follow-ups—all in one seamless platform.</p>
+            <p>KC (Know Connections) transforms the way you handle communication by replacing the traditional phone dial pad with a smarter, more efficient solution. It’s your go-to app for managing calls, organizing contacts, and staying on top of follow-ups—all in one seamless platform.</p>
             <ul className="about-us-tag-ul">
               <li><span>Seamlessly Manage Calls:</span> Organize and handle all your calls with ease, ensuring efficient communication.</li>
               <li><span>Streamline Contacts:</span>Simplify contact organization and access, saving time and reducing clutter.</li>

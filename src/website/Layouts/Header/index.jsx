@@ -53,7 +53,7 @@ const Header = () => {
             <div className="container">
               <a className="navbar-brand" href="/">
                 <img src={logoIcon} alt="Logo" className="logo-icon" />
-                {/* <span className="brand-text">Diskuss</span>  */}
+                {/* <span className="brand-text">KC (Know Connections)</span>  */}
               </a>
 
               <button

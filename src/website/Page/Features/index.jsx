@@ -18,14 +18,14 @@ const Features = () => {
   return (
     <>
       <Helmet>
-        <title>Diskuss - Innovative Features for Creating Digital Cards</title>
+        <title>KC (Know Connections) - Innovative Features for Creating Digital Cards</title>
         <meta
           name="description"
-          content="Explore Diskuss' powerful features, including 1000+ digital card designs, customizable templates, user-friendly design tools, and seamless sharing options. Elevate your card-making experience with Diskuss."
+          content="Explore KC (Know Connections)' powerful features, including 1000+ digital card designs, customizable templates, user-friendly design tools, and seamless sharing options. Elevate your card-making experience with KC (Know Connections)."
         />
         <meta
           name="keywords"
-          content="Diskuss features, digital card features, customizable card templates, card design tools, online card creator, user-friendly design, card sharing options, innovative digital card platform"
+          content="KC (Know Connections) features, digital card features, customizable card templates, card design tools, online card creator, user-friendly design, card sharing options, innovative digital card platform"
         />
       </Helmet>
 

@@ -10,7 +10,7 @@ const FeatureKeyFeatures = () => {
         },
         {
             title: "Seamless Integrations",
-            description: "Connect Diskuss with your favorite CRMs, email platforms, and more.",
+            description: "Connect KC (Know Connections) with your favorite CRMs, email platforms, and more.",
         },
         {
             title: "Real-time Analytics",
@@ -30,19 +30,19 @@ const FeatureKeyFeatures = () => {
         },
         {
             title: "Referral Program",
-            description: "Earn rewards by referring others to Diskuss.",
+            description: "Earn rewards by referring others to KC (Know Connections).",
         },
         {
             title: "Virtual Meeting Integration",
-            description: "Schedule and manage meetings directly within Diskuss.",
+            description: "Schedule and manage meetings directly within KC (Know Connections).",
         },
     ];
 
     return (
         <div className="feature-key-feature">
             <div className="container">
-                <h2>Key Features of Diskuss</h2>
-                <p className="subtitles">Diskuss offers features that streamline managing your business contacts, whether you're <br /> a solo professional or part of a larger organization.</p>
+                <h2>Key Features of KC (Know Connections)</h2>
+                <p className="subtitles">KC (Know Connections) offers features that streamline managing your business contacts, whether you're <br /> a solo professional or part of a larger organization.</p>
 
                 <div className="features-grids-feature">
                     <div className="features-left">

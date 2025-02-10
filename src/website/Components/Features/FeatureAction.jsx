@@ -17,13 +17,13 @@ const FeatureAction = () => {
       icon: <FaClipboardCheck />,
       title: "Smart Contact Management",
       description:
-        "Diskuss makes it easy to keep your contacts organized. With customizable tags, detailed notes, and powerful search functionality, you will never lose track of an important connection.",
+        "KC (Know Connections) makes it easy to keep your contacts organized. With customizable tags, detailed notes, and powerful search functionality, you will never lose track of an important connection.",
     },
     {
       icon: <FaRocketchat />,
       title: "Seamless Integrations",
       description:
-        "Diskuss integrates with popular CRM systems, email platforms, and other business tools, ensuring that your workflow remains uninterrupted and your data synchronized across platforms.",
+        "KC (Know Connections) integrates with popular CRM systems, email platforms, and other business tools, ensuring that your workflow remains uninterrupted and your data synchronized across platforms.",
       highlighted: true,
     },
     {
@@ -36,7 +36,7 @@ const FeatureAction = () => {
       icon: <FaSlideshare />,
       title: "NFC & QR Code Sharing",
       description:
-        "Share your contact information instantly with a simple tap on NFC-enabled devices or by scanning a QR code. Diskuss ensures your information is accessible in just a few seconds.",
+        "Share your contact information instantly with a simple tap on NFC-enabled devices or by scanning a QR code. KC (Know Connections) ensures your information is accessible in just a few seconds.",
     },
     {
       icon: <FaListCheck />,
@@ -51,7 +51,7 @@ const FeatureAction = () => {
       <div className="container">
         <h2>Explore Diskuss in Action</h2>
         <p className="subtitles">
-          See how Diskuss transforms the way you handle business contacts. From
+          See how KC (Know Connections) transforms the way you handle business contacts. From
           seamless organization to effortless networking, our product
         </p>
 
@@ -67,9 +67,9 @@ const FeatureAction = () => {
               <div className="feature-description">
                 <h3>Dive Deeper into Our Features</h3>
                 <p>
-                  Each feature in Diskuss is designed with you in mind, offering
+                  Each feature in KC (Know Connections) is designed with you in mind, offering
                   powerful tools to enhance your networking and contact
-                  management. Explore the details below to see how Diskuss can
+                  management. Explore the details below to see how KC (Know Connections) can
                   transform your business interactions.
                 </p>
 

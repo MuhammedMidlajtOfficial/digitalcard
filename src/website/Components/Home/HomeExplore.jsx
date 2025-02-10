@@ -36,7 +36,7 @@ const HomeExplore = () => {
             <img src={explore3} alt="Powerful Integrations" />
             <h3>Powerful Integrations</h3>
             <p>
-              Connect Diskuss with your CRM, email, and other tools to
+              Connect KC (Know Connections) with your CRM, email, and other tools to
               supercharge your workflow.
             </p>
           </div>
