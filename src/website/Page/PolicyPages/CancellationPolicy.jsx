@@ -6,7 +6,7 @@ const CancellationPolicy = () => {
     <>
       <Helmet>
         <title>
-          Cancellation and Refund Policy - Diskuss | Digital Card Solutions
+          Cancellation and Refund Policy - KC (Know Connections) | Digital Card Solutions
         </title>
         <meta
           name="privacy policy"
@@ -30,7 +30,7 @@ const CancellationPolicy = () => {
           <div className="container">
             <h2>Cancellation and Refund Policy</h2>
             <p>
-              At Diskuss, we strive to provide a seamless experience for our
+              At KC (Know Connections), we strive to provide a seamless experience for our
               users. This Cancellation and Refund Policy outlines the terms and
               conditions under which cancellations and refunds may be processed.
               By using our services, you agree to the terms outlined in this
@@ -40,7 +40,7 @@ const CancellationPolicy = () => {
             <ul>
               <li>
                 Email:{" "}
-                <a href="mailto:contact@diskuss.in">contact@diskuss.in</a>
+                <a href="mailto:contact@knowconnections.com">contact@knowconnections.com</a>
               </li>
               <li>Phone: +91 8792976734</li>
             </ul>
@@ -50,7 +50,7 @@ const CancellationPolicy = () => {
             <ul>
               <li>
                 You can cancel your subscription at any time through your
-                account settings on the Diskuss platform.
+                account settings on the KC (Know Connections) platform.
               </li>
               <li>
                 Cancellations will take effect at the end of your current
@@ -109,7 +109,7 @@ const CancellationPolicy = () => {
             <ul>
               <li>
                 To request a refund, contact us at{" "}
-                <a href="mailto:contact@diskuss.in">contact@diskuss.in</a> with
+                <a href="mailto:contact@knowconnections.com">contact@knowconnections.com</a> with
                 your payment details and the reason for the refund.
               </li>
               <li>
@@ -127,13 +127,13 @@ const CancellationPolicy = () => {
             <p>
               If you believe you were charged incorrectly or wish to dispute a
               payment, please contact our support team at{" "}
-              <a href="mailto:contact@diskuss.in">contact@diskuss.in</a> or +91
+              <a href="mailto:contact@knowconnections.com">contact@knowconnections.com</a> or +91
               8792976734.
             </p>
 
             <h4>4. Changes to This Policy</h4>
             <p>
-              Diskuss reserves the right to update this Cancellation and Refund
+              KC (Know Connections) reserves the right to update this Cancellation and Refund
               Policy at any time. Changes will be posted on this page, and your
               continued use of the service constitutes your agreement to the
               updated terms.
@@ -147,7 +147,7 @@ const CancellationPolicy = () => {
             <ul>
               <li>
                 Email:{" "}
-                <a href="mailto:contact@diskuss.in">contact@diskuss.in</a>
+                <a href="mailto:contact@knowconnections.com">contact@knowconnections.com</a>
               </li>
               <li>Phone: +91 8792976734</li>
               <li>
@@ -158,7 +158,7 @@ const CancellationPolicy = () => {
             </ul>
 
             <p>
-              Thank you for choosing Diskuss. We are here to ensure your
+              Thank you for choosing KC (Know Connections). We are here to ensure your
               satisfaction and trust!
             </p>
           </div>

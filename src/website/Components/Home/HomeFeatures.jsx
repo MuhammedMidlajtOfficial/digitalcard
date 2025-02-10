@@ -66,7 +66,7 @@ const HomeFeatures = () => {
             {/* {features.slice(0, 1).map((feature, index) => (
                             <button className={`feature-cards ${feature.className || ''}`} key={index} onClick={()=>navigate('/features')}>
                                 <div className="d-flex align-items-center feature-padding">
-                                    <div className='feature-diskuss-icon me-2' style={{ marginBottom: "0" }}>
+                                    <div className='feature-KC (Know Connections)-icon me-2' style={{ marginBottom: "0" }}>
                                         {feature.icon}
                                     </div>
                                     <h3>{feature.title}</h3>
@@ -80,7 +80,7 @@ const HomeFeatures = () => {
             <div className="phone-container col-lg-3  align-items-end d-flex justify-content-center ">
               <img
                 src={image1}
-                alt="Diskuss App Interface"
+                alt="KC (Know Connections) App Interface"
                 className="phone-image"
               />
               <div className="phone-image-description">
@@ -96,14 +96,14 @@ const HomeFeatures = () => {
             <div className="phone-container col-lg-6 my-4">
               <img
                 src={phoneImage}
-                alt="Diskuss App Interface"
+                alt="KC (Know Connections) App Interface"
                 className="phone-image1"
               />
             </div>
             <div className="phone-container col-lg-3 mb-4 align-items-end d-flex justify-content-center">
               <img
                 src={image2}
-                alt="Diskuss App Interface"
+                alt="KC (Know Connections) App Interface"
                 className="phone-image"
               />
               <div className="phone-image-description">

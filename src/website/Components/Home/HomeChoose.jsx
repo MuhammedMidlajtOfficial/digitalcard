@@ -9,7 +9,7 @@ const HomeChoose = () => {
                 <div className="row align-items-center">
                     <div className="col-lg-6">
                         <div className="left-section">
-                            <img src={choose} alt="Diskuss app" className="phone-image-choose" />
+                            <img src={choose} alt="KC (Know Connections) app" className="phone-image-choose" />
                         </div>
                     </div>
                     <div className="col-lg-6">
