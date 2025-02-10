@@ -44,7 +44,7 @@ const PricingPlans = () => {
       <div className="container">
         <h1>Diskuss Pricing Plans</h1>
         <p className="subtitles">
-          Explore affordable Diskuss pricing plans for individuals and
+          Explore affordable KC (Know Connections) pricing plans for individuals and
           enterprises. Enjoy flexible plans with features like team
           collaboration, analytics, and contact sharing. Start your free trial
           today.

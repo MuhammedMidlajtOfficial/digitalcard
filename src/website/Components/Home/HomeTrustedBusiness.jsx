@@ -20,7 +20,7 @@ const HomeTrustedBusiness = () => {
         >
           <h2>Trusted by Leading Businesses</h2>
           <p>
-            Join the growing list of companies that trust Diskuss for their
+            Join the growing list of companies that trust KC (Know Connections) for their
             contact management needs.
           </p>
         </ScrollAnimation>

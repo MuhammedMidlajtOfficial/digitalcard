@@ -49,7 +49,7 @@ const FeatureExplore = () => {
   return (
     <div className="features-explore-section">
       <div className="container">
-        <h2>Explore Diskuss Features</h2>
+        <h2>Explore KC (Know Connections) Features</h2>
         <p className="subtitles">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore

@@ -9,8 +9,8 @@ const HomeApps = () => {
     <>
       <div className="app-download-section">
         <div className="container">
-          <h2>Get The Diskuss App</h2>
-          <p>Download the Diskuss app for innovative solutions</p>
+          <h2>Get The KC (Know Connections) App</h2>
+          <p>Download the KC (Know Connections) app for innovative solutions</p>
           <div className="get-app-mobile">
             <div className="row">
               <div className="col-lg-6 ">

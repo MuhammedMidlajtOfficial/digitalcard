@@ -5,14 +5,14 @@ const TermsAndConditions = () => {
   return (
     <>
       <Helmet>
-        <title>Terms And Conditions - Diskuss | Digital Card Solutions</title>
+        <title>Terms And Conditions - KC (Know Connections) | Digital Card Solutions</title>
         <meta
           name="terms and conditions"
-          content="Learn more about Diskuss and our mission to provide innovative digital card solutions. Discover how we offer 1000+ unique card designs and our commitment to enhancing your card-making experience."
+          content="Learn more about KC (Know Connections) and our mission to provide innovative digital card solutions. Discover how we offer 1000+ unique card designs and our commitment to enhancing your card-making experience."
         />
         <meta
           name="keywords"
-          content="About Diskuss, digital card solutions, Diskuss mission, digital card designs, card-making innovation, company background, Diskuss team, digital cards overview"
+          content="About KC (Know Connections), digital card solutions, KC (Know Connections) mission, digital card designs, card-making innovation, company background, KC (Know Connections) team, digital cards overview"
         />
       </Helmet>
 
@@ -28,8 +28,8 @@ const TermsAndConditions = () => {
           <div className="container  ">
             <h2>Terms and Conditions</h2>
             <p>
-              Welcome to Diskuss! These Terms and Conditions ("Terms") govern
-              your use of the Diskuss website, mobile applications, and services
+              Welcome to KC (Know Connections)! These Terms and Conditions ("Terms") govern
+              your use of the KC (Know Connections) website, mobile applications, and services
               provided by VRUDDHIMAN CONSULTANTS INDIA PRIVATE LIMITED ("we,"
               "us," or "our"). By accessing or using our services, you agree to
               comply with these Terms. If you do not agree, you may not use our
@@ -138,7 +138,7 @@ const TermsAndConditions = () => {
             <ul>
               <li>
                 Email:{" "}
-                <a href="mailto:contact@diskuss.in">contact@diskuss.in</a>
+                <a href="mailto:contact@KC (Know Connections).in">contact@KC (Know Connections).in</a>
               </li>
               <li>Phone: +91 8792976734</li>
               <li>

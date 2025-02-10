@@ -39,7 +39,7 @@ const FeatureDiskussExp = () => {
       <div className="container">
         <div className="row align-items-center">
           <div className="col-lg-4">
-            <h1>Explore Diskuss Features</h1>
+            <h1>Explore KC (Know Connections) Features</h1>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore

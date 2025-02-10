@@ -46,7 +46,7 @@ const ResourcesCards = () => {
               <div className="resources-card-img" style={{ backgroundImage: `url(${cardInfo.bgImage})` }}>
                 <div className="card-content">
                   <div className="d-flex justify-content-between mb-4">
-                    <h1>Diskuss</h1>
+                    <h1>KC (Know Connections)</h1>
                     <img src={vector} className="resources-card-icon" alt="" />
                   </div>
                   <h2>Levon Technologies</h2>

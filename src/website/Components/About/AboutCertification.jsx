@@ -37,7 +37,7 @@ const AboutCertification = () => {
         <center>
           <h2>Our Certifications</h2>
           <p>
-          At Diskuss, we understand the importance of trust and data protection. <br /> That’s why we are certified by major security and privacy authorities<br /> to ensure that your information remains secure and private.Diskuss complies with top industry standards,<br /> so you can network with peace of mind.
+          At KC (Know Connections), we understand the importance of trust and data protection. <br /> That’s why we are certified by major security and privacy authorities<br /> to ensure that your information remains secure and private.KC (Know Connections) complies with top industry standards,<br /> so you can network with peace of mind.
           </p>
         </center>
         <div className="row">

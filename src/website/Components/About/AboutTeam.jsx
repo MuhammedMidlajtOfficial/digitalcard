@@ -125,7 +125,7 @@ const AboutTeam = () => {
             a passion for technology and a <br /> commitment to excellence.
             Together, we bring a diverse range of skills, experiences, and
             perspectives <br />
-            to the table, ensuring that Diskuss is always at the forefront of
+            to the table, ensuring that KC (Know Connections) is always at the forefront of
             innovation.
           </p>
         </center>
