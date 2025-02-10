@@ -29,7 +29,7 @@ const Footer = () => {
               <br /> Join us in transforming professional networking.
             </p>
             <div className="socials-margin">
-              <h3 className="mb-3">contact@KC (Know Connections).in | +91 8792976734 </h3>
+              <h3 className="mb-3">contact@knowconnections.com | +91 8792976734 </h3>
               <div className="social-icons">
                 <span className="me-3">
                   <a href="https://www.facebook.com/ ">
