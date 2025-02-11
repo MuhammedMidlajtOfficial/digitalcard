@@ -31,7 +31,7 @@
   border-radius: 12px;
   padding: 30px;
   position: relative;
-  left: 80px;
+  /* left: 80px; */
   align-items: center;
 }
 
@@ -101,7 +101,7 @@
   font-size: 40px;
   font-weight: 900px;
   position: relative;
-  left: -60px;
+  /* left: -60px; */
 }
 
 .otp-input-group {
@@ -237,6 +237,6 @@
   color: var(--white-color);
   font-size: 40px;
   position: relative;
-  left: -140px;
+  /* left: -140px; */
   margin-bottom: 20px;
 }

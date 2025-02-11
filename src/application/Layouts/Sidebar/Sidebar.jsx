@@ -150,7 +150,7 @@ function SidebarApplication() {
       <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
         <aside className="sidebar-content">
           <div className="sidebar-header">
-            <p>KC (Know Connections)</p>
+            <p>KC</p>
             <button
               className="close-btn d-block d-sm-none"
               onClick={toggleSidebar}
