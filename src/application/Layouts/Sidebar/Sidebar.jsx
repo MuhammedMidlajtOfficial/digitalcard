@@ -1100,7 +1100,7 @@ function SidebarApplication() {
                   <FiUsers className="sidebar-icon" /> Employee List
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   to="/admin/watiList"
                   className={`nav-link ${
@@ -1111,7 +1111,7 @@ function SidebarApplication() {
                 >
                   <FaWhatsapp className="sidebar-icon" /> Wati List
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
 
