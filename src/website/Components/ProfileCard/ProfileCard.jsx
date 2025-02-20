@@ -12,6 +12,8 @@ import { LuTwitter } from "react-icons/lu";
 
 const ProfileCard = () => {
   const [cardsData, setCardsData] = useState([]);
+  console.log("cardssssData", cardsData);
+
   const { loading, startLoading, stopLoading } = useLoading();
   const { id } = useParams();
 
@@ -19,19 +21,19 @@ const ProfileCard = () => {
   const [flippedCards, setFlippedCards] = useState({});
 
   const handleFlip = (cardId) => {
-    setFlippedCards(prev => ({
+    setFlippedCards((prev) => ({
       ...prev,
-      [cardId]: !prev[cardId]
+      [cardId]: !prev[cardId],
     }));
   };
 
   const fetchCardsData = () => {
     startLoading();
     logInstance
-      .get(`/card/pn/${id}`)
+      .get(`/card/cardId/${id}`)
       .then((response) => {
         console.log("Cards Data", response.data);
-        setCardsData(response.data || []);
+        setCardsData(response.data.card || []);
       })
       .catch((error) => {
         console.error("Error fetching Data:", error);
@@ -45,29 +47,38 @@ const ProfileCard = () => {
 
   return (
     <div className="cards-container ">
-      {cardsData.map((card) => (
-        <div className="business-card mb-5" key={card._id}>
+      {cardsData && (
+        <div className="business-card" key={cardsData._id}>
           <div className="business-card-first-container">
             <h1 className="business-card-first-container-headtext">
-              {card.businessName}
+              {cardsData.businessName}
             </h1>
           </div>
 
-          <div className="flip-container" onClick={() => handleFlip(card._id)}>
-            <div className={`flipper ${flippedCards[card._id] ? "flipped" : ""}`}>
+          <div
+            className="flip-container"
+            onClick={() => handleFlip(cardsData._id)}
+          >
+            <div
+              className={`flipper ${
+                flippedCards[cardsData._id] ? "flipped" : ""
+              }`}
+            >
               <div className="front">
                 <div className="business-card-second-container">
                   <div className="business-card-profile">
                     <div className="business-card-image">
-                      <Avatar src={card.image} size={64} />
+                      <Avatar src={cardsData.image} size={84} />
                     </div>
                   </div>
                   <div className="business-card-content">
                     <div className="business-card-button">
                       <p style={{ fontWeight: "700", paddingTop: "5px" }}>
-                        {card.yourName}
+                        {cardsData.yourName}
                       </p>
-                      <p style={{ fontWeight: "500" }}>{card.designation}</p>
+                      <p style={{ fontWeight: "500" }}>
+                        {cardsData.designation}
+                      </p>
                       <hr style={{ width: "100%" }} />
                     </div>
                     <div className="business-card-button">
@@ -77,7 +88,7 @@ const ProfileCard = () => {
                         style={{ display: "flex", alignItems: "center" }}
                       >
                         <a
-                          href={`tel:${card.mobile}`}
+                          href={`tel:${cardsData.mobile}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           style={{
@@ -97,14 +108,14 @@ const ProfileCard = () => {
                             className="text-style"
                             style={{ margin: 0, padding: 0, fontSize: "15px" }}
                           >
-                            {card.mobile}
+                            {cardsData.mobile}
                           </p>
                         </a>
                       </span>
 
                       <span className="business-card-icon">
                         <a
-                          href={`mailto:${card.email}`}
+                          href={`mailto:${cardsData.email}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           style={{
@@ -113,55 +124,55 @@ const ProfileCard = () => {
                             color: "white",
                             gap: "10px",
                             marginTop: "5px",
-                            alignItems: "start"
+                            alignItems: "start",
                           }}
                         >
                           <IoMailSharp
                             className="business-card-icon-style"
                             style={{ marginTop: "3px", padding: 0 }}
                           />
-                          <p className="text-style">{card.email}</p>
+                          <p className="text-style">{cardsData.email}</p>
                         </a>
                       </span>
                     </div>
                     <div className="business-card-button">
                       <span className="business-card-iconss">
-                        {card.whatsappNo && (
+                        {cardsData.whatsappNo && (
                           <a
-                            href={`https://wa.me/${card.whatsappNo}`}
+                            href={`https://wa.me/${cardsData.whatsappNo}`}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
                             <FaWhatsapp />
                           </a>
-                         )} 
-                        {card.facebookLink && (
+                        )}
+                        {cardsData.facebookLink && (
                           <a
-                            href={card.facebookLink}
+                            href={cardsData.facebookLink}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
                             <RiFacebookCircleLine />
                           </a>
-                         )}
-                        {card.instagramLink && (
+                        )}
+                        {cardsData.instagramLink && (
                           <a
-                            href={card.instagramLink}
+                            href={cardsData.instagramLink}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
                             <FaInstagram />
                           </a>
-                         )} 
-                        {card.twitterLink && (
+                        )}
+                        {cardsData.twitterLink && (
                           <a
-                            href={card.twitterLink}
+                            href={cardsData.twitterLink}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
                             <LuTwitter />
                           </a>
-                         )} 
+                        )}
                       </span>
                     </div>
                   </div>
@@ -169,30 +180,36 @@ const ProfileCard = () => {
               </div>
               <div className="back">
                 <h2 className="business-card-services-header">Services</h2>
-                <div className="business-card-services-list">
-                  <div>
-                    <ul className="business-card-service-column">
-                      {card.services.slice(0, Math.ceil(card.services.length / 2)).map((service, index) => (
-                        <li key={index}>{service}</li>
-                      ))}
-                    </ul>
+                {cardsData?.services?.length > 0 && (
+                  <div className="business-card-services-list">
+                    <div>
+                      <ul className="business-card-service-column">
+                        {cardsData.services
+                          .slice(0, Math.ceil(cardsData.services.length / 2))
+                          .map((service, index) => (
+                            <li key={index}>{service}</li>
+                          ))}
+                      </ul>
+                    </div>
+                    <div className="business-card-vertical-line"></div>
+                    <div>
+                      <ul className="business-card-service-column">
+                        {cardsData.services
+                          .slice(Math.ceil(cardsData.services.length / 2))
+                          .map((service, index) => (
+                            <li key={index}>{service}</li>
+                          ))}
+                      </ul>
+                    </div>
                   </div>
-                  <div className="business-card-vertical-line"></div>
-                  <div>
-                    <ul className="business-card-service-column">
-                      {card.services.slice(Math.ceil(card.services.length / 2)).map((service, index) => (
-                        <li key={index}>{service}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+                )}
               </div>
             </div>
           </div>
 
           <div className="business-contact-details">
-            <h4 className="name">{card.yourName}</h4>
-            <h5 className="position">{card.designation}</h5>
+            <h4 className="name">{cardsData.yourName}</h4>
+            <h5 className="position">{cardsData.designation}</h5>
             <hr
               style={{
                 height: "2px",
@@ -205,7 +222,7 @@ const ProfileCard = () => {
             <div>
               <span className="business-card-icons">
                 <a
-                  href={`tel:${card.mobile}`}
+                  href={`tel:${cardsData.mobile}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -217,13 +234,13 @@ const ProfileCard = () => {
                   }}
                 >
                   <FaPhoneAlt style={{ fontSize: "20px" }} />
-                  <p style={{ fontSize: "20px" }}>{card.mobile}</p>
+                  <p style={{ fontSize: "20px" }}>{cardsData.mobile}</p>
                 </a>
               </span>
 
               <span className="business-card-icons">
                 <a
-                  href={`mailto:${card.email}`}
+                  href={`mailto:${cardsData.email}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -235,13 +252,13 @@ const ProfileCard = () => {
                   }}
                 >
                   <IoMailSharp style={{ fontSize: "20px" }} />
-                  <span style={{ fontSize: "20px" }}>{card.email}</span>
+                  <span style={{ fontSize: "20px" }}>{cardsData.email}</span>
                 </a>
               </span>
             </div>
             <button
               className="save-contact"
-              onClick={() => window.open(`tel:${card.mobile}`, "_blank")}
+              onClick={() => window.open(`tel:${cardsData.mobile}`, "_blank")}
             >
               SAVE CONTACT
             </button>
@@ -257,10 +274,13 @@ const ProfileCard = () => {
           </div>
 
           <div className="business-card-services-list2">
-            <h3>🔹Why Use {card.businessName}!</h3>
+            <h3>🔹Why Use KC (Know Connections)!</h3>
             <ul style={{ listStyle: "none", paddingLeft: 0 }}>
               {[
-                { icon: "🔗", text: "Effortless Contact Sharing & Organization" },
+                {
+                  icon: "🔗",
+                  text: "Effortless Contact Sharing & Organization",
+                },
                 { icon: "👥", text: "Stay Connected with Your Network & Team" },
                 {
                   icon: "📊",
@@ -273,9 +293,15 @@ const ProfileCard = () => {
                 </li>
               ))}
             </ul>
-            <ul className="second-ul" style={{ listStyle: "none", paddingLeft: 0 }}>
+            <ul
+              className="second-ul"
+              style={{ listStyle: "none", paddingLeft: 0 }}
+            >
               {[
-                { icon: "📩", text: `Join ${card.businessName} Today & Simplify Networking!` },
+                {
+                  icon: "📩",
+                  text: `Join ${cardsData.businessName} Today & Simplify Networking!`,
+                },
                 { icon: "🤝", text: "Let's stay in touch and grow together!" },
               ].map((item, index) => (
                 <li key={index}>
@@ -289,53 +315,55 @@ const ProfileCard = () => {
           <div>
             <div className="firstend-container">
               <span className="footer-icons">
-                {card.whatsappNo && (
+                {cardsData.whatsappNo && (
                   <a
-                    href={`https://wa.me/${card.whatsappNo}`}
+                    href={`https://wa.me/${cardsData.whatsappNo}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <FaWhatsapp />
                   </a>
                 )}
-                {card.facebookLink && (
+                {cardsData.facebookLink && (
                   <a
-                    href={card.facebookLink}
+                    href={cardsData.facebookLink}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <RiFacebookCircleLine />
                   </a>
                 )}
-                {card.instagramLink && (
+                {cardsData.instagramLink && (
                   <a
-                    href={card.instagramLink}
+                    href={cardsData.instagramLink}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <FaInstagram />
                   </a>
                 )}
-                {card.twitterLink && (
+                {cardsData.twitterLink && (
                   <a
-                    href={card.twitterLink}
+                    href={cardsData.twitterLink}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <LuTwitter />
                   </a>
-                  )}  
+                )}
               </span>
+              
             </div>
             <div className="secondend-container">
-              <p className="secondtext">
-                "Invite friends and family to {card.businessName} - seamless connections when
-                you have everyone on {card.businessName}"
+            <p className="secondtext">
+                "Invite friends and family to KC (Know Connections) -
+                seamless connections when you have everyone on{" "}
+                KC (Know Connections)"
               </p>
             </div>
           </div>
         </div>
-      ))}
+      )}
     </div>
   );
 };
