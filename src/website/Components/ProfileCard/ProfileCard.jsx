@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaPhoneAlt, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { IoMailSharp } from "react-icons/io5";
-import { PiLinkedinLogoBold } from "react-icons/pi";
 import { RiFacebookCircleLine } from "react-icons/ri";
 import { PiPhoneFill } from "react-icons/pi";
 import { Avatar } from "antd";
@@ -44,6 +43,31 @@ const ProfileCard = () => {
   useEffect(() => {
     fetchCardsData();
   }, []);
+  const generateVCF = () => {
+    if (!cardsData) return;
+
+    const vcfData = `BEGIN:VCARD
+VERSION:3.0
+FN:${cardsData.yourName}
+ORG:${cardsData.businessName}
+TITLE:${cardsData.designation}
+TEL;TYPE=CELL:${cardsData.mobile}
+${cardsData.whatsappNo ? `TEL;TYPE=WHATSAPP:${cardsData.whatsappNo}` : ""}
+EMAIL:${cardsData.email}
+URL:${window.location.href}
+END:VCARD`;
+
+    const blob = new Blob([vcfData], { type: "text/vcard" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${cardsData.yourName}.vcf`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="cards-container ">
@@ -256,13 +280,15 @@ const ProfileCard = () => {
                 </a>
               </span>
             </div>
-            <button
+            {/* <button
               className="save-contact"
               onClick={() => window.open(`tel:${cardsData.mobile}`, "_blank")}
             >
               SAVE CONTACT
+            </button> */}
+            <button className="save-contact" onClick={generateVCF}>
+              SAVE CONTACT
             </button>
-
             <hr
               style={{
                 height: "2px",
@@ -352,13 +378,11 @@ const ProfileCard = () => {
                   </a>
                 )}
               </span>
-              
             </div>
             <div className="secondend-container">
-            <p className="secondtext">
-                "Invite friends and family to KC (Know Connections) -
-                seamless connections when you have everyone on{" "}
-                KC (Know Connections)"
+              <p className="secondtext">
+                "Invite friends and family to KC (Know Connections) - seamless
+                connections when you have everyone on KC (Know Connections)"
               </p>
             </div>
           </div>
