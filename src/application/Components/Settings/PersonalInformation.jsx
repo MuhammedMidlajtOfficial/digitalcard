@@ -233,7 +233,7 @@ export const PersonalInformation = () => {
                 />
               </Form.Item>
             </div>
-            <div className="col-md-6 mb-1">
+            {/* <div className="col-md-6 mb-1">
               <Form.Item
                 label="Address"
                 name="address"
@@ -249,7 +249,7 @@ export const PersonalInformation = () => {
                   }
                 />
               </Form.Item>
-            </div>
+            </div> */}
           </div>
 
           <div className="row mt-4">
