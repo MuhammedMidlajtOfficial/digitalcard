@@ -1,6 +1,6 @@
 import React from "react";
-import client1 from "../../Assets/image/home/Clients/levon.png";
-import client2 from "../../Assets/image/home/Clients/b2b.png";
+import client1 from "../../Assets/image/home/Clients/levon.svg";
+import client2 from "../../Assets/image/home/Clients/b2b.svg";
 
 import ScrollAnimation from "../../../ScrollAnimation";
 
@@ -20,7 +20,7 @@ const HomeTrustedBusiness = () => {
         >
           <h2>Trusted by Leading Businesses</h2>
           <p>
-            Join the growing list of companies that trust Diskuss for their
+            Join the growing list of companies that trust KC (Know Connections) for their
             contact management needs.
           </p>
         </ScrollAnimation>

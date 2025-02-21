@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { TbEdit } from "react-icons/tb";
-import DefaultUser from "../../Assets/Images/admin.png";
+import DefaultUser from "../../Assets/Images/admin.svg";
 import "react-international-phone/style.css";
 import { axiosInstance } from "../../../AxiosConfig";
 import { useNavigate } from "react-router-dom";
@@ -108,7 +108,8 @@ export const PersonalInformation = () => {
       console.error("User ID not found in sessionStorage");
       return;
     }
-
+    console.log('userData-',userData);
+    
     const updatedData = {
       ...values,
       userType: userData.userType,
@@ -120,10 +121,10 @@ export const PersonalInformation = () => {
       .patch(`adminAuth/updateUser/${userId}`, updatedData)
       .then((response) => {
         showSuccessToast("Profile updated successfully!");
-        setUserData(response.data.updatedUser);
-        console.log("UPDATED DATA1", response.config.data);
-        console.log("UPDATED DATA2", updatedData);
-        dispatch(updateUserData(updatedData));
+        // setUserData(response.data.updatedUser);
+        // console.log("UPDATED DATA1", response.config.data);
+        // console.log("UPDATED DATA2", updatedData);
+        // dispatch(updateUserData(updatedData));
       })
       .catch((error) => {
         console.error("Error updating data:", error.message || error);
@@ -175,7 +176,7 @@ export const PersonalInformation = () => {
                 label="User Name"
                 name="username"
                 rules={[
-                  { required: true, message: "Please enter your username" },
+                  { required: true, message: "Please enter your Username" },
                   { validator: validateWhitespace },
                 ]}
               >
@@ -209,7 +210,7 @@ export const PersonalInformation = () => {
                 label="Phone Number"
                 name="phnNumber"
                 rules={[
-                  { required: true, message: "Please enter your phone number" },
+                  { required: true, message: "Please enter your Phone Number" },
                   {
                     pattern: /^[0-9]{10}$/,
                     message: "Phone number must be 10 digits",
@@ -237,7 +238,7 @@ export const PersonalInformation = () => {
                 label="Address"
                 name="address"
                 rules={[
-                  { required: true, message: "Please enter your address" },
+                  { required: true, message: "Please enter your Address" },
                   { validator: validateWhitespace },
                 ]}
               >
@@ -257,7 +258,7 @@ export const PersonalInformation = () => {
                 className="cancel-btn"
                 type="button"
                 onClick={() => {
-                  navigate("/admin/dashboard/overview");
+                  navigate("/admin/settings");
                 }}
               >
                 Discard

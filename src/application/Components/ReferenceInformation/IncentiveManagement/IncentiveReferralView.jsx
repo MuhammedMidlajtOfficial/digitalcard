@@ -1,5 +1,5 @@
 import React from "react";
-import user3 from "../../../Assets/Images/user3.png";
+import user3 from "../../../Assets/Images/user3.svg";
 import { TbProgress } from "react-icons/tb";
 import { RxCrossCircled } from "react-icons/rx";
 import { PiHandWithdraw } from "react-icons/pi";

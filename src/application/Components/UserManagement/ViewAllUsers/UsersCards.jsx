@@ -104,13 +104,13 @@ const UsersCards = ({ change, activeFilter, setActiveFilter }) => {
               <div
                 className={`application-all-users-card ${
                   activeFilter === key && index < 3 ? "active-card" : ""
-                }`}
+                }  ${key === "newUsers" || key === "activeUsers" ? "hover-light-blue" : ""}`}
                 style={{
                   backgroundColor:
                     activeFilter === key && index < 3 ? bgColor : "#f0f0f0",
                   color:
                     activeFilter === key && index < 3 ? textColor : "#000000",
-                    cursor:"pointer"
+                    cursor: index < 3 ? "pointer" : "default",
                 }}
                 onClick={() => handleCardClick(key, index)}
               >

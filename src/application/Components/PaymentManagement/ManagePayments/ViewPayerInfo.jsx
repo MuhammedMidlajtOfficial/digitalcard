@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Input, DatePicker } from "antd";
-import DefaultUser from "../../../Assets/Images/admin.png";
+import DefaultUser from "../../../Assets/Images/admin.svg";
 import { PiMapPinLineFill } from "react-icons/pi";
 import { TbMailFilled } from "react-icons/tb";
 import { PhoneInput } from "react-international-phone";

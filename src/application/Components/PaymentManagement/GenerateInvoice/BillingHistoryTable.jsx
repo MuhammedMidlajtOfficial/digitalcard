@@ -239,8 +239,6 @@
 //   );
 // };
 
-
-
 // import React, { useState } from "react";
 // import { Dropdown, Menu, Table, Button, DatePicker } from "antd";
 // import { IoIosArrowForward } from "react-icons/io";
@@ -500,7 +498,7 @@ import React, { useEffect, useState } from "react";
 import { Dropdown, Menu, Table, Button, DatePicker, Space } from "antd";
 //import { IoIosArrowForward } from "react-icons/io";
 import { TbArrowsDownUp } from "react-icons/tb";
-import { FiFilter, FiSearch} from "react-icons/fi";
+import { FiFilter, FiSearch } from "react-icons/fi";
 //import { FiDownload } from "react-icons/fi";
 //import { RiDeleteBinLine } from "react-icons/ri";
 //import { useNavigate } from "react-router-dom";
@@ -509,9 +507,7 @@ import { LuView } from "react-icons/lu";
 import { IoEllipsisHorizontalSharp } from "react-icons/io5";
 import { BillingDownloadForm } from "./BillingDownloadForm";
 
-
-export const BillingHistoryTable = ({invoiceData,setQuery}) => {
-  
+export const BillingHistoryTable = ({ invoiceData, setQuery }) => {
   //const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [data, setData] = useState(invoiceData);
@@ -546,8 +542,8 @@ export const BillingHistoryTable = ({invoiceData,setQuery}) => {
       const [start, end] = dateStrings;
       setRangePickerValue(dates);
       setQuery(`limit=0&startDate=${start}&endDate=${end}`);
-    } 
-  }; 
+    }
+  };
 
   const handleSort = (order) => {
     const sortedData = [...data].sort((a, b) => {
@@ -559,47 +555,43 @@ export const BillingHistoryTable = ({invoiceData,setQuery}) => {
     setData(sortedData);
   };
   const handleQueryFilter = (filterType) => {
-    
     if (filterType === "lastDay") {
-      setQuery("limit=0&filter=lastDay")
-    } 
-    else if (filterType === "lastWeek") {
-      setQuery("limit=0&filter=lastWeek")
-    } 
-    else if (filterType === "lastMonth") {
-      setQuery("limit=0&filter=lastMonth")
+      setQuery("limit=0&filter=lastDay");
+    } else if (filterType === "lastWeek") {
+      setQuery("limit=0&filter=lastWeek");
+    } else if (filterType === "lastMonth") {
+      setQuery("limit=0&filter=lastMonth");
     }
     setRangePickerValue(null); // Reset the date picker value
-  }
+  };
 
   const filterMenu = (
-    <Space direction="vertical" style={{ width: '100%' }}>
-    <RangePicker 
-      onChange={handleDateRange} 
-      style={{ width: '100%' }}
-      value={rangePickerValue}
-    />
-    <Space style={{ width: '100%', justifyContent: 'space-between' }}>
-      <Button type="link" onClick={() => handleQueryFilter("lastDay")}>Last Day</Button>
-      <Button type="link" onClick={() => handleQueryFilter("lastWeek")}>Last Week</Button>
-      <Button type="link" onClick={() => handleQueryFilter("lastMonth")}>Last Month</Button>
+    <Space direction="vertical" style={{ width: "100%" }}>
+      <RangePicker
+        onChange={handleDateRange}
+        style={{ width: "100%" }}
+        value={rangePickerValue}
+      />
+      <Space style={{ width: "100%", justifyContent: "space-between" }}>
+        <Button type="link" onClick={() => handleQueryFilter("lastDay")}>
+          Last Day
+        </Button>
+        <Button type="link" onClick={() => handleQueryFilter("lastWeek")}>
+          Last Week
+        </Button>
+        <Button type="link" onClick={() => handleQueryFilter("lastMonth")}>
+          Last Month
+        </Button>
+      </Space>
     </Space>
-  </Space>
-
   );
 
   const sortMenu = (
     <Menu>
-      <Menu.Item
-        key="asc"
-        onClick={() => handleSort("asc")}
-      >
+      <Menu.Item key="asc" onClick={() => handleSort("asc")}>
         Alphabetical (A-Z)
       </Menu.Item>
-      <Menu.Item
-        key="desc"
-        onClick={() => handleSort("desc")}
-      >
+      <Menu.Item key="desc" onClick={() => handleSort("desc")}>
         Reverse Alphabetical (Z-A)
       </Menu.Item>
     </Menu>
@@ -622,7 +614,7 @@ export const BillingHistoryTable = ({invoiceData,setQuery}) => {
             title="View"
           />
         }
-        onClick={() => setIsModalVisible(true)} 
+        onClick={() => setIsModalVisible(true)}
       >
         View
       </Menu.Item>
@@ -663,7 +655,7 @@ export const BillingHistoryTable = ({invoiceData,setQuery}) => {
     {
       title: "Date",
       dataIndex: "paymentDate",
-      render: (paymentDate) => paymentDate.split('T')[0],
+      render: (paymentDate) => paymentDate.split("T")[0],
     },
     {
       title: "Username",
@@ -701,11 +693,10 @@ export const BillingHistoryTable = ({invoiceData,setQuery}) => {
       dataIndex: "action",
       render: (_, invoice) => (
         <Dropdown overlay={actionMenu} trigger={["click"]}>
-          <Button 
-            type="text" 
-            icon={<IoEllipsisHorizontalSharp />} 
+          <Button
+            type="text"
+            icon={<IoEllipsisHorizontalSharp />}
             onClick={() => handleInvoiceAction(invoice)}
-
           />
         </Dropdown>
       ),
@@ -718,13 +709,13 @@ export const BillingHistoryTable = ({invoiceData,setQuery}) => {
         <div className="col-lg-12">
           <div className="d-flex mb-4 flex-lg-row flex-xl-row flex-column justify-content-between gap-4">
             <div className="search-container">
-              <FiSearch className="search-icon" />
+              <FiSearch className="search-icon-wati" />
               <input
                 type="text"
                 placeholder="Search..."
-                className="create-survey-search-input"
-                value={searchTerm} // Bind search term
-                onChange={(e) => setSearchTerm(e.target.value)} // Update state on input
+                value={searchTerm} 
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input-css"
               />
             </div>
             <div className="search-table-container d-flex gap-2">
@@ -752,7 +743,6 @@ export const BillingHistoryTable = ({invoiceData,setQuery}) => {
                   />
                 </button>
               </Dropdown>
-
             </div>
           </div>
           <div className="application-table-section">
@@ -771,7 +761,7 @@ export const BillingHistoryTable = ({invoiceData,setQuery}) => {
         <BillingDownloadForm
           isModalVisible={isModalVisible}
           setIsModalVisible={setIsModalVisible}
-          invoice={selectedInvoice}          
+          invoice={selectedInvoice}
         />
       </div>
     </div>

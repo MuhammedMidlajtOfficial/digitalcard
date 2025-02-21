@@ -1,10 +1,10 @@
 import React from "react";
-import client1 from "../../Assets/image/home/Clients/client-1.png";
-import client2 from "../../Assets/image/home/Clients/client-2.png";
-import client3 from "../../Assets/image/home/Clients/client-3.png";
-import client4 from "../../Assets/image/home/Clients/client-4.png";
-import client5 from "../../Assets/image/home/Clients/client-5.png";
-import client6 from "../../Assets/image/home/Clients/client-6.png";
+import client1 from "../../Assets/image/home/Clients/b2b.svg";
+import client2 from "../../Assets/image/home/Clients/b2b.svg";
+import client3 from "../../Assets/image/home/Clients/b2b.svg";
+import client4 from "../../Assets/image/home/Clients/b2b.svg";
+import client5 from "../../Assets/image/home/Clients/b2b.svg";
+import client6 from "../../Assets/image/home/Clients/b2b.svg";
 import ScrollAnimation from "../../../ScrollAnimation";
 
 const HomeClients = () => {
@@ -38,7 +38,7 @@ const HomeClients = () => {
         >
           {/* <h2>Trusted by Leading Businesses</h2>
           <p>
-            Join the growing list of companies that trust Diskuss for their
+            Join the growing list of companies that trust KC (Know Connections) for their
             contact management needs.
           </p> */}
         </ScrollAnimation>

@@ -5,7 +5,7 @@ import { FaRegFlag } from "react-icons/fa6";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import { CloseOutlined, UserOutlined } from "@ant-design/icons";
-import John_img from "../../../Assets/Images/John_img.png";
+import John_img from "../../../Assets/Images/John_img.svg";
 import { Option } from "antd/es/mentions";
 import "../../../Page/SupportTicketing/SupportTicket.css";
 

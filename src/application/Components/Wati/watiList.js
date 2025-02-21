@@ -124,7 +124,7 @@ const WatiList = () => {
           Add Wati Record
         </button>
       </div>
-      <div className="d-flex mb-4 justify-content-between">
+      {/* <div className="d-flex mb-4 justify-content-between">
         <div className="search-container">
           <FiSearch className="search-icon-wati" />
           <input
@@ -135,7 +135,7 @@ const WatiList = () => {
             onChange={handleSearch}
           />
         </div>
-      </div>
+      </div> */}
       {loading ? (
         <Spin size="large" className="d-flex justify-content-center mt-5" />
       ) : (

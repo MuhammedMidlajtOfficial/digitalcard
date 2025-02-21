@@ -32,21 +32,19 @@ const PricingPlans = () => {
   }, []);
 
   const filteredPlans = cards.filter((plan) => {
-    // Filter by billing cycle, type (selectedView), and active status
     return (
-      plan.status === "active" && // Check if the plan is active
-      ((billingCycle === "monthly" && plan.duration === 30) ||
-        (billingCycle === "yearly" && plan.duration === 365)) &&
+      plan.status === "active" && 
       plan.type.toLowerCase() === selectedView
     );
   });
+  
 
   return (
     <div className="pricing-plan-section">
       <div className="container">
-        <h1>Diskuss Pricing Plans</h1>
+        <h1>KC (Know Connections) Pricing Plans</h1>
         <p className="subtitles">
-          Explore affordable Diskuss pricing plans for individuals and
+          Explore affordable KC (Know Connections) pricing plans for individuals and
           enterprises. Enjoy flexible plans with features like team
           collaboration, analytics, and contact sharing. Start your free trial
           today.
@@ -69,16 +67,16 @@ const PricingPlans = () => {
             Enterprise
           </button>
         </div>
-        <Radio.Group
+        {/* <Radio.Group
           onChange={(e) => setBillingCycle(e.target.value)}
           value={billingCycle}
           className="billing-cycle-radio-group white-text-radio-group"
         >
           <Radio value="monthly">Monthly</Radio>
           <Radio value="yearly">Annually</Radio>
-        </Radio.Group>
+        </Radio.Group> */}
 
-        <div className="pricing-cards">
+        <div className="pricing-cards mt-4">
           {filteredPlans.length > 0 ? (
             filteredPlans.map((plan, index) => (
               <div

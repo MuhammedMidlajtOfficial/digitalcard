@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./auth.css";
-import login from "../Assets/Images/loginbackground.png";
+import login from "../Assets/Images/loginbackground.svg";
 import { Form, Input } from "antd";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
@@ -47,7 +47,7 @@ const ConfirmPassword = () => {
         Swal.fire({
           icon: "error",
           title: "Failed to Create Password",
-          text: response.data.message || "Failed to create new password.",
+          text: response.data.message || "Failed to create new Password.",
           confirmButtonText: "Try Again",
           confirmButtonColor: "var(--danger-color)",
         });
@@ -56,7 +56,7 @@ const ConfirmPassword = () => {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "An error occurred while creating a new password.",
+        text: "An error occurred while creating a new Password.",
         confirmButtonText: "Try Again",
         confirmButtonColor: "var(--danger-color)",
       });
@@ -70,7 +70,7 @@ const ConfirmPassword = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-5 col-sm-12 col-md-12 login-left">
-            <h2 className="login-heading">Diskuss</h2>
+            <h2 className="login-heading mb-4">KC (Know Connections)</h2>
             <div className="login-card col-lg-10">
               <center>
                 <h2>Create New Password</h2>
@@ -89,7 +89,7 @@ const ConfirmPassword = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your password!",
+                        message: "Please input your Password!",
                       },
                     ]}
                   >
@@ -106,7 +106,7 @@ const ConfirmPassword = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please confirm your password!",
+                        message: "Please confirm your Password!",
                       },
                     ]}
                   >
@@ -125,7 +125,7 @@ const ConfirmPassword = () => {
             </div>
           </div>
           <div className="col-lg-7 col-sm-0 col-md-0 login-right">
-            <img src={login} alt="" />
+            {/* <img src={login} alt="" /> */}
           </div>
         </div>
       </div>

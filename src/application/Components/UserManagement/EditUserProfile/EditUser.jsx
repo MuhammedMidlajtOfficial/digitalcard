@@ -48,10 +48,10 @@ export const EditUser = ({ userId }) => {
           website: data.website || "",
           phnNumber: data.phnNumber || "",
           address: data.address || "",
-          whatsappNo: data.whatsappNo || "",
-          facebookLink: data.facebookLink || "",
-          instagramLink: data.instagramLink || "",
-          twitterLink: data.twitterLink || "",
+          whatsappNo: data.socialMedia.whatsappNo || "",
+          facebookLink: data.socialMedia.facebookLink || "",
+          instagramLink: data.socialMedia.instagramLink || "",
+          twitterLink: data.socialMedia.twitterLink || "",
           companyName: data.companyName || "",
           industryType: data.industryType || "",
           aboutUs: data.aboutUs || "",
@@ -65,36 +65,59 @@ export const EditUser = ({ userId }) => {
 
   const HandleSubmitForm = async (values) => {
     const allowedFields = {
-      individual: ['username', 'email', 'image', 'role', 'name', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink'],
-      enterprise: ['email', 'image', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink', 'companyName', 'industryType', 'aboutUs'],
-      enterpriseEmp: ['username', 'email', 'image', 'role', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink']
+      individual: [ 'username', 'email', 'image', 'role', 'name', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink',],
+      enterprise: [ 'email', 'image', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink', 'companyName', 'industryType', 'aboutUs',],
+      enterpriseEmp: [ 'username', 'email', 'image', 'role', 'website', 'phnNumber', 'address', 'whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink',],
     }[selectedUserType];
   
-    // Filter out only allowed fields
+    // Filter values to include only allowed fields
     const filteredData = Object.fromEntries(
       Object.entries(values).filter(([key]) => allowedFields.includes(key))
     );
   
-    // If there's an image in userData, include it in the submission
+    // Group social media fields
+    const socialMedia = {
+      whatsappNo: filteredData.whatsappNo,
+      facebookLink: filteredData.facebookLink,
+      instagramLink: filteredData.instagramLink,
+      twitterLink: filteredData.twitterLink,
+    };
+  
+    // Remove individual social media fields from filteredData
+    ['whatsappNo', 'facebookLink', 'instagramLink', 'twitterLink'].forEach((key) =>
+      delete filteredData[key]
+    );
+  
+    if (Object.values(socialMedia).some((value) => value)) {
+      filteredData.socialMedia = socialMedia;
+    }
+  
+    // Include Base64 image if already in userData
     if (userData.image) {
-      filteredData.image = userData.image; // Add the Base64 image from userData
+      filteredData.image = userData.image;
     }
   
     try {
       setIsLoading(true);
-      // Send the PATCH request to update the user profile
-      const response = await axiosInstance.patch(`/user/updateProfile/${userId}`, { ...filteredData, userType: selectedUserType });
+      console.log('filteredData--', filteredData);
   
-      // Show success toast on successful update
+      // Make PATCH request
+      const response = await axiosInstance.patch(`/user/updateProfile/${userId}`, {
+        ...filteredData,
+        userType: selectedUserType,
+      });
+  
+      // Success toast
       showSuccessToast(response.data.message);
       navigate('/admin/usermanagement/viewallusers');
     } catch (error) {
-      // Show error toast on failure
-      showErrorToast(error.response?.data?.message || "Update failed");
+      // Error toast
+      showErrorToast(error.response?.data?.message || 'Update failed');
     } finally {
-      setIsLoading(false); // Set loading to false after the request is finished
+      setIsLoading(false);
     }
   };
+  
   
   useEffect(() => {
     console.log('userData-',userData);
@@ -266,7 +289,7 @@ export const EditUser = ({ userId }) => {
                     name="username"
                     className="edit-user-form"
                     rules={[
-                      { required: true, message: "Please enter a username!" },
+                      { required: true, message: "Please enter a Username!" },
                       { min: 3, message: "Username must be at least 3 characters long." },
                     ]}
                   >
@@ -486,7 +509,7 @@ export const EditUser = ({ userId }) => {
                     label="Company Name"
                     name="companyName"
                     className="edit-user-form"
-                    rules={[{ required: true, message: "Please enter the company name!" }]}
+                    rules={[{ required: true, message: "Please enter the Company name!" }]}
                   >
                     <Input
                       placeholder="Enter Company Name"
@@ -502,7 +525,7 @@ export const EditUser = ({ userId }) => {
                     label="Industry Type"
                     name="industryType"
                     className="edit-user-form"
-                    rules={[{ required: true, message: "Please enter the industry type!" }]}
+                    rules={[{ required: true, message: "Please enter the Industry type!" }]}
                   >
                     <Input
                       placeholder="Enter Industry Type"
@@ -719,7 +742,7 @@ export const EditUser = ({ userId }) => {
                     name="username"
                     className="edit-user-form"
                     rules={[
-                      { required: true, message: "Please enter a username!" },
+                      { required: true, message: "Please enter a Username!" },
                       { min: 3, message: "Username must be at least 3 characters long." },
                     ]}
                   >
@@ -738,7 +761,7 @@ export const EditUser = ({ userId }) => {
                     name="phnNumber"
                     className="edit-user-form"
                     rules={[
-                      { required: true, message: "Please enter a mobile number!" },
+                      { required: true, message: "Please enter a Mobile number!" },
                       { pattern: /^\d{10}$/, message: "Mobile number must be 10 digits." },
                     ]}
                   >

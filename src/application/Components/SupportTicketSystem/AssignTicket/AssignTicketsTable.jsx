@@ -8,6 +8,7 @@ import {
 import axiosInstanceForTicket from "../../../../AxiosContigForTicket";
 import { axiosInstance } from "../../../../AxiosConfig";
 import { useLoading } from "../../../Services/loadingService";
+import AssignTicketCards from "./AssignTicketCards";
 
 const AssignTicketsTable = () => {
   const { loading, startLoading, stopLoading } = useLoading();
@@ -18,6 +19,7 @@ const AssignTicketsTable = () => {
   const [showUserList, setShowUserList] = useState(false);
   const [ticketId, setTicketId] = useState();
   const [tickets, setTickets] = useState([]);
+  const [refresh, setRefresh] = useState(false); // State to trigger re-render
   const [newTicketData, setNewTicketData] = useState({
     title: "",
     description: "",
@@ -114,17 +116,15 @@ const AssignTicketsTable = () => {
   const handleAssign = async (id) => {
     setTicketId(id);
     try {
-      await axiosInstanceForTicket(`ticket/${id}`)
+      await axiosInstanceForTicket.get(`ticket/${id}`)
         .then((response) => {
           setAssignTicketData(response.data);
         })
         .catch((error) => {
           console.log(error);
         });
-
-      await axiosInstance(
-        `adminAuth/getUserByCategory?category=view-respond-tickets`
-      )
+  
+      await axiosInstance.get(`adminAuth/getUserByCategory?category=view-respond-tickets`)
         .then((response) => {
           setEmployeeData(response.data.user);
           console.log("setEmployeeData", response.data.user);
@@ -132,11 +132,15 @@ const AssignTicketsTable = () => {
         .catch((error) => {
           console.log(error);
         });
+  
     } catch (error) {
       console.log("Error from handleAssign-", error);
     }
+  
+    console.log("Assignment complete");
     setShowStatusCard(true);
   };
+  
 
   const priorities = ["High", "Medium", "Low"];
 
@@ -303,12 +307,12 @@ const AssignTicketsTable = () => {
         <div>
           <Button
             style={{ marginRight: "10px" }}
-            type="primary"
+            className="assign-ticket-btn"
             onClick={handleAssignClick}
           >
             Assign Ticket
           </Button>
-          <Button onClick={handleCloseClick}>Close</Button>
+          <Button onClick={handleCloseClick} className="close-btn">Close</Button>
         </div>
       </div>
     </div>
@@ -320,6 +324,10 @@ const AssignTicketsTable = () => {
   };
 
   const handleAssignClick = async () => {
+    if (!assignedUser) {
+      showErrorToast("Please select an employee to assign the ticket.");
+      return;
+    }
     await axiosInstanceForTicket
       .patch("ticket/assignUser", {
         ticketId: ticketId,
@@ -338,11 +346,13 @@ const AssignTicketsTable = () => {
       .finally(() => {
         setAssignedUser(null);
         fetchTickets();
+        setRefresh((prev) => !prev);
       });
   };
 
   return (
     <div>
+      <AssignTicketCards refresh={refresh} />
       <div className="application-table-section mb-3">
         <div className="d-flex justify-content-between gap-2 mb-3">
           <h2>Ticket Queue</h2>

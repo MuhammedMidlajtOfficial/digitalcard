@@ -91,7 +91,7 @@ const SubscriptionPrice = () => {
         </div>
 
         <div className="mt-3 subscription-price-section">
-          <h1>Diskuss Plan</h1>
+          <h1>KC (Know Connections) Plan</h1>
           <p className="subscription-price-subtitle">
             Lorem ipsum dolor sit amet, consectetur
           </p>

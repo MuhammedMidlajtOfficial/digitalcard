@@ -9,7 +9,7 @@ const HomeChoose = () => {
                 <div className="row align-items-center">
                     <div className="col-lg-6">
                         <div className="left-section">
-                            <img src={choose} alt="Diskuss app" className="phone-image-choose" />
+                            <img src={choose} alt="KC (Know Connections) app" className="phone-image-choose" />
                         </div>
                     </div>
                     <div className="col-lg-6">
@@ -17,11 +17,11 @@ const HomeChoose = () => {
                             <div className="why-choose">
                                 <span className="star-icon"><img src={about} alt="about" /></span> Why Choose
                             </div>
-                            <h2>Why Choose Diskuss?</h2>
+                            <h2>Why Choose KC (Know Connections)?</h2>
                             <p>
-                                Diskuss is a powerful business contact management system designed
+                            KC (Know Connections) is a powerful business contact management system designed
                                 to streamline your networking experience. Whether you're an
-                                entrepreneur, sales professional, or corporate leader, Diskuss makes
+                                entrepreneur, sales professional, or corporate leader, KC (Know Connections) makes
                                 managing, organizing, and accessing your contacts seamless. Say
                                 goodbye to messy spreadsheets and hello to a smart, intuitive platform
                                 that keeps your business relationships at your fingertips.

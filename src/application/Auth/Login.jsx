@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./auth.css";
-import login from "../Assets/Images/loginbackground.png";
+import login from "../Assets/Images/Cover.svg";
 import { Checkbox, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -64,7 +64,7 @@ const Login = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-5 col-sm-12 col-md-12 login-left">
-            <h2 className="login-heading">Diskuss</h2>
+            <h2 className="login-heading mb-4" style={{  }}>KC (Know Connections)</h2>
             <div className="login-card col-lg-10">
               <center>
                 <h2>Log in to your account</h2>
@@ -74,7 +74,7 @@ const Login = () => {
                 <div className="col-lg-12">
                   <Form.Item label="Email" name="email">
                     <Input
-                      placeholder="Enter your email"
+                      placeholder="Enter your Email"
                       autoComplete="off"
                       value={formData?.email}
                       onChange={(e) => {
@@ -86,7 +86,7 @@ const Login = () => {
                 <div className="col-lg-12">
                   <Form.Item label="Password" name="password">
                     <Input.Password
-                      placeholder="Enter your password"
+                      placeholder="Enter your Password"
                       autoComplete="off"
                       value={formData?.password}
                       onChange={(e) => {
@@ -115,7 +115,7 @@ const Login = () => {
                     onClick={handleSubmitForm}
                     disabled={loading}
                   >
-                    {loading ? "Signing in..." : "Sign in"}
+                    {loading ? "Signing in..." : "Login"}
                   </button>
                 </div>
                 {/* <div className="mt-2">
@@ -133,7 +133,7 @@ const Login = () => {
             </div>
           </div>
           <div className="col-lg-7 col-sm-0 col-md-0 login-right">
-            <img src={login} alt="" />
+            {/* <img src={login} alt="" /> */}
           </div>
         </div>
       </div>

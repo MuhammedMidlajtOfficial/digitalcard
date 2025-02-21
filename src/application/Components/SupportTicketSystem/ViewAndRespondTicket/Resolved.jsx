@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Tickets.css";
-import john_img from "../../../Assets/Images/John_img.png";
+import john_img from "../../../Assets/Images/John_img.svg";
 import { useNavigate } from "react-router-dom";
 import { Spin, Divider, Flex } from "antd"; // Import Spin for loading indicator
 import { useLoading } from "../../../Services/loadingService";
@@ -106,7 +106,7 @@ const Resolved = () => {
             <div className="d-flex justify-content-between mt-2">
               <div className="d-flex gap-2 align-items-center">
                 <img src={john_img} alt="" style={{ width: "30px" }} />
-                <p className="allTickets-p mb-0">{ticket.createdBy.username}</p>
+                <p className="allTickets-p mb-0">{ticket?.createdBy?.username}</p>
               </div>
               <button
                 className="allTickets-closedticket-button"

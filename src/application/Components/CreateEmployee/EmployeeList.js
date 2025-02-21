@@ -144,21 +144,21 @@ const EmployeeList = () => {
         </div>
         <h2 className="mt-3">{user.username || "N/A"}</h2>
         <h4 className="mt-2 employee-email">{user.email}</h4>
-        <h4 className="mt-2">{user.phnNumber || "N/A"}</h4>
+        <h4 className="pt-0">{user.phnNumber || "N/A"}</h4>
         <h5 className="categories-list">Categories</h5>
         {user.category?.length ? (
           <ul style={{ listStyleType: "disc", paddingLeft: "20px" }}>
-            {user.category.slice(0, 3).map((cat, index) => (
+            {user.category.slice(0, 2).map((cat, index) => (
               <li style={{ fontSize: "14px" }} key={index}>
-              {index === 2 && user.category.length > 3 ? (
-                <>
-                  {cat}
-                  <span style={{ color: "red", fontSize:"24px" }}>...</span>
-                </>
-              ) : (
-                cat
-              )}
-            </li>
+                {index === 1 && user.category.length > 2 ? (
+                  <>
+                    {cat}
+                    <span style={{ color: "red", fontSize: "24px" }}>.....</span>
+                  </>
+                ) : (
+                  cat
+                )}
+              </li>
             ))}
           </ul>
         ) : (
@@ -191,7 +191,7 @@ const EmployeeList = () => {
   return (
     <div className="container">
       <div className="application-users-section mb-4 d-flex justify-content-between">
-        <h2>View All Users</h2>
+        <h2>View All Employees</h2>
         <button
           className="add-all-users"
           onClick={() => navigateToForm()}
@@ -212,9 +212,16 @@ const EmployeeList = () => {
           />
         </div>
         <div className="d-flex gap-4">
-          <RxGrid className="table-card-list" onClick={() => toggleView("grid")} />
-          <LuMenu className="table-data-list" onClick={() => toggleView("table")} />
+          <RxGrid
+            className={`table-card-list ${!isTableView ? "active-view" : ""}`}
+            onClick={() => toggleView("grid")}
+          />
+          <LuMenu
+            className={`table-data-list ${isTableView ? "active-view" : ""}`}
+            onClick={() => toggleView("table")}
+          />
         </div>
+
       </div>
       {loading ? (
         <Spin size="large" className="d-flex justify-content-center mt-5" />

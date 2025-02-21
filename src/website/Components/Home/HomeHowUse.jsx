@@ -16,10 +16,10 @@ const HomeHowUse = () => {
   const tutorials = [
     {
       id: 1,
-      title: "Download the Diskuss app",
+      title: "Download the KC (Know Connections) app",
       icon: <FaIdCard />,
       content:
-        "Begin your journey by downloading the Diskuss app from your device's app store. It's available for both iOS and Android, ensuring you can access it wherever you go.",
+        "Begin your journey by downloading the KC (Know Connections) app from your device's app store. It's available for both iOS and Android, ensuring you can access it wherever you go.",
     },
     {
       id: 2,
@@ -64,7 +64,7 @@ const HomeHowUse = () => {
             <div className="section-tag">How It Works</div>
             <h2>A Simple Start to Seamless Networking</h2>
             <p className="subtitle">
-            Getting started with Diskuss is quick and easy.
+            Getting started with KC (Know Connections) is quick and easy.
             </p>
           </center>
           <div className="tutorials-container">

@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import "./Tickets.css";
-import john_img from "../../../Assets/Images/John_img.png";
+import john_img from "../../../Assets/Images/John_img.svg";
 import { useNavigate } from "react-router-dom";
 
 import { Spin, Divider, Flex } from "antd"; // Import Spin for loading indicator
@@ -96,7 +96,7 @@ const AllTicket = () => {
                                 objectFit: "cover" 
                               }} 
                             />                                
-                            <p className="allTickets-p mb-0">{ticket.createdBy.username ? ticket.createdBy.username : ticket.createdBy.companyName}</p>
+                            <p className="allTickets-p mb-0">{ticket?.createdBy?.username ? ticket.createdBy.username : ticket.createdBy?.companyName}</p>
                             </div>
                             {
                               ticket.status === "Resolved" ?
@@ -153,7 +153,7 @@ export default AllTicket;
 
 // import React from "react";
 // import "./Tickets.css";
-// import john_img from "../../../Assets/Images/John_img.png";
+// import john_img from "../../../Assets/Images/John_img.svg";
 // import { Divider } from "antd";
 // import { useNavigate } from "react-router-dom";
 

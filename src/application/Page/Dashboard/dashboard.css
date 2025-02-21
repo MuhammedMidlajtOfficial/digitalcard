@@ -255,3 +255,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.recharts-wrapper *,
+.recharts-surface *,
+.recharts-layer * {
+  outline: none !important;
+  stroke-width: 0 !important;
+  stroke: none !important;
+}

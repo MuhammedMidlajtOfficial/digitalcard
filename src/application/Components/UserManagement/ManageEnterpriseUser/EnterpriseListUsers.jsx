@@ -49,7 +49,7 @@ export const EnterpriseListUsers = ({
       render: (_, record) => (
         <Button 
           type="primary" 
-          onClick={() => navigate(`/admin/usermanagement/viewuser/${record._id}`)}
+          onClick={() => navigate(`/admin/usermanagement/entepriseusers/companyusers/${record._id}`)}
         >
           View
         </Button>

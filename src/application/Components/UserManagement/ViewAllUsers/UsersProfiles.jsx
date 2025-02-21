@@ -27,7 +27,7 @@ const UsersProfiles = ({ setChange }) => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilter, setActiveFilter] = useState("individualUser");
-
+  const [localChange, setLocalChange] = useState(false);
   const { loading, startLoading, stopLoading } = useLoading();
   const navigate = useNavigate();
 
@@ -56,7 +56,7 @@ const UsersProfiles = ({ setChange }) => {
         },
       })
       .then((response) => {
-        console.log(response);
+        console.log("fetchUsers in UsersProfiles -", response.data);
         setAllUser(response.data.totalUser);
         setTotalUsers(response.data.totalCount);
         stopLoading();
@@ -80,6 +80,7 @@ const UsersProfiles = ({ setChange }) => {
         if (response.status === 200) {
           showSuccessToast(response.data.message);
           fetchUsers();
+          setLocalChange(prev => !prev);
           setChange((prev) => !prev);
         }
         stopLoading();
@@ -105,10 +106,10 @@ const UsersProfiles = ({ setChange }) => {
   const sortMenu = (
     <Menu onClick={({ key }) => setSortOrder(key)} selectedKeys={[sortOrder]}>
       <Menu.Item key="asc">
-        ASC <IoIosArrowForward />
+        <span className="d-flex gap-2 align-items-center">ASC <IoIosArrowForward /></span>
       </Menu.Item>
       <Menu.Item key="desc">
-        DESC <IoIosArrowForward />
+      <span className="d-flex gap-2 align-items-center"> DESC <IoIosArrowForward /></span>
       </Menu.Item>
     </Menu>
   );
@@ -163,7 +164,7 @@ const UsersProfiles = ({ setChange }) => {
               <p className="null-member-tag">No Plan</p>
             )}
           </div>
-          <h4>{email}</h4>
+          <h4 className="mt-2 employee-email">{email}</h4>
           <h4>{phnNumber || "N/A"}</h4>
           <h4>
             <span style={{ color: color }}>
@@ -197,6 +198,7 @@ const UsersProfiles = ({ setChange }) => {
         activeFilter={activeFilter}
         setActiveFilter={setActiveFilter}
         handleFilterChange={handleFilterChange}
+        change={localChange}
       />
       <div className="application-users-section mb-4 d-flex justify-content-between">
         <h2>View All Users</h2>
@@ -210,13 +212,13 @@ const UsersProfiles = ({ setChange }) => {
       </div>
       <div className="d-flex mb-4 flex-lg-row flex-xl-row flex-column justify-content-between gap-4">
         <div className="search-container">
-          <FiSearch className="search-icon" />
+          <FiSearch className="search-icon-wati" />
           <input
             type="text"
             placeholder="Search..."
-            className="create-survey-search-input"
             value={searchTerm}
             onChange={handleSearch}
+            className="search-input-css"
           />
         </div>
         <div className="search-table-container d-flex gap-4">
@@ -233,13 +235,17 @@ const UsersProfiles = ({ setChange }) => {
             </button>
           </Dropdown>
           <div
-            className="d-flex align-items-center"
+            className={`d-flex align-items-center ${
+              !isTableView ? "active-view" : ""
+            }`}
             onClick={handleGridViewToggle}
           >
             <RxGrid className="table-card-list" />
           </div>
           <div
-            className="d-flex align-items-center"
+            className={`d-flex align-items-center ${
+              isTableView ? "active-view" : ""
+            }`}
             onClick={handleTableViewToggle}
           >
             <LuMenu className="table-data-list" />
@@ -251,6 +257,7 @@ const UsersProfiles = ({ setChange }) => {
       ) : isTableView ? (
         <AllUsersTableList
           allUser={allUser}
+          setAllUser={setAllUser}
           filter={activeFilter}
           currentPage={currentPage}
           pageSize={pageSize}

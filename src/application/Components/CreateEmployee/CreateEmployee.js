@@ -12,6 +12,7 @@ const CreateEmployee = () => {
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const [isImageUpdated, setIsImageUpdated] = useState(false); // Track if the image is updated
 
   const searchParams = new URLSearchParams(location.search);
   const employeeId = searchParams.get("id");
@@ -36,6 +37,8 @@ const CreateEmployee = () => {
         category: employeeData.category,
       });
       setPreviewImage(employeeData.image);
+      setIsImageUpdated(false);
+      
     } catch (error) {
       console.error("Error fetching employee details:", error);
       Swal.fire({
@@ -56,6 +59,8 @@ const CreateEmployee = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewImage(reader.result);
+        setIsImageUpdated(true);
+        
       };
       reader.readAsDataURL(file);
     }
@@ -70,17 +75,16 @@ const CreateEmployee = () => {
     try {
       const payload = {
         username: values.username,
-        image: previewImage,
+        // image: previewImage,
         email: values.email,
         password: values.password,
         phnNumber: values.phnNumber,
         category: values.category,
       };
 
-      if (previewImage) {
+      if (isImageUpdated) {
         payload.image = previewImage;
       }
-
       if (employeeId) {
         // Update existing employee
         const response = await axiosInstance.put(
@@ -205,7 +209,7 @@ const CreateEmployee = () => {
                 label="User Name"
                 name="username"
                 rules={[
-                  { required: true, message: "Please enter a username!" },
+                  { required: true, message: "Please enter a Username!" },
                 ]}
               >
                 <Input placeholder="Enter User Name" />
@@ -216,8 +220,8 @@ const CreateEmployee = () => {
                 label="Email"
                 name="email"
                 rules={[
-                  { required: true, message: "Please enter an email!" },
-                  { type: "email", message: "Enter a valid email address!" },
+                  { required: true, message: "Please enter an Email!" },
+                  { type: "email", message: "Enter a valid Email address!" },
                 ]}
               >
                 <Input placeholder="Enter Email" />
@@ -232,7 +236,7 @@ const CreateEmployee = () => {
                   label="Password"
                   name="password"
                   rules={[
-                    { required: true, message: "Please enter a password!" },
+                    { required: true, message: "Please enter a Password!" },
                   ]}
                 >
                   <Input.Password
@@ -318,6 +322,8 @@ const CreateEmployee = () => {
                       Send Notification
                     </Checkbox>
                     <Checkbox value="wati">Wati Lists</Checkbox>
+                    <Checkbox value="logs">View Logs</Checkbox>
+                    <Checkbox value="config">All Configuration</Checkbox>
                   </div>
                 </Checkbox.Group>
               </Form.Item>

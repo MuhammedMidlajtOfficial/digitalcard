@@ -160,43 +160,43 @@ const AddEmployee = ({ visible, onClose }) => {
           <div className="row mt-4">
             <div className="col-lg-6">
               <Form.Item
-                name="businessName"
+                name="Business Name"
                 label="Business Name"
                 rules={[{ required: true }]}
               >
-                <Input placeholder="Enter the business name" />
+                <Input placeholder="Enter the Business name" />
               </Form.Item>
             </div>
             <div className="col-lg-6">
               <Form.Item
-                name="businessType"
+                name="Business Type"
                 label="Business Type"
                 rules={[{ required: true }]}
               >
-                <Input placeholder="Enter the business type (e.g., Retail, IT)" />
+                <Input placeholder="Enter the Business type (e.g., Retail, IT)" />
               </Form.Item>
             </div>
             <div className="col-lg-6">
               <Form.Item
-                name="yourName"
+                name="Your Name"
                 label="Your Name"
                 rules={[{ required: true }]}
               >
-                <Input placeholder="Enter your name" />
+                <Input placeholder="Enter your Name" />
               </Form.Item>
             </div>
             <div className="col-lg-6">
               <Form.Item
-                name="designation"
+                name="Designation"
                 label="Designation"
                 rules={[{ required: true }]}
               >
-                <Input placeholder="Enter your designation" />
+                <Input placeholder="Enter your Designation" />
               </Form.Item>
             </div>
             <div className="col-lg-6">
               <Form.Item
-                name="mobile"
+                name="Mobile"
                 label="Mobile"
                 rules={[
                   { required: true },
@@ -206,12 +206,12 @@ const AddEmployee = ({ visible, onClose }) => {
                   },
                 ]}
               >
-                <Input placeholder="Enter your mobile number" />
+                <Input placeholder="Enter your Mobile number" />
               </Form.Item>
             </div>
             <div className="col-lg-6">
               <Form.Item
-                name="email"
+                name="Email"
                 label="Email"
                 rules={[{ required: true, type: "email" }]}
               >
@@ -220,34 +220,38 @@ const AddEmployee = ({ visible, onClose }) => {
             </div>
             <div className="col-lg-6">
               <Form.Item
-                name="location"
+                name="Location"
                 label="Location"
                 rules={[{ required: true }]}
               >
-                <Input placeholder="Enter the business location" />
+                <Input placeholder="Enter the Business Location" />
               </Form.Item>
             </div>
             <div className="col-lg-6">
               <Form.Item
-                name="services"
+                name="Services"
                 label="Services"
                 rules={[{ required: true }]}
               >
-                <Select mode="tags" placeholder="Enter the services offered" />
+                <Select
+                  mode="tags"
+                  className="input-padding-style"
+                  placeholder="Enter the Services offered"
+                />
               </Form.Item>
             </div>
             <div className="col-lg-6">
               <Form.Item
-                name="color"
+                name="Color"
                 label="Color"
                 rules={[{ required: true }]}
               >
-                <Input type="color" />
+                <Input className="color-padding" type="color" />
               </Form.Item>
             </div>
             <div className="col-lg-6">
               <Form.Item
-                name="theme"
+                name="Theme"
                 label="Theme"
                 rules={[{ required: true }]}
               >
@@ -255,29 +259,37 @@ const AddEmployee = ({ visible, onClose }) => {
               </Form.Item>
             </div>
             <div className="col-lg-6">
-              <Form.Item name="position" label="Position">
-                <Select placeholder="Select Position">
+              <Form.Item name="Position" label="Position">
+                <Select
+                  placeholder="Select Position"
+                  className="input-padding-css"
+                >
                   <Option value="Horizontal">Horizontal</Option>
-                  <Option value="Vertical">Vertical</Option>
+                  {/* <Option value="Vertical">Vertical</Option> */}
                 </Select>
               </Form.Item>
             </div>
             <div className="col-lg-6">
-              <Form.Item name="website" label="Website">
-                <Input placeholder="Enter the business website URL" />
-              </Form.Item>
-            </div>
-            <div className="col-lg-6">
-              <Form.Item name="topServices" label="Top Services">
+              <Form.Item name="Top Services" label="Top Services">
                 <Select
                   mode="tags"
+                  className="input-padding-style"
                   placeholder="Enter the top services and press Enter after each"
                 />
               </Form.Item>
             </div>
+            <div className="col-lg-6">
+              <Form.Item name="Website" label="Website">
+                <Input placeholder="Enter the Business website URL" />
+              </Form.Item>
+            </div>
           </div>
           <div className="d-flex justify-content-end">
-            <Button type="primary" htmlType="submit" loading={isSubmitting}>
+            <Button
+              className="add-all-users"
+              htmlType="submit"
+              loading={isSubmitting}
+            >
               Submit
             </Button>
           </div>

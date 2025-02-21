@@ -5,31 +5,37 @@ import { TbClockBolt, TbClock } from "react-icons/tb";
 import axios from "axios";
 import axiosInstanceForTicket from "../../../../AxiosContigForTicket";
 
-const AssignTicketCards = () => {
+const AssignTicketCards = ({refresh}) => {
   const [ticketStats, setTicketStats] = useState({
     totalTickets: 0,
     progressTickets: 0,
-    awaitingAssignment: 0,
+    awaitingTickets: 0,
     closedTickets: 0,
   });
+   
+  // ✅ Log refresh whenever it updates
+  useEffect(() => {
+    console.log("Refresh updated:", refresh);
+  }, [refresh]);
+  
+  
+  const fetchTicketStats = async () => {
+    try {
+      const response = await axiosInstanceForTicket.get("/ticket/stats");
+      setTicketStats({
+        totalTickets: response.data.totalTickets,
+        progressTickets: response.data.onGoingTickets, // Assuming progress tickets are open tickets
+        awaitingTickets: response.data.openTickets || 0, // Placeholder if this data is not available
+        closedTickets: response.data.closedTickets,
+      });
+    } catch (error) {
+      console.error("Error fetching ticket stats:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchTicketStats = async () => {
-      try {
-        const response = await axiosInstanceForTicket.get("/ticket/stats");
-        setTicketStats({
-          totalTickets: response.data.totalTickets,
-          progressTickets: response.data.onGoingTickets, // Assuming progress tickets are open tickets
-          awaitingAssignment: response.data.openTickets || 0, // Placeholder if this data is not available
-          closedTickets: response.data.closedTickets,
-        });
-      } catch (error) {
-        console.error("Error fetching ticket stats:", error);
-      }
-    };
-
     fetchTicketStats();
-  }, []);
+  }, [refresh]); // ✅ Fetches stats whenever refresh changes
 
   const cardData = [
     {
@@ -48,8 +54,8 @@ const AssignTicketCards = () => {
     },
     {
       icon: TbClock,
-      title: "Awaiting Assignment",
-      value: ticketStats.awaitingAssignment,
+      title: "Awaiting Tickets",
+      value: ticketStats.awaitingTickets,
       bgColor: "#ffcb64",
       textColor: "#ffffff",
     },

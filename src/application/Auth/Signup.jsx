@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./auth.css";
-import login from "../Assets/Images/loginbackground.png";
+import login from "../Assets/Images/loginbackground.svg";
 import { Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import  { axiosInstance } from "../../../src/AxiosConfig";
@@ -91,7 +91,7 @@ const onFinish = async (values) => {
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-5 col-sm-12 col-md-12 login-left">
-            <h2 className="login-heading">Diskuss</h2>
+            <h2 className="login-heading">KC (Know Connections)</h2>
             <div className="login-card col-lg-10">
               <center>
                 <h2>Sign Up to your account</h2>
@@ -110,7 +110,7 @@ const onFinish = async (values) => {
                     rules={[
                       {
                         required: true,
-                        message: "Please enter your username.",
+                        message: "Please enter your Username.",
                       },
                     ]}
                   >
@@ -176,7 +176,7 @@ const onFinish = async (values) => {
             </div>
           </div>
           <div className="col-lg-7 col-sm-0 col-md-0 login-right">
-            <img src={login} alt="" />
+            {/* <img src={login} alt="" /> */}
           </div>
         </div>
       </div>

@@ -9,9 +9,9 @@ const AboutWhoWeAre = () => {
         <div className="row align-items-center">
           <ScrollAnimation animationClass="animate__fadeInUp" className="col-lg-5">
             <div className="content">
-              <h1>About Diskuss</h1>
+              <h1>About KC (Know Connections)</h1>
               <p>
-              Diskuss was created with a single purpose: to revolutionize business contact management. In a world moving beyond physical exchanges, Diskuss offers a smart, digital solution to manage your contacts seamlessly, providing real-time insights, instant sharing, and enhanced privacy to keep you connected efficiently."
+              KC (Know Connections) was created with a single purpose: to revolutionize business contact management. In a world moving beyond physical exchanges, KC (Know Connections) offers a smart, digital solution to manage your contacts seamlessly, providing real-time insights, instant sharing, and enhanced privacy to keep you connected efficiently."
               </p>
              
             </div>

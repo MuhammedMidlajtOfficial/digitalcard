@@ -116,7 +116,7 @@ const EmailSMSCreateTemplate = ({ open, onClose }) => {
                   <input
                     type="text"
                     className="form-control form_control"
-                    placeholder="https//:diskuss.website.com"
+                    placeholder="https//:knowconnections.com"
                   />
                 </Form.Item>
               </div>

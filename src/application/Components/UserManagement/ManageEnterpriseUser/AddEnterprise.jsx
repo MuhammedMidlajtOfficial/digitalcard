@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Modal, Form, Input, Select, Button } from "antd";
+import { Modal, Form, Input, Button } from "antd";
 import { axiosInstance } from "../../../../AxiosConfig";
 import { useLoading } from "../../../Services/loadingService";
 import { TbEdit } from "react-icons/tb";
@@ -13,9 +13,9 @@ import {
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 
 const AddEnterprise = ({ visible, onClose }) => {
-  const { loading, startLoading, stopLoading } = useLoading(); // Use the loading state
+  const { startLoading, stopLoading } = useLoading(); 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // State for blur effect
+  const [, setIsLoading] = useState(false); 
   const fileInputRef = useRef(null);
   const [enterpriseUserData, setEnterpriseUser] = useState({
     companyName: "",
@@ -39,11 +39,11 @@ const AddEnterprise = ({ visible, onClose }) => {
   };
 
   const addEnterpriseUser = () => {
-    if (isSubmitting) return; // Prevent multiple clicks
+    if (isSubmitting) return; 
 
     setIsSubmitting(true);
-    setIsLoading(true); // Enable blur effect
-    startLoading(); // Start loading indicator
+    setIsLoading(true); 
+    startLoading(); 
     console.log("Data to be submitted:", enterpriseUserData);
     axiosInstance
       .post(`user/addEnterpriseUser`, {
@@ -65,13 +65,14 @@ const AddEnterprise = ({ visible, onClose }) => {
       .then((response) => {
         if (response.status === 201) {
           showSuccessToast("Enterprise user created successfully!");
+          onClose();
         } else {
           showInfoToast("Unexpected response. Check the console for details.");
           console.log("Response--", response);
         }
-        setIsLoading(false); // Disable blur effect
+        setIsLoading(false); 
         setIsSubmitting(false);
-        stopLoading(); // Stop loading when data is fetched
+        stopLoading(); 
       })
       .catch((error) => {
         if (error.response) {
@@ -99,9 +100,9 @@ const AddEnterprise = ({ visible, onClose }) => {
           console.log("Error -", error);
         }
 
-        setIsLoading(false); // Disable blur effect in case of an error
+        setIsLoading(false); 
         setIsSubmitting(false);
-        stopLoading(); // Stop loading in case of an error
+        stopLoading();
       });
   };
   const [previewImage, setPreviewImage] = useState("");
@@ -128,17 +129,16 @@ const AddEnterprise = ({ visible, onClose }) => {
     }
 
     try {
-      // Compress the image using browser-image-compression
       const compressedFile = await imageCompression(file, {
-        maxSizeMB: 2, // Max size in MB after compression
-        maxWidthOrHeight: 1024, // Max width/height
+        maxSizeMB: 2, 
+        maxWidthOrHeight: 1024,
       });
 
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreviewImage(reader.result); // Update preview image with compressed image
+        setPreviewImage(reader.result); 
       };
-      reader.readAsDataURL(compressedFile); // Convert the compressed file to base64
+      reader.readAsDataURL(compressedFile);
     } catch (error) {
       console.error("Image compression error:", error);
     }
@@ -207,7 +207,7 @@ const AddEnterprise = ({ visible, onClose }) => {
                 name="username"
                 className="edit-user-form"
                 rules={[
-                  { required: true, message: "Please enter a username!" },
+                  { required: true, message: "Please enter a Username!" },
                   {
                     min: 3,
                     message: "Username must be at least 3 characters long.",
@@ -229,7 +229,7 @@ const AddEnterprise = ({ visible, onClose }) => {
                 name="companyName"
                 className="edit-user-form"
                 rules={[
-                  { required: true, message: "Please enter the company name!" },
+                  { required: true, message: "Please enter the Company name!" },
                 ]}
               >
                 <Input
@@ -241,39 +241,19 @@ const AddEnterprise = ({ visible, onClose }) => {
                 />
               </Form.Item>
             </div>
-            <div className="col-md-6 mb-1">
-              <Form.Item
-                label="Industry Type"
-                name="industryType"
-                className="edit-user-form"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter the industry type!",
-                  },
-                ]}
-              >
-                <Input
-                  placeholder="Enter Industry Type"
-                  className="form-placeholder-field"
-                  name="industryType"
-                  value={enterpriseUserData.industryType}
-                  onChange={handleEnterpriseInputChange}
-                />
-              </Form.Item>
-            </div>
+            
           </div>
 
           {/* Email & Password */}
           <div className="row">
-            <div className="col-md-6 mb-1">
+            <div className="col-md-12 mb-1">
               <Form.Item
                 label="Email"
                 name="email"
                 className="edit-user-form"
                 rules={[
-                  { required: true, message: "Please enter an email!" },
-                  { type: "email", message: "Enter a valid email address!" },
+                  { required: true, message: "Please enter an Email!" },
+                  { type: "email", message: "Enter a valid Email address!" },
                 ]}
               >
                 <Input
@@ -285,13 +265,13 @@ const AddEnterprise = ({ visible, onClose }) => {
                 />
               </Form.Item>
             </div>
-            <div className="col-md-6 mb-1">
+            {/* <div className="col-md-6 mb-1">
             <Form.Item
                     label="Password"
                     name="password"
                     className="edit-user-form"
                     rules={[
-                      { required: true, message: "Please enter a password!" },
+                      { required: true, message: "Please enter a Password!" },
                       { min: 6, message: "Password must be at least 6 characters long." },
                     ]}
                   >
@@ -318,7 +298,7 @@ const AddEnterprise = ({ visible, onClose }) => {
                       </span>
                     </div>
                   </Form.Item>
-            </div>
+            </div> */}
           </div>
 
           {/* Mobile Number & Website */}
@@ -349,7 +329,7 @@ const AddEnterprise = ({ visible, onClose }) => {
                 label="Website"
                 name="website"
                 className="edit-user-form"
-                rules={[{ type: "url", message: "Enter a valid website URL!" }]}
+                rules={[{ type: "url", message: "Enter a valid Website URL!" }]}
               >
                 <Input
                   placeholder="Enter Website"
@@ -386,7 +366,7 @@ const AddEnterprise = ({ visible, onClose }) => {
                 className="edit-user-form"
               >
                 <Input.TextArea
-                  placeholder="Tell us about your company"
+                  placeholder="Tell us about your Company"
                   className="form-placeholder-field"
                   name="aboutUs"
                   value={enterpriseUserData.aboutUs}
@@ -394,9 +374,29 @@ const AddEnterprise = ({ visible, onClose }) => {
                 />
               </Form.Item>
             </div>
+            <div className="col-md-6 mb-1">
+              <Form.Item
+                label="Industry Type"
+                name="industryType"
+                className="edit-user-form"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter the Industry type!",
+                  },
+                ]}
+              >
+                <Input
+                  placeholder="Enter Industry Type"
+                  className="form-placeholder-field"
+                  name="industryType"
+                  value={enterpriseUserData.industryType}
+                  onChange={handleEnterpriseInputChange}
+                />
+              </Form.Item>
+            </div>
           </div>
 
-          {/* WhatsApp Number & Facebook Link */}
           <div className="row">
             <div className="col-md-6 mb-1">
               <Form.Item
@@ -408,14 +408,14 @@ const AddEnterprise = ({ visible, onClose }) => {
                     message: "Please enter a WhatsApp number!",
                   },
                   {
-                    pattern: /^\d{10}$/, // Regex for Indian phone numbers
+                    pattern: /^\d{10}$/, 
                     message:
-                      "Please enter a valid phone number (Must be 10 Numbers) !",
+                      "Please enter a valid Phone number (Must be 10 Numbers) !",
                   },
                 ]}
               >
                 <Input
-                  type="number"
+                  type="tel"
                   placeholder="Enter WhatsApp Number"
                   className="form-placeholder-field"
                   name="whatsappNo"
@@ -484,7 +484,7 @@ const AddEnterprise = ({ visible, onClose }) => {
             </div>
           </div>
           <div className="d-flex justify-content-end">
-            <Button type="primary" htmlType="submit" onClick={addEnterpriseUser}>
+            <Button className="add-all-users" htmlType="submit" onClick={addEnterpriseUser}>
               Submit
             </Button>
           </div>

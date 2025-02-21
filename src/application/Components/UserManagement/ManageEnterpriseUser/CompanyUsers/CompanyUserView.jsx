@@ -9,16 +9,12 @@ import {
   MDBCardImage,
   MDBTypography,
   MDBIcon,
-  MDBPagination,
-  MDBPaginationItem,
-  MDBPaginationLink,
-  MDBBtn,
 } from "mdb-react-ui-kit";
-import { Modal,Spin } from "antd";
+import { Modal, Spin, Pagination } from "antd";
 import { axiosInstance, logInstance } from "../../../../../AxiosConfig";
 import "./CompanyUserView.css";
 import AddEmployee from "./AddEmployee";
-import defaultUser from "../../../../Assets/Images/default user.png"
+import defaultUser from "../../../../Assets/Images/default-user.svg";
 export default function CompanyUserView({ userId }) {
   console.log("userId-", userId);
   const [userData, setUserData] = useState({
@@ -37,17 +33,19 @@ export default function CompanyUserView({ userId }) {
   });
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
-  const[isLoading,setIsLoading]=useState(false)
-  
+
+  const [isLoading, setIsLoading] = useState(false);
+
   const [currentPage, setCurrentPage] = useState(1);
   const employeesPerPage = 9;
-
 
   const handleCardClick = (empId) => {
     setIsLoading(true);
     logInstance
       .get(`/enterpriseEmployee/getProfile/${empId}`)
       .then((response) => {
+        console.log("dvb", response.data.user);
+
         setSelectedEmployee(response.data.user || {});
         setIsModalVisible(true);
       })
@@ -65,22 +63,18 @@ export default function CompanyUserView({ userId }) {
     setSelectedEmployee(null);
   };
 
-
-  
   useEffect(() => {
     axiosInstance
       .get(`/user/getEnterpriseUserById/${userId}`)
       .then((response) => {
         const data = response.data.userData || {};
-        console.log("data-", data);
+        console.log("datassss", data);
         setUserData({
           companyName: data.companyName || "No Name",
           email: data.email || "N/A",
           phnNumber: data.phnNumber || "N/A",
           address: data.address || "N/A",
-          image:
-            data.image ||
-            defaultUser,
+          image: data.image || defaultUser,
           socialMedia: {
             whatsappNo: data.socialMedia?.whatsappNo || "",
             facebookLink: data.socialMedia?.facebookLink || "",
@@ -102,73 +96,76 @@ export default function CompanyUserView({ userId }) {
     indexOfFirstEmployee,
     indexOfLastEmployee
   );
-  console.log("Current Employees to display:", currentEmployees);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-   const[configs,setConfigs]=useState([])
-    const fetchConfigs = () => {
-      axiosInstance
-          .get(`/config`)
-          .then((response) => {
-              setConfigs(response.data || []);
-              console.log("ALL CONFIG", response.data);
-          })
-          .catch((error) => {
-              console.error("Error fetching configs:", error);
-          })
+  const [configs, setConfigs] = useState([]);
+  const fetchConfigs = () => {
+    axiosInstance
+      .get(`/config`)
+      .then((response) => {
+        setConfigs(response.data || []);
+        // console.log("ALL CONFIG", response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching configs:", error);
+      });
   };
-  
+
   useEffect(() => {
-      fetchConfigs();
+    fetchConfigs();
   }, []);
-  
+
   const getConfigById = (id) => {
     return configs.find((config) => config._id === id) || null;
   };
-  
-  const specificConfig = getConfigById("6784cb4e3a4c28778d35986a"); 
-  
+
+  const specificConfig = getConfigById("6784cb4e3a4c28778d35986a");
+
   console.log("Specific Config: ", specificConfig);
   // Determine total pages
 
   const getThemeByCode = (themeCode) => {
     const specificConfig = getConfigById("6784cb4e3a4c28778d35986a");
-    if (specificConfig && specificConfig.config && specificConfig.config[themeCode]) {
+    if (
+      specificConfig &&
+      specificConfig.config &&
+      specificConfig.config[themeCode]
+    ) {
       return specificConfig.config[themeCode];
     }
-    return "N/A";  // Fallback if the theme is not found
+    return "N/A"; // Fallback if the theme is not found
   };
 
   const totalPages = Math.ceil(userData.employees.length / employeesPerPage);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleAddEmloyee = () => {
-      setIsModalOpen(true); 
-    };
-  
-    const closeAddEnterpriseModal = () => {
-      setIsModalOpen(false); 
-    };
-  
- 
+    setIsModalOpen(true);
+  };
+
+  const closeAddEnterpriseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <section className="company-user-view">
       <MDBContainer>
         {/* Back Button */}
-       <div className="justify-content-between d-flex">
-       <div
-          className="no-focus back-btn mb-3"
-          onClick={() => window.history.back()}
-        >
-          Back
+        <div className="justify-content-between d-flex">
+          <div
+            className="no-focus back-btn mb-3"
+            onClick={() => window.history.back()}
+          >
+            Back
+          </div>
+          <div className="no-focus back-btn mb-3" onClick={handleAddEmloyee}>
+            + Add Employee
+          </div>
         </div>
-        <div
-          className="no-focus back-btn mb-3"
-          onClick={handleAddEmloyee}
-        >
-         + Add Employee
-        </div>
-       </div>
 
         {/* Company Information */}
         <MDBRow className="justify-content-center">
@@ -312,16 +309,13 @@ export default function CompanyUserView({ userId }) {
               <MDBRow>
                 {currentEmployees.map((employee, index) => (
                   <MDBCol key={index} lg="4" md="6" sm="12" className="mb-4">
-                   <MDBCard
+                    <MDBCard
                       className="shadow-3 cursor-pointer"
                       onClick={() => handleCardClick(employee.empId?._id)}
                     >
                       <MDBCardBody>
                         <MDBCardImage
-                          src={
-                            employee.empId?.image ||
-                            defaultUser
-                          }
+                          src={employee.empId?.image || defaultUser}
                           alt="Employee Avatar"
                           className="my-4 rounded-circle"
                           style={{
@@ -344,38 +338,29 @@ export default function CompanyUserView({ userId }) {
                           Phone: {employee.empId?.phnNumber || "N/A"}
                         </MDBCardText>
                         <MDBCardText className="text-muted">
-                         Theme: {getThemeByCode(employee.empId?.theme) || "N/A"}
+                          Theme:{" "}
+                          {getThemeByCode(employee.empId?.theme) || "N/A"}
                         </MDBCardText>
                       </MDBCardBody>
                     </MDBCard>
                   </MDBCol>
                 ))}
               </MDBRow>
-              {/* Pagination Controls */}
-              <MDBPagination>
-                <MDBPaginationItem disabled={currentPage === 1}>
-                  <MDBPaginationLink
-                    onClick={() => paginate(currentPage - 1)}
-                    previous
-                  />
-                </MDBPaginationItem>
-                {[...Array(totalPages)].map((_, index) => (
-                  <MDBPaginationItem
-                    key={index}
-                    active={index + 1 === currentPage}
-                  >
-                    <MDBPaginationLink onClick={() => paginate(index + 1)}>
-                      {index + 1}
-                    </MDBPaginationLink>
-                  </MDBPaginationItem>
-                ))}
-                <MDBPaginationItem disabled={currentPage === totalPages}>
-                  <MDBPaginationLink
-                    onClick={() => paginate(currentPage + 1)}
-                    next
-                  />
-                </MDBPaginationItem>
-              </MDBPagination>
+              <div
+                style={{
+                  marginTop: "20px",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <Pagination
+                  current={currentPage}
+                  total={userData.employees.length}
+                  pageSize={employeesPerPage}
+                  onChange={handlePageChange}
+                  showSizeChanger={false}
+                />
+              </div>
             </MDBCol>
           </MDBRow>
         )}
@@ -392,10 +377,7 @@ export default function CompanyUserView({ userId }) {
         ) : selectedEmployee ? (
           <div className="employee-details-modal">
             <img
-              src={
-                selectedEmployee.image ||
-               defaultUser
-              }
+              src={selectedEmployee.image || defaultUser}
               alt="Employee"
               style={{
                 width: "100px",
@@ -418,7 +400,14 @@ export default function CompanyUserView({ userId }) {
               <strong>Role:</strong> {selectedEmployee.role || "N/A"}
             </p>
             <p>
-              <strong>Status:</strong> {selectedEmployee.status || "N/A"}
+              <strong>Status:</strong>{" "}
+              <span
+                style={{
+                  color: selectedEmployee.status === "active" ? "green" : "red",
+                }}
+              >
+                {selectedEmployee.status || "N/A"}
+              </span>
             </p>
             <p>
               <strong>User Type:</strong> {selectedEmployee.userType || "N/A"}
@@ -426,16 +415,16 @@ export default function CompanyUserView({ userId }) {
             <p>
               <strong>Address:</strong> {selectedEmployee.address || "N/A"}
             </p>
+            <p>
+              <strong>Theme:</strong>
+              {getThemeByCode(selectedEmployee.theme) || "N/A"}
+            </p>
           </div>
         ) : (
           <p>No employee data available.</p>
         )}
       </Modal>
-      <AddEmployee
-          visible={isModalOpen}
-          onClose={closeAddEnterpriseModal}
-        />
-
+      <AddEmployee visible={isModalOpen} onClose={closeAddEnterpriseModal} />
     </section>
   );
 }

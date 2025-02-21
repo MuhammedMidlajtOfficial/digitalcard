@@ -2,7 +2,7 @@ import React from "react";
 import { Dropdown, Menu, Table, Avatar, Input, Button } from "antd";
 import { IoIosArrowForward } from "react-icons/io";
 import { TbArrowsDownUp } from "react-icons/tb";
-import image1 from "../../../../Assets/Images/admin.png";
+import image1 from "../../../../Assets/Images/admin.svg";
 import { IoEllipsisHorizontalSharp } from "react-icons/io5";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
