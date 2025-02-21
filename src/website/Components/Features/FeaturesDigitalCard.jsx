@@ -41,7 +41,7 @@ export const FeaturesDigitalCard = () => {
             <div className="content p-5">
               <h1>Enhanced tools for team collaboration and management.</h1>
               <p>
-              Diskuss supports businesses by providing tools to manage team contacts, track engagement, and collaborate effectively. From customizable business card designs to role-based access and automated marketing, Diskuss makes team management smooth and efficient.
+              KC (Know Connections) supports businesses by providing tools to manage team contacts, track engagement, and collaborate effectively. From customizable business card designs to role-based access and automated marketing, KC (Know Connections) makes team management smooth and efficient.
               </p>
             </div>
           </ScrollAnimation>

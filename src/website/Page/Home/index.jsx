@@ -18,14 +18,14 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Diskuss - Business Contact Management</title>
+        <title>KC (Know Connections) - Business Contact Management</title>
         <meta
           name="description"
-          content="Explore Diskuss, your ultimate destination for 1000+ creative and unique digital card designs for every occasion. Whether you're celebrating a birthday, anniversary, or any special event, find the perfect digital card here."
+          content="Explore KC (Know Connections), your ultimate destination for 1000+ creative and unique digital card designs for every occasion. Whether you're celebrating a birthday, anniversary, or any special event, find the perfect digital card here."
         />
         <meta
           name="keywords"
-          content="digital cards, unique card designs, custom digital cards, Diskuss, digital greeting cards, card templates, online cards, special occasion cards, creative digital cards"
+          content="digital cards, unique card designs, custom digital cards, KC (Know Connections), digital greeting cards, card templates, online cards, special occasion cards, creative digital cards"
         />
       </Helmet>
 

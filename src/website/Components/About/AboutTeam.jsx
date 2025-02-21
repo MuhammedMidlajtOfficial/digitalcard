@@ -119,13 +119,13 @@ const AboutTeam = () => {
       <div className="container">
         <center>
           <h4>Our Team</h4>
-          <h2>Meet the  Diskuss Team</h2>
+          <h2>Meet the  KC (Know Connections) Team</h2>
           <p>
             Our success is driven by a dedicated team of professionals who share
             a passion for technology and a <br /> commitment to excellence.
             Together, we bring a diverse range of skills, experiences, and
             perspectives <br />
-            to the table, ensuring that Diskuss is always at the forefront of
+            to the table, ensuring that KC (Know Connections) is always at the forefront of
             innovation.
           </p>
         </center>

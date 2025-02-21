@@ -164,7 +164,7 @@ const OpenTicket = ({ ticketId }) => {
                 }));
               }}
             >
-              <Option value="In Progress">In Progress</Option>
+              {/* <Option value="In Progress">In Progress</Option> */}
               <Option value="Resolved">Resolved</Option>
             </Select>
           </div>

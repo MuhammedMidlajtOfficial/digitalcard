@@ -29,7 +29,7 @@ const Footer = () => {
               <br /> Join us in transforming professional networking.
             </p>
             <div className="socials-margin">
-              <h3 className="mb-3">contact@diskuss.in | +91 8792976734 </h3>
+              <h3 className="mb-3">contact@knowconnections.com | +91 8792976734 </h3>
               <div className="social-icons">
                 <span className="me-3">
                   <a href="https://www.facebook.com/ ">
@@ -148,7 +148,7 @@ const Footer = () => {
       </div>
       <div className="footer-bottom container mt-5 d-flex justify-content-between align-items-center">
         <p className="footer-copyright mb-0">
-          © 2024 Diskuss. All rights reserved.
+          © 2024 KC (Know Connections). All rights reserved.
         </p>
         <p className="footer-powered mb-0">Powered by Levontechno</p>
       </div>

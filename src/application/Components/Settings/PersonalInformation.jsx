@@ -108,7 +108,8 @@ export const PersonalInformation = () => {
       console.error("User ID not found in sessionStorage");
       return;
     }
-
+    console.log('userData-',userData);
+    
     const updatedData = {
       ...values,
       userType: userData.userType,
@@ -120,10 +121,10 @@ export const PersonalInformation = () => {
       .patch(`adminAuth/updateUser/${userId}`, updatedData)
       .then((response) => {
         showSuccessToast("Profile updated successfully!");
-        setUserData(response.data.updatedUser);
-        console.log("UPDATED DATA1", response.config.data);
-        console.log("UPDATED DATA2", updatedData);
-        dispatch(updateUserData(updatedData));
+        // setUserData(response.data.updatedUser);
+        // console.log("UPDATED DATA1", response.config.data);
+        // console.log("UPDATED DATA2", updatedData);
+        // dispatch(updateUserData(updatedData));
       })
       .catch((error) => {
         console.error("Error updating data:", error.message || error);
@@ -257,7 +258,7 @@ export const PersonalInformation = () => {
                 className="cancel-btn"
                 type="button"
                 onClick={() => {
-                  navigate("/admin/dashboard/overview");
+                  navigate("/admin/settings");
                 }}
               >
                 Discard

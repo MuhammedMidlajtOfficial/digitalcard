@@ -228,7 +228,7 @@ export const AddUserProfile = () => {
     fileInputRef.current.click();
   };
 
-  const HandleSubmitForm = () => {
+  const HandleSubmitForm = async () => {
     if (selectedUserType === "individual") {
       addIndividualUser();
     } else if (selectedUserType === "enterprise") {
@@ -378,7 +378,7 @@ export const AddUserProfile = () => {
               </div>
               {/* Email & Password */}
               <div className="row">
-                <div className="col-md-6 mb-1">
+                <div className="col-md-12 mb-1">
                   <Form.Item
                     label="Email"
                     name="email"
@@ -397,7 +397,7 @@ export const AddUserProfile = () => {
                     />
                   </Form.Item>
                 </div>
-                <div className="col-md-6 mb-1">
+                {/* <div className="col-md-6 mb-1">
                   <Form.Item
                     label="Password"
                     name="password"
@@ -430,7 +430,7 @@ export const AddUserProfile = () => {
                       </span>
                     </div>
                   </Form.Item>
-                </div>
+                </div> */}
               </div>
               {/* Name & Role */}
               <div className="row">
@@ -640,7 +640,7 @@ export const AddUserProfile = () => {
 
               {/* Email & Password */}
               <div className="row">
-              <div className="col-md-6 mb-1">
+              <div className="col-md-12 mb-1">
                   <Form.Item
                     label="Industry Type"
                     name="industryType"
@@ -656,7 +656,7 @@ export const AddUserProfile = () => {
                     />
                   </Form.Item>
                 </div>
-                <div className="col-md-6 mb-1">
+                {/* <div className="col-md-6 mb-1">
                   <Form.Item
                     label="Email"
                     name="email"
@@ -674,7 +674,7 @@ export const AddUserProfile = () => {
                       onChange={handleEnterpriseInputChange}
                     />
                   </Form.Item>
-                </div>
+                </div> */}
 
               </div>
 
@@ -882,8 +882,8 @@ export const AddUserProfile = () => {
                   <Button
                     className="create-btn"
                     type="primary"
-                    // htmlType="submit"
-                    onClick={addEnterpriseUser}
+                    htmlType="submit"
+                    // onClick={addEnterpriseUser}
                   >
                     Create
                   </Button>
@@ -1079,8 +1079,8 @@ export const AddUserProfile = () => {
                 </Form.Item>
               </div>
             </div> */}
-          {/* </> */}
-          {/* )} */}
+          {/* </>
+        )} */}
 
           
         </Form>

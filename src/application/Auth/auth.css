@@ -14,19 +14,24 @@
 
 .login-right {
   padding-left: 0;
+  background-image:url("../Assets/Images/Cover.svg") ;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
 }
 
-.login-right img {
+/* .login-right img {
   height: 100vh;
   width: 100%;
-}
+} */
 
 .login-card {
   background-color: var(--white-color);
   border-radius: 12px;
   padding: 30px;
   position: relative;
-  left: 80px;
+  /* left: 80px; */
   align-items: center;
 }
 
@@ -96,7 +101,7 @@
   font-size: 40px;
   font-weight: 900px;
   position: relative;
-  left: -60px;
+  /* left: -60px; */
 }
 
 .otp-input-group {
@@ -232,6 +237,6 @@
   color: var(--white-color);
   font-size: 40px;
   position: relative;
-  left: -140px;
+  /* left: -140px; */
   margin-bottom: 20px;
 }

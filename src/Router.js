@@ -98,10 +98,14 @@ import PrivateRoute from "./application/PrivateRoute";
 import CreateEmployeeForm from "./application/Page/CreateEmployee";
 import UnAuthorized from "./application/Page/Unauthorized";
 import EmployeeLIsts from "./application/Page/CreateEmployee/EmployeeLists";
-import WatiLists from "./application/Page/Wati";
-import CreateWatis from "./application/Page/Wati/CreateWati";
+// import WatiLists from "./application/Page/Wati";
+// import CreateWatis from "./application/Page/Wati/CreateWati";
 import ViewLogpage from "./application/Page/ViewLogs/ViewLogPage";
 import AllConfigurationIndex from "./application/Page/AllConfiguration/AllConfigurationIndex";
+import RedirectingPage from "./website/Page/RedirectingPage";
+import WithdrawalPage from "./application/Page/Withdrawal/withdrawalPage";
+
+import ProfileCardPage from "./website/Page/ProfileCard/ProfileCardPage";
 
 
 const Loader = () => {
@@ -196,11 +200,14 @@ const MainContent = () => {
     "/admin/createEmployee",
     "/admin/logview",
     "/admin/watiList",
-    "/admin/AllConfigurationList"
+    "/admin/AllConfigurationList", 
+
+    "/admin/withdrawalRequest",
+    "/profile-card"
+
   ];
 
   const isApplicationRoute = applicationRoutes.some(route => location.pathname.startsWith(route));
-
   useEffect(() => {
     setLoading(true);
     const timer = setTimeout(() => {
@@ -532,7 +539,7 @@ const MainContent = () => {
               path="/admin/employeeList"
               element={<PrivateRoute element={EmployeeLIsts} requiredPermission="create-employee"/>}
             />
-            <Route
+            {/* <Route
               path="/admin/watiList"
               element={<PrivateRoute element={WatiLists} requiredPermission="wati"/>}
             />
@@ -543,7 +550,7 @@ const MainContent = () => {
             <Route
               path="/admin/createWati/:id"
               element={<PrivateRoute element={CreateWatis} requiredPermission="wati"/>}
-            />
+            /> */}
              <Route
               path="/admin/AllConfigurationList"
               element={<PrivateRoute element={AllConfigurationIndex} requiredPermission="config"/>}
@@ -555,6 +562,18 @@ const MainContent = () => {
             <Route
               path="/admin/Unauthorized"
               element={<PrivateRoute element={UnAuthorized} />}
+            />
+            <Route
+              path="/admin/withdrawalRequest"
+              element={ <WithdrawalPage/>}
+            />
+            <Route
+              path="/vcard/:id"
+               element={<RedirectingPage/>}
+            />
+            <Route
+              path="/profile-card/:id"
+               element={<ProfileCardPage/>}
             />
           </Routes>
 

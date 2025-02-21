@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Dropdown,
-  Menu,
-  Table,
-  Avatar,
-  Button,
-  Spin,
-  message,
-  Select,
-} from "antd";
+import { Dropdown, Menu, Table, Avatar, Button, Spin, message, Select, } from "antd";
 import { IoIosArrowForward } from "react-icons/io";
 import { TbArrowsDownUp } from "react-icons/tb";
 import { FiFilter, FiSearch } from "react-icons/fi";
@@ -19,40 +10,43 @@ import { useNavigate } from "react-router-dom";
 import { UserOutlined } from "@ant-design/icons";
 import { axiosInstance } from "../../../../AxiosConfig";
 import { Option } from "antd/es/mentions";
-import {
-  showErrorToast,
-  showSuccessToast,
-} from "../../../Services/toastService";
+import { showErrorToast, showSuccessToast } from "../../../Services/toastService";
 
 export const ManagePaymentsTable = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [filteredData, setFilteredData] = useState(data);
+  const [filter, setFilter] = useState(data);
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeSort, setActiveSort] = useState("newest"); // Track the active sort option
+  const [activeSort, setActiveSort] = useState("desc");
   const navigate = useNavigate();
 
-  const fetchPayments = async () => {
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [total, setTotal] = useState(0);
+
+  const fetchPayments = async (page = currentPage, limit = pageSize) => {
     setLoading(true);
     try {
-      const response = await axiosInstance.get("/payment");
+      const response = await axiosInstance.get(`/payment?page=${page}&limit=${limit}&search=${searchTerm}&status=${filter}&sortOrder=${activeSort}`);
       console.log("PAYMENT DETAILS:", response.data);
   
       // Map the response data to the table format
-      const mappedData = response.data.map((item, index) => ({
+      const mappedData = response?.data?.subscriptions?.map((item, index) => ({
         key: index,
         username: {
-          name: item.user?.name || "Unknown", // If user is null, fallback to "Unknown"
-          image: item.user?.image || null, // If user is null, fallback to null
+          name: item?.user?.name || "Unknown", // If user is null, fallback to "Unknown"
+          image: item?.user?.image || null, // If user is null, fallback to null
         },
-        paymentid: item.subscription?.razorpayOrderId || "N/A", // Razorpay Order ID
-        date: new Date(item.subscription?.startDate), // Format the start date
-        paymethod: "Razorpay", // Hardcoded payment method
-        status: item.subscription?.status || "pending", // Subscription status
-        transactionid:
-          (item.subscription?.payment && item.subscription.payment[0]) ||
-          "N/A", // Get the first payment transaction ID
-        subscriptionId: item.subscription?._id || "NA", // Subscription ID
+        orderId: item?.subscription?.razorpayOrderId || "N/A", // Razorpay Order ID
+        date: new Date(item?.subscription?.startDate), // Format the start date
+        paymethod: item?.payment?.paymentMethod || "Razorpay", // Hardcoded payment method
+        status: item?.subscription?.status || "N/A", // Subscription status
+        planName: item?.subscription?.status === "free" ? "Free" : item?.subscription?.planName || item?.subscription?.planId?.name || "N/A",
+        subscriptionId: item?.subscription?._id || "N/A", // Subscription ID
+        currencyType: item?.subscription?.payment[0]?.currencyType || "N/A", // Subscription ID
+        netAmout: item?.subscription?.payment[0]?.netAmount || "N/A", // Subscription ID
+        state: item?.subscription?.payment[0]?.state || "N/A", // Subscription ID
       }));
   
       // Sort the data based on the active sort option (newest or oldest)
@@ -63,36 +57,24 @@ export const ManagePaymentsTable = () => {
       }
   
       // Set the state with the sorted and mapped data
-      setFilteredData(mappedData);
+      // setFilteredData(mappedData);
       setData(mappedData);
+      setTotal(response.data.totalSubscriptions);
     } catch (error) {
+      console.log(error);
+      
       message.error("Failed to fetch payment data");
     } finally {
       setLoading(false);
     }
   };
-  
 
   useEffect(() => {
     fetchPayments();
-  }, []);
-
-  useEffect(() => {
-    // Filter logic for search
-    const filtered = data.filter((item) => {
-      const lowerCaseTerm = searchTerm.toLowerCase();
-      const transactionId = item.transactionid?.toString().toLowerCase() || "";
-      return (
-        item.username.name.toLowerCase().includes(lowerCaseTerm) ||
-        transactionId.includes(lowerCaseTerm)
-      );
-    });
-    setFilteredData(filtered);
-  }, [searchTerm, data]);
+  }, [currentPage, pageSize, searchTerm, filter, activeSort]);
 
   const handleFilter = (status) => {
-    const filter = data.filter((payment) => payment.status === status);
-    setFilteredData(filter);
+    setFilter(status);
   };
 
   const filterMenu = (
@@ -128,6 +110,16 @@ export const ManagePaymentsTable = () => {
         Pending
       </Menu.Item>
       <Menu.Item
+        key="free"
+        className="filter-menu-item"
+        style={{ color: "gray", fontWeight: "600" }}
+        onClick={() => {
+          handleFilter("free");
+        }}
+      >
+        Free
+      </Menu.Item>
+      <Menu.Item
         key="reset"
         className="filter-menu-item"
         style={{
@@ -141,7 +133,7 @@ export const ManagePaymentsTable = () => {
           padding: "3px 6px",
         }}
         onClick={() => {
-          setFilteredData(data);
+          handleFilter("");
         }}
       >
         Reset
@@ -150,19 +142,6 @@ export const ManagePaymentsTable = () => {
   );
 
   const handleSort = (sortBy) => {
-    const sortedData = [...filteredData].sort((a, b) => {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
-
-      if (sortBy === "newest") {
-        return dateB - dateA;
-      } else if (sortBy === "oldest") {
-        return dateA - dateB;
-      }
-      return 0;
-    });
-
-    setFilteredData(sortedData);
     setActiveSort(sortBy); // Update the active sort option
   };
 
@@ -172,11 +151,11 @@ export const ManagePaymentsTable = () => {
         key="newest"
         className="filter-menu-item"
         style={{
-          color: activeSort === "newest" ? "blue" : "gray",
-          fontWeight: activeSort === "newest" ? "600" : "400",
+          color: activeSort === "desc" ? "blue" : "gray",
+          fontWeight: activeSort === "desc" ? "600" : "400",
         }}
         onClick={() => {
-          handleSort("newest");
+          handleSort("desc");
         }}
       >
         Newest First <IoIosArrowForward className="right-arrow" />
@@ -185,11 +164,11 @@ export const ManagePaymentsTable = () => {
         key="oldest"
         className="filter-menu-item"
         style={{
-          color: activeSort === "oldest" ? "blue" : "gray",
-          fontWeight: activeSort === "oldest" ? "600" : "400",
+          color: activeSort === "asc" ? "blue" : "gray",
+          fontWeight: activeSort === "asc" ? "600" : "400",
         }}
         onClick={() => {
-          handleSort("oldest");
+          handleSort("asc");
         }}
       >
         Oldest First <IoIosArrowForward className="right-arrow" />
@@ -199,7 +178,7 @@ export const ManagePaymentsTable = () => {
 
   const actionMenu = (record) => (
     <Menu>
-      {/* <Menu.Item
+      <Menu.Item
         key="view"
         onClick={() =>
           navigate("/admin/paymentmanagement/viewpayments/viewpayerinfo", {
@@ -216,7 +195,7 @@ export const ManagePaymentsTable = () => {
       >
         <RiDeleteBinLine style={{ color: "var(--danger-color)" }} />
         Delete
-      </Menu.Item> */}
+      </Menu.Item>
     </Menu>
   );
 
@@ -252,6 +231,12 @@ export const ManagePaymentsTable = () => {
       });
   };
 
+  // Handle pagination changes
+  const handleTableChange = (pagination) => {
+    setCurrentPage(pagination.current);
+    setPageSize(pagination.pageSize);
+  };
+
   const columns = [
     {
       title: "Payer Name",
@@ -269,8 +254,8 @@ export const ManagePaymentsTable = () => {
       ),
     },
     {
-      title: "Payment ID",
-      dataIndex: "paymentid",
+      title: "Order ID",
+      dataIndex: "orderId",
     },
     {
       title: "Date",
@@ -282,8 +267,20 @@ export const ManagePaymentsTable = () => {
       dataIndex: "paymethod",
     },
     {
-      title: "Transaction ID",
-      dataIndex: "transactionid",
+      title: "Plan Name",
+      dataIndex: "planName",
+    },
+    {
+      title: "Currency Type",
+      dataIndex: "currencyType",
+    },
+    {
+      title: "Net Amount",
+      dataIndex: "netAmout",
+    },
+    {
+      title: "State",
+      dataIndex: "state",
     },
     {
       title: "Status",
@@ -304,7 +301,7 @@ export const ManagePaymentsTable = () => {
           {status.charAt(0).toUpperCase() + status.slice(1)}
         </span>
       ),
-    }
+    },
     // {
     //   title: "Status",
     //   dataIndex: "status",
@@ -393,8 +390,15 @@ export const ManagePaymentsTable = () => {
             ) : (
               <Table
                 columns={columns}
-                dataSource={filteredData}
-                pagination={{ pageSize: 5 }}
+                dataSource={data}
+                pagination={{
+                  current: currentPage,
+                  pageSize: pageSize,
+                  total: total,
+                  showSizeChanger: true,
+                  showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`
+                }}
+                onChange={handleTableChange}
                 className="applied-applicants-table overflow-y-auto"
               />
             )}

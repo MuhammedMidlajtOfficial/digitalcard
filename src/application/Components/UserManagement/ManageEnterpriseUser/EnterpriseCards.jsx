@@ -41,20 +41,20 @@ const EnterpriseCards = () => {
       bgColor: "#afa8ff",
       textColor: "#ffffff",
     },
-    {
-      icon: FiUser,
-      title: "Active Users",
-      value: formatNumber(activeEnterpriseUsersCount),
-      bgColor: "#ffa0a9",
-      textColor: "#ffffff",
-    },
-    {
-      icon: LuVideo,
-      title: "New Users",
-      value: formatNumber(thisMonthEnterpriseUsersCount),
-      bgColor: "#ffcb64",
-      textColor: "#ffffff",
-    },
+    // {
+    //   icon: FiUser,
+    //   title: "Active Users",
+    //   value: formatNumber(activeEnterpriseUsersCount),
+    //   bgColor: "#ffa0a9",
+    //   textColor: "#ffffff",
+    // },
+    // {
+    //   icon: LuVideo,
+    //   title: "New Users",
+    //   value: formatNumber(thisMonthEnterpriseUsersCount),
+    //   bgColor: "#ffcb64",
+    //   textColor: "#ffffff",
+    // },
   ];
 
   return (

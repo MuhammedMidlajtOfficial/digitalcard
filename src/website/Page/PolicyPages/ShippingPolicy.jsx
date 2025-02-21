@@ -6,15 +6,15 @@ const ShippingPolicy = () => {
     <>
       <Helmet>
         <title>
-          Shipping and Delivery Policy - Diskuss | Digital Card Solutions
+          Shipping and Delivery Policy - KC (Know Connections) | Digital Card Solutions
         </title>
         <meta
           name="privacy policy"
-          content="Learn more about Diskuss and our mission to provide innovative digital card solutions. Discover how we offer 1000+ unique card designs and our commitment to enhancing your card-making experience."
+          content="Learn more about KC (Know Connections) and our mission to provide innovative digital card solutions. Discover how we offer 1000+ unique card designs and our commitment to enhancing your card-making experience."
         />
         <meta
           name="keywords"
-          content="About Diskuss, digital card solutions, Diskuss mission, digital card designs, card-making innovation, company background, Diskuss team, digital cards overview"
+          content="About KC (Know Connections), digital card solutions, KC (Know Connections) mission, digital card designs, card-making innovation, company background, KC (Know Connections) team, digital cards overview"
         />
       </Helmet>
 
@@ -30,7 +30,7 @@ const ShippingPolicy = () => {
           <div className="container">
             <h2>Shipping and Delivery Policy</h2>
             <p>
-              At Diskuss, we provide digital products and services that do not
+              At KC (Know Connections), we provide digital products and services that do not
               require physical shipping. However, in case of promotional items,
               merchandise, or other physical goods being offered, this Shipping
               and Delivery Policy outlines our terms for delivery.
@@ -42,7 +42,7 @@ const ShippingPolicy = () => {
             <ul>
               <li>
                 Email:{" "}
-                <a href="mailto:contact@diskuss.in">contact@diskuss.in</a>
+                <a href="mailto:contact@knowconnections.com">contact@knowconnections.com</a>
               </li>
               <li>Phone: +91 8792976734</li>
             </ul>
@@ -117,7 +117,7 @@ const ShippingPolicy = () => {
             <h4>4. Delivery Address</h4>
             <p>
               Please ensure that the shipping address provided during checkout
-              is accurate. Diskuss is not responsible for delays or failed
+              is accurate. KC (Know Connections) is not responsible for delays or failed
               deliveries caused by incorrect or incomplete addresses.
             </p>
 
@@ -139,7 +139,7 @@ const ShippingPolicy = () => {
 
             <h4>7. Changes to This Policy</h4>
             <p>
-              Diskuss reserves the right to update this Shipping and Delivery
+            KC (Know Connections) reserves the right to update this Shipping and Delivery
               Policy at any time. Changes will be posted on this page, and your
               continued use of the service constitutes your agreement to the
               updated terms.
@@ -152,7 +152,7 @@ const ShippingPolicy = () => {
             <ul>
               <li>
                 Email:{" "}
-                <a href="mailto:contact@diskuss.in">contact@diskuss.in</a>
+                <a href="mailto:contact@knowconnections.com">contact@knowconnections.com</a>
               </li>
               <li>Phone: +91 8792976734</li>
               <li>
@@ -163,7 +163,7 @@ const ShippingPolicy = () => {
             </ul>
 
             <p>
-              Thank you for choosing Diskuss. We are committed to delivering
+              Thank you for choosing KC (Know Connections). We are committed to delivering
               excellence!
             </p>
           </div>

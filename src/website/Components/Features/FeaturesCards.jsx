@@ -23,21 +23,21 @@ export const FeaturesCards = () => {
                 <div className='feature-features-card'>
                     <img src={icon2} alt="" />
                     <h4>Advanced Analytics & Reporting</h4>
-                    <p>Diskuss offers analytics and reporting to help you understand contact engagement and interaction trends. </p>
+                    <p>KC (Know Connections) offers analytics and reporting to help you understand contact engagement and interaction trends. </p>
                 </div>
               </div>
               <div className='col-lg-6 mb-4'>
                 <div className='feature-features-card'>
                     <img src={icon3} alt="" />
                     <h4>Secure Data and Privacy Controls</h4>
-                    <p>Diskuss prioritizes data privacy with industry-standard encryption and access controls, ensuring that your information is stored. </p>
+                    <p>KC (Know Connections) prioritizes data privacy with industry-standard encryption and access controls, ensuring that your information is stored. </p>
                 </div>
               </div>
               <div className='col-lg-6 mb-4'>
                 <div className='feature-features-card'>
                     <img src={icon4} alt="" />
                     <h4>Highlight Unique Software</h4>
-                    <p>Diskuss integrates with essential apps to streamline your workflow. </p>
+                    <p>KC (Know Connections) integrates with essential apps to streamline your workflow. </p>
                 </div>
               </div>
               <div className='col-lg-6 mb-4'>

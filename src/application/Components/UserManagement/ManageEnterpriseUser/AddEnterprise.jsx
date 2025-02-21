@@ -246,7 +246,7 @@ const AddEnterprise = ({ visible, onClose }) => {
 
           {/* Email & Password */}
           <div className="row">
-            <div className="col-md-6 mb-1">
+            <div className="col-md-12 mb-1">
               <Form.Item
                 label="Email"
                 name="email"
@@ -265,7 +265,7 @@ const AddEnterprise = ({ visible, onClose }) => {
                 />
               </Form.Item>
             </div>
-            <div className="col-md-6 mb-1">
+            {/* <div className="col-md-6 mb-1">
             <Form.Item
                     label="Password"
                     name="password"
@@ -298,7 +298,7 @@ const AddEnterprise = ({ visible, onClose }) => {
                       </span>
                     </div>
                   </Form.Item>
-            </div>
+            </div> */}
           </div>
 
           {/* Mobile Number & Website */}
