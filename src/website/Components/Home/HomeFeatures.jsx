@@ -1,7 +1,7 @@
 import React from "react";
 import phoneImage from "../../Assets/image/home/home-about-us2.svg";
-import image1 from "../../Assets/image/home/features1.svg";
-import image2 from "../../Assets/image/home/features2.svg";
+import image1 from "../../Assets/image/home/features1.png";
+import image2 from "../../Assets/image/home/features2.png";
 import leftArrow from "../../Assets/image/home/Icons/left-arrow.svg";
 import rightArrow from "../../Assets/image/home/Icons/right-arrow.svg";
 import {

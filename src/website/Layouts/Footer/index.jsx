@@ -11,7 +11,7 @@ import { FaTwitter } from "react-icons/fa";
 import { FaApple } from "react-icons/fa";
 import { IoIosSend } from "react-icons/io";
 
-import iconImage from "../../Assets/image/logo.svg";
+import iconImage from "../../Assets/image/kc-logo.svg";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
