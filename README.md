@@ -1,6 +1,6 @@
 # Diskuss
 
-Diskuss is a dynamic web application that provides users with over 1000+ digital cards for easy discussions and idea sharing. The application is built using React.js and offers a sleek, responsive design to ensure seamless user experience across devices.
+KC(Know Connections) is a dynamic web application that provides users with over 1000+ digital cards for easy discussions and idea sharing. The application is built using React.js and offers a sleek, responsive design to ensure seamless user experience across devices.
 
 ## Getting Started
 
@@ -59,13 +59,13 @@ This command will remove the single build dependency from your project, giving y
 ## Features
 
 - **Responsive Design**: Ensures a seamless user experience across various devices.
-- **Custom Animations**: Diskuss uses universal components for handling animations, providing a consistent look and feel.
+- **Custom Animations**: KC(Know Connections) uses universal components for handling animations, providing a consistent look and feel.
 - **Scalable Architecture**: Built with scalability in mind to handle a large number of digital cards efficiently.
 - **Interactive User Interface**: Designed with user interaction in mind to facilitate easy discussions and sharing.
 
 ## Deployment
 
-Diskuss can be deployed on various platforms. For more information, check the [Create React App deployment documentation](https://facebook.github.io/create-react-app/docs/deployment).
+KC(Know Connections) can be deployed on various platforms. For more information, check the [Create React App deployment documentation](https://facebook.github.io/create-react-app/docs/deployment).
 
 ## Learn More
 
