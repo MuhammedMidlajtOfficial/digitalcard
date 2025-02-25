@@ -63,6 +63,9 @@ export default function CompanyUserView({ userId }) {
     setSelectedEmployee(null);
   };
 
+  const totalPages = Math.ceil(userData.employees.length / employeesPerPage);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(() => {
     axiosInstance
       .get(`/user/getEnterpriseUserById/${userId}`)
@@ -87,7 +90,7 @@ export default function CompanyUserView({ userId }) {
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
-  }, [userId]);
+  }, [userId, isModalOpen ]);
 
   // Pagination Logic
   const indexOfLastEmployee = currentPage * employeesPerPage;
@@ -140,8 +143,7 @@ export default function CompanyUserView({ userId }) {
     return "N/A"; // Fallback if the theme is not found
   };
 
-  const totalPages = Math.ceil(userData.employees.length / employeesPerPage);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  
 
   const handleAddEmloyee = () => {
     setIsModalOpen(true);
