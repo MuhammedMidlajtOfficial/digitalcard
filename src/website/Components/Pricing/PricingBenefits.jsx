@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import individual from "../../Assets/image/pricing/pricing-keybenefits.svg";
-import enterprise from "../../Assets/image/pricing/pricing-keybenefits.svg";
+import individual from "../../Assets/image/pricing/pricing-keybenefits.png";
+import enterprise from "../../Assets/image/pricing/pricing-keybenefits.png";
 import ScrollAnimation from "../../../ScrollAnimation";
 import { FaCheckCircle } from "react-icons/fa";
 

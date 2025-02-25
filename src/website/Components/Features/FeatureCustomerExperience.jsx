@@ -1,5 +1,5 @@
 import React from "react";
-import image1 from "../../Assets/image/feature/featureCustomerExp.svg";
+import image1 from "../../Assets/image/feature/featureCustomerExp.png";
 import { AiOutlineThunderbolt } from "react-icons/ai";
 import { FaCheck, FaShield } from "react-icons/fa6";
 import { FiLayers } from "react-icons/fi";
