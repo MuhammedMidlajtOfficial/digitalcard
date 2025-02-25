@@ -11,6 +11,7 @@ import {
   showWarningToast,
 } from "../../../../Services/toastService";
 import { useParams } from "react-router-dom";
+import axiosInstanceForTicket from "../../../../../AxiosContigForTicket";
 const { Option } = Select;
 
 const AddEmployee = ({ visible, onClose }) => {
@@ -20,6 +21,7 @@ const AddEmployee = ({ visible, onClose }) => {
   const [previewImage, setPreviewImage] = useState("");
   const fileInputRef = useRef(null);
   const { userId } = useParams();
+
   const handleImageFileChange = async (e) => {
     const file = e.target.files[0];
     const allowedTypes = [
@@ -67,10 +69,22 @@ const AddEmployee = ({ visible, onClose }) => {
     setIsSubmitting(true);
     setIsLoading(true);
     startLoading();
-    const payload = { ...values, image: previewImage, userId };
+
+    const payload = {
+      ...values,
+      image: previewImage,
+      userId,
+      cardType: "enterprise", // Assuming cardType is required
+      whatsappNo: values.whatsappNo || "", // Optional fields
+      facebookLink: values.facebookLink || "",
+      instagramLink: values.instagramLink || "",
+      twitterLink: values.twitterLink || "",
+    };
+
     console.log("Payload:", payload);
-    logInstance
-      .post(`/cardEnterprise`, payload)
+
+    axiosInstance
+      .post("user/addEnterpriseEmployee", payload)
       .then((response) => {
         if (response.status === 201) {
           showSuccessToast("Enterprise user created successfully!");
@@ -93,6 +107,10 @@ const AddEmployee = ({ visible, onClose }) => {
             ) {
               showErrorToast(
                 "This email address is already associated with an enterprise employee."
+              );
+            } else if (error.response.data.message.includes("phone number")) {
+              showErrorToast(
+                "This phone number is already associated with another user."
               );
             }
           } else if (errorStatus === 400) {
@@ -160,7 +178,7 @@ const AddEmployee = ({ visible, onClose }) => {
           <div className="row mt-4">
             <div className="col-lg-6">
               <Form.Item
-                name="Business Name"
+                name="businessName"
                 label="Business Name"
                 rules={[{ required: true }]}
               >
@@ -169,7 +187,7 @@ const AddEmployee = ({ visible, onClose }) => {
             </div>
             <div className="col-lg-6">
               <Form.Item
-                name="Business Type"
+                name="businessType"
                 label="Business Type"
                 rules={[{ required: true }]}
               >
@@ -178,7 +196,7 @@ const AddEmployee = ({ visible, onClose }) => {
             </div>
             <div className="col-lg-6">
               <Form.Item
-                name="Your Name"
+                name="yourName"
                 label="Your Name"
                 rules={[{ required: true }]}
               >
@@ -187,7 +205,7 @@ const AddEmployee = ({ visible, onClose }) => {
             </div>
             <div className="col-lg-6">
               <Form.Item
-                name="Designation"
+                name="designation"
                 label="Designation"
                 rules={[{ required: true }]}
               >
@@ -196,7 +214,7 @@ const AddEmployee = ({ visible, onClose }) => {
             </div>
             <div className="col-lg-6">
               <Form.Item
-                name="Mobile"
+                name="mobile"
                 label="Mobile"
                 rules={[
                   { required: true },
@@ -211,7 +229,7 @@ const AddEmployee = ({ visible, onClose }) => {
             </div>
             <div className="col-lg-6">
               <Form.Item
-                name="Email"
+                name="email"
                 label="Email"
                 rules={[{ required: true, type: "email" }]}
               >
@@ -220,7 +238,7 @@ const AddEmployee = ({ visible, onClose }) => {
             </div>
             <div className="col-lg-6">
               <Form.Item
-                name="Location"
+                name="location"
                 label="Location"
                 rules={[{ required: true }]}
               >
@@ -229,7 +247,7 @@ const AddEmployee = ({ visible, onClose }) => {
             </div>
             <div className="col-lg-6">
               <Form.Item
-                name="Services"
+                name="services"
                 label="Services"
                 rules={[{ required: true }]}
               >
@@ -242,7 +260,7 @@ const AddEmployee = ({ visible, onClose }) => {
             </div>
             <div className="col-lg-6">
               <Form.Item
-                name="Color"
+                name="color"
                 label="Color"
                 rules={[{ required: true }]}
               >
@@ -251,7 +269,7 @@ const AddEmployee = ({ visible, onClose }) => {
             </div>
             <div className="col-lg-6">
               <Form.Item
-                name="Theme"
+                name="theme"
                 label="Theme"
                 rules={[{ required: true }]}
               >
@@ -259,7 +277,7 @@ const AddEmployee = ({ visible, onClose }) => {
               </Form.Item>
             </div>
             <div className="col-lg-6">
-              <Form.Item name="Position" label="Position">
+              <Form.Item name="position" label="Position">
                 <Select
                   placeholder="Select Position"
                   className="input-padding-css"
@@ -270,7 +288,7 @@ const AddEmployee = ({ visible, onClose }) => {
               </Form.Item>
             </div>
             <div className="col-lg-6">
-              <Form.Item name="Top Services" label="Top Services">
+              <Form.Item name="topServices" label="Top Services">
                 <Select
                   mode="tags"
                   className="input-padding-style"
@@ -279,8 +297,28 @@ const AddEmployee = ({ visible, onClose }) => {
               </Form.Item>
             </div>
             <div className="col-lg-6">
-              <Form.Item name="Website" label="Website">
+              <Form.Item name="website" label="Website">
                 <Input placeholder="Enter the Business website URL" />
+              </Form.Item>
+            </div>
+            <div className="col-lg-6">
+              <Form.Item name="whatsappNo" label="WhatsApp Number">
+                <Input placeholder="Enter WhatsApp Number" />
+              </Form.Item>
+            </div>
+            <div className="col-lg-6">
+              <Form.Item name="facebookLink" label="Facebook Link">
+                <Input placeholder="Enter Facebook Link" />
+              </Form.Item>
+            </div>
+            <div className="col-lg-6">
+              <Form.Item name="instagramLink" label="Instagram Link">
+                <Input placeholder="Enter Instagram Link" />
+              </Form.Item>
+            </div>
+            <div className="col-lg-6">
+              <Form.Item name="twitterLink" label="Twitter Link">
+                <Input placeholder="Enter Twitter Link" />
               </Form.Item>
             </div>
           </div>
