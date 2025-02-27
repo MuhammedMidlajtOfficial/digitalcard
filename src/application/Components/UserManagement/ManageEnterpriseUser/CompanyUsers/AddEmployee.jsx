@@ -74,6 +74,7 @@ const AddEmployee = ({ visible, onClose }) => {
       ...values,
       image: previewImage,
       userId,
+      position:'Horizontal',
       cardType: "enterprise", // Assuming cardType is required
       whatsappNo: values.whatsappNo || "", // Optional fields
       facebookLink: values.facebookLink || "",
@@ -263,30 +264,31 @@ const AddEmployee = ({ visible, onClose }) => {
                 name="color"
                 label="Color"
                 rules={[{ required: true }]}
+                initialValue="#000000" 
               >
                 <Input className="color-padding" type="color" />
               </Form.Item>
             </div>
             <div className="col-lg-6">
-              <Form.Item
-                name="theme"
-                label="Theme"
-                rules={[{ required: true }]}
-              >
-                <Input placeholder="Enter Theme" />
+              <Form.Item name="theme" label="Theme" rules={[{ required: true }]}>
+                <Select placeholder="Select Theme">
+                  <Select.Option value="001">Solid Color</Select.Option>
+                  <Select.Option value="002">Circular Accent</Select.Option>
+                  <Select.Option value="003">Blended Circles</Select.Option>
+                </Select>
               </Form.Item>
             </div>
-            <div className="col-lg-6">
+            {/* <div className="col-lg-6">
               <Form.Item name="position" label="Position">
                 <Select
                   placeholder="Select Position"
                   className="input-padding-css"
                 >
-                  <Option value="Horizontal">Horizontal</Option>
+                  <Option value="Horizontal">Horizontal</Option> */}
                   {/* <Option value="Vertical">Vertical</Option> */}
-                </Select>
+                {/* </Select>
               </Form.Item>
-            </div>
+            </div> */}
             <div className="col-lg-6">
               <Form.Item name="topServices" label="Top Services">
                 <Select
