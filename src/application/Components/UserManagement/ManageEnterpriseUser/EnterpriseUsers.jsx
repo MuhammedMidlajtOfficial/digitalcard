@@ -63,7 +63,7 @@ const EnterpriseUsers = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, [currentPage, pageSize, sortOrder, searchTerm]);
+  }, [currentPage, pageSize, sortOrder, searchTerm,]);
   const handleAddEnterprise = () => {
     setIsModalOpen(true); // Open modal when button is clicked
   };

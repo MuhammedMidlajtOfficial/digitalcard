@@ -22,7 +22,7 @@ export const AddUserProfile = () => {
   const [individualUserData, setIndividualUser] = useState({
     username : "",
     email : "",
-    password:"",
+    password:" ",
     image : "",
     role : "",
     name : "",
@@ -38,7 +38,7 @@ export const AddUserProfile = () => {
     companyName: "",  
     industryType: "", 
     email: "",        
-    password: "",     
+    password: " ",     
     image: "",          
     phnNumber: "",
     aboutUs: "",
@@ -640,7 +640,7 @@ export const AddUserProfile = () => {
 
               {/* Email & Password */}
               <div className="row">
-              <div className="col-md-12 mb-1">
+                <div className="col-md-6 mb-1">
                   <Form.Item
                     label="Industry Type"
                     name="industryType"
@@ -656,7 +656,7 @@ export const AddUserProfile = () => {
                     />
                   </Form.Item>
                 </div>
-                {/* <div className="col-md-6 mb-1">
+                <div className="col-md-6 mb-1">
                   <Form.Item
                     label="Email"
                     name="email"
@@ -674,13 +674,12 @@ export const AddUserProfile = () => {
                       onChange={handleEnterpriseInputChange}
                     />
                   </Form.Item>
-                </div> */}
-
+                </div>
               </div>
 
               {/* Mobile Number & Website */}
               <div className="row">
-              <div className="col-md-6 mb-1">
+              {/* <div className="col-md-6 mb-1">
                   <Form.Item
                     label="Password"
                     name="password"
@@ -713,8 +712,8 @@ export const AddUserProfile = () => {
                       </span>
                     </div>
                   </Form.Item>
-                </div>
-                <div className="col-md-6 mb-1">
+                </div> */}
+                <div className="col-md-12 mb-1">
                   <Form.Item
                     label="Mobile Number"
                     name="phnNumber"
