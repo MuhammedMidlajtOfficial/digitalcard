@@ -3,7 +3,7 @@ import { FaPhoneAlt, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { IoMailSharp } from "react-icons/io5";
 import { RiFacebookCircleLine } from "react-icons/ri";
 import { PiPhoneFill } from "react-icons/pi";
-import { Avatar } from "antd";
+import { Avatar, message } from "antd";
 import { logInstance } from "../../../AxiosConfig";
 import { useLoading } from "../../../application/Services/loadingService";
 import { useParams } from "react-router-dom";
@@ -13,7 +13,7 @@ const ProfileCard = () => {
   const [cardsData, setCardsData] = useState([]);
   console.log("cardssssData", cardsData);
 
-  const { loading, startLoading, stopLoading } = useLoading();
+  const { startLoading, stopLoading } = useLoading();
   const { id } = useParams();
 
   // Manage flip state for multiple cards
@@ -68,14 +68,19 @@ END:VCARD`;
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
-
+  const handleLinkClick = (event, link) => {
+    if (!link) {
+      event.preventDefault();
+      message.error("Not Found");
+    }
+  };
   return (
     <div className="cards-container ">
       {cardsData && (
         <div className="business-card" key={cardsData._id}>
           <div className="business-card-first-container">
             <h1 className="business-card-first-container-headtext">
-              {cardsData.businessName}
+              {cardsData.businessName || "N/A"}
             </h1>
           </div>
 
@@ -98,10 +103,10 @@ END:VCARD`;
                   <div className="business-card-content">
                     <div className="business-card-button">
                       <p style={{ fontWeight: "700", paddingTop: "5px" }}>
-                        {cardsData.yourName}
+                        {cardsData.yourName || "N/A"}
                       </p>
                       <p style={{ fontWeight: "500" }}>
-                        {cardsData.designation}
+                        {cardsData.designation || "N/A"}
                       </p>
                       <hr style={{ width: "100%" }} />
                     </div>
@@ -132,7 +137,7 @@ END:VCARD`;
                             className="text-style"
                             style={{ margin: 0, padding: 0, fontSize: "15px" }}
                           >
-                            {cardsData.mobile}
+                            {cardsData.mobile || "N/A"}
                           </p>
                         </a>
                       </span>
@@ -155,48 +160,61 @@ END:VCARD`;
                             className="business-card-icon-style"
                             style={{ marginTop: "3px", padding: 0 }}
                           />
-                          <p className="text-style">{cardsData.email}</p>
+                          <p className="text-style">
+                            {cardsData.email || "N/A"}
+                          </p>
                         </a>
                       </span>
                     </div>
                     <div className="business-card-button">
                       <span className="business-card-iconss">
-                        {cardsData.whatsappNo && (
-                          <a
-                            href={`https://wa.me/${cardsData.whatsappNo}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <FaWhatsapp />
-                          </a>
-                        )}
-                        {cardsData.facebookLink && (
-                          <a
-                            href={cardsData.facebookLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <RiFacebookCircleLine />
-                          </a>
-                        )}
-                        {cardsData.instagramLink && (
-                          <a
-                            href={cardsData.instagramLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <FaInstagram />
-                          </a>
-                        )}
-                        {cardsData.twitterLink && (
-                          <a
-                            href={cardsData.twitterLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <LuTwitter />
-                          </a>
-                        )}
+                        <a
+                          href={
+                            cardsData.whatsappNo
+                              ? `https://wa.me/${cardsData.whatsappNo}`
+                              : "#"
+                          }
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) =>
+                            handleLinkClick(e, cardsData.whatsappNo)
+                          }
+                        >
+                          <FaWhatsapp />
+                        </a>
+
+                        <a
+                          href={cardsData.facebookLink || "#"}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) =>
+                            handleLinkClick(e, cardsData.facebookLink)
+                          }
+                        >
+                          <RiFacebookCircleLine />
+                        </a>
+
+                        <a
+                          href={cardsData.instagramLink || "#"}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) =>
+                            handleLinkClick(e, cardsData.instagramLink)
+                          }
+                        >
+                          <FaInstagram />
+                        </a>
+
+                        <a
+                          href={cardsData.twitterLink || "#"}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) =>
+                            handleLinkClick(e, cardsData.twitterLink)
+                          }
+                        >
+                          <LuTwitter />
+                        </a>
                       </span>
                     </div>
                   </div>
@@ -204,7 +222,7 @@ END:VCARD`;
               </div>
               <div className="back">
                 <h2 className="business-card-services-header">Services</h2>
-                {cardsData?.services?.length > 0 && (
+                {cardsData?.services?.length > 0 ? (
                   <div className="business-card-services-list">
                     <div>
                       <ul className="business-card-service-column">
@@ -226,6 +244,8 @@ END:VCARD`;
                       </ul>
                     </div>
                   </div>
+                ) : (
+                  <p className="no-services">No services available</p>
                 )}
               </div>
             </div>
@@ -258,7 +278,9 @@ END:VCARD`;
                   }}
                 >
                   <FaPhoneAlt style={{ fontSize: "20px" }} />
-                  <p style={{ fontSize: "20px" }}>{cardsData.mobile}</p>
+                  <p style={{ fontSize: "20px" }}>
+                    {cardsData.mobile || "N/A"}
+                  </p>
                 </a>
               </span>
 
@@ -269,23 +291,19 @@ END:VCARD`;
                   rel="noopener noreferrer"
                   style={{
                     display: "flex",
-                    alignItems: "center",
+                    alignItems: "start",
                     textDecoration: "none",
                     color: "black",
                     gap: "15px",
                   }}
                 >
-                  <IoMailSharp style={{ fontSize: "20px" }} />
-                  <span style={{ fontSize: "20px" }}>{cardsData.email}</span>
+                  <IoMailSharp
+                    style={{ fontSize: "20px", marginTop: "10px" }}
+                  />
+                  <span className="user-email">{cardsData.email }</span>
                 </a>
               </span>
             </div>
-            {/* <button
-              className="save-contact"
-              onClick={() => window.open(`tel:${cardsData.mobile}`, "_blank")}
-            >
-              SAVE CONTACT
-            </button> */}
             <button className="save-contact" onClick={generateVCF}>
               SAVE CONTACT
             </button>
@@ -341,42 +359,45 @@ END:VCARD`;
           <div>
             <div className="firstend-container">
               <span className="footer-icons">
-                {cardsData.whatsappNo && (
-                  <a
-                    href={`https://wa.me/${cardsData.whatsappNo}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FaWhatsapp />
-                  </a>
-                )}
-                {cardsData.facebookLink && (
-                  <a
-                    href={cardsData.facebookLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <RiFacebookCircleLine />
-                  </a>
-                )}
-                {cardsData.instagramLink && (
-                  <a
-                    href={cardsData.instagramLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FaInstagram />
-                  </a>
-                )}
-                {cardsData.twitterLink && (
-                  <a
-                    href={cardsData.twitterLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <LuTwitter />
-                  </a>
-                )}
+                <a
+                  href={
+                    cardsData.whatsappNo
+                      ? `https://wa.me/${cardsData.whatsappNo}`
+                      : "#"
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => handleLinkClick(e, cardsData.whatsappNo)}
+                >
+                  <FaWhatsapp />
+                </a>
+
+                <a
+                  href={cardsData.facebookLink || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => handleLinkClick(e, cardsData.facebookLink)}
+                >
+                  <RiFacebookCircleLine />
+                </a>
+
+                <a
+                  href={cardsData.instagramLink || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => handleLinkClick(e, cardsData.instagramLink)}
+                >
+                  <FaInstagram />
+                </a>
+
+                <a
+                  href={cardsData.twitterLink || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => handleLinkClick(e, cardsData.twitterLink)}
+                >
+                  <LuTwitter />
+                </a>
               </span>
             </div>
             <div className="secondend-container">
