@@ -44,7 +44,7 @@ export default function CompanyUserView({ userId }) {
     logInstance
       .get(`/enterpriseEmployee/getProfile/${empId}`)
       .then((response) => {
-        console.log("dvb", response.data.user);
+        console.log("enterpriseEmployee--", response.data.user);
 
         setSelectedEmployee(response.data.user || {});
         setIsModalVisible(true);
@@ -63,6 +63,9 @@ export default function CompanyUserView({ userId }) {
     setSelectedEmployee(null);
   };
 
+  const totalPages = Math.ceil(userData.employees.length / employeesPerPage);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(() => {
     axiosInstance
       .get(`/user/getEnterpriseUserById/${userId}`)
@@ -73,7 +76,7 @@ export default function CompanyUserView({ userId }) {
           companyName: data.companyName || "No Name",
           email: data.email || "N/A",
           phnNumber: data.phnNumber || "N/A",
-          address: data.address || "N/A",
+          username: data.username || "N/A",
           image: data.image || defaultUser,
           socialMedia: {
             whatsappNo: data.socialMedia?.whatsappNo || "",
@@ -82,12 +85,13 @@ export default function CompanyUserView({ userId }) {
             twitterLink: data.socialMedia?.twitterLink || "",
           },
           employees: data.empIds || [],
+          employeesCount: data?.empIds.length || 0,
         });
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
-  }, [userId]);
+  }, [userId, isModalOpen ]);
 
   // Pagination Logic
   const indexOfLastEmployee = currentPage * employeesPerPage;
@@ -140,8 +144,7 @@ export default function CompanyUserView({ userId }) {
     return "N/A"; // Fallback if the theme is not found
   };
 
-  const totalPages = Math.ceil(userData.employees.length / employeesPerPage);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  
 
   const handleAddEmloyee = () => {
     setIsModalOpen(true);
@@ -227,12 +230,20 @@ export default function CompanyUserView({ userId }) {
                       </MDBCol>
                     </MDBRow>
                     <MDBRow>
-                      <MDBCol size="12" className="mb-4">
+                      <MDBCol size="6" className="mb-4">
                         <MDBTypography tag="h6" className="fw-bold">
-                          Address
+                        User Name
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          {userData.address}
+                          {userData?.username}
+                        </MDBCardText>
+                      </MDBCol>
+                      <MDBCol size="6" className="mb-4">
+                        <MDBTypography tag="h6" className="fw-bold">
+                        Employees Count
+                        </MDBTypography>
+                        <MDBCardText className="text-muted">
+                          {userData?.employeesCount}
                         </MDBCardText>
                       </MDBCol>
                     </MDBRow>
@@ -338,8 +349,8 @@ export default function CompanyUserView({ userId }) {
                           Phone: {employee.empId?.phnNumber || "N/A"}
                         </MDBCardText>
                         <MDBCardText className="text-muted">
-                          Theme:{" "}
-                          {getThemeByCode(employee.empId?.theme) || "N/A"}
+                          Theme code: {employee.empId?.theme}
+                          {/* {getThemeByCode(employee.empId?.theme) || "N/A"} */}
                         </MDBCardText>
                       </MDBCardBody>
                     </MDBCard>
