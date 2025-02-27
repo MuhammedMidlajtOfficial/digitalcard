@@ -27,7 +27,6 @@
 }
 
 .business-card-second-container {
-  height: 100%;
   background-color: transparent;
   margin: 10px;
   margin-top: -55px;
@@ -234,8 +233,8 @@
   align-items: center;
   border-radius: 20px;
   height: 200px;
-  margin: 10px;
-  padding: 10px 20px;
+  /* margin: 10px; */
+  /* padding: 10px 20px; */
   margin-top: -40px;
   transition: transform 0.6s;
   transform-style: preserve-3d;
@@ -288,7 +287,8 @@
 .business-card-services-list2 {
   margin: 15px;
   padding: 10px 0px;
-  box-shadow: rgba(24, 107, 185, 0.15) 0px 15px 25px, rgba(43, 107, 204, 0.05) 0px 5px 10px;
+  box-shadow: rgba(24, 107, 185, 0.15) 0px 15px 25px,
+    rgba(43, 107, 204, 0.05) 0px 5px 10px;
 }
 .business-card-services-list2 h3 {
   font-size: 22px;
@@ -338,6 +338,14 @@
   overflow-wrap: break-word;
   white-space: normal;
 }
+.user-email {
+  font-size: 20px;
+  width: 300px;
+  display: block;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
 
 .business-card-icon-style {
   font-size: 14px;
@@ -346,19 +354,31 @@
   font-size: 26px;
 }
 
+
 @media (max-width: 768px) {
+    .business-card-content {
+      padding: 10px 10px;
+
+    }
   .text-style {
     font-size: 14px;
   }
   .business-card-icon-style {
     font-size: 14px;
   }
-
+  .user-email {
+    font-size: 20px;
+    width: 250px;
+    display: block;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
   .business-card {
     width: 100%;
   }
   .back {
-    width: 410px;
+    width: 360px;
   }
   .footer-icons {
     gap: 40px;
@@ -374,4 +394,10 @@
     margin-right: auto;
     display: block;
   }
+}
+@media (max-width:360px) {
+.back{
+  width: 350px;
+}
+
 }

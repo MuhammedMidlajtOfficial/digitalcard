@@ -17,6 +17,7 @@ const ProfileCardPage = () => {
           name="keywords"
           content="About KC (Know Connections), digital card solutions, KC (Know Connections) mission, digital card designs, card-making innovation, company background, KC (Know Connections) team, digital cards overview"
         />
+          <link rel="icon" type="image/png" href="/KC.ico" />
       </Helmet>
 
       <div className="main-wrapper">
