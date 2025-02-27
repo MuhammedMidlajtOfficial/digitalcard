@@ -32,7 +32,7 @@ const ProfileCard = () => {
       .get(`/card/cardId/${id}`)
       .then((response) => {
         console.log("Cards Data", response.data);
-        setCardsData(response.data.card || []);
+        setCardsData(response?.data?.card || []);
       })
       .catch((error) => {
         console.error("Error fetching Data:", error);
