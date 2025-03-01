@@ -8,11 +8,12 @@ const axiosInstance = axios.create({
     
     // baseURL: "http://localhost:9000/api/v1/",
     // baseURL: "https://diskuss-admin.onrender.com/api/v1/",
-    baseURL: "https://api.knowconnections.com/admin1/api/v1/",
+
+    baseURL: "https://api.knowconnections.com/admin2/api/v1/",
 });
 
 const logInstance = axios.create({
-  baseURL: "https://api.knowconnections.com/admin2/api/v1/",
+  baseURL: "https://api.knowconnections.com/admin1/api/v1/",
   // baseURL: "http://13.203.24.247:2000/api/v1/",
 });
 
