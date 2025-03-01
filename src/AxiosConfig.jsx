@@ -4,16 +4,16 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
     // baseURL: process.env.REACT_APP_BASEURL,
-    baseURL: "http://13.203.24.247:9000/api/v1/",
+    // baseURL: "http://13.203.24.247:9000/api/v1/",
     
     // baseURL: "http://localhost:9000/api/v1/",
     // baseURL: "https://diskuss-admin.onrender.com/api/v1/",
-    // baseURL: "https://api.knowconnections.com/dashboard/api/v1/",
+    baseURL: "https://api.knowconnections.com/dashboard/api/v1/",
 });
 
 const logInstance = axios.create({
-  // baseURL: "https://api.knowconnections.com/api/v1/",
-  baseURL: "http://13.203.24.247:2000/api/v1/",
+  baseURL: "https://api.knowconnections.com/api/v1/",
+  // baseURL: "http://13.203.24.247:2000/api/v1/",
 });
 
 axiosInstance.interceptors.request.use(
