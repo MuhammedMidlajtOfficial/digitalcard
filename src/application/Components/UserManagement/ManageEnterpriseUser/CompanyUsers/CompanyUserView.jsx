@@ -133,13 +133,12 @@ export default function CompanyUserView({ userId }) {
   // Determine total pages
 
   const getThemeByCode = (themeCode) => {
-    const specificConfig = getConfigById("6784cb4e3a4c28778d35986a");
-    if (
-      specificConfig &&
-      specificConfig.config &&
-      specificConfig.config[themeCode]
-    ) {
-      return specificConfig.config[themeCode];
+    if (themeCode === "001") {
+      return "Solid Color"
+    }else if (themeCode === "002") {
+      return "Circular Accent"
+    }else if (themeCode === "003") {
+      return "Blended Circles"
     }
     return "N/A"; // Fallback if the theme is not found
   };
@@ -422,9 +421,6 @@ export default function CompanyUserView({ userId }) {
             </p>
             <p>
               <strong>User Type:</strong> {selectedEmployee.userType || "N/A"}
-            </p>
-            <p>
-              <strong>Address:</strong> {selectedEmployee.address || "N/A"}
             </p>
             <p>
               <strong>Theme:</strong>
