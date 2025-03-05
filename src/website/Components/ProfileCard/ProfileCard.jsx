@@ -291,7 +291,7 @@ END:VCARD`;
                   rel="noopener noreferrer"
                   style={{
                     display: "flex",
-                    alignItems: "start",
+                    alignItems: "center",
                     textDecoration: "none",
                     color: "black",
                     gap: "15px",

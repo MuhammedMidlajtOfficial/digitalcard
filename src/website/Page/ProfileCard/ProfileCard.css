@@ -251,26 +251,29 @@
   font-weight: 700;
   text-decoration-thickness: 2px;
   margin-bottom: 5px;
+  margin-top: 8px;
 }
 
 .business-card-services-list {
   display: flex;
-  justify-content: stretch;
-  width: 100%;
-  text-align: left;
+  justify-content: center;
   position: relative;
-  padding-left: 20px;
+  gap: 20px;
+}
+.business-card-services-list > div {
+  flex: 1;
+  display: flex;
+  justify-content: center;
 }
 
 .business-card-service-column {
   list-style-type: disc;
-  padding: 0px 30px;
+  padding-left: 30px;
   margin: 0;
   text-align: left;
 }
-
 .business-card-service-column li {
-  margin: 5px 0;
+  margin: 0px 0;
   font-weight: bold;
   font-size: 16px;
 }
@@ -284,6 +287,13 @@
   transform: translate(-50%, -50%);
   left: 50%;
 }
+/* .business-card-vertical-line {
+  width: 2px;
+  height: 100%; 
+  background-color: #ffffff;
+  position: relative;
+  align-self: stretch; 
+} */
 .business-card-services-list2 {
   margin: 15px;
   padding: 10px 0px;
@@ -340,9 +350,8 @@
 }
 .user-email {
   font-size: 20px;
-  width: 300px;
   display: block;
-  word-wrap: break-word;
+  word-wrap: break-word !important;
   overflow-wrap: break-word;
   white-space: normal;
 }
@@ -354,12 +363,10 @@
   font-size: 26px;
 }
 
-
 @media (max-width: 768px) {
-    .business-card-content {
-      padding: 10px 10px;
-
-    }
+  .business-card-content {
+    padding: 10px 10px;
+  }
   .text-style {
     font-size: 14px;
   }
@@ -368,7 +375,6 @@
   }
   .user-email {
     font-size: 20px;
-    width: 250px;
     display: block;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -395,9 +401,8 @@
     display: block;
   }
 }
-@media (max-width:360px) {
-.back{
-  width: 350px;
-}
-
+@media (max-width: 360px) {
+  .back {
+    width: 350px;
+  }
 }
