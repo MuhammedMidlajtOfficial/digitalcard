@@ -237,7 +237,7 @@ const AddEmployee = ({ visible, onClose }) => {
                 <Input placeholder="Enter your email address" />
               </Form.Item>
             </div>
-            <div className="col-lg-6">
+            {/* <div className="col-lg-6">
               <Form.Item
                 name="location"
                 label="Location"
@@ -245,8 +245,8 @@ const AddEmployee = ({ visible, onClose }) => {
               >
                 <Input placeholder="Enter the Business Location" />
               </Form.Item>
-            </div>
-            <div className="col-lg-6">
+            </div> */}
+            <div className="col-lg-12">
               <Form.Item
                 name="services"
                 label="Services"
