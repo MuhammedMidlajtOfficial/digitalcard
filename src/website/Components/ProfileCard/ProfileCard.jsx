@@ -247,6 +247,16 @@ END:VCARD`;
                 ) : (
                   <p className="no-services">No services available</p>
                 )}
+                {cardsData?.website && (
+                  <a
+                    href={`https://${cardsData.website}`}
+                    className="business-card-website-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Visit Website
+                  </a>
+                )}
               </div>
             </div>
           </div>
@@ -300,7 +310,7 @@ END:VCARD`;
                   <IoMailSharp
                     style={{ fontSize: "20px", marginTop: "10px" }}
                   />
-                  <span className="user-email">{cardsData.email }</span>
+                  <span className="user-email">{cardsData.email}</span>
                 </a>
               </span>
             </div>
