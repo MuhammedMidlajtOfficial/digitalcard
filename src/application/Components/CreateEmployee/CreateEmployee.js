@@ -53,14 +53,38 @@ const CreateEmployee = () => {
     fileInputRef.current.click();
   };
 
+  // const handleImageFileChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setPreviewImage(reader.result);
+  //       setIsImageUpdated(true);
+        
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
   const handleImageFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      // Check file size (2MB = 2 * 1024 * 1024 bytes)
+      if (file.size > 2 * 1024 * 1024) {
+        Swal.fire({
+          icon: "error",
+          title: "File Too Large",
+          text: "Image file must be below 2MB.",
+        });
+        // Clear the file input
+        e.target.value = null;
+        return;
+      }
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewImage(reader.result);
         setIsImageUpdated(true);
-        
       };
       reader.readAsDataURL(file);
     }

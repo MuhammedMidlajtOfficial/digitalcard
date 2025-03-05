@@ -13,8 +13,8 @@ const axiosInstance = axios.create({
 });
 
 const logInstance = axios.create({
-  // baseURL: "https://api.knowconnections.com/admin1/api/v1/",
-  baseURL: "http://13.203.24.247:2000/api/v1/",
+  baseURL: "https://api.knowconnections.com/admin1/api/v1/",
+  // baseURL: "http://13.203.24.247:2000/api/v1/",
 });
 
 axiosInstance.interceptors.request.use(
