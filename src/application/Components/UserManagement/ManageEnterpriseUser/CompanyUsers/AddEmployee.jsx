@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Modal, Form, Input, Select, Button } from "antd";
 import { axiosInstance, logInstance } from "../../../../../AxiosConfig";
 import { useLoading } from "../../../../Services/loadingService";
@@ -21,6 +21,11 @@ const AddEmployee = ({ visible, onClose }) => {
   const [previewImage, setPreviewImage] = useState("");
   const fileInputRef = useRef(null);
   const { userId } = useParams();
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    setServices([])
+  }, [onClose]);
 
   const handleImageFileChange = async (e) => {
     const file = e.target.files[0];
@@ -130,6 +135,45 @@ const AddEmployee = ({ visible, onClose }) => {
         setIsSubmitting(false);
         stopLoading();
       });
+  };
+
+
+  const handleChange = (value) => {
+    console.log('value-',value);
+    
+    // Ensure value is an array (in case it's undefined or null)
+    if (!Array.isArray(value)) return;
+
+    // Trim each service and filter out empty or whitespace-only values
+    const cleanedValues = value
+      .map((service) => service.trim()) // Trim spaces
+      .filter((service) => service.length > 0); // Remove empty/whitespace values
+      console.log('cleanedValues-',cleanedValues);
+
+    // Prevent empty input from being added
+    if (!services.length && cleanedValues.length === 0) {
+      showWarningToast("Service name cannot be empty or just spaces.");
+      return;
+    }
+
+    // Validate character length (max 25 per service)
+    const invalidService = cleanedValues.find((service) => service.length > 25);
+    if (invalidService) {
+      showWarningToast("Each service can have a maximum of 25 characters.");
+      return;
+    }
+
+    // Allow duplicates by concatenating new values instead of replacing
+    const newServices = [...cleanedValues];
+    console.log('newServices-',newServices);
+
+    // Prevent exceeding 5 services
+    if (newServices.length > 5) {
+      showWarningToast("You can add a maximum of 5 services.");
+      return;
+    }
+
+    setServices(newServices); // Update state
   };
 
   return (
@@ -246,11 +290,11 @@ const AddEmployee = ({ visible, onClose }) => {
                 <Input placeholder="Enter the Business Location" />
               </Form.Item>
             </div> */}
-            <div className="col-lg-12">
+            {/* <div className="col-lg-12">
               <Form.Item
                 name="services"
                 label="Services"
-                rules={[{ required: true }]}
+                // rules={[{ required: true }]}
               >
                 <Select
                   mode="tags"
@@ -258,7 +302,7 @@ const AddEmployee = ({ visible, onClose }) => {
                   placeholder="Enter the Services offered"
                 />
               </Form.Item>
-            </div>
+            </div> */}
             <div className="col-lg-6">
               <Form.Item
                 name="color"
@@ -289,7 +333,7 @@ const AddEmployee = ({ visible, onClose }) => {
                 {/* </Select>
               </Form.Item>
             </div> */}
-            <div className="col-lg-6">
+            {/* <div className="col-lg-6">
               <Form.Item name="topServices" label="Top Services">
                 <Select
                   mode="tags"
@@ -297,10 +341,21 @@ const AddEmployee = ({ visible, onClose }) => {
                   placeholder="Enter the top services and press Enter after each"
                 />
               </Form.Item>
-            </div>
+            </div> */}
             <div className="col-lg-6">
               <Form.Item name="website" label="Website">
                 <Input placeholder="Enter the Business website URL" />
+              </Form.Item>
+            </div>
+            <div className="col-lg-6">
+              <Form.Item name="services" label="Services (Maximum 5 )">
+                <Select
+                  mode="tags"
+                  className="input-padding-style"
+                  placeholder="Enter the Services offered"
+                  value={services}  
+                  onChange={handleChange}
+                />   
               </Form.Item>
             </div>
             <div className="col-lg-6">
