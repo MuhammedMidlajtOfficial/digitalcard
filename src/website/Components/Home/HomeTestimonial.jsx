@@ -7,25 +7,25 @@ import home3 from "../../Assets/image/home/home-testimonial-3.svg";
 const testimonials = [
     {
         image: home1,
-        text: 'Diskuss has completely changed the way I manage my contacts. Its so easy to use, and the integration with my CRM is seamless.',
+        text: 'KC (Know Connections) has completely changed the way I manage my contacts. Its so easy to use, and the integration with my CRM is seamless.',
         name: 'Jane Smith',
         role: 'Entrepreneur'
     },
     {
         image: home2,
-        text: 'The real-time updates and analytics have given us incredible insights into our networking efforts. Diskuss is a game-changer!',
+        text: 'The real-time updates and analytics have given us incredible insights into our networking efforts. KC (Know Connections) is a game-changer!',
         name: 'John Doe',
         role: 'Sales Manager'
     },
     {
         image: home3,
-        text: 'The real-time updates and analytics have given us incredible insights into our networking efforts. Diskuss is a game-changer!',
+        text: 'The real-time updates and analytics have given us incredible insights into our networking efforts. KC (Know Connections) is a game-changer!',
         name: 'Jane Smith',
         role: 'Entrepreneur'
     },
     {
         image: home1,
-        text: 'Diskuss has completely changed the way I manage my contacts. Its so easy to use, and the integration with my CRM is seamless.',
+        text: 'KC (Know Connections) has completely changed the way I manage my contacts. Its so easy to use, and the integration with my CRM is seamless.',
         name: 'Jane Smith',
         role: 'Entrepreneur'
     }
@@ -68,7 +68,7 @@ const HomeTestimonial = () => {
                     </div>
                     <h2>What Our Users Say</h2>
                     <p className="subtitle">
-                        Hear from professionals who have transformed their business networking with Diskuss.
+                        Hear from professionals who have transformed their business networking with KC (Know Connections).
                     </p>
                 </center>
                 <div className="testimonial-grid">

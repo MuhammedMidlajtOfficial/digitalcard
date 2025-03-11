@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./header.css";
 import { FaArrowRight, FaPhone } from "react-icons/fa6";
-import logoIcon from "../../Assets/image/logo.svg";
+import logoIcon from "../../Assets/image/kc-logo.svg";
 import { FaRegUserCircle } from "react-icons/fa";
 
 const Header = () => {
@@ -53,7 +53,7 @@ const Header = () => {
             <div className="container">
               <a className="navbar-brand" href="/">
                 <img src={logoIcon} alt="Logo" className="logo-icon" />
-                {/* <span className="brand-text">Diskuss</span>  */}
+                {/* <span className="brand-text">KC (Know Connections)</span>  */}
               </a>
 
               <button

@@ -137,7 +137,7 @@ const TicketCategories = () => {
       <Menu.Item key="categoryPriority">Priority</Menu.Item>
       <Menu.Item key="solved-tickets">Solved Tickets</Menu.Item>
       <Menu.Item key="active-tickets">Active Tickets</Menu.Item>
-      <Menu.Item key="sla-status">SLA status</Menu.Item>
+      {/* <Menu.Item key="sla-status">SLA status</Menu.Item> */}
       <Menu.Item key="category-name">Category Name</Menu.Item>
     </Menu>
   ;
@@ -172,10 +172,10 @@ const TicketCategories = () => {
       title: "Solved Tickets",
       dataIndex: "resolveTickets",
     },
-    {
-      title: " SLA Status",
-      dataIndex: "sla",
-    },
+    // {
+    //   title: " SLA Status",
+    //   dataIndex: "sla",
+    // },
     {
       title: "Priority",
       dataIndex: "categoryPriority",

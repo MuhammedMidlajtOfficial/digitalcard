@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 const faqData = [
-    { question: "How do I share my digital business card with others?", answer: "With Diskuss, you can share your digital business card effortlessly using our unique in-app dial pad feature. No need to rely solely on NFC, QR codes, or WhatsApp like other apps. Simply enter the recipient's number directly in the Diskuss dial pad and share instantly. Of course, you can still use NFC, QR code, or share via WhatsApp for added flexibility." },
-    { question: "Can I customize my contact card?", answer: "Absolutely! Diskuss offers a variety of templates and customizable fields to make your card uniquely yours." },
-    { question: "Is Diskuss suitable for large teams?", answer: "Yes, Diskuss offers enterprise-level features, including team management and analytics, designed for larger organizations." },
-    { question: "How secure is the data I store in Diskuss?", answer: "Diskuss ensures top-level security and privacy, with encrypted data storage and role-based access for enterprise users." },
+    { question: "How do I share my digital business card with others?", answer: "With KC (Know Connections), you can share your digital business card effortlessly using our unique in-app dial pad feature. No need to rely solely on NFC, QR codes, or WhatsApp like other apps. Simply enter the recipient's number directly in the KC (Know Connections) dial pad and share instantly. Of course, you can still use NFC, QR code, or share via WhatsApp for added flexibility." },
+    { question: "Can I customize my contact card?", answer: "Absolutely! KC (Know Connections) offers a variety of templates and customizable fields to make your card uniquely yours." },
+    { question: "Is KC (Know Connections) suitable for large teams?", answer: "Yes, KC (Know Connections) offers enterprise-level features, including team management and analytics, designed for larger organizations." },
+    { question: "How secure is the data I store in KC (Know Connections)?", answer: "KC (Know Connections) ensures top-level security and privacy, with encrypted data storage and role-based access for enterprise users." },
     { question: "What’s the difference between an Individual and an Enterprise account?", answer: "Individual accounts focus on personal networking, while Enterprise accounts provide tools for managing multiple team members and advanced analytics." },
 ];
 

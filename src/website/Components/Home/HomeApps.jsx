@@ -1,6 +1,6 @@
 import React from "react";
-import iphoneImage from "../../Assets/image/home/iphone-phone.svg";
-import androidImage from "../../Assets/image/home/android-phone.svg";
+import iphoneImage from "../../Assets/image/home/iphone-phone11.png";
+import androidImage from "../../Assets/image/home/android-phone.png";
 import qr from "../../Assets/image/home/qr.svg";
 import { FaApple, FaGooglePlay } from "react-icons/fa6";
 
@@ -9,8 +9,8 @@ const HomeApps = () => {
     <>
       <div className="app-download-section">
         <div className="container">
-          <h2>Get The Diskuss App</h2>
-          <p>Download the Diskuss app for innovative solutions</p>
+          <h2>Get The KC (Know Connections) App</h2>
+          <p>Download the KC (Know Connections) app for innovative solutions</p>
           <div className="get-app-mobile">
             <div className="row">
               <div className="col-lg-6 ">

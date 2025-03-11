@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import image1 from "../../Assets/image/home/howitworks1.svg"
-import image2 from "../../Assets/image/home/howitworks2.svg"
-import image3 from "../../Assets/image/home/howitworks3.svg"
-import image4 from "../../Assets/image/home/howitworks4.svg"
+import image1 from "../../Assets/image/home/howitworks11.svg"
+import image2 from "../../Assets/image/home/howitworks22.svg"
+import image3 from "../../Assets/image/home/howitworks33.svg"
+import image4 from "../../Assets/image/home/howitworks44.svg"
 
 const cardsData = [
-  { id: 1, title: "Download Diskuss app", subtext: "Download the Diskuss app", videoSrc: "video1.mp4",bgImage:image1 },
+  { id: 1, title: "Download KC (Know Connections) app", subtext: "Download the KC (Know Connections) app", videoSrc: "video1.mp4",bgImage:image1 },
   { id: 2, title: "Sign Up", subtext: "Sign up and provide essential details", videoSrc: "video2.mp4",bgImage:image3 },
   { id: 3, title: "Choose Type", subtext: " Choose your user type – Individual or Enterprise", videoSrc: "video3.mp4",bgImage:image2  },
   { id: 4, title: "Start Trail", subtext: "Start your trial and begin sharing contacts with ease", videoSrc: "video4.mp4",bgImage:image4  }

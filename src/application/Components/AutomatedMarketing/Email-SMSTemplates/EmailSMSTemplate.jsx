@@ -31,7 +31,7 @@ const EmailSMSTemplate = () => {
   const cardData = [
     {
       id: 1,
-      header: "Diskuss",
+      header: "KC (Know Connections)",
       isNew: true,
       title: "Confirm your email address 🎯",
       message: [
@@ -57,7 +57,7 @@ const EmailSMSTemplate = () => {
     },
     {
       id: 3,
-      header: "Diskuss",
+      header: "KC (Know Connections)",
       isNew: true,
       title: "Confirm your email address 🎯",
       message: [
@@ -70,7 +70,7 @@ const EmailSMSTemplate = () => {
     },
     {
       id: 4,
-      header: "Diskuss",
+      header: "KC (Know Connections)",
       isNew: true,
       title: "Confirm your email address 🎯",
       message: [
@@ -83,7 +83,7 @@ const EmailSMSTemplate = () => {
     },
     {
       id: 5,
-      header: "Diskuss",
+      header: "KC (Know Connections)",
       isNew: true,
       title: "Confirm your email address 🎯",
       message: [
@@ -96,7 +96,7 @@ const EmailSMSTemplate = () => {
     },
     {
       id: 6,
-      header: "Diskuss",
+      header: "KC (Know Connections)",
       isNew: true,
       title: "Confirm your email address 🎯",
       message: [

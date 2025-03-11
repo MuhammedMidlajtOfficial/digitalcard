@@ -10,7 +10,7 @@ const FeatureDiskussExp = () => {
     {
       title: "Multi-User Profiles",
       description:
-        "Ideal for professionals who wear multiple hats or manage several businesses, Diskuss allows you to create and manage multiple profiles under one account, each with its own unique business card.",
+        "Ideal for professionals who wear multiple hats or manage several businesses, KC (Know Connections) allows you to create and manage multiple profiles under one account, each with its own unique business card.",
       image: exp1,
     },
     {
@@ -22,13 +22,13 @@ const FeatureDiskussExp = () => {
     {
       title: "Referral Program",
       description:
-        "Diskuss rewards you for spreading the word. Refer new users to Diskuss and earn rewards or discounts on your subscription.",
+        "KC (Know Connections) rewards you for spreading the word. Refer new users to KC (Know Connections) and earn rewards or discounts on your subscription.",
       image: exp3,
     },
     {
       title: "Virtual Meeting Integration",
       description:
-        "Integrate Diskuss with your preferred virtual meeting tools like Zoom, Google Meet, or Microsoft Teams, allowing you to schedule, join, and manage meetings directly from within the app.",
+        "Integrate KC (Know Connections) with your preferred virtual meeting tools like Zoom, Google Meet, or Microsoft Teams, allowing you to schedule, join, and manage meetings directly from within the app.",
       image: exp4,
       video: true,
     },
@@ -39,7 +39,7 @@ const FeatureDiskussExp = () => {
       <div className="container">
         <div className="row align-items-center">
           <div className="col-lg-4">
-            <h1>Explore Diskuss Features</h1>
+            <h1>Explore KC (Know Connections) Features</h1>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore

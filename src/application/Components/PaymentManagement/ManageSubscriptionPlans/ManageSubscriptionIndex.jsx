@@ -10,6 +10,68 @@ import {
 } from "../../../Services/toastService";
 import { Spin } from "antd";
 
+// const FeatureCard = ({
+//   title,
+//   price,
+//   type,
+//   features,
+//   onActive,
+//   onEdit,
+//   duration,
+//   status,
+//   planId,
+// }) => {
+//   const featureList = Array.isArray(features) ? features : [features];
+//   const cardClass = status === "inactive" ? "card-disabled" : "card-active";
+
+//   return (
+//     <div className="col-lg-4 col-md-6">
+//       <div className={`card-subscription-plan ${cardClass}`}>
+//         <h1 className="subscription-type-tag">{type}</h1>
+//         <h3 className="price-plan-title mt-4">{title}</h3>
+//         <div className="horizontal-line-plans"></div>
+//         <div className="pricing-plan-header ">
+//           <h2>₹{price}</h2>
+          
+//           <div style={{ fontSize: "16px" }}>
+//             {type === "Enterprise"
+//               ? duration === 365
+//                 ? "per year / per user / inclusive GST"
+//                 : "per month / per user / inclusive GST"
+//               : duration === 365
+//               ? "per year / inclusive GST"
+//               : "per month / inclusive GST"}
+//           </div>
+//         </div>
+
+//         <ul className="features-list mt-4">
+//           {featureList.map((feature, index) => (
+//             <li key={index} className="plans-item">
+//               <div className="icon-circle">
+//                 <GiCheckMark className="check-icon" />
+//               </div>
+//               <span className="feature-text">{feature}</span>
+//             </li>
+//           ))}
+//         </ul>
+//         <div className="d-flex gap-4">
+//           <button className="edit-subscription-btn mt-3" onClick={onEdit}>
+//             Edit
+//           </button>
+//           <button
+//             className={`edit-subscription-btn mt-3 ${
+//               status === "active" ? "btn-active" : "btn-inactive"
+//             }`}
+//             onClick={() => onActive(planId, status)}
+//           >
+//             {status === "active" ? "Disable" : "Enable"}
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
 const FeatureCard = ({
   title,
   price,
@@ -26,13 +88,20 @@ const FeatureCard = ({
 
   return (
     <div className="col-lg-4 col-md-6">
-      <div className={`card-subscription-plan ${cardClass}`}>
+      <div
+        className={`card-subscription-plan ${cardClass}`}
+        style={{
+          width: "350px",
+          height: "500px",
+          padding: "20px",
+          position: "relative",
+        }}
+      >
         <h1 className="subscription-type-tag">{type}</h1>
         <h3 className="price-plan-title mt-4">{title}</h3>
         <div className="horizontal-line-plans"></div>
         <div className="pricing-plan-header ">
           <h2>₹{price}</h2>
-          
           <div style={{ fontSize: "16px" }}>
             {type === "Enterprise"
               ? duration === 365
@@ -44,7 +113,16 @@ const FeatureCard = ({
           </div>
         </div>
 
-        <ul className="features-list mt-4">
+        {/* Scrollable feature list */}
+        <ul
+          className="features-list mt-4"
+          style={{
+            maxHeight: "200px",
+            overflowY: "auto",
+            paddingRight: "10px",
+            paddingBottom: "60px", // Adjust padding to make space for buttons at the bottom
+          }}
+        >
           {featureList.map((feature, index) => (
             <li key={index} className="plans-item">
               <div className="icon-circle">
@@ -54,7 +132,17 @@ const FeatureCard = ({
             </li>
           ))}
         </ul>
-        <div className="d-flex gap-4">
+
+        {/* Fixed bottom buttons */}
+        <div
+          className="d-flex gap-4"
+          style={{
+            position: "absolute",
+            bottom: "20px", // Ensure buttons stay at the bottom
+            left: "20px",
+            right: "20px",
+          }}
+        >
           <button className="edit-subscription-btn mt-3" onClick={onEdit}>
             Edit
           </button>
@@ -71,6 +159,7 @@ const FeatureCard = ({
     </div>
   );
 };
+
 
 const ManageSubscriptionIndex = () => {
   const [cards, setCards] = useState([]);

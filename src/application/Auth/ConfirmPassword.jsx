@@ -70,7 +70,7 @@ const ConfirmPassword = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-5 col-sm-12 col-md-12 login-left">
-            <h2 className="login-heading mb-4">Diskuss</h2>
+            <h2 className="login-heading mb-4">KC (Know Connections)</h2>
             <div className="login-card col-lg-10">
               <center>
                 <h2>Create New Password</h2>
@@ -125,7 +125,7 @@ const ConfirmPassword = () => {
             </div>
           </div>
           <div className="col-lg-7 col-sm-0 col-md-0 login-right">
-            <img src={login} alt="" />
+            {/* <img src={login} alt="" /> */}
           </div>
         </div>
       </div>

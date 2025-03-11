@@ -11,7 +11,7 @@ const ContactNewsletter = () => {
               <div className="info-column">
                 <h3>Address</h3>
                 <div className="contact-line"></div>
-                <p>Diskuss Business Solutions</p>
+                <p>KC (Know Connections) Business Solutions</p>
                 <p>1234 Innovation Drive, Suite 100</p>
                 <p>Tech City, TX 75001</p>
                 <p>USA</p>
@@ -19,9 +19,9 @@ const ContactNewsletter = () => {
               <div className="info-column">
                 <h3>Email</h3>
                 <div className="contact-line"></div>
-                <p>General Inquiries: contact@diskuss.com</p>
-                <p>Support: support@diskuss.com</p>
-                <p>Sales: sales@diskuss.com</p>
+                <p>General Inquiries: contact@knowconnections.com</p>
+                <p>Support: support@knowconnections.com</p>
+                <p>Sales: sales@knowconnections.com</p>
               </div>
               <div className="info-column">
                 <h3>Mobile Number</h3>

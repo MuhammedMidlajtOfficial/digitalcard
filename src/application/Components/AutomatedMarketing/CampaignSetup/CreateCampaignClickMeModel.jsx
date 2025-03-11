@@ -18,7 +18,7 @@ const CreateCampaignClickMeModel = ({ open, onClose }) => {
   const cardData = [
     {
       id: 1,
-      header: "Diskuss",
+      header: "KC (Know Connections)",
       isNew: true,
       title: "Confirm your email address 🎯",
       message: [
@@ -44,7 +44,7 @@ const CreateCampaignClickMeModel = ({ open, onClose }) => {
     },
     {
       id: 3,
-      header: "Diskuss",
+      header: "KC (Know Connections)",
       isNew: true,
       title: "Confirm your email address 🎯",
       message: [
@@ -57,7 +57,7 @@ const CreateCampaignClickMeModel = ({ open, onClose }) => {
     },
     {
       id: 4,
-      header: "Diskuss",
+      header: "KC (Know Connections)",
       isNew: true,
       title: "Confirm your email address 🎯",
       message: [
@@ -70,7 +70,7 @@ const CreateCampaignClickMeModel = ({ open, onClose }) => {
     },
     {
       id: 5,
-      header: "Diskuss",
+      header: "KC (Know Connections)",
       isNew: true,
       title: "Confirm your email address 🎯",
       message: [
@@ -83,7 +83,7 @@ const CreateCampaignClickMeModel = ({ open, onClose }) => {
     },
     {
       id: 6,
-      header: "Diskuss",
+      header: "KC (Know Connections)",
       isNew: true,
       title: "Confirm your email address 🎯",
       message: [

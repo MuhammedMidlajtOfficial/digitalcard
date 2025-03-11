@@ -1,7 +1,7 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa6";
-import template1 from "../../Assets/image/home/template-1.svg";
-import template2 from "../../Assets/image/home/template-2.svg";
+import template1 from "../../Assets/image/home/template-1.png";
+import template2 from "../../Assets/image/home/template-2.png";
 import ScrollAnimation from "../../../ScrollAnimation";
 import { useNavigate } from "react-router-dom";
 const HomeTemplate = () => {
@@ -15,7 +15,7 @@ const HomeTemplate = () => {
           <p className="subtitle">
             Select from a variety of professional templates and customize them
             to suit your style and needs. Whether you prefer vertical or
-            horizontal layouts, Diskuss ensures your business card stands out.
+            horizontal layouts, KC (Know Connections) ensures your business card stands out.
           </p>
 
           {/* <div className="button-group">

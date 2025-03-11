@@ -10,14 +10,14 @@ const Contact = () => {
   return (
     <>
       <Helmet>
-        <title>Contact Us - Diskuss</title>
+        <title>Contact Us - KC (Know Connections)</title>
         <meta
           name="description"
-          content="Get in touch with the Diskuss team for any inquiries, support, or feedback. We're here to assist you with all your digital card needs. Contact us today!"
+          content="Get in touch with the KC (Know Connections) team for any inquiries, support, or feedback. We're here to assist you with all your digital card needs. Contact us today!"
         />
         <meta
           name="keywords"
-          content="Diskuss contact, contact us, digital card support, customer service, contact Diskuss, feedback, inquiries, support for digital cards"
+          content="KC (Know Connections) contact, contact us, digital card support, customer service, contact KC (Know Connections), feedback, inquiries, support for digital cards"
         />
       </Helmet>
 

@@ -10,25 +10,25 @@ import { Avatar, Rate } from "antd";
 const testimonials = [
   {
     image: home2,
-    text: "Diskuss has completely changed the way I manage my contacts. Its so easy to use, and the integration with my CRM is seamless.",
+    text: "KC (Know Connections) has completely changed the way I manage my contacts. Its so easy to use, and the integration with my CRM is seamless.",
     name: "Anirudh Chatanath",
     role: "Business coach",
   },
   {
     image: home1,
-    text: "The real-time updates and analytics have given us incredible insights into our networking efforts. Diskuss is a game-changer!",
+    text: "The real-time updates and analytics have given us incredible insights into our networking efforts. KC (Know Connections) is a game-changer!",
     name: "Jishnu Pal",
     role: "Customized It Software",
   },
   {
     image: home3,
-    text: "Managing my contacts has never been this easy! Diskuss helps me stay organized, saving time and ensuring I never lose track of important clients.",
+    text: "Managing my contacts has never been this easy! KC (Know Connections) helps me stay organized, saving time and ensuring I never lose track of important clients.",
     name: "Manesh C",
     role: "Taxation & Audit",
   },
   {
     image: home4,
-    text: "Diskuss has made organizing contacts and events a breeze. It saves us time and enhances collaboration with clients effortlessly.",
+    text: "KC (Know Connections) has made organizing contacts and events a breeze. It saves us time and enhances collaboration with clients effortlessly.",
     name: "Vanitha S",
     role: "Event Management",
   },
