@@ -18,12 +18,15 @@ const Withdrawal = () => {
     try {
       const response = await axiosInstanceForTicket.get('/referral/withdraw');
       const data = response.data.withdrawalRequests;
+      console.log('data-',data);
       
       const pending = data.filter(req => !req.status || req.status === 'pending');
       const accepted = data.filter(req => req.status === 'approved');
       const rejected = data.filter(req => req.status === 'rejected');
       
       setWithdrawalRequests(pending);
+      
+      
       setAcceptedRequests(accepted);
       setRejectedRequests(rejected);
       setLoading(false);
@@ -164,8 +167,8 @@ const Withdrawal = () => {
               ).slice(0, rowsPerPage).map((request) => (
                 <tr key={request._id} className="hover:bg-gray-50">
                   <td className="p-4 text-sm">{request._id.slice(-6)}</td>
-                  <td className="p-4 text-sm">{request.userId.slice(-6)}</td>
-                  <td className="p-4 text-sm font-medium">₹{request.amount.$numberDecimal}</td>
+                  <td className="p-4 text-sm">{request.user?.username}</td>
+                  <td className="p-4 text-sm font-medium">₹{request.amount}</td>
                   <td className="p-4 text-sm">{request.upiId}</td>
                   <td className="p-4 text-sm">{formatDate(request.createdAt)}</td>
                   {activeTab === 'pending' && (
