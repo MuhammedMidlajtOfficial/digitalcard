@@ -7,7 +7,7 @@ import { Avatar, message } from "antd";
 import { logInstance } from "../../../AxiosConfig";
 import { useLoading } from "../../../application/Services/loadingService";
 import { useParams } from "react-router-dom";
-import { LuTwitter } from "react-icons/lu";
+import { FaLinkedin } from "react-icons/fa";
 
 const ProfileCard = () => {
   const [cardsData, setCardsData] = useState([]);
@@ -94,132 +94,139 @@ END:VCARD`;
               }`}
             >
               <div className="front">
-                <div className="business-card-second-container">
-                  <div className="business-card-profile">
-                    <div className="business-card-image">
-                      <Avatar src={cardsData.image} size={84} />
+                <div className="business-card-container">
+                  <div className="business-card-second-container">
+                    <div className="business-card-profile">
+                      <div className="business-card-image">
+                        <Avatar src={cardsData.image} size={84} />
+                      </div>
                     </div>
-                  </div>
-                  <div className="business-card-content">
-                    <div className="business-card-button">
-                      <p style={{ fontWeight: "700", paddingTop: "5px" }}>
-                        {cardsData.yourName || "N/A"}
-                      </p>
-                      <p style={{ fontWeight: "500" }}>
-                        {cardsData.designation || "N/A"}
-                      </p>
-                      <hr style={{ width: "100%" }} />
-                    </div>
-                    <div className="business-card-button">
-                      <p style={{ fontWeight: "700" }}>Contact</p>
-                      <span
-                        className="business-card-icon"
-                        style={{ display: "flex", alignItems: "center" }}
-                      >
-                        <a
-                          href={`tel:${cardsData.mobile}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            textDecoration: "none",
-                            color: "white",
-                            gap: "9px",
-                            marginTop: "3px",
-                          }}
+                    <div className="business-card-content">
+                      <div className="business-card-button">
+                        <p style={{ fontWeight: "700", paddingTop: "5px" }}>
+                          {cardsData.yourName || "N/A"}
+                        </p>
+                        <p style={{ fontWeight: "500" }}>
+                          {cardsData.designation || "N/A"}
+                        </p>
+                        <hr style={{ width: "100%" }} />
+                      </div>
+                      <div className="business-card-button">
+                        <p style={{ fontWeight: "700" }}>Contact</p>
+                        <span
+                          className="business-card-icon"
+                          style={{ display: "flex", alignItems: "center" }}
                         >
-                          <PiPhoneFill
-                            className="business-card-icon-style"
-                            style={{ margin: 0, padding: 0 }}
-                          />
-                          <p
-                            className="text-style"
-                            style={{ margin: 0, padding: 0, fontSize: "15px" }}
+                          <a
+                            href={`tel:${cardsData.mobile}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              textDecoration: "none",
+                              color: "white",
+                              gap: "9px",
+                              marginTop: "3px",
+                            }}
                           >
-                            {cardsData.mobile || "N/A"}
-                          </p>
-                        </a>
-                      </span>
+                            <PiPhoneFill
+                              className="business-card-icon-style"
+                              style={{ margin: 0, padding: 0 }}
+                            />
+                            <p
+                              className="text-style"
+                              style={{
+                                margin: 0,
+                                padding: 0,
+                                fontSize: "15px",
+                              }}
+                            >
+                              {cardsData.mobile || "N/A"}
+                            </p>
+                          </a>
+                        </span>
 
-                      <span className="business-card-icon">
-                        <a
-                          href={`mailto:${cardsData.email}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{
-                            display: "flex",
-                            textDecoration: "none",
-                            color: "white",
-                            gap: "10px",
-                            marginTop: "5px",
-                            alignItems: "start",
-                          }}
-                        >
-                          <IoMailSharp
-                            className="business-card-icon-style"
-                            style={{ marginTop: "3px", padding: 0 }}
-                          />
-                          <p className="text-style">
-                            {cardsData.email || "N/A"}
-                          </p>
-                        </a>
-                      </span>
-                    </div>
-                    <div className="business-card-button">
-                      <span className="business-card-iconss">
-                        <a
-                          href={
-                            cardsData.whatsappNo
-                              ? `https://wa.me/${cardsData.whatsappNo}`
-                              : "#"
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) =>
-                            handleLinkClick(e, cardsData.whatsappNo)
-                          }
-                        >
-                          <FaWhatsapp />
-                        </a>
+                        <span className="business-card-icon">
+                          <a
+                            href={`mailto:${cardsData.email}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              display: "flex",
+                              textDecoration: "none",
+                              color: "white",
+                              gap: "10px",
+                              marginTop: "5px",
+                              alignItems: "start",
+                            }}
+                          >
+                            <IoMailSharp
+                              className="business-card-icon-style"
+                              style={{ marginTop: "3px", padding: 0 }}
+                            />
+                            <p className="text-style">
+                              {cardsData.email || "N/A"}
+                            </p>
+                          </a>
+                        </span>
+                      </div>
+                      <div className="business-card-button">
+                        <span className="business-card-iconss">
+                          <a
+                            href={
+                              cardsData.whatsappNo
+                                ? `https://wa.me/${cardsData.whatsappNo}`
+                                : "#"
+                            }
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) =>
+                              handleLinkClick(e, cardsData.whatsappNo)
+                            }
+                          >
+                            <FaWhatsapp />
+                          </a>
 
-                        <a
-                          href={cardsData.facebookLink || "#"}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) =>
-                            handleLinkClick(e, cardsData.facebookLink)
-                          }
-                        >
-                          <RiFacebookCircleLine />
-                        </a>
+                          <a
+                            href={cardsData.facebookLink || "#"}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) =>
+                              handleLinkClick(e, cardsData.facebookLink)
+                            }
+                          >
+                            <RiFacebookCircleLine />
+                          </a>
 
-                        <a
-                          href={cardsData.instagramLink || "#"}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) =>
-                            handleLinkClick(e, cardsData.instagramLink)
-                          }
-                        >
-                          <FaInstagram />
-                        </a>
+                          <a
+                            href={cardsData.instagramLink || "#"}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) =>
+                              handleLinkClick(e, cardsData.instagramLink)
+                            }
+                          >
+                            <FaInstagram />
+                          </a>
 
-                        <a
-                          href={cardsData.twitterLink || "#"}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) =>
-                            handleLinkClick(e, cardsData.twitterLink)
-                          }
-                        >
-                          <LuTwitter />
-                        </a>
-                      </span>
+                          <a
+                            href={cardsData.twitterLink || "#"}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) =>
+                              handleLinkClick(e, cardsData.twitterLink)
+                            }
+                          >
+                            <FaLinkedin />
+                          </a>
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+
               <div className="back">
                 <h2 className="business-card-services-header">Services</h2>
                 {cardsData?.services?.length > 0 ? (
@@ -406,7 +413,7 @@ END:VCARD`;
                   rel="noopener noreferrer"
                   onClick={(e) => handleLinkClick(e, cardsData.twitterLink)}
                 >
-                  <LuTwitter />
+                  <FaLinkedin />
                 </a>
               </span>
             </div>
