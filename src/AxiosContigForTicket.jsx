@@ -6,7 +6,7 @@ const axiosInstanceForTicket = axios.create({
   // baseURL: process.env.REACT_APP_BASEURL,
   // baseURL: "http://13.203.24.247:2000/api/v1/",
   // baseURL: "http://localhost:2000/api/v1/",
-  baseURL: "https://api.knowconnections/api/v1/",
+  baseURL: "https://api.knowconnections.com/admin1/api/v1/",
 });
 
 // axiosInstanceForTicket.interceptors.request.use(
