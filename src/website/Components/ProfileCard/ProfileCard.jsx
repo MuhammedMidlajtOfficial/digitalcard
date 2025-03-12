@@ -11,7 +11,6 @@ import { FaLinkedin } from "react-icons/fa";
 
 const ProfileCard = () => {
   const [cardsData, setCardsData] = useState([]);
-  console.log("cardssssData", cardsData);
 
   const { startLoading, stopLoading } = useLoading();
   const { id } = useParams();
@@ -31,7 +30,6 @@ const ProfileCard = () => {
     logInstance
       .get(`/card/cardId/${id}`)
       .then((response) => {
-        console.log("Cards Data", response.data);
         setCardsData(response?.data?.card || []);
       })
       .catch((error) => {
@@ -181,9 +179,11 @@ END:VCARD`;
                             }
                             target="_blank"
                             rel="noopener noreferrer"
-                            onClick={(e) =>
+                            onClick={(e) =>{
+                              e.stopPropagation(); 
                               handleLinkClick(e, cardsData.whatsappNo)
-                            }
+                            }}
+                            
                           >
                             <FaWhatsapp />
                           </a>
@@ -192,9 +192,10 @@ END:VCARD`;
                             href={cardsData.facebookLink || "#"}
                             target="_blank"
                             rel="noopener noreferrer"
-                            onClick={(e) =>
+                            onClick={(e) =>{
+                              e.stopPropagation(); 
                               handleLinkClick(e, cardsData.facebookLink)
-                            }
+                            }}
                           >
                             <RiFacebookCircleLine />
                           </a>
@@ -203,9 +204,10 @@ END:VCARD`;
                             href={cardsData.instagramLink || "#"}
                             target="_blank"
                             rel="noopener noreferrer"
-                            onClick={(e) =>
+                            onClick={(e) =>{
+                              e.stopPropagation(); 
                               handleLinkClick(e, cardsData.instagramLink)
-                            }
+                            }}
                           >
                             <FaInstagram />
                           </a>
@@ -214,9 +216,10 @@ END:VCARD`;
                             href={cardsData.twitterLink || "#"}
                             target="_blank"
                             rel="noopener noreferrer"
-                            onClick={(e) =>
+                            onClick={(e) =>{
+                              e.stopPropagation(); 
                               handleLinkClick(e, cardsData.twitterLink)
-                            }
+                            }}
                           >
                             <FaLinkedin />
                           </a>
