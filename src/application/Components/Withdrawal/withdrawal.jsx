@@ -28,21 +28,25 @@ const Withdrawal = () => {
     try {
       const response = await axiosInstanceForTicket.get('/referral/withdraw');
       const data = response.data.withdrawalRequests;
-
-       // Sort function to order by updatedAt (newest first)
-      const sortedData = data.sort((a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime());
-
-      const pending = sortedData.filter(req => !req.status || req.status === 'pending');
-      const accepted = sortedData.filter(req => req.status === 'approved');
-      const rejected = sortedData.filter(req => req.status === 'rejected');
-      
-      // const pending = data.filter(req => !req.status || req.status === 'pending');
-      // const accepted = data.filter(req => req.status === 'approved');
-      // const rejected = data.filter(req => req.status === 'rejected');
-      console.log('data-',data);
+  
+      // Sort pending & accepted by createdAt, rejected by updatedAt
+      const pending = data
+        .filter(req => !req.status || req.status === 'pending')
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  
+      const accepted = data
+        .filter(req => req.status === 'approved')
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  
+      const rejected = data
+        .filter(req => req.status === 'rejected')
+        .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+  
+      console.log('Pending:', pending);
+      console.log('Accepted:', accepted);
+      console.log('Rejected:', rejected);
+  
       setWithdrawalRequests(pending);
-      
-      
       setAcceptedRequests(accepted);
       setRejectedRequests(rejected);
       setLoading(false);
@@ -50,7 +54,35 @@ const Withdrawal = () => {
       console.error("Error fetching withdrawal requests:", error);
       setLoading(false);
     }
-  };
+  };  
+
+  // const fetchWithdrawalRequests = async () => {
+  //   try {
+  //     const response = await axiosInstanceForTicket.get('/referral/withdraw');
+  //     const data = response.data.withdrawalRequests;
+
+  //      // Sort function to order by updatedAt (newest first)
+  //     const sortedData = data.sort((a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime());
+
+  //     const pending = sortedData.filter(req => !req.status || req.status === 'pending');
+  //     const accepted = sortedData.filter(req => req.status === 'approved');
+  //     const rejected = sortedData.filter(req => req.status === 'rejected');
+      
+  //     // const pending = data.filter(req => !req.status || req.status === 'pending');
+  //     // const accepted = data.filter(req => req.status === 'approved');
+  //     // const rejected = data.filter(req => req.status === 'rejected');
+  //     console.log('data-',data);
+  //     setWithdrawalRequests(pending);
+      
+      
+  //     setAcceptedRequests(accepted);
+  //     setRejectedRequests(rejected);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error("Error fetching withdrawal requests:", error);
+  //     setLoading(false);
+  //   }
+  // };
 
   // const fetchSingleWithdrawalRequests = async (requestId) => {
   //   try {
@@ -87,7 +119,7 @@ const Withdrawal = () => {
 
   const submitStatusChange = async () => {
     try {
-      if (!transactionId.trim()) {
+      if (reqData.status === 'approved' && !transactionId.trim()) {
         showWarningToast("Transaction ID is required!");
         return;
       }
