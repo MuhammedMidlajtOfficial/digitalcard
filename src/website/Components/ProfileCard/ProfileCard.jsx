@@ -303,7 +303,7 @@ END:VCARD`;
                   </p>
                 </a>
               </span>
-
+              
               <span className="business-card-icons">
                 <a
                   href={`mailto:${cardsData.email}`}
@@ -311,16 +311,26 @@ END:VCARD`;
                   rel="noopener noreferrer"
                   style={{
                     display: "flex",
-                    alignItems: "center",
+                    alignItems: "flex-start", // Aligns items to the top
                     textDecoration: "none",
                     color: "black",
-                    gap: "15px",
+                    gap: "10px",
+                    flexWrap: "wrap", // Allows wrapping
                   }}
                 >
-                  <IoMailSharp
-                    style={{ fontSize: "20px", marginTop: "10px" }}
-                  />
-                  <span className="user-email">{cardsData.email}</span>
+                  <IoMailSharp style={{ fontSize: "20px", marginTop: "5px" }} />
+                  <span
+                    className="user-email"
+                    style={{
+                      display: "inline-block",
+                      whiteSpace: "normal", // Allows wrapping
+                      wordBreak: "break-word", // Breaks long words properly
+                      overflowWrap: "break-word",
+                      maxWidth: "320px", // Adjust as needed
+                    }}
+                  >
+                    {cardsData.email}
+                  </span>
                 </a>
               </span>
 
