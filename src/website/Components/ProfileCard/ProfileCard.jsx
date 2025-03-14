@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaPhoneAlt, FaInstagram, FaWhatsapp } from "react-icons/fa";
-import { IoMailSharp } from "react-icons/io5";
+import { IoGlobeOutline, IoMailSharp } from "react-icons/io5";
 import { RiFacebookCircleLine } from "react-icons/ri";
 import { PiPhoneFill } from "react-icons/pi";
 import { Avatar, message } from "antd";
@@ -257,7 +257,7 @@ END:VCARD`;
                 ) : (
                   <p className="no-services">No services available</p>
                 )}
-                {cardsData?.website && (
+                {/* {cardsData?.website && (
                   <a
                     href={`https://${cardsData.website}`}
                     className="business-card-website-link"
@@ -266,7 +266,7 @@ END:VCARD`;
                   >
                     Visit Website
                   </a>
-                )}
+                )} */}
               </div>
             </div>
           </div>
@@ -323,6 +323,26 @@ END:VCARD`;
                   <span className="user-email">{cardsData.email}</span>
                 </a>
               </span>
+
+              <span className="business-card-icons">
+                <a
+                  href={cardsData?.website?.startsWith("http") ? cardsData.website : `https://${cardsData.website}`}
+                  className="business-card-website-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    textDecoration: "none",
+                    color: "black",
+                    gap: "15px",
+                  }}
+                >
+                  <IoGlobeOutline style={{ fontSize: "20px" }} />
+                  <span className="user-email">{cardsData.website}</span>
+                </a>
+              </span>
+
             </div>
             <button className="save-contact" onClick={generateVCF}>
               SAVE CONTACT
