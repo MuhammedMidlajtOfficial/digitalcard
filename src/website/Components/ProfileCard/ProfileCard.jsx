@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaPhoneAlt, FaInstagram, FaWhatsapp } from "react-icons/fa";
-import { IoMailSharp } from "react-icons/io5";
+import { IoGlobeOutline, IoMailSharp } from "react-icons/io5";
 import { RiFacebookCircleLine } from "react-icons/ri";
 import { PiPhoneFill } from "react-icons/pi";
 import { Avatar, message } from "antd";
@@ -257,7 +257,7 @@ END:VCARD`;
                 ) : (
                   <p className="no-services">No services available</p>
                 )}
-                {cardsData?.website && (
+                {/* {cardsData?.website && (
                   <a
                     href={`https://${cardsData.website}`}
                     className="business-card-website-link"
@@ -266,7 +266,7 @@ END:VCARD`;
                   >
                     Visit Website
                   </a>
-                )}
+                )} */}
               </div>
             </div>
           </div>
@@ -303,10 +303,41 @@ END:VCARD`;
                   </p>
                 </a>
               </span>
-
+              
               <span className="business-card-icons">
                 <a
                   href={`mailto:${cardsData.email}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start", // Aligns items to the top
+                    textDecoration: "none",
+                    color: "black",
+                    gap: "10px",
+                    flexWrap: "wrap", // Allows wrapping
+                  }}
+                >
+                  <IoMailSharp style={{ fontSize: "20px", marginTop: "5px" }} />
+                  <span
+                    className="user-email"
+                    style={{
+                      display: "inline-block",
+                      whiteSpace: "normal", // Allows wrapping
+                      wordBreak: "break-word", // Breaks long words properly
+                      overflowWrap: "break-word",
+                      maxWidth: "320px", // Adjust as needed
+                    }}
+                  >
+                    {cardsData.email}
+                  </span>
+                </a>
+              </span>
+
+              <span className="business-card-icons">
+                <a
+                  href={cardsData?.website?.startsWith("http") ? cardsData.website : `https://${cardsData.website}`}
+                  className="business-card-website-link"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -317,12 +348,11 @@ END:VCARD`;
                     gap: "15px",
                   }}
                 >
-                  <IoMailSharp
-                    style={{ fontSize: "20px", marginTop: "10px" }}
-                  />
-                  <span className="user-email">{cardsData.email}</span>
+                  <IoGlobeOutline style={{ fontSize: "20px" }} />
+                  <span className="user-email">{cardsData.website}</span>
                 </a>
               </span>
+
             </div>
             <button className="save-contact" onClick={generateVCF}>
               SAVE CONTACT

@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from "react";
 import axiosInstanceForTicket from "../../../AxiosContigForTicket";
+import { showWarningToast } from "../../Services/toastService";
 
 const Withdrawal = () => {
   const [withdrawalRequests, setWithdrawalRequests] = useState([]);
   const [acceptedRequests, setAcceptedRequests] = useState([]);
   const [rejectedRequests, setRejectedRequests] = useState([]);
+  // const [singleRequests, setSingleRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('pending');
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const rowOptions = [5, 10, 15, 20, 25, 50];
+  const [showApprovalModal, setShowApprovalModal] = useState(false);
+  const [showRejectModal, setShowRejectModal] = useState(false);
+  const [transactionId, setTransactionId] = useState('');
+  const [reqData, setReqData] = useState({
+    id:'',
+    status:''
+  });
+  const [rejectReason, setRejectReason] = useState('');
 
   useEffect(() => {
     fetchWithdrawalRequests();
@@ -18,11 +28,24 @@ const Withdrawal = () => {
     try {
       const response = await axiosInstanceForTicket.get('/referral/withdraw');
       const data = response.data.withdrawalRequests;
-      
-      const pending = data.filter(req => !req.status || req.status === 'pending');
-      const accepted = data.filter(req => req.status === 'approved');
-      const rejected = data.filter(req => req.status === 'rejected');
-      
+  
+      // Sort pending & accepted by createdAt, rejected by updatedAt
+      const pending = data
+        .filter(req => !req.status || req.status === 'pending')
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  
+      const accepted = data
+        .filter(req => req.status === 'approved')
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  
+      const rejected = data
+        .filter(req => req.status === 'rejected')
+        .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+  
+      console.log('Pending:', pending);
+      console.log('Accepted:', accepted);
+      console.log('Rejected:', rejected);
+  
       setWithdrawalRequests(pending);
       setAcceptedRequests(accepted);
       setRejectedRequests(rejected);
@@ -31,20 +54,89 @@ const Withdrawal = () => {
       console.error("Error fetching withdrawal requests:", error);
       setLoading(false);
     }
+  };  
+
+  // const fetchWithdrawalRequests = async () => {
+  //   try {
+  //     const response = await axiosInstanceForTicket.get('/referral/withdraw');
+  //     const data = response.data.withdrawalRequests;
+
+  //      // Sort function to order by updatedAt (newest first)
+  //     const sortedData = data.sort((a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime());
+
+  //     const pending = sortedData.filter(req => !req.status || req.status === 'pending');
+  //     const accepted = sortedData.filter(req => req.status === 'approved');
+  //     const rejected = sortedData.filter(req => req.status === 'rejected');
+      
+  //     // const pending = data.filter(req => !req.status || req.status === 'pending');
+  //     // const accepted = data.filter(req => req.status === 'approved');
+  //     // const rejected = data.filter(req => req.status === 'rejected');
+  //     console.log('data-',data);
+  //     setWithdrawalRequests(pending);
+      
+      
+  //     setAcceptedRequests(accepted);
+  //     setRejectedRequests(rejected);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error("Error fetching withdrawal requests:", error);
+  //     setLoading(false);
+  //   }
+  // };
+
+  // const fetchSingleWithdrawalRequests = async (requestId) => {
+  //   try {
+  //     const response = await axiosInstanceForTicket.get('/referral/withdraw');
+  //     const data = response.data.withdrawalRequests;
+  //     console.log('data-',data);
+
+  //     // setSingleRequests(data)
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error("Error fetching withdrawal requests:", error);
+  //     setLoading(false);
+  //   }
+  // };
+
+  const handleStatusChange = async (id,status) => {
+    try {
+      setReqData((prevData) => ({
+        ...prevData,
+        id: id,
+        status: status
+      }));
+      
+      if (status === 'approved') {
+        setShowApprovalModal(true);
+      }else{
+        setShowRejectModal(true)
+      }
+      // fetchSingleWithdrawalRequests(requestId)
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
   };
 
-  const handleStatusChange = async (id, newStatus, amount, transactionId) => {
+  const submitStatusChange = async () => {
     try {
-      const response = await axiosInstanceForTicket.put(`/referral/withdraw/${id}`, {
-        id,
-        status: newStatus,
-        amount,
-        transactionId
+      if (reqData.status === 'approved' && !transactionId.trim()) {
+        showWarningToast("Transaction ID is required!");
+        return;
+      }
+
+      const response = await axiosInstanceForTicket.put(`/referral/withdraw/${reqData.id}`, {
+        id: reqData.id,
+        status: reqData.status,
+        transactionId: transactionId
       });
 
       if (response.status === 200) {
         fetchWithdrawalRequests();
       }
+
+      setTransactionId('');
+      setShowApprovalModal(false);
+      setShowRejectModal(false)
     } catch (error) {
       console.error("Error updating status:", error);
     }
@@ -164,21 +256,21 @@ const Withdrawal = () => {
               ).slice(0, rowsPerPage).map((request) => (
                 <tr key={request._id} className="hover:bg-gray-50">
                   <td className="p-4 text-sm">{request._id.slice(-6)}</td>
-                  <td className="p-4 text-sm">{request.userId.slice(-6)}</td>
-                  <td className="p-4 text-sm font-medium">₹{request.amount.$numberDecimal}</td>
+                  <td className="p-4 text-sm">{request.user?.username}</td>
+                  <td className="p-4 text-sm font-medium">₹{request.amount}</td>
                   <td className="p-4 text-sm">{request.upiId}</td>
                   <td className="p-4 text-sm">{formatDate(request.createdAt)}</td>
                   {activeTab === 'pending' && (
                     <td className="p-4">
                       <div className="flex gap-2">
                         <button
-                          onClick={() => handleStatusChange(request._id, 'approved', request?.amount?.$numberDecimal, request.transactionId)}
+                          onClick={() => handleStatusChange( request._id, 'approved')}
                           className="bg-green-500 text-white px-3 py-1.5 rounded text-sm font-medium hover:bg-green-600 transition-colors"
                         >
                           Accept
                         </button>
                         <button
-                          onClick={() => handleStatusChange(request._id, 'rejected', request?.amount?.$numberDecimal, request.transactionId)}
+                          onClick={() => handleStatusChange( request._id, 'rejected')}
                           className="bg-red-500 text-white px-3 py-1.5 rounded text-sm font-medium hover:bg-red-600 transition-colors"
                         >
                           Reject
@@ -190,7 +282,7 @@ const Withdrawal = () => {
                     <td className="p-4 text-sm">{formatDate(request.updatedAt)}</td>
                   )}
                   {activeTab === 'accepted' && (
-                    <td className="p-4 text-sm">{request.transactionId}</td>
+                    <td className="p-4 text-sm">{request.transactionId || 'N/A'}</td>
                   )}
                 </tr>
               ))}
@@ -198,6 +290,56 @@ const Withdrawal = () => {
           </table>
         </div>
       </div>
+
+      {/* Approval Modal */}
+      {showApprovalModal && (
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 className="text-xl font-bold mb-4">Enter Transaction ID</h2>
+              <input
+                type="text"
+                placeholder="Transaction ID"
+                value={transactionId}
+                onChange={(e) => setTransactionId(e.target.value)}
+                className="w-full p-2 border rounded"
+              />
+            <div className="flex justify-end mt-4 gap-2">
+              <button onClick={() => { 
+                setShowApprovalModal(false)
+                setTransactionId('') }} 
+                className="bg-gray-400 text-white px-3 py-1 rounded">Cancel</button>
+              <button onClick={submitStatusChange} className="bg-blue-500 text-white px-3 py-1 rounded">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Reject Modal */}
+      {showRejectModal && (
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 className="text-xl font-bold mb-4">Enter Rejection Reason</h2>
+            
+              <textarea
+                placeholder="Reason for rejection"
+                value={rejectReason}
+                onChange={(e) => setRejectReason(e.target.value)}
+                className="w-full p-2 border rounded"
+              />
+            <div className="flex justify-end mt-4 gap-2">
+              <button onClick={() => {
+                setShowRejectModal(false)
+                setRejectReason('') }}
+                className="bg-gray-400 text-white px-3 py-1 rounded">Cancel</button>
+              <button onClick={submitStatusChange} className="bg-blue-500 text-white px-3 py-1 rounded">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
