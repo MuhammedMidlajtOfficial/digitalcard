@@ -8,7 +8,7 @@ import { logInstance } from "../../../AxiosConfig";
 import { useLoading } from "../../../application/Services/loadingService";
 import { useParams } from "react-router-dom";
 import { FaLinkedin } from "react-icons/fa";
-import defaultimage from "../../Assets/image/Notfound.png"
+import defaultimage from "../../Assets/image/Notfound.png";
 const ProfileCard = () => {
   const [cardsData, setCardsData] = useState([]);
 
@@ -96,16 +96,19 @@ END:VCARD`;
                   <div className="business-card-second-container">
                     <div className="business-card-profile">
                       <div className="business-card-image">
-                        <Avatar src={cardsData?.image || defaultimage } size={84} />
+                        <Avatar
+                          src={cardsData?.image || defaultimage}
+                          size={84}
+                        />
                       </div>
                     </div>
                     <div className="business-card-content">
                       <div className="business-card-button">
                         <p style={{ fontWeight: "700", paddingTop: "5px" }}>
-                        {cardsData?.yourName || "No Name Available"}
+                          {cardsData?.yourName || "No Name Available"}
                         </p>
                         <p style={{ fontWeight: "500" }}>
-                        {cardsData?.designation || "No Designation Available"}
+                          {cardsData?.designation || "No Designation Available"}
                         </p>
                         <hr style={{ width: "100%" }} />
                       </div>
@@ -163,7 +166,9 @@ END:VCARD`;
                               className="business-card-icon-style"
                               style={{ marginTop: "3px", padding: 0 }}
                             />
-                            <p className="text-style">{cardsData?.email || "No Email Available"}</p>
+                            <p className="text-style">
+                              {cardsData?.email || "No Email Available"}
+                            </p>
                           </a>
                         </span>
                       </div>
@@ -177,11 +182,10 @@ END:VCARD`;
                             }
                             target="_blank"
                             rel="noopener noreferrer"
-                            onClick={(e) =>{
-                              e.stopPropagation(); 
-                              handleLinkClick(e, cardsData.whatsappNo)
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleLinkClick(e, cardsData.whatsappNo);
                             }}
-                            
                           >
                             <FaWhatsapp />
                           </a>
@@ -190,9 +194,9 @@ END:VCARD`;
                             href={cardsData.facebookLink || "#"}
                             target="_blank"
                             rel="noopener noreferrer"
-                            onClick={(e) =>{
-                              e.stopPropagation(); 
-                              handleLinkClick(e, cardsData.facebookLink)
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleLinkClick(e, cardsData.facebookLink);
                             }}
                           >
                             <RiFacebookCircleLine />
@@ -202,9 +206,9 @@ END:VCARD`;
                             href={cardsData.instagramLink || "#"}
                             target="_blank"
                             rel="noopener noreferrer"
-                            onClick={(e) =>{
-                              e.stopPropagation(); 
-                              handleLinkClick(e, cardsData.instagramLink)
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleLinkClick(e, cardsData.instagramLink);
                             }}
                           >
                             <FaInstagram />
@@ -214,9 +218,9 @@ END:VCARD`;
                             href={cardsData.twitterLink || "#"}
                             target="_blank"
                             rel="noopener noreferrer"
-                            onClick={(e) =>{
-                              e.stopPropagation(); 
-                              handleLinkClick(e, cardsData.twitterLink)
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleLinkClick(e, cardsData.twitterLink);
                             }}
                           >
                             <FaLinkedin />
@@ -229,49 +233,58 @@ END:VCARD`;
               </div>
 
               <div className="back">
-                <h2 className="business-card-services-header">Services</h2>
-                {cardsData?.services?.length > 0 ? (
-                  <div className="business-card-services-list">
-                    <div>
-                      <ul className="business-card-service-column">
-                        {cardsData.services
-                          .slice(0, Math.ceil(cardsData.services.length / 2))
-                          .map((service, index) => (
-                            <li key={index}>{service}</li>
-                          ))}
-                      </ul>
+                <div className="business-card-container">
+                  <div className="business-card-second-container">
+                    <div className="business-card-profile">
+                      <div className="business-card-image">
+                        <Avatar
+                          src={cardsData?.image || defaultimage}
+                          size={84}
+                        />
+                      </div>
                     </div>
-                    <div className="business-card-vertical-line"></div>
-                    <div>
-                      <ul className="business-card-service-column">
-                        {cardsData.services
-                          .slice(Math.ceil(cardsData.services.length / 2))
-                          .map((service, index) => (
-                            <li key={index}>{service}</li>
-                          ))}
-                      </ul>
+                    <div className="business-card-content">
+                      <div className="business-card-button">
+                        <p style={{ fontWeight: "700" }}>
+                          Top Product / Services
+                        </p>
+                        <hr style={{ width: "100%" }} />
+                        {cardsData?.services?.length > 0 ? (
+                          <div className="business-card-services-list">
+                            <ul className="business-card-service-column">
+                              {cardsData.services.map((service, index) => (
+                                <li key={index}>- {service}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        ) : (
+                          <p className="no-services">No services available</p>
+                        )}
+                      </div>
+                      {cardsData?.website && (
+                        <a
+                          href={`https://${cardsData.website}`}
+                          className="business-card-website-link"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {cardsData.website}
+                        </a>
+                      )}
                     </div>
                   </div>
-                ) : (
-                  <p className="no-services">No services available</p>
-                )}
-                {cardsData?.website && (
-                  <a
-                    href={`https://${cardsData.website}`}
-                    className="business-card-website-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Visit Website
-                  </a>
-                )}
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="business-contact-details">
-            <h4 className="name">{cardsData.yourName || "No Name Available"}</h4>
-            <h5 className="position">{cardsData.designation || "No Designation Available" }</h5>
+          <div className="business-contact-details mt-1">
+            <h4 className="name">
+              {cardsData.yourName || "No Name Available"}
+            </h4>
+            <h5 className="position">
+              {cardsData.designation || "No Designation Available"}
+            </h5>
             <hr
               style={{
                 height: "2px",
