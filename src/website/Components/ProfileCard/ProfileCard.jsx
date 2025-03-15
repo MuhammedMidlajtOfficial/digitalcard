@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaPhoneAlt, FaInstagram, FaWhatsapp } from "react-icons/fa";
-import { IoGlobeOutline, IoMailSharp } from "react-icons/io5";
+import { IoMailSharp } from "react-icons/io5";
 import { RiFacebookCircleLine } from "react-icons/ri";
 import { PiPhoneFill } from "react-icons/pi";
 import { Avatar, message } from "antd";
@@ -8,7 +8,7 @@ import { logInstance } from "../../../AxiosConfig";
 import { useLoading } from "../../../application/Services/loadingService";
 import { useParams } from "react-router-dom";
 import { FaLinkedin } from "react-icons/fa";
-
+import defaultimage from "../../Assets/image/Notfound.png"
 const ProfileCard = () => {
   const [cardsData, setCardsData] = useState([]);
 
@@ -96,16 +96,16 @@ END:VCARD`;
                   <div className="business-card-second-container">
                     <div className="business-card-profile">
                       <div className="business-card-image">
-                        <Avatar src={cardsData.image} size={84} />
+                        <Avatar src={cardsData?.image || defaultimage } size={84} />
                       </div>
                     </div>
                     <div className="business-card-content">
                       <div className="business-card-button">
                         <p style={{ fontWeight: "700", paddingTop: "5px" }}>
-                          {cardsData.yourName || "N/A"}
+                        {cardsData?.yourName || "No Name Available"}
                         </p>
                         <p style={{ fontWeight: "500" }}>
-                          {cardsData.designation || "N/A"}
+                        {cardsData?.designation || "No Designation Available"}
                         </p>
                         <hr style={{ width: "100%" }} />
                       </div>
@@ -140,7 +140,7 @@ END:VCARD`;
                                 fontSize: "15px",
                               }}
                             >
-                              {cardsData.mobile || "N/A"}
+                              {cardsData?.mobile || "No Contact Available"}
                             </p>
                           </a>
                         </span>
@@ -163,9 +163,7 @@ END:VCARD`;
                               className="business-card-icon-style"
                               style={{ marginTop: "3px", padding: 0 }}
                             />
-                            <p className="text-style">
-                              {cardsData.email || "N/A"}
-                            </p>
+                            <p className="text-style">{cardsData?.email || "No Email Available"}</p>
                           </a>
                         </span>
                       </div>
@@ -257,7 +255,7 @@ END:VCARD`;
                 ) : (
                   <p className="no-services">No services available</p>
                 )}
-                {/* {cardsData?.website && (
+                {cardsData?.website && (
                   <a
                     href={`https://${cardsData.website}`}
                     className="business-card-website-link"
@@ -266,14 +264,14 @@ END:VCARD`;
                   >
                     Visit Website
                   </a>
-                )} */}
+                )}
               </div>
             </div>
           </div>
 
           <div className="business-contact-details">
-            <h4 className="name">{cardsData.yourName}</h4>
-            <h5 className="position">{cardsData.designation}</h5>
+            <h4 className="name">{cardsData.yourName || "No Name Available"}</h4>
+            <h5 className="position">{cardsData.designation || "No Designation Available" }</h5>
             <hr
               style={{
                 height: "2px",
@@ -303,41 +301,10 @@ END:VCARD`;
                   </p>
                 </a>
               </span>
-              
-              <span className="business-card-icons">
-                <a
-                  href={`mailto:${cardsData.email}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: "flex",
-                    alignItems: "flex-start", // Aligns items to the top
-                    textDecoration: "none",
-                    color: "black",
-                    gap: "10px",
-                    flexWrap: "wrap", // Allows wrapping
-                  }}
-                >
-                  <IoMailSharp style={{ fontSize: "20px", marginTop: "5px" }} />
-                  <span
-                    className="user-email"
-                    style={{
-                      display: "inline-block",
-                      whiteSpace: "normal", // Allows wrapping
-                      wordBreak: "break-word", // Breaks long words properly
-                      overflowWrap: "break-word",
-                      maxWidth: "320px", // Adjust as needed
-                    }}
-                  >
-                    {cardsData.email}
-                  </span>
-                </a>
-              </span>
 
               <span className="business-card-icons">
                 <a
-                  href={cardsData?.website?.startsWith("http") ? cardsData.website : `https://${cardsData.website}`}
-                  className="business-card-website-link"
+                  href={`mailto:${cardsData.email}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -348,11 +315,12 @@ END:VCARD`;
                     gap: "15px",
                   }}
                 >
-                  <IoGlobeOutline style={{ fontSize: "20px" }} />
-                  <span className="user-email">{cardsData.website}</span>
+                  <IoMailSharp
+                    style={{ fontSize: "20px", marginTop: "10px" }}
+                  />
+                  <span className="user-email">{cardsData.email}</span>
                 </a>
               </span>
-
             </div>
             <button className="save-contact" onClick={generateVCF}>
               SAVE CONTACT
