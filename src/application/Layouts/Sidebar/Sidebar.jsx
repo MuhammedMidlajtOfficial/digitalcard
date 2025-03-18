@@ -22,7 +22,7 @@ import { MdOutlineFeedback, MdOutlineContactPage } from "react-icons/md";
 import { LuScanFace, LuTicket } from "react-icons/lu";
 import { GrConfigure } from "react-icons/gr";
 import { GoBell } from "react-icons/go";
-import { PiHandWithdraw } from "react-icons/pi";
+import { PiBroadcast, PiHandWithdraw } from "react-icons/pi";
 
 
 function SidebarApplication() {
@@ -131,6 +131,7 @@ function SidebarApplication() {
       "/admin/notificationsystem/adminnotifications": "notificationsystem",
       "/admin/notificationsystem/customizablealerts": "notificationsystem",
       "/admin/withdrawalRequest": "withdrawalRequest",
+      "/admin/broadcastMessage": "broadcastMessage",
     };
 
     const currentPath = location.pathname;
@@ -1149,6 +1150,18 @@ function SidebarApplication() {
                   }`}
                 >
                   <PiHandWithdraw className="sidebar-icon" /> Withdrawal Request
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/admin/broadcastMessage"
+                  className={`nav-link ${
+                    location.pathname === "/admin/broadcastMessage"
+                      ? "active-nav-links"
+                      : ""
+                  }`}
+                >
+                  <PiBroadcast className="sidebar-icon" /> Broadcast Message
                 </Link>
               </li>
               <div className="line-dashed"></div>
