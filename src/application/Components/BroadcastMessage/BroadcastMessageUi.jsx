@@ -14,6 +14,7 @@ function BroadcastMessage() {
   const [sending, setSending] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('INDIVIDUAL');
+  const [expandedItems, setExpandedItems] = useState({});
 
   useEffect(() => {
     fetchChatIds()
@@ -120,6 +121,13 @@ function BroadcastMessage() {
     if (!timestamp) return '';
     const date = new Date(timestamp);
     return date.toLocaleString();
+  };
+
+  const toggleReaders = (id) => {
+    setExpandedItems(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
   };
 
   const updateFilter = (filter) => {
@@ -298,7 +306,7 @@ function BroadcastMessage() {
           </div>
         </div>
         
-        <div className="history-list space-y-4">
+        {/* <div className="history-list space-y-4">
           {broadcastHistory.length > 0 ? (
             broadcastHistory.map((item, index) => (
               <div key={index} className="history-item bg-white p-4 rounded-md shadow-sm border border-gray-200">
@@ -321,10 +329,10 @@ function BroadcastMessage() {
                     <span className={`status-badge px-2 py-1 rounded-full text-xs ${item.isRead ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}`}>
                       {item.isRead ? 'Read' : 'Delivered'}
                     </span>
-                  </div>
+                  </div> */}
                   
                   {/* Expand button for viewing readers */}
-                  {Array.isArray(item.readBy) && item.readBy.length > 0 && (
+                  {/* {Array.isArray(item.readBy) && item.readBy.length > 0 && (
                     <button className="text-blue-600 text-sm flex items-center">
                       View readers
                       <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -332,7 +340,7 @@ function BroadcastMessage() {
                       </svg>
                     </button>
                   )}
-                </div>
+                </div> */}
                 
                 {/* Reader details section - This would be expanded when clicking "View readers" */}
                 {/* This is where you would map your transformed readBy data with user details */}
@@ -352,7 +360,7 @@ function BroadcastMessage() {
                 </div> */}
                
                 
-                {item.image && (
+                {/* {item.image && (
                   <div className="message-image mt-3">
                     <img src={item.image} alt="Attachment" className="thumbnail rounded-md max-h-32 object-cover" />
                   </div>
@@ -364,6 +372,83 @@ function BroadcastMessage() {
           )}
         </div>
       </div>
+    </div> */}
+
+      <div className="history-list space-y-4">
+      {broadcastHistory.length > 0 ? (
+        broadcastHistory.map((item, index) => (
+          <div key={index} className="history-item bg-white p-4 rounded-md shadow-sm border border-gray-200">
+            <div className="history-content">
+              <p className="history-message text-gray-700 mb-3">{item.content}</p>
+              <div className="history-meta flex flex-wrap gap-4 text-sm text-gray-500 mb-3">
+                <span className="user-type">Type: {item.forUserType || item.userType || 'Unknown'}</span>
+                <span className="timestamp">{formatTimestamp(item.timestamp || item.localTime)}</span>
+                <span className="read-count flex items-center">
+                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                  </svg>
+                  Read by: {Array.isArray(item.readBy) ? item.readBy.length : 0} users
+                </span>
+              </div>
+              
+              {/* Reader details appear here, after the message metadata */}
+              {expandedItems[index] && Array.isArray(item.readBy) && item.readBy.length > 0 && (
+                <div className="reader-details mb-3 pb-3 border-b border-gray-100">
+                  <div className="reader-list flex space-x-4 overflow-x-auto pb-2 scrollbar-thin">
+                    {item.readBy.map((reader, i) => (
+                      <div key={i} className="reader-item flex-shrink-0 flex flex-col items-center">
+                        <img 
+                          src={reader.image || "/default-avatar.png"} 
+                          alt={reader.name} 
+                          className="w-10 h-10 rounded-full object-cover"
+                        />
+                        <p className="font-medium text-xs mt-1 text-center max-w-16 truncate">{reader.name}</p>
+                        <p className="text-xs text-gray-500 truncate max-w-16">{reader.phone}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            
+            <div className="flex justify-between items-center">
+              <div className="history-status">
+                <span className={`status-badge px-2 py-1 rounded-full text-xs ${item.isRead ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}`}>
+                  {item.isRead ? 'Read' : 'Delivered'}
+                </span>
+              </div>
+              
+              {Array.isArray(item.readBy) && item.readBy.length > 0 && (
+                <button 
+                  onClick={() => toggleReaders(index)}
+                  className="text-blue-600 text-sm flex items-center"
+                >
+                  {expandedItems[index] ? 'Hide readers' : 'View readers'}
+                  <svg 
+                    className={`w-4 h-4 ml-1 transform transition-transform ${expandedItems[index] ? 'rotate-180' : ''}`} 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24" 
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+              )}
+            </div>
+          
+            {item.image && (
+              <div className="message-image mt-3">
+                <img src={item.image} alt="Attachment" className="thumbnail rounded-md max-h-32 object-cover" />
+              </div>
+            )}
+          </div>
+        ))
+      ) : (
+        <div className="no-history p-8 text-center text-gray-500 bg-white rounded-md">No messages found</div>
+      )}
+    </div>
+    </div>
     </div>
   );
 }
