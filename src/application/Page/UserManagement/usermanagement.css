@@ -467,6 +467,7 @@
 
 .content {
   transition: filter 0.3s ease-in-out; /* Smooth transition for blur */
+    padding-top: 0px !important;
 }
 
 .content.blur {
@@ -491,7 +492,6 @@
     padding: 8px 8px;
   }
 }
-
 .active-view {
   background-color: #e0f7fa;
   border-radius: 8px; 
