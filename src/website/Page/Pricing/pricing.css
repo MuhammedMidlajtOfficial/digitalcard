@@ -116,6 +116,7 @@
   display: flex;
   justify-content: center;
   gap: 10px;
+  margin-top: 70px;
 }
 .billing-cycle-radio-group {
   display: flex;

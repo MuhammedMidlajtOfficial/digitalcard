@@ -42,7 +42,7 @@ const AboutCertification = () => {
         </center>
         <div className="row">
           {certifications.map((cert) => (
-            <ScrollAnimation animationClass="animate__fadeInDown" className="col-lg-3 mb-5" key={cert.id}>
+            <ScrollAnimation animationClass="animate__fadeInDown" className="col-lg-3 mb-2" key={cert.id}>
               <div className="cert-card ">
                 <img
                   src={cert.icon}
