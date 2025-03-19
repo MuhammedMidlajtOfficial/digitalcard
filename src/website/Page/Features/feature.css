@@ -29,6 +29,7 @@
 .features-image-container img {
   width: 50%;
   height: 50%;
+  margin-left: 90px;
 }
 .features-cards-div {
   background-color: var(--features-black-color);

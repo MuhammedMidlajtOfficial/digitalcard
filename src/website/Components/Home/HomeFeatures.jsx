@@ -100,7 +100,7 @@ const HomeFeatures = () => {
                 className="phone-image1"
               />
             </div>
-            <div className="phone-container col-lg-3 mb-4 align-items-end d-flex justify-content-center">
+            <div className="phone-container col-lg-3 align-items-end d-flex justify-content-center">
               <img
                 src={image2}
                 alt="KC (Know Connections) App Interface"

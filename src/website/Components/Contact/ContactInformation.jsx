@@ -4,7 +4,7 @@ import whatsapp from "../../Assets/image/contact/contact-whatsapp.svg";
 import location from "../../Assets/image/contact/contact-location.svg";
 import { Form, Input, Button, Checkbox } from "antd";
 import { IoArrowForward } from "react-icons/io5";
-import ScrollAnimation from "../../../ScrollAnimation"; // Adjust path if necessary
+import ScrollAnimation from "../../../ScrollAnimation";
 
 const ContactInformation = () => {
   return (
@@ -64,8 +64,8 @@ const ContactInformation = () => {
                 <div className="contact-email-info">
                   <h2>Our Location</h2>
                   <p>
-                    Opp HDFC BANK ATM, 1st Floor, No.1/1, T C Palya Main Road,
-                    Sannatammanahalli, KR Puram, Bengaluru Urban, Karnataka,
+                    Opp HDFC BANK ATM, 1st Floor, No.1/1,<br />T C Palya Main Road,
+                    Sannatammanahalli, KR Puram,<br /> Bengaluru Urban, Karnataka,
                     560036
                   </p>
                 </div>

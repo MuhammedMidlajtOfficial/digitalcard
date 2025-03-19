@@ -28,7 +28,7 @@ const HomeBanner = () => {
               <p>
               Redefine the way you manage business contacts, connect seamlessly, and elevate your networking game. Your next big opportunity is just a tap away.
               </p>
-              <div className="buttons">
+              <div className="buttonss">
                 {/* <button className="btn btn-primary explore-button d-lg-inline-block">
                   Watch Video
                 </button> */}

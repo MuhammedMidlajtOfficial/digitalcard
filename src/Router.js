@@ -106,6 +106,7 @@ import RedirectingPage from "./website/Page/RedirectingPage";
 import WithdrawalPage from "./application/Page/Withdrawal/withdrawalPage";
 
 import ProfileCardPage from "./website/Page/ProfileCard/ProfileCardPage";
+import BroadcastMessage from "./application/Page/BroadCast/BroadcastMessage";
 
 
 const Loader = () => {
@@ -203,7 +204,8 @@ const MainContent = () => {
     "/admin/AllConfigurationList", 
 
     "/admin/withdrawalRequest",
-    "/profile-card"
+    "/profile-card",
+    "/admin/broadcastMessage"
 
   ];
 
@@ -574,6 +576,10 @@ const MainContent = () => {
             <Route
               path="/profile-card/:id"
                element={<ProfileCardPage/>}
+            />
+            <Route
+              path="/admin/broadcastMessage"
+               element={<BroadcastMessage/>}
             />
           </Routes>
 

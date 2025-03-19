@@ -15,8 +15,8 @@ export const FeatureCustomerExperience = () => {
               <img src={image1} alt="" />
             </div>
           </div>
-          <ScrollAnimation className="col-lg-8" animationClass="animate__fadeInUp">
-            <div className="features-customer-tag">
+          <ScrollAnimation className="col-lg-8 p-6" animationClass="animate__fadeInUp">
+            <div className="features-customer-tag flex items-center gap-0">
               <AiOutlineThunderbolt />
               Benefits
             </div>

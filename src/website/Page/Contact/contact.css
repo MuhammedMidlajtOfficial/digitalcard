@@ -233,6 +233,9 @@
 }
 
 @media (max-width: 768px) {
+  .contact-info-section{
+    padding-top: 0px !important;
+  }
   .contact-info {
     display: block;
   }
