@@ -392,7 +392,7 @@ function BroadcastMessage() {
               </div>
               
               {/* Reader details appear here, after the message metadata */}
-              {expandedItems[index] && Array.isArray(item.readBy) && item.readBy.length > 0 && (
+              {/* {expandedItems[index] && Array.isArray(item.readBy) && item.readBy.length > 0 && (
                 <div className="reader-details mb-3 pb-3 border-b border-gray-100">
                   <div className="reader-list flex space-x-4 overflow-x-auto pb-2 scrollbar-thin">
                     {item.readBy.map((reader, i) => (
@@ -408,7 +408,7 @@ function BroadcastMessage() {
                     ))}
                   </div>
                 </div>
-              )}
+              )} */}
             </div>
             
             <div className="flex justify-between items-center">
@@ -418,7 +418,7 @@ function BroadcastMessage() {
                 </span>
               </div>
               
-              {Array.isArray(item.readBy) && item.readBy.length > 0 && (
+              {/* {Array.isArray(item.readBy) && item.readBy.length > 0 && (
                 <button 
                   onClick={() => toggleReaders(index)}
                   className="text-blue-600 text-sm flex items-center"
@@ -434,7 +434,7 @@ function BroadcastMessage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                   </svg>
                 </button>
-              )}
+              )} */}
             </div>
           
             {item.image && (
