@@ -36,7 +36,7 @@ const ResourcesCards = () => {
         </div>
       </div>
       <div className="container">
-        <div className="row my-5">
+        <div className="row my-3">
           {cardData.map((cardInfo, index) => (
             <ScrollAnimation
               animationClass={index % 2 === 0 ? "animate__fadeInUp" : "animate__fadeInDown"}

@@ -41,7 +41,7 @@ const AboutVision = () => {
                 <div className="about-vertical-line"></div>
               </div>
               <div className="about-stat-item">
-              <ScrollAnimation animationClass="animate__fadeInUp" className="d-flex gap-4">
+              <ScrollAnimation animationClass="animate__fadeInUp" className="d-flex gap-3">
                   <div className="about-features-icons">
                     <img src={degree} alt="" />
                   </div>
