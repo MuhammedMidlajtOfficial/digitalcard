@@ -509,6 +509,7 @@
   .back-card-second-container {
     flex-direction: row;
     width: 100%;
+    min-height: 195px !important;
   }
   .back-card-profile {
     width: 30%;
