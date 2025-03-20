@@ -78,7 +78,7 @@ END:VCARD`;
         <div className="business-card" key={cardsData._id}>
           <div className="business-card-first-container">
             <h1 className="business-card-first-container-headtext">
-              {cardsData.businessName || "N/A"}
+              {cardsData.businessName || "Name"}
             </h1>
           </div>
 
@@ -307,7 +307,7 @@ END:VCARD`;
               >
                 <p className="user-phone">
                   <FaPhoneAlt />
-                  {cardsData.mobile}
+                  {cardsData.mobile || "+91 00000 00000"}
                 </p>
               </a>
 
@@ -318,7 +318,7 @@ END:VCARD`;
               >
                 <p className="user-email">
                   <IoMailSharp />
-                  {cardsData.email}
+                  {cardsData.email || "No email available"}
                 </p>
               </a>
             </div>
