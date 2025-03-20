@@ -266,6 +266,7 @@
   transition: transform 0.6s;
   transform-style: preserve-3d;
   width: 430px;
+  min-height: 170px;
 }
 .back-card-second-container.flipped {
   transform: rotateY(180deg);
@@ -338,6 +339,8 @@
 }
 
 .back-card-website-link {
+  position: absolute;
+  bottom: 10px;
   display: block;
   text-align: left;
   margin-top: 5px;
@@ -347,7 +350,7 @@
   text-decoration: underline;
   align-items: start;
   word-wrap: break-word !important;
-  overflow-wrap: break-word;
+  overflow-wrap: break-word !important;
   white-space: normal;
   word-break: break-word;
   max-width: 100%;
@@ -417,7 +420,7 @@
   text-align: left;
   align-items: start;
   word-wrap: break-word !important;
-  overflow-wrap: break-word;
+  overflow-wrap: break-word !important;
   white-space: normal;
   word-break: break-word;
   max-width: 100%;
