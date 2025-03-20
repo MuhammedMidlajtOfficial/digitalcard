@@ -66,7 +66,7 @@ const HomeTemplate = () => {
           </div>
         </div>
 
-        <div className="button-group">
+        <div className="button-groups">
           <button
             className="explore-button"
             onClick={() =>

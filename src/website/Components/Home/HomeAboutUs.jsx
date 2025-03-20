@@ -60,7 +60,7 @@ const HomeAboutUs = () => {
             animationClass="animate__fadeInUp"
             className="right-content col-lg-6 position-relative"
           >
-            <lottie-player
+            {/* <lottie-player
               src="https://lottie.host/4c26e82c-364d-4af6-9222-c0276d965607/i8shBxCp9J.json"
               background="transparent"
               speed="1"
@@ -75,7 +75,7 @@ const HomeAboutUs = () => {
               }}
               loop
               autoplay
-            ></lottie-player>
+            ></lottie-player> */}
 
             <img src={homeAbout} alt="Team meeting" />
           </ScrollAnimation>

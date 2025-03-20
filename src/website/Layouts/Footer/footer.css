@@ -214,3 +214,9 @@ footer {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
   }
+  @media (max-width: 768px) {
+    .footer-copyright,
+    .footer-powered {
+      font-size: 12px;
+    }
+  }
