@@ -30,8 +30,9 @@ const ProfileCard = () => {
     logInstance
       .get(`/card/cardId/${id}`)
       .then((response) => {
+        console.log("response",response?.data?.card );
         setCardsData(response?.data?.card || []);
-      })
+      })      
       .catch((error) => {
         console.error("Error fetching Data:", error);
       })
@@ -263,7 +264,7 @@ END:VCARD`;
                               </div>
                             ))
                         ) : (
-                          <span className="mt-8">Services list is not available</span>
+                          <span className="mt-4">Services list is not available</span>
                         )}
                       </div>
                       {cardsData?.website && (
