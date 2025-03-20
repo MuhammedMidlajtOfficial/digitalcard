@@ -157,7 +157,7 @@ const TermsAndConditions = () => {
 
             {/* Contact Information */}
             <div className="mt-8">
-              <h2 className="font-semibold text-xl">10. Contact Us</h2>
+              <h2 className="font-semibold text-xl">9. Contact Us</h2>
               <p className="mt-2">
                 For questions, concerns, or disputes related to these Terms,
                 please contact us:

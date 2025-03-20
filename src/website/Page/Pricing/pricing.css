@@ -578,7 +578,9 @@ textarea {
   .feature-content-action {
     flex-direction: column;
   }
-
+  .pricing-benefits-section {
+    padding: 10px 0;
+  }
   .action-line {
     display: none;
   }
