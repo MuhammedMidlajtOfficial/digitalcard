@@ -147,6 +147,7 @@
   border-radius: 10px;
   transition: transform 0.6s;
   transform-style: preserve-3d;
+  min-height: 190px;
   width: 430px;
 }
 .business-card-second-container.flipped {
@@ -440,6 +441,7 @@
  }
   .business-card-second-container {
     flex-direction: row;
+    min-height: 205px !important;
     width: 100%;
   }
   .business-card-profile {
@@ -509,7 +511,7 @@
   .back-card-second-container {
     flex-direction: row;
     width: 100%;
-    min-height: 200px !important;
+    min-height: 205px !important;
   }
   .back-card-profile {
     width: 30%;
