@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstanceForTicket from '../../../AxiosContigForTicket';
-import { showSuccessToast } from '../../Services/toastService';
+import { showSuccessToast, showWarningToast } from '../../Services/toastService';
 import { axiosInstance } from '../../../AxiosConfig';
 
 function BroadcastMessage() {
@@ -41,9 +41,12 @@ function BroadcastMessage() {
       setLoading(true);
       const response = await axiosInstanceForTicket.get(`message/chatId/${chatId}?limit=${limit}&page=${page}`);
       console.log('fetchMessageHistory-', response.data);
+
+      const messages = Array.isArray(response.data.messages) ? response.data.messages : [];
+      const sortedMessages = messages.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
   
       // Update state with fetched messages
-      setBroadcastHistory(Array.isArray(response.data.messages) ? response.data.messages : []);
+      setBroadcastHistory(sortedMessages);
   
       // Update pagination values safely
       setCurrentPage(response.data.page ? parseInt(response.data.page, 10) : 1);
@@ -77,8 +80,16 @@ function BroadcastMessage() {
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0];
+  
+      // Check if the file size is below 2MB
+      const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+      if (selectedFile.size > maxSize) {
+        showWarningToast("Image file size should be below 2MB");
+        return;
+      }
+  
       setImage(selectedFile);
-      
+  
       // Create a preview URL for the image
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -86,7 +97,7 @@ function BroadcastMessage() {
       };
       reader.readAsDataURL(selectedFile);
     }
-  };
+  };  
 
   const removeImage = () => {
     setImage(null);
