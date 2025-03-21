@@ -941,7 +941,12 @@
   .features-grids {
     grid-template-columns: 1fr;
   }
-
+  .home-features-section{
+    padding-top:20px;
+  }
+  .arrow.top-right {
+    display: none;
+   }
   .phone-container {
     grid-column: 1;
   }
