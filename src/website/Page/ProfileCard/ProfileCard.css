@@ -266,7 +266,7 @@
   transition: transform 0.6s;
   transform-style: preserve-3d;
   width: 430px;
-  min-height: 170px;
+  min-height: 190px;
 }
 .back-card-second-container.flipped {
   transform: rotateY(180deg);
@@ -340,7 +340,7 @@
 
 .back-card-website-link {
   position: absolute;
-  bottom: 10px;
+  bottom: 5px;
   display: block;
   text-align: left;
   margin-top: 5px;
@@ -509,7 +509,7 @@
   .back-card-second-container {
     flex-direction: row;
     width: 100%;
-    min-height: 195px !important;
+    min-height: 200px !important;
   }
   .back-card-profile {
     width: 30%;
@@ -532,59 +532,103 @@
     margin-bottom: 4px;
   }
 }
-/* Complete solution for iOS devices */
+/* iOS-specific card flip improvements - CSS only solution */
 @media only screen and (max-width: 768px) {
-  /* iOS-specific detection */
   @supports (-webkit-touch-callout: none) {
-    /* Disable 3D transforms entirely for iOS */
+    /* Container setup */
+    .flip-container {
+      perspective: none;
+      -webkit-perspective: none;
+    }
+    
     .flipper {
-      transition: none;
-      transform-style: flat;
-      -webkit-transform-style: flat;
+      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
     }
     
-    /* Reset transforms */
+    /* Reset the transforms but keep the class toggle functionality */
     .flipped {
-      transform: none;
-      -webkit-transform: none;
+      transform: rotateY(0deg); 
+      -webkit-transform: rotateY(0deg);
     }
     
-    /* Handle front and back visibility with opacity/display */
     .front, .back {
-      transition: opacity 0.3s ease;
       position: absolute;
       width: 100%;
       height: 100%;
+      left: 0;
+      top: 0;
+      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       backface-visibility: visible;
       -webkit-backface-visibility: visible;
-      transform: none !important;
-      -webkit-transform: none !important;
+      transform: rotateY(0deg);
+      -webkit-transform: rotateY(0deg);
     }
     
-    /* Default state (showing front) */
+    /* Default state */
     .front {
       opacity: 1;
+      transform: scale(1);
+      -webkit-transform: scale(1);
       z-index: 2;
-      display: block;
     }
     
     .back {
       opacity: 0;
+      transform: scale(0.8) rotateY(180deg);
+      -webkit-transform: scale(0.8) rotateY(180deg);
       z-index: 1;
-      display: none;
     }
     
-    /* Flipped state (showing back) */
+    /* Flipped state with simulated rotation */
     .flipped .front {
       opacity: 0;
+      transform: scale(0.8) rotateY(-180deg);
+      -webkit-transform: scale(0.8) rotateY(-180deg);
       z-index: 1;
-      display: none;
     }
     
     .flipped .back {
       opacity: 1;
+      transform: scale(1) rotateY(0deg);
+      -webkit-transform: scale(1) rotateY(0deg);
       z-index: 2;
-      display: block;
+    }
+    
+    /* Add transition effects to better simulate rotation */
+    .front, .back {
+      transition-property: transform, opacity;
+      transition-duration: 0.6s;
+      transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+    
+    /* Flash effect during transition */
+    .flip-container::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      opacity: 0;
+      z-index: 10;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    
+    .flip-container:active::after {
+      opacity: 0.2;
+    }
+    
+    /* Performance improvements */
+    .flip-container, .flipper, .front, .back {
+      -webkit-transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      transform: translateZ(0);
+      backface-visibility: hidden;
     }
   }
 }
