@@ -634,3 +634,43 @@
     }
   }
 }
+
+
+
+
+
+
+
+.store-button {
+  display: flex;
+  border: 2px solid black;
+  padding: 10px 40px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.store-button:hover {
+  border: 2px solid blue;
+}
+
+.icon-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.text-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.text-section span {
+  font-size: 12px;
+}
+
+.text-section strong {
+  font-size: 16px;
+}

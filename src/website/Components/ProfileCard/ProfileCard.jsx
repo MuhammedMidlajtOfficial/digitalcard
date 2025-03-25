@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { FaPhoneAlt, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { FaPhoneAlt, FaInstagram, FaWhatsapp, FaApple } from "react-icons/fa";
+import playstore from "../../../website/Assets/image/playstore.png";
 import { IoMailSharp } from "react-icons/io5";
 import { RiFacebookCircleLine } from "react-icons/ri";
 import { PiPhoneFill } from "react-icons/pi";
@@ -374,6 +375,28 @@ END:VCARD`;
               ))}
             </ul>
           </div>
+
+    <div className="d-flex justify-content-center gap-2 mt-5">
+      <button className="store-button">
+        <div className="icon-section">
+          <FaApple size={24} />
+        </div>
+        <div className="text-section">
+          <span>Download on the</span>
+          <strong>App Store</strong>
+        </div>
+      </button>
+      <button className="store-button">
+        <div className="icon-section">
+        <img src={playstore} alt="Google Play" className="play-icon" width={30} />
+        </div>
+        <div className="text-section">
+          <span>GET IT ON</span>
+          <strong>Google Play</strong>
+        </div>
+      </button>
+    </div>
+
 
           <div>
             <div className="firstend-container">
