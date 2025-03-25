@@ -30,8 +30,9 @@ const ProfileCard = () => {
     logInstance
       .get(`/card/cardId/${id}`)
       .then((response) => {
+        console.log("response",response?.data?.card );
         setCardsData(response?.data?.card || []);
-      })
+      })      
       .catch((error) => {
         console.error("Error fetching Data:", error);
       })
@@ -78,7 +79,7 @@ END:VCARD`;
         <div className="business-card" key={cardsData._id}>
           <div className="business-card-first-container">
             <h1 className="business-card-first-container-headtext">
-              {cardsData.businessName || "N/A"}
+              {cardsData.businessName || "Name"}
             </h1>
           </div>
 
@@ -233,38 +234,43 @@ END:VCARD`;
               </div>
 
               <div className="back">
-                <div className="business-card-container">
-                  <div className="business-card-second-container">
-                    <div className="business-card-profile">
-                      <div className="business-card-image">
+                <div className="back-card-container">
+                  <div className="back-card-second-container">
+                    <div className="back-card-profile">
+                      <div className="back-card-image">
                         <Avatar
                           src={cardsData?.image || defaultimage}
                           size={84}
                         />
                       </div>
                     </div>
-                    <div className="business-card-content">
-                      <div className="business-card-button">
+                    <div className="back-card-content">
+                      <div className="back-card-button">
                         <p style={{ fontWeight: "700" }}>
                           Top Product / Services
                         </p>
                         <hr style={{ width: "100%" }} />
                         {cardsData?.services?.length > 0 ? (
-                          <div className="business-card-services-list">
-                            <ul className="business-card-service-column">
-                              {cardsData.services.map((service, index) => (
-                                <li key={index}>- {service}</li>
-                              ))}
-                            </ul>
-                          </div>
+                          cardsData.services
+                            .slice(0, 5)
+                            .map((service, index) => (
+                              <div
+                                className="back-card-services-list"
+                                key={index}
+                              >
+                                <ul className="back-card-service-column">
+                                  <li>- {service}</li>
+                                </ul>
+                              </div>
+                            ))
                         ) : (
-                          <p className="no-services">No services available</p>
+                          <span className="mt-4">Services list is not available</span>
                         )}
                       </div>
                       {cardsData?.website && (
                         <a
                           href={`https://${cardsData.website}`}
-                          className="business-card-website-link"
+                          className="back-card-website-link"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -278,7 +284,7 @@ END:VCARD`;
             </div>
           </div>
 
-          <div className="business-contact-details mt-1">
+          <div className="business-contact-details">
             <h4 className="name">
               {cardsData.yourName || "No Name Available"}
             </h4>
@@ -295,45 +301,27 @@ END:VCARD`;
             />
 
             <div>
-              <span className="business-card-icons">
-                <a
-                  href={`tel:${cardsData.mobile}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    textDecoration: "none",
-                    color: "black",
-                    gap: "15px",
-                  }}
-                >
-                  <FaPhoneAlt style={{ fontSize: "20px" }} />
-                  <p style={{ fontSize: "20px" }}>
-                    {cardsData.mobile || "N/A"}
-                  </p>
-                </a>
-              </span>
+              <a
+                href={`tel:${cardsData.mobile}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <p className="user-phone">
+                  <FaPhoneAlt />
+                  {cardsData.mobile || "+91 00000 00000"}
+                </p>
+              </a>
 
-              <span className="business-card-icons">
-                <a
-                  href={`mailto:${cardsData.email}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    textDecoration: "none",
-                    color: "black",
-                    gap: "15px",
-                  }}
-                >
-                  <IoMailSharp
-                    style={{ fontSize: "20px", marginTop: "10px" }}
-                  />
-                  <span className="user-email">{cardsData.email}</span>
-                </a>
-              </span>
+              <a
+                href={`mailto:${cardsData.email}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <p className="user-email">
+                  <IoMailSharp />
+                  {cardsData.email || "No email available"}
+                </p>
+              </a>
             </div>
             <button className="save-contact" onClick={generateVCF}>
               SAVE CONTACT

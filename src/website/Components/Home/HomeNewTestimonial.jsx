@@ -71,7 +71,7 @@ const HomeNewTestimonial = () => {
                 <br />
                 <span>of Our Clients</span>
               </h4>
-              <div className="d-flex align-items-center gap-2">
+              <div className="d-lg-flex align-items-center gap-2">
                 <div>
                   <Rate disabled defaultValue={5} />
                 </div>
@@ -86,7 +86,7 @@ const HomeNewTestimonial = () => {
             <div className="home-testimonial-grid">
               {testimonials.map((testimonial, index) => (
                 <div key={index} className="home-testimonial-card">
-                  <div className="d-flex justify-content-between pb-3 align-items-center">
+                  <div className="d-lg-flex justify-content-between pb-3 align-items-center">
                     <div className="d-flex gap-2 align-items-center ">
                       <Avatar src={testimonial.image} size={64} />
                       <div className="home-testimonial-author">

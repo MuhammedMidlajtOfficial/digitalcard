@@ -233,6 +233,12 @@
 }
 
 @media (max-width: 768px) {
+  .contact-banner-section {
+    padding: 150px 0;
+  }
+  .info-map-section{
+    padding: 110px 0px !important;
+  }
   .contact-info-section{
     padding-top: 0px !important;
   }

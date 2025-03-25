@@ -100,6 +100,7 @@
 .flip-container {
   perspective: 1000px;
   cursor: pointer;
+  -webkit-perspective: 1000px; /* Add webkit prefix */
 }
 
 .contentone {
@@ -111,40 +112,42 @@
   width: 100%;
   height: 100%;
   transition: transform 0.6s;
+  -webkit-transition: -webkit-transform 0.6s; /* Add webkit prefix */
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d; /* Add webkit prefix */
   height: 200px;
+  position: relative; /* Add this */
 }
 
 .flipped {
   transform: rotateY(180deg);
-  display: flex;
-  justify-content: center;
+  -webkit-transform: rotateY(180deg); /* Add webkit prefix */
 }
 
 .front {
   position: absolute;
-  backface-visibility: hidden;
-  /* display: flex; */
+  backface-visibility: hidden !important;
   justify-content: center;
   align-items: center;
   border-radius: 15px;
   width: 100%;
-  padding: 10px 0px;
+  padding: 30px 10px;
   height: 190px;
+  -webkit-backface-visibility: hidden; /* Add webkit prefix */
 }
 .business-card-container {
-  border-radius: 20px;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
 }
 .business-card-second-container {
   background-color: transparent;
-  margin: 10px;
+  margin: auto;
   margin-top: -55px;
   display: flex;
   border-radius: 10px;
   transition: transform 0.6s;
   transform-style: preserve-3d;
+  min-height: 190px;
   width: 430px;
 }
 .business-card-second-container.flipped {
@@ -176,7 +179,8 @@
 }
 .business-card-profile,
 .business-card-content {
-  backface-visibility: hidden;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden; /* Add webkit prefix */
 }
 .business-card-button {
   background-color: transparent;
@@ -236,55 +240,108 @@
 
 .back {
   color: white;
-  backface-visibility: hidden;
-  display: flex;
+  backface-visibility: hidden !important;
   transform: rotateY(180deg);
   flex-direction: column;
   width: 100%;
   align-items: center;
-  border-radius: 20px;
+  border-radius: 15px;
   height: 200px;
-  /* / margin: 10px; / */
-  /* / padding: 10px 20px; / */
   transition: transform 0.6s;
   transform-style: preserve-3d;
   position: absolute;
+  justify-content: center;
+  padding: 30px 10px;
+  -webkit-backface-visibility: hidden; /* Add webkit prefix */
 }
-
-.business-card-services-header {
-  font-size: 18px;
-  margin: 10;
-  padding-bottom: 10px;
-  text-decoration: underline;
-  text-underline-offset: 5px;
+.back-card-container {
+  padding: 10px;
   text-align: center;
-  font-weight: 700;
-  text-decoration-thickness: 2px;
-  margin-bottom: 5px;
-  margin-top: 8px;
+}
+.back-card-second-container {
+  background-color: transparent;
+  margin: auto;
+  margin-top: -55px;
+  display: flex;
+  border-radius: 10px;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  width: 430px;
+  min-height: 190px;
+}
+.back-card-second-container.flipped {
+  transform: rotateY(180deg);
+}
+.back-card-profile {
+  background-color: #000000c2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 20px;
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 20px;
+}
+.back-card-profile{
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden; /* Add webkit prefix */
+}
+.back-card-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.back-card-content {
+  background-color: #0177db;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: 10px 20px;
+}
+.back-card-content {
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden; /* Add webkit prefix */
+}
+.back-card-button {
+  background-color: transparent;
+  color: white;
+  border: none;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
-.business-card-services-list {
+.back-card-button p {
+  margin: 2px 0;
+  line-height: 1.3;
+  font-style: 🇲🇸;
+  font-size: 14px;
+}
+
+.back-card-services-list {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   text-align: left;
 }
 
-.business-card-service-column {
+.back-card-service-column {
   list-style-type: none;
   padding-left: 0;
   margin: 0;
 }
 
-.business-card-service-column li {
+.back-card-service-column li {
   font-weight: normal;
   font-size: 12px;
   margin-bottom: 2px;
   color: white;
 }
 
-.business-card-website-link {
+.back-card-website-link {
+  position: absolute;
+  bottom: 5px;
   display: block;
   text-align: left;
   margin-top: 5px;
@@ -292,6 +349,12 @@
   font-weight: 500;
   color: #ffffff;
   text-decoration: underline;
+  align-items: start;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: normal;
+  word-break: break-word;
+  max-width: 100%;
 }
 
 .business-card-services-list2 {
@@ -340,23 +403,45 @@
   font-weight: 600;
   font-size: 20px;
 }
-
-.user-email {
+.user-phone {
   font-size: 20px;
-  display: block;
+  display: flex;
+  text-align: left;
+  align-items: start;
   word-wrap: break-word !important;
   overflow-wrap: break-word;
   white-space: normal;
+  word-break: break-word;
+  max-width: 100%;
 }
 
+.user-email {
+  font-size: 20px;
+  display: flex;
+  text-align: left;
+  align-items: start;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: normal;
+  word-break: break-word;
+  max-width: 100%;
+}
+.user-phone svg {
+  flex-shrink: 0;
+  margin-right: 5px;
+}
+.user-email svg {
+  flex-shrink: 0;
+  margin-right: 5px;
+  margin-top: 5px;
+}
 @media (max-width: 768px) {
-  .business-card-container {
-    padding-left: 0px;
-    border-radius: 20px;
-    text-align: center;
-  }
+ .front{
+  padding: 10px 0px;
+ }
   .business-card-second-container {
     flex-direction: row;
+    min-height: 205px !important;
     width: 100%;
   }
   .business-card-profile {
@@ -366,14 +451,14 @@
   }
 
   .business-card-image img {
-    width: 60px; 
+    width: 60px;
     height: 60px;
     border-radius: 50%;
   }
 
   .business-card-content {
     width: 70%;
-    padding: 15px; 
+    padding: 15px;
     border-bottom-right-radius: 20px;
     border-top-right-radius: 20px;
   }
@@ -401,13 +486,6 @@
     font-size: 18px;
   }
 
-  .user-email {
-    font-size: 20px;
-    display: block;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
-  }
   .business-card {
     width: 100%;
   }
@@ -425,5 +503,134 @@
     margin-right: auto;
     display: block;
     font-size: 14px;
+  }
+  .back{
+    padding: 10px 0px;
+   }
+
+  .back-card-second-container {
+    flex-direction: row;
+    width: 100%;
+    min-height: 205px !important;
+  }
+  .back-card-profile {
+    width: 30%;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+  }
+  .back-card-image img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
+  .back-card-content {
+    width: 70%;
+    padding: 15px;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  .back-card-button p {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+}
+/* iOS-specific card flip improvements - CSS only solution */
+@media only screen and (max-width: 768px) {
+  @supports (-webkit-touch-callout: none) {
+    /* Container setup */
+    .flip-container {
+      perspective: none;
+      -webkit-perspective: none;
+    }
+    
+    .flipper {
+      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+    }
+    
+    /* Reset the transforms but keep the class toggle functionality */
+    .flipped {
+      transform: rotateY(0deg); 
+      -webkit-transform: rotateY(0deg);
+    }
+    
+    .front, .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      backface-visibility: visible;
+      -webkit-backface-visibility: visible;
+      transform: rotateY(0deg);
+      -webkit-transform: rotateY(0deg);
+    }
+    
+    /* Default state */
+    .front {
+      opacity: 1;
+      transform: scale(1);
+      -webkit-transform: scale(1);
+      z-index: 2;
+    }
+    
+    .back {
+      opacity: 0;
+      transform: scale(0.8) rotateY(180deg);
+      -webkit-transform: scale(0.8) rotateY(180deg);
+      z-index: 1;
+    }
+    
+    /* Flipped state with simulated rotation */
+    .flipped .front {
+      opacity: 0;
+      transform: scale(0.8) rotateY(-180deg);
+      -webkit-transform: scale(0.8) rotateY(-180deg);
+      z-index: 1;
+    }
+    
+    .flipped .back {
+      opacity: 1;
+      transform: scale(1) rotateY(0deg);
+      -webkit-transform: scale(1) rotateY(0deg);
+      z-index: 2;
+    }
+    
+    /* Add transition effects to better simulate rotation */
+    .front, .back {
+      transition-property: transform, opacity;
+      transition-duration: 0.6s;
+      transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+    
+    /* Flash effect during transition */
+    .flip-container::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      opacity: 0;
+      z-index: 10;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    
+    .flip-container:active::after {
+      opacity: 0.2;
+    }
+    
+    /* Performance improvements */
+    .flip-container, .flipper, .front, .back {
+      -webkit-transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
   }
 }
