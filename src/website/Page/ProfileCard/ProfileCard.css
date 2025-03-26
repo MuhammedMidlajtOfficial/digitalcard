@@ -670,8 +670,17 @@
   font-weight: 600;
   letter-spacing: 0.2px;
 }
-
+.available-storess h2{
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+  color: var(--text-color);
+}
 .icon-stores {
   margin-right: 12px;
   font-size: 20px;
+  color: var(--white-color);
+}
+.content-stores{
+  text-align: left;
 }
