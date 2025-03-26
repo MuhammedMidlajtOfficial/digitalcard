@@ -33,7 +33,7 @@
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   box-shadow: 0px 5px 10px rgba(79, 165, 241, 0.5);
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .secondend-container {
@@ -635,42 +635,39 @@
   }
 }
 
-
-
-
-
-
-
-.store-button {
+.available-stores {
+  color: var(--white-color);
+  padding: 0px;
+  border-radius: 12px;
+}
+.google-playstores,
+.apple-stores {
   display: flex;
-  border: 2px solid black;
-  padding: 10px 40px;
-  border-radius: 8px;
-  font-size: 14px;
+  align-items: center;
+  justify-content: start;
+  background: var(--gradient-start-color);
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin: 6px 0;
   cursor: pointer;
 }
 
-.store-button:hover {
-  border: 2px solid blue;
-}
-
-.icon-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
-}
-
-.text-section {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.text-section span {
+.google-playstores span,
+.apple-stores span {
   font-size: 12px;
+  color: var(--semi-white-color);
+  font-weight: 400;
+  letter-spacing: 0.2px;
 }
 
-.text-section strong {
+.google-playstores h4,
+.apple-stores h4 {
   font-size: 16px;
+  color: var(--white-color);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+.icon-stores {
+  margin-right: 12px;
+  font-size: 20px;
 }
