@@ -10,6 +10,8 @@ import { useLoading } from "../../../application/Services/loadingService";
 import { useParams } from "react-router-dom";
 import { FaLinkedin } from "react-icons/fa";
 import defaultimage from "../../Assets/image/Notfound.png";
+import { FaGooglePlay } from "react-icons/fa6";
+
 const ProfileCard = () => {
   const [cardsData, setCardsData] = useState([]);
 
@@ -31,9 +33,9 @@ const ProfileCard = () => {
     logInstance
       .get(`/card/cardId/${id}`)
       .then((response) => {
-        console.log("response",response?.data?.card );
+        console.log("response", response?.data?.card);
         setCardsData(response?.data?.card || []);
-      })      
+      })
       .catch((error) => {
         console.error("Error fetching Data:", error);
       })
@@ -265,7 +267,9 @@ END:VCARD`;
                               </div>
                             ))
                         ) : (
-                          <span className="mt-4">Services list is not available</span>
+                          <span className="mt-4">
+                            Services list is not available
+                          </span>
                         )}
                       </div>
                       {cardsData?.website && (
@@ -375,28 +379,78 @@ END:VCARD`;
               ))}
             </ul>
           </div>
+            <div className="available-storess">
+              <h2>Download App</h2>
+              <div className="available-stores mt-2">
+                <div className="d-flex gap-4 justify-content-center">
+                  <a
+                    href="https://knowconnections.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="google-playstores">
+                      <div className="icon-stores">
+                        <FaGooglePlay />
+                      </div>
+                      <div className="content-stores">
+                        <span>Get it On</span>
+                        <h4>Google play</h4>
+                      </div>
+                    </div>
+                  </a>
+                  <a
+                    href="https://knowconnections.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="apple-stores">
+                      <div className="icon-stores">
+                        <FaApple />
+                      </div>
+                      <div className="content-stores">
+                        <span>Download On the</span>
+                        <h4>App Store</h4>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
 
-    <div className="d-flex justify-content-center gap-2 mt-5">
-      <button className="store-button">
-        <div className="icon-section">
-          <FaApple size={24} />
-        </div>
-        <div className="text-section">
-          <span>Download on the</span>
-          <strong>App Store</strong>
-        </div>
-      </button>
-      <button className="store-button">
-        <div className="icon-section">
-        <img src={playstore} alt="Google Play" className="play-icon" width={30} />
-        </div>
-        <div className="text-section">
-          <span>GET IT ON</span>
-          <strong>Google Play</strong>
-        </div>
-      </button>
-    </div>
-
+          <div className="available-stores mt-4">
+            <div className="d-flex gap-4 justify-content-center">
+              <a
+                href="https://knowconnections.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="google-playstores">
+                  <div className="icon-stores">
+                    <FaGooglePlay />
+                  </div>
+                  <div className="content-stores">
+                    <span>Get it On</span>
+                    <h4>Google play</h4>
+                  </div>
+                </div>
+              </a>
+              <a
+                href="https://knowconnections.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="apple-stores">
+                  <div className="icon-stores">
+                    <FaApple />
+                  </div>
+                  <div className="content-stores">
+                    <span>Download On the</span>
+                    <h4>App Store</h4>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
 
           <div>
             <div className="firstend-container">
