@@ -379,76 +379,41 @@ END:VCARD`;
               ))}
             </ul>
           </div>
-            <div className="available-storess">
-              <h2>Download App</h2>
-              <div className="available-stores mt-2">
-                <div className="d-flex gap-4 justify-content-center">
-                  <a
-                    href="https://knowconnections.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="google-playstores">
-                      <div className="icon-stores">
-                        <FaGooglePlay />
-                      </div>
-                      <div className="content-stores">
-                        <span>Get it On</span>
-                        <h4>Google play</h4>
-                      </div>
+          <div className="available-storess">
+            <h2>Download App</h2>
+            <div className="available-stores mt-2">
+              <div className="d-flex gap-4 justify-content-center">
+                <a
+                  href="https://knowconnections.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="google-playstores">
+                    <div className="icon-stores">
+                      <FaGooglePlay />
                     </div>
-                  </a>
-                  <a
-                    href="https://knowconnections.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="apple-stores">
-                      <div className="icon-stores">
-                        <FaApple />
-                      </div>
-                      <div className="content-stores">
-                        <span>Download On the</span>
-                        <h4>App Store</h4>
-                      </div>
+                    <div className="content-stores">
+                      <span>Get it On</span>
+                      <h4>Google play</h4>
                     </div>
-                  </a>
-                </div>
+                  </div>
+                </a>
+                <a
+                  href="https://knowconnections.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="apple-stores">
+                    <div className="icon-stores">
+                      <FaApple />
+                    </div>
+                    <div className="content-stores">
+                      <span>Download On the</span>
+                      <h4>App Store</h4>
+                    </div>
+                  </div>
+                </a>
               </div>
-            </div>
-
-          <div className="available-stores mt-4">
-            <div className="d-flex gap-4 justify-content-center">
-              <a
-                href="https://knowconnections.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="google-playstores">
-                  <div className="icon-stores">
-                    <FaGooglePlay />
-                  </div>
-                  <div className="content-stores">
-                    <span>Get it On</span>
-                    <h4>Google play</h4>
-                  </div>
-                </div>
-              </a>
-              <a
-                href="https://knowconnections.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="apple-stores">
-                  <div className="icon-stores">
-                    <FaApple />
-                  </div>
-                  <div className="content-stores">
-                    <span>Download On the</span>
-                    <h4>App Store</h4>
-                  </div>
-                </div>
-              </a>
             </div>
           </div>
 
