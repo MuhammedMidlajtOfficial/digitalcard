@@ -635,11 +635,6 @@
   }
 }
 
-.available-stores {
-  color: var(--white-color);
-  padding: 0px;
-  border-radius: 12px;
-}
 .google-playstores,
 .apple-stores {
   display: flex;
@@ -650,6 +645,14 @@
   padding: 8px 12px;
   margin: 6px 0;
   cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.google-playstores:hover,
+.apple-stores:hover {
+  background: var(--gradient-end-color);
+  transform: translateY(-4px); 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 .google-playstores span,
@@ -667,6 +670,7 @@
   font-weight: 600;
   letter-spacing: 0.2px;
 }
+
 .icon-stores {
   margin-right: 12px;
   font-size: 20px;
