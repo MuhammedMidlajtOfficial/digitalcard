@@ -1,7 +1,7 @@
 import React from "react";
 import phoneImage from "../../Assets/image/home/home-about-us2.svg";
-import image1 from "../../Assets/image/home/features1.svg";
-import image2 from "../../Assets/image/home/features2.svg";
+import image1 from "../../Assets/image/home/features1.png";
+import image2 from "../../Assets/image/home/features2.png";
 import leftArrow from "../../Assets/image/home/Icons/left-arrow.svg";
 import rightArrow from "../../Assets/image/home/Icons/right-arrow.svg";
 import {
@@ -100,7 +100,7 @@ const HomeFeatures = () => {
                 className="phone-image1"
               />
             </div>
-            <div className="phone-container col-lg-3 mb-4 align-items-end d-flex justify-content-center">
+            <div className="phone-container col-lg-3 align-items-end d-flex justify-content-center">
               <img
                 src={image2}
                 alt="KC (Know Connections) App Interface"

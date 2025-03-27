@@ -116,6 +116,7 @@
   display: flex;
   justify-content: center;
   gap: 10px;
+  margin-top: 70px;
 }
 .billing-cycle-radio-group {
   display: flex;
@@ -577,7 +578,9 @@ textarea {
   .feature-content-action {
     flex-direction: column;
   }
-
+  .pricing-benefits-section {
+    padding: 10px 0;
+  }
   .action-line {
     display: none;
   }

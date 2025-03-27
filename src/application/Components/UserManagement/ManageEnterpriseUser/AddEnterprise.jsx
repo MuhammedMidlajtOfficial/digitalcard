@@ -21,7 +21,7 @@ const AddEnterprise = ({ visible, onClose }) => {
     companyName: "",
     industryType: "",
     email: "",
-    password: "",
+    password: " ",
     image: "",
     phnNumber: "",
     aboutUs: "",

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import image1 from "../../Assets/image/home/howitworks1.svg"
-import image2 from "../../Assets/image/home/howitworks2.svg"
-import image3 from "../../Assets/image/home/howitworks3.svg"
-import image4 from "../../Assets/image/home/howitworks4.svg"
+import image1 from "../../Assets/image/home/howitworks11.svg"
+import image2 from "../../Assets/image/home/howitworks22.svg"
+import image3 from "../../Assets/image/home/howitworks33.svg"
+import image4 from "../../Assets/image/home/howitworks44.svg"
 
 const cardsData = [
   { id: 1, title: "Download KC (Know Connections) app", subtext: "Download the KC (Know Connections) app", videoSrc: "video1.mp4",bgImage:image1 },

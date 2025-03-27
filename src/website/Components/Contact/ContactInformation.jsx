@@ -4,7 +4,7 @@ import whatsapp from "../../Assets/image/contact/contact-whatsapp.svg";
 import location from "../../Assets/image/contact/contact-location.svg";
 import { Form, Input, Button, Checkbox } from "antd";
 import { IoArrowForward } from "react-icons/io5";
-import ScrollAnimation from "../../../ScrollAnimation"; // Adjust path if necessary
+import ScrollAnimation from "../../../ScrollAnimation";
 
 const ContactInformation = () => {
   return (
@@ -24,13 +24,13 @@ const ContactInformation = () => {
             </div>
             <ScrollAnimation animationClass="animate__fadeInDown" delay={200}>
               <div className="d-flex align-items-center mb-4">
-                <div>
+                {/* <div> */}
                   <img
                     src={email}
                     className="contact-info-icons"
                     alt="Email icon"
                   />
-                </div>
+                {/* </div> */}
                 <div className="contact-email-info">
                   <h2>Email us</h2>
                   <p>contact@knowconnections.com</p>
@@ -39,13 +39,13 @@ const ContactInformation = () => {
             </ScrollAnimation>
             <ScrollAnimation animationClass="animate__fadeInDown" delay={400}>
               <div className="d-flex align-items-center mb-4">
-                <div>
+                {/* <div> */}
                   <img
                     src={whatsapp}
                     className="contact-info-icons"
                     alt="Whatsapp icon"
                   />
-                </div>
+                {/* </div> */}
                 <div className="contact-email-info">
                   <h2>Call us</h2>
                   <p>+91 8792976734</p>
@@ -54,18 +54,18 @@ const ContactInformation = () => {
             </ScrollAnimation>
             <ScrollAnimation animationClass="animate__fadeInDown" delay={600}>
               <div className="d-flex align-items-start">
-                <div>
+                {/* <div> */}
                   <img
                     src={location}
                     className="contact-info-icons"
                     alt="Location icon"
                   />
-                </div>
+                {/* </div> */}
                 <div className="contact-email-info">
                   <h2>Our Location</h2>
                   <p>
-                    Opp HDFC BANK ATM, 1st Floor, No.1/1, T C Palya Main Road,
-                    Sannatammanahalli, KR Puram, Bengaluru Urban, Karnataka,
+                    Opp HDFC BANK ATM, 1st Floor, No.1/1,T C Palya Main Road,<br />
+                    Sannatammanahalli, KR Puram, Bengaluru Urban,<br /> Karnataka,
                     560036
                   </p>
                 </div>

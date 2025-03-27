@@ -1,5 +1,5 @@
 import React from "react";
-import image1 from "../../Assets/image/feature/featureCustomerExp.svg";
+import image1 from "../../Assets/image/feature/featureCustomerExp.png";
 import { AiOutlineThunderbolt } from "react-icons/ai";
 import { FaCheck, FaShield } from "react-icons/fa6";
 import { FiLayers } from "react-icons/fi";
@@ -15,8 +15,8 @@ export const FeatureCustomerExperience = () => {
               <img src={image1} alt="" />
             </div>
           </div>
-          <ScrollAnimation className="col-lg-8" animationClass="animate__fadeInUp">
-            <div className="features-customer-tag">
+          <ScrollAnimation className="col-lg-8 p-6" animationClass="animate__fadeInUp">
+            <div className="features-customer-tag flex items-center gap-0">
               <AiOutlineThunderbolt />
               Benefits
             </div>

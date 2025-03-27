@@ -25,11 +25,9 @@
 
 .about-who-we-are-section {
   padding: 40px 0;
-  background: linear-gradient(90deg, #D7E8FF 0%, #83b7ff 50%);
-  
-
+  background: linear-gradient(90deg, #d7e8ff 0%, #83b7ff 50%);
 }
-.content{
+.content {
   padding-top: 100px;
 }
 .content h1 {
@@ -45,8 +43,8 @@
   color: var(--text-color);
   font-weight: 500;
   letter-spacing: 1%;
-  line-height: 2.0;
-  margin-bottom: 20px;
+  line-height: 2;
+  /* margin-bottom: 20px; */
 }
 
 .image-container {
@@ -90,7 +88,7 @@
   .about-awards-section h2,
   .about-banner-section h2,
   .content h1,
-  .about-vision-content h3, 
+  .about-vision-content h3,
   .about-mission-content h3 {
     font-size: 24px !important;
   }
@@ -110,7 +108,7 @@
     margin-bottom: 12px;
   }
 
-  .cert-card{
+  .cert-card {
     margin-bottom: 80px;
   }
 }
@@ -122,9 +120,9 @@
 
   padding: 50px 0;
 }
-.about-features-icons img{
+.about-features-icons img {
   width: 80px;
-  height:80px;
+  height: 80px;
 }
 .about-stat-item {
   display: flex;
@@ -132,15 +130,14 @@
   align-items: center;
   position: relative;
   padding: 0 30px;
-
 }
-.about-vertical-line{
+.about-vertical-line {
   position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: 1px;
-    background-color: var(--text-secondary-color);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 1px;
+  background-color: var(--text-secondary-color);
 }
 .about-features-section {
   display: flex;
@@ -164,7 +161,6 @@
   letter-spacing: 0.1px;
   margin-bottom: 0;
 }
-
 
 .about-vision-img {
   text-align: center;
@@ -289,7 +285,12 @@
 
 .about-certification-section {
   padding: 40px 0 30px 0;
-  background: linear-gradient(to bottom right, #D7E8FF 0%, #9AC5FF 80%, #2A84FF 100%);
+  background: linear-gradient(
+    to bottom right,
+    #d7e8ff 0%,
+    #9ac5ff 80%,
+    #2a84ff 100%
+  );
 }
 
 .about-certification-section h2 {
@@ -360,8 +361,13 @@
 
 .about-awards-section {
   padding: 40px 0 80px 0;
-  background: linear-gradient(to bottom right, #D7E8FF 0%, #9AC5FF 80%, #2A84FF 100%);  background: linear-gradient(to bottom, #fff, #468EF0 50%, #fff);
-
+  background: linear-gradient(
+    to bottom right,
+    #d7e8ff 0%,
+    #9ac5ff 80%,
+    #2a84ff 100%
+  );
+  background: linear-gradient(to bottom, #fff, #468ef0 50%, #fff);
 }
 
 .award-card {
@@ -409,4 +415,19 @@
     display: flex;
     flex-direction: column;
   }
+  .about-mission-content {
+    margin-top: 0px !important;
   }
+  .about-stat-item {
+    margin-bottom: 20px !important;
+  }
+  .about-vertical-line {
+    display: none;
+  }
+  .about-banner-section {
+    height: 0px !important;
+  }
+  .cert-card {
+    min-height: 0px !important;
+  }
+}

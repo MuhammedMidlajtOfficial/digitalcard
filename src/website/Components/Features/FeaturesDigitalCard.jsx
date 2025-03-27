@@ -1,5 +1,5 @@
 import React from "react";
-import image1 from "../../Assets/image/feature/feature-digital-card.svg";
+import image1 from "../../Assets/image/feature/feature-digital-card.png";
 import image2 from "../../Assets/image/feature/feature-share-analytics.svg"
 import ScrollAnimation from "../../../ScrollAnimation";
 export const FeaturesDigitalCard = () => {
@@ -21,7 +21,7 @@ export const FeaturesDigitalCard = () => {
             animationClass="animate__fadeInDown"
             className=" col-lg-8"
           >
-            <div className="content p-5">
+            <div className="content p-5 mt-4">
               <h1>Personalized tools for independent professionals</h1>
               <ul>
                 <li>Unlimited contact storage</li>

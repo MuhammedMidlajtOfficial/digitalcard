@@ -1,11 +1,6 @@
 import React from "react";
-import homeBanner from "../../Assets/image/home/home-banner2.svg";
+import homeBanner from "../../Assets/image/home/home-banner2.png";
 import ScrollAnimation from "../../../ScrollAnimation";
-import { Avatar } from "antd";
-import user from "../../Assets/image/home/users/user.png";
-import user1 from "../../Assets/image/home/users/user1.png"
-import user2 from "../../Assets/image/home/users/user2.png";
-import { UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 const HomeBanner = () => {
   const navigate=useNavigate();
@@ -33,7 +28,7 @@ const HomeBanner = () => {
               <p>
               Redefine the way you manage business contacts, connect seamlessly, and elevate your networking game. Your next big opportunity is just a tap away.
               </p>
-              <div className="buttons">
+              <div className="buttonss">
                 {/* <button className="btn btn-primary explore-button d-lg-inline-block">
                   Watch Video
                 </button> */}

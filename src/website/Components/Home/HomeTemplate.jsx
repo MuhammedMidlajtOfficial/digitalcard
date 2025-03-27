@@ -1,7 +1,7 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa6";
-import template1 from "../../Assets/image/home/template-1.svg";
-import template2 from "../../Assets/image/home/template-2.svg";
+import template1 from "../../Assets/image/home/template-1.png";
+import template2 from "../../Assets/image/home/template-2.png";
 import ScrollAnimation from "../../../ScrollAnimation";
 import { useNavigate } from "react-router-dom";
 const HomeTemplate = () => {
@@ -66,7 +66,7 @@ const HomeTemplate = () => {
           </div>
         </div>
 
-        <div className="button-group">
+        <div className="button-groups">
           <button
             className="explore-button"
             onClick={() =>

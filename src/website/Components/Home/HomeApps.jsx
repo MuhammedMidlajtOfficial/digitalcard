@@ -1,6 +1,6 @@
 import React from "react";
-import iphoneImage from "../../Assets/image/home/iphone-phone.svg";
-import androidImage from "../../Assets/image/home/android-phone.svg";
+import iphoneImage from "../../Assets/image/home/iphone-phone11.png";
+import androidImage from "../../Assets/image/home/android-phone.png";
 import qr from "../../Assets/image/home/qr.svg";
 import { FaApple, FaGooglePlay } from "react-icons/fa6";
 
