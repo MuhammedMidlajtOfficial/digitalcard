@@ -90,7 +90,7 @@ export const AddUserProfile = () => {
       })
       .catch((error) => {
         if (error.status === 409) {
-          showErrorToast('Email is already in use!');
+          showErrorToast('Email or phone number is already in use!');
           console.log('Email is already in use -', error);
         } else if (error.status === 400) {
           showWarningToast('All fields are required.');
@@ -148,6 +148,8 @@ export const AddUserProfile = () => {
               showErrorToast('An enterprise user with this email address already exists.');
             } else if (error.response.data.message.includes('enterprise employee')) {
               showErrorToast('This email address is already associated with an enterprise employee.');
+            }else if (error.response.data.message.includes('individual user')) {
+              showErrorToast('This email address or phone number is already associated with individual Account.');
             }
           } else if (errorStatus === 400) {
             showWarningToast('All fields are required.');
