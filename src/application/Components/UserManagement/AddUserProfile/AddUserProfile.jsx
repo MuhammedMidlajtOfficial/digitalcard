@@ -144,13 +144,8 @@ export const AddUserProfile = () => {
         if (error.response) {
           const errorStatus = error.response.status;
           if (errorStatus === 409) {
-            if (error.response.data.message.includes('enterprise user')) {
-              showErrorToast('An enterprise user with this email address already exists.');
-            } else if (error.response.data.message.includes('enterprise employee')) {
-              showErrorToast('This email address is already associated with an enterprise employee.');
-            }else if (error.response.data.message.includes('individual user')) {
-              showErrorToast('This email address or phone number is already associated with individual Account.');
-            }
+              showErrorToast('An  user with this email address or phone number is already exists.');
+            
           } else if (errorStatus === 400) {
             showWarningToast('All fields are required.');
             console.log('All fields are required -', error);
