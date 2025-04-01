@@ -347,14 +347,14 @@ function BroadcastMessage() {
                   <div className="history-content">
                     <p className="history-message text-gray-700 mb-3">{item.content}</p>
                     <div className="history-meta flex flex-wrap gap-4 text-sm text-gray-500 mb-3">
-                      <span className="user-type">Type: {item.forUserType || item.userType || 'Unknown'}</span>
+                      {/* <span className="user-type">Type: {item.forUserType || item.userType || 'Unknown'}</span> */}
                       <span className="timestamp">{formatTimestamp(item.timestamp || item.localTime)}</span>
-                      <span className="read-count flex items-center">
+                      {/* <span className="read-count flex items-center">
                         <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                         </svg>
                         Read by: {Array.isArray(item.readBy) ? item.readBy.length : 0} users
-                      </span>
+                      </span> */}
                     </div>
                   </div>
                   

@@ -12,6 +12,7 @@ import Resources from "./website/Page/Resources";
 import ScrollToTop from "./ScrollToTop";
 import Contact from "./website/Page/Contact";
 import EmpPage from "./website/Page/employeePage" 
+import AccountSettingsForm from "./website/Page/DeleteAccount/DeleteAccount";
 
 // application routes
 import Login from "./application/Auth/Login";
@@ -244,6 +245,7 @@ const MainContent = () => {
             />
             <Route path="shipping-policy" element={<ShippingPolicy />} />
             <Route path="employee" element={<EmpPage />} />
+            <Route path="delete-user" element={<AccountSettingsForm />} />
 
             {/* application routes */}
             <Route path="/login" element={<Login />} />
