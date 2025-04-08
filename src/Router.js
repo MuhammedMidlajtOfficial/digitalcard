@@ -108,6 +108,7 @@ import WithdrawalPage from "./application/Page/Withdrawal/withdrawalPage";
 
 import ProfileCardPage from "./website/Page/ProfileCard/ProfileCardPage";
 import BroadcastMessage from "./application/Page/BroadCast/BroadcastMessage";
+import CountdownPage from "./website/Page/CountDown/CounDownPage";
 
 
 const Loader = () => {
@@ -203,10 +204,10 @@ const MainContent = () => {
     "/admin/logview",
     "/admin/watiList",
     "/admin/AllConfigurationList", 
-
-    "/admin/withdrawalRequest",
     "/profile-card",
-    "/admin/broadcastMessage"
+    "/admin/withdrawalRequest",
+    "/countdown",
+    "/admin/broadcastMessage",
 
   ];
 
@@ -228,7 +229,8 @@ const MainContent = () => {
           {!isApplicationRoute && <Header />}
           <Routes>
             {/* website routes */}
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Navigate to="/countdown" replace />} />
+            <Route path="/home" element={<Home />} />
             <Route path="about-us" element={<About />} />
             <Route path="features" element={<Features />} />
             <Route path="pricing" element={<Pricing />} />
@@ -245,6 +247,8 @@ const MainContent = () => {
             />
             <Route path="shipping-policy" element={<ShippingPolicy />} />
             <Route path="employee" element={<EmpPage />} />
+            <Route path="/countdown" element={<CountdownPage />} />
+
             <Route path="delete-user" element={<AccountSettingsForm />} />
 
             {/* application routes */}

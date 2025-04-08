@@ -1,0 +1,96 @@
+
+ .countdown-page{
+    padding: 90px 0 40px 0;
+    background: url("../../Assets/image/countdownBg.png");
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+ }
+ .countdown-logo{
+    display: flex;
+    justify-content: center;
+ }
+  .countdown-container {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+  }
+  .countdown-heading{
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--secondary-medium-blue);
+    margin: 20px 0;
+  }
+  
+  .countdown-item {
+    width: 120px;
+    height: 120px;
+    background-color:var(--gradient-start-color);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .countdown-value {
+    font-size: 60px;
+    font-weight: 900;
+    color: var(--white-color);
+  }
+  
+  .countdown-label {
+    font-size: 18px;
+    text-align: center;
+    color: var(--gradient-start-color);
+    font-weight: 600;
+  }
+  
+  .countdown-footer {
+    text-align: center;
+    font-weight: 600;
+    color: var(--gradient-start-color);
+    font-size: 22px;
+   padding-top: 80px;
+  }
+  
+  /* Responsive adjustments for smaller screens */
+  @media (max-width: 768px) {
+    .countdown-container {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .countdown-item {
+      width: 50px;
+      height:50px;
+    }
+    
+ 
+  }
+  
+  @media (max-width: 480px) {
+    .countdown-item {
+      width: 60px;
+      height: 60px;
+    }
+    .countdown-value {
+      font-size: 18px;
+    }
+    .countdown-label {
+        font-size: 14px;
+      }
+    .countdown-heading{
+        font-size: 18px;
+      }
+      .countdown-page{
+        padding: 120px 0;
+      }
+      .countdown-footer {
+        font-size: 16px;
+       padding-top: 120px;
+      }
+  }
