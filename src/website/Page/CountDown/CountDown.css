@@ -74,17 +74,17 @@
   
   @media (max-width: 480px) {
     .countdown-item {
-      width: 60px;
-      height: 60px;
+      width: 65px;
+      height: 65px;
     }
     .countdown-value {
-      font-size: 18px;
+      font-size: 24px;
     }
     .countdown-label {
         font-size: 14px;
       }
     .countdown-heading{
-        font-size: 18px;
+        font-size: 26px;
       }
       .countdown-page{
         padding: 120px 0;
