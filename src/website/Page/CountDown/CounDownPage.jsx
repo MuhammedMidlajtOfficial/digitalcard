@@ -2,47 +2,41 @@ import { useState, useEffect } from "react";
 import "./CountDown.css";
 import { Helmet } from "react-helmet";
 import logoo from "../../Assets/image/countdownlogo.png";
+ 
 const CountdownPage = () => {
   const [timeLeft, setTimeLeft] = useState({
-    days: 4,
-    hours: 14,
-    minutes: 31,
-    seconds: 27,
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
   });
-
+ 
   useEffect(() => {
-    // Set the target date (4 days, 14 hours, 31 minutes, 27 seconds from now)
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 4);
-    targetDate.setHours(targetDate.getHours() + 14);
-    targetDate.setMinutes(targetDate.getMinutes() + 31);
-    targetDate.setSeconds(targetDate.getSeconds() + 27);
-
+    const targetDate = new Date("2025-04-10T16:59:59");
+ 
     const interval = setInterval(() => {
       const now = new Date();
       const difference = targetDate - now;
-
+ 
       if (difference <= 0) {
         clearInterval(interval);
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
         return;
       }
-
+ 
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
       const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((difference / (1000 * 60)) % 60);
       const seconds = Math.floor((difference / 1000) % 60);
-
+ 
       setTimeLeft({ days, hours, minutes, seconds });
     }, 1000);
-
+ 
     return () => clearInterval(interval);
   }, []);
-
-  const formatTime = (time) => {
-    return time < 10 ? `0${time}` : time;
-  };
-
+ 
+  const formatTime = (time) => (time < 10 ? `0${time}` : time);
+ 
   return (
     <>
       <Helmet>
@@ -58,18 +52,18 @@ const CountdownPage = () => {
           content="KC (Know Connections) features, digital card features, customizable card templates, card design tools, online card creator, user-friendly design, card sharing options, innovative digital card platform"
         />
       </Helmet>
-
+ 
       <div className="countdown-page">
-        <div className="container ">
+        <div className="container">
           <div className="m-auto">
             <div className="countdown-logo">
-              <img src={logoo} alt="" />
+              <img src={logoo} alt="KC Logo" />
             </div>
-
+ 
             <h1 className="countdown-heading">
               We are Launching Soon! Stay Tuned for Updates!
             </h1>
-
+ 
             <div className="countdown-container">
               <div>
                 <div className="countdown-item">
@@ -105,7 +99,7 @@ const CountdownPage = () => {
               </div>
             </div>
           </div>
-
+ 
           <div className="countdown-footer">
             Copyright © 2025 | KC | All rights reserved
           </div>
@@ -114,4 +108,5 @@ const CountdownPage = () => {
     </>
   );
 };
+ 
 export default CountdownPage;
