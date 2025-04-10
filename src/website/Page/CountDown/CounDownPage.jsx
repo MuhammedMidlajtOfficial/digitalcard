@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import "./CountDown.css";
 import { Helmet } from "react-helmet";
 import logoo from "../../Assets/image/countdownlogo.png";
- 
+import { useNavigate } from "react-router-dom"; 
+
 const CountdownPage = () => {
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -10,9 +11,9 @@ const CountdownPage = () => {
     minutes: 0,
     seconds: 0,
   });
- 
+  const navigate = useNavigate();
   useEffect(() => {
-    const targetDate = new Date("2025-04-10T16:59:59");
+    const targetDate = new Date("2025-04-10T16:00:00");
  
     const interval = setInterval(() => {
       const now = new Date();
@@ -21,6 +22,7 @@ const CountdownPage = () => {
       if (difference <= 0) {
         clearInterval(interval);
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        navigate("/home");
         return;
       }
  
