@@ -38,8 +38,8 @@ const Home = () => {
         <HomeBenefits />
         <HowItWorks />
         {/* <HomeHowUse /> */}
-        <HomeTrustedBusiness />
-        <HomeNewTestimonial />
+        {/* <HomeTrustedBusiness />
+        <HomeNewTestimonial /> */}
         <HomeFAQ />
         <HomeApps />
         {/* <HomeWhyDiskuss /> */}
